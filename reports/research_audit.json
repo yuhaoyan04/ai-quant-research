@@ -1,0 +1,250 @@
+{
+  "generated_at_utc": "2026-10-08T07:56:51.454945+00:00",
+  "checks": [
+    {
+      "name": "chronological_split_order",
+      "status": "PASS",
+      "detail": "train={'start_year': 2006, 'end_year': 2015}, validation={'start_year': 2016, 'end_year': 2020}, historical_oos={'start_year': 2021, 'end_year': 2026}"
+    },
+    {
+      "name": "historical_oos_is_not_pristine",
+      "status": "WARN",
+      "detail": "The 2021-2026 block has already been inspected during project development. It is historical out-of-sample evidence, not a never-seen production lockbox."
+    },
+    {
+      "name": "artifact:research_coverage/a_share",
+      "status": "PASS",
+      "detail": "rows=4"
+    },
+    {
+      "name": "historical_universe_download_coverage",
+      "status": "PASS",
+      "detail": "coverage=100.00%, missing_files=0"
+    },
+    {
+      "name": "artifact:model_validation_predictions/ridge_v1",
+      "status": "PASS",
+      "detail": "rows=813,175"
+    },
+    {
+      "name": "ridge_validation_prediction_keys_unique",
+      "status": "PASS",
+      "detail": "duplicate_rows=0"
+    },
+    {
+      "name": "ridge_validation_prediction_years",
+      "status": "PASS",
+      "detail": "observed=2016-2020, expected=2016-2020"
+    },
+    {
+      "name": "ridge_validation_availability_after_signal",
+      "status": "PASS",
+      "detail": "available_date must be strictly after asof_date"
+    },
+    {
+      "name": "ridge_validation_scores_finite",
+      "status": "PASS",
+      "detail": "rows=813,175, dates=254"
+    },
+    {
+      "name": "artifact:model_oos_predictions/ridge_v1",
+      "status": "PASS",
+      "detail": "rows=1,400,025"
+    },
+    {
+      "name": "ridge_oos_prediction_keys_unique",
+      "status": "PASS",
+      "detail": "duplicate_rows=0"
+    },
+    {
+      "name": "ridge_oos_prediction_years",
+      "status": "PASS",
+      "detail": "observed=2021-2026, expected=2021-2026"
+    },
+    {
+      "name": "ridge_oos_availability_after_signal",
+      "status": "PASS",
+      "detail": "available_date must be strictly after asof_date"
+    },
+    {
+      "name": "ridge_oos_scores_finite",
+      "status": "PASS",
+      "detail": "rows=1,400,025, dates=295"
+    },
+    {
+      "name": "artifact:model_challenger_oos_predictions/hgb_v1",
+      "status": "PASS",
+      "detail": "rows=1,400,025"
+    },
+    {
+      "name": "challenger_oos_prediction_keys_unique",
+      "status": "PASS",
+      "detail": "duplicate_rows=0"
+    },
+    {
+      "name": "challenger_oos_prediction_years",
+      "status": "PASS",
+      "detail": "observed=2021-2026, expected=2021-2026"
+    },
+    {
+      "name": "challenger_oos_availability_after_signal",
+      "status": "PASS",
+      "detail": "available_date must be strictly after asof_date"
+    },
+    {
+      "name": "challenger_oos_scores_finite",
+      "status": "PASS",
+      "detail": "rows=1,400,025, dates=295"
+    },
+    {
+      "name": "artifact:model_selection/ridge_v1",
+      "status": "PASS",
+      "detail": "rows=1"
+    },
+    {
+      "name": "selection_provenance:model_selection",
+      "status": "PASS",
+      "detail": "selection_data_end=2020-12-31; expected=2020-12-31"
+    },
+    {
+      "name": "artifact:portfolio_selection/long_only_v1",
+      "status": "PASS",
+      "detail": "rows=1"
+    },
+    {
+      "name": "selection_provenance:portfolio_selection",
+      "status": "PASS",
+      "detail": "selection_period=validation_2016_2020_only; expected=validation_2016_2020_only"
+    },
+    {
+      "name": "artifact:turnover_buffer_selection/v1",
+      "status": "PASS",
+      "detail": "rows=1"
+    },
+    {
+      "name": "selection_provenance:turnover_buffer_selection",
+      "status": "PASS",
+      "detail": "selection_period=validation_2016_2020_only; expected=validation_2016_2020_only"
+    },
+    {
+      "name": "artifact:model_challenger_selection/hgb_v1",
+      "status": "PASS",
+      "detail": "rows=1"
+    },
+    {
+      "name": "selection_provenance:model_challenger_selection",
+      "status": "PASS",
+      "detail": "selection_period=validation_2016_2020_only; expected=validation_2016_2020_only"
+    },
+    {
+      "name": "artifact:turnover_buffer_oos_weekly/v1",
+      "status": "PASS",
+      "detail": "rows=1,180"
+    },
+    {
+      "name": "ridge_buffered_net_return_identity",
+      "status": "PASS",
+      "detail": "max_abs_error=0.000e+00"
+    },
+    {
+      "name": "ridge_buffered_returns_finite_and_above_minus_one",
+      "status": "PASS",
+      "detail": "dates=291"
+    },
+    {
+      "name": "artifact:challenger_portfolio_oos_weekly/v1",
+      "status": "PASS",
+      "detail": "rows=295"
+    },
+    {
+      "name": "challenger_buffered_net_return_identity",
+      "status": "PASS",
+      "detail": "max_abs_error=0.000e+00"
+    },
+    {
+      "name": "challenger_buffered_returns_finite_and_above_minus_one",
+      "status": "PASS",
+      "detail": "dates=292"
+    },
+    {
+      "name": "artifact:turnover_buffer_oos_holdings/v1",
+      "status": "PASS",
+      "detail": "rows=59,000"
+    },
+    {
+      "name": "ridge_weights_sum_to_one",
+      "status": "PASS",
+      "detail": "max_abs_error=0.000e+00"
+    },
+    {
+      "name": "ridge_holding_keys_unique",
+      "status": "PASS",
+      "detail": "duplicate_rows=0"
+    },
+    {
+      "name": "artifact:challenger_portfolio_oos_holdings/v1",
+      "status": "PASS",
+      "detail": "rows=59,000"
+    },
+    {
+      "name": "challenger_weights_sum_to_one",
+      "status": "PASS",
+      "detail": "max_abs_error=0.000e+00"
+    },
+    {
+      "name": "challenger_holding_keys_unique",
+      "status": "PASS",
+      "detail": "duplicate_rows=0"
+    },
+    {
+      "name": "paired_model_dates_available",
+      "status": "PASS",
+      "detail": "common_dates=291, first=2021-01-08, last=2026-09-18"
+    },
+    {
+      "name": "artifact:robustness_cost_grid/v1",
+      "status": "PASS",
+      "detail": "rows=8"
+    },
+    {
+      "name": "artifact:robustness_block_bootstrap/v1",
+      "status": "PASS",
+      "detail": "rows=6"
+    },
+    {
+      "name": "artifact:model_oos_annual/ridge_v1",
+      "status": "PASS",
+      "detail": "rows=6"
+    },
+    {
+      "name": "ridge_rank_ic_positive_each_oos_year",
+      "status": "PASS",
+      "detail": "minimum_annual_rank_ic=0.0898"
+    },
+    {
+      "name": "ridge_excess_bootstrap_interval_above_zero",
+      "status": "PASS",
+      "detail": "95% CI=[5.17%, 34.13%]"
+    },
+    {
+      "name": "challenger_increment_not_overstated",
+      "status": "PASS",
+      "detail": "95% CI=[-0.87%, 7.45%]; report as an economic signal, not proven superiority"
+    },
+    {
+      "name": "known_scope_limitations",
+      "status": "WARN",
+      "detail": "No point-in-time industry neutralization, no official historical CSI membership, and no broker-calibrated market-impact model."
+    }
+  ],
+  "findings": {
+    "common_oos_weeks": 291,
+    "ridge_annualized_return_20bp": 0.19908873296969398,
+    "challenger_annualized_return_20bp": 0.22898196710494045,
+    "ridge_excess_vs_csi500_ci_low": 0.05170363109106627,
+    "ridge_excess_vs_csi500_ci_high": 0.34129704589057785,
+    "challenger_minus_ridge_ci_low": -0.008666286294444084,
+    "challenger_minus_ridge_ci_high": 0.07447269715754343,
+    "ridge_rank_ic_positive_every_oos_year": true
+  }
+}

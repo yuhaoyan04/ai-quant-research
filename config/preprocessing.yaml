@@ -1,0 +1,28 @@
+factor_columns:
+  - momentum_20d
+  - momentum_60d
+  - momentum_120d
+  - momentum_20d_skip_5d
+  - reversal_5d
+  - volatility_20d
+  - amihud_20d
+  - turnover_20d
+  - turnover_surprise_20d
+  - volume_surprise_20d
+  - amplitude_20d
+  - return_volume_corr_20d
+  - max_return_20d
+  - earnings_yield
+  - book_to_price
+
+target: fwd_return_5d_lag1
+winsorization:
+  method: cross_sectional_median_mad
+  mad_multiplier: 5.0
+normalization: cross_sectional_zscore
+missing_strategy: cross_sectional_median_plus_indicator
+minimum_cross_section_size: 100
+
+# Industry and free-float-market-cap neutralization must remain disabled until
+# point-in-time exposures are available. Current classifications would leak.
+neutralization: none_pit_exposures_unavailable

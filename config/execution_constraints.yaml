@@ -1,0 +1,11 @@
+round_trip_cost_bps: 20
+annualization_periods: 52
+limit_detection_tolerance_percentage_points: 0.20
+execution_day: t_plus_1_close
+rules:
+  st_limit_pct: 5.0
+  main_board_limit_pct: 10.0
+  star_limit_pct: 20.0
+  chinext_limit_pct_before_2020_08_24: 10.0
+  chinext_limit_pct_after_2020_08_24: 20.0
+scope_note: approximate_board_rules; IPO_no_limit_windows_not_explicitly_modeled

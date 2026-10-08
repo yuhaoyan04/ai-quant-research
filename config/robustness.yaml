@@ -1,0 +1,13 @@
+block_length_weeks: 13
+bootstrap_samples: 5000
+random_seed: 20261003
+annualization_periods: 52
+cost_grid_bps: [0, 10, 20, 40]
+benchmarks:
+  - {name: CSI300, instrument_id: sh.000300}
+  - {name: CSI500, instrument_id: sh.000905}
+  - {name: CSI1000, instrument_id: sh.000852}
+subperiods:
+  - {name: early_oos, start: "2021-01-01", end: "2022-12-31"}
+  - {name: middle_oos, start: "2023-01-01", end: "2024-12-31"}
+  - {name: recent_oos, start: "2025-01-01", end: "2026-12-31"}

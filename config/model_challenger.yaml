@@ -1,0 +1,35 @@
+target: fwd_return_5d_lag1
+label_horizon_trading_days: 5
+train: {start_year: 2006, end_year: 2015}
+validation: {start_year: 2016, end_year: 2020}
+test: {start_year: 2021, end_year: 2026}
+sample_per_training_date: 300
+minimum_cross_section_size: 100
+portfolio_buckets: 10
+annualization_periods: 52
+random_state: 20261003
+selection_metric: mean_rank_ic
+blend_tree_weights: [0.0, 0.25, 0.5, 0.75, 1.0]
+
+# Early stopping is deliberately disabled: sklearn's internal random holdout
+# would not respect financial time order. Complexity is selected on the
+# explicit 2016-2020 validation block.
+candidates:
+  - name: shallow_15
+    learning_rate: 0.05
+    max_iter: 120
+    max_leaf_nodes: 15
+    min_samples_leaf: 100
+    l2_regularization: 1.0
+  - name: regularized_31
+    learning_rate: 0.04
+    max_iter: 150
+    max_leaf_nodes: 31
+    min_samples_leaf: 150
+    l2_regularization: 10.0
+  - name: flexible_63
+    learning_rate: 0.03
+    max_iter: 180
+    max_leaf_nodes: 63
+    min_samples_leaf: 200
+    l2_regularization: 20.0

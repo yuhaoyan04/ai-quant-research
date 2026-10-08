@@ -1,0 +1,24 @@
+target: fwd_return_5d_lag1
+label_horizon_trading_days: 5
+rebalance_frequency: weekly_last_trading_day
+minimum_cross_section_size: 100
+
+train: {start_year: 2006, end_year: 2015}
+validation: {start_year: 2016, end_year: 2020}
+test: {start_year: 2021, end_year: 2026}
+
+ridge_penalties_per_observation: [0.0001, 0.001, 0.01, 0.1, 1.0]
+selection_metric: mean_rank_ic
+portfolio_buckets: 10
+annualization_periods: 52
+
+scaling:
+  factor_exposures: same_date_cross_sectional_mad_zscore
+  missing_indicators: same_date_cross_sectional_zscore
+  global_time_scaler: none
+  validation_or_test_fitted_scaler: forbidden
+
+walk_forward:
+  refit_at_start_of_each_test_year: true
+  expanding_window: true
+  purge_latest_label_horizon: true

@@ -1,0 +1,7 @@
+minimum_size_percentiles: [0.0, 0.10, 0.20, 0.30]
+round_trip_cost_bps: 20
+minimum_realized_weight_fraction: 0.98
+annualization_periods: 52
+proxy_definition: amount_cny_divided_by_turnover_fraction
+policy: ridge_validation_selected_entry_exit_and_liquidity_screen_frozen
+interpretation: stress_test_not_hyperparameter_selection

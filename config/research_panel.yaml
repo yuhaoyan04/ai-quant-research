@@ -1,0 +1,18 @@
+label_horizons_trading_days: [5, 10, 20]
+
+# Signals use t-close data and are executed from t+1. Labels are therefore
+# calculated from t+1 through t+h, never from t or earlier.
+label_convention: "close_to_close_compounded_from_t_plus_1"
+
+# A signal using t-close inputs is available on t+1.  The executable research
+# target conservatively assumes entry at t+1 close and starts at return t+2.
+execution_lag_trading_days: 1
+executable_label_convention: "close_to_close_compounded_from_t_plus_2_after_t_plus_1_entry"
+
+universe:
+  include_main_board: true
+  include_chinext: true
+  include_star_market: true
+  include_beijing_exchange: false
+  exclude_st: true
+  require_trade_status: true

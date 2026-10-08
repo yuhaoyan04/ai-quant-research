@@ -1,0 +1,53 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "a-share-quant-research"
+version = "0.1.0"
+description = "Auditable point-in-time A-share factor and machine-learning research pipeline"
+requires-python = ">=3.11"
+dependencies = [
+  "pandas>=2.2",
+  "pyarrow>=16",
+  "PyYAML>=6.0",
+  "baostock>=0.8.9",
+  "akshare>=1.18",
+  "scikit-learn>=1.5",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8",
+]
+
+[project.scripts]
+quant-lake = "quant_research.ingest:main"
+quant-free-lake = "quant_research.free_ingest:main"
+quant-research = "quant_research.pipeline:main"
+quant-dashboard = "quant_research.dashboard:main"
+quant-monitor = "quant_research.monitor:main"
+quant-materialize = "quant_research.materialize:main"
+quant-preprocess = "quant_research.preprocessing:main"
+quant-feature-analysis = "quant_research.feature_analysis:run"
+quant-model-baseline = "quant_research.model_baseline:run"
+quant-portfolio = "quant_research.portfolio:run"
+quant-liquidity-stress = "quant_research.liquidity_stress:run"
+quant-capacity = "quant_research.capacity:main"
+quant-turnover-buffer = "quant_research.turnover_buffer:run"
+quant-capacity-execution = "quant_research.capacity_execution:run"
+quant-model-challenger = "quant_research.model_challenger:run"
+quant-challenger-portfolio = "quant_research.challenger_portfolio:run"
+quant-robustness = "quant_research.robustness:run"
+quant-model-interpretation = "quant_research.model_interpretation:run"
+quant-size-stress = "quant_research.size_stress:main"
+quant-execution-constraints = "quant_research.execution_constraints:main"
+quant-research-dashboard = "quant_research.research_dashboard:main"
+quant-audit = "quant_research.audit:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+norecursedirs = ["data", "reports", ".git", ".venv", ".pytest_cache"]

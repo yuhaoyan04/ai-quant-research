@@ -1,0 +1,6 @@
+evaluation_sample_per_date: 500
+block_length_weeks: 13
+bootstrap_samples: 2000
+random_seed: 20261003
+period: validation_2016_2020_only
+method: within_date_grouped_permutation_rank_ic_drop

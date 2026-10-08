@@ -1,0 +1,10 @@
+aum_cny: [10000000, 50000000, 100000000, 500000000, 1000000000]
+adv_participation_limits: [0.01, 0.05]
+minimum_fill_ratio: 0.95
+
+# Square-root impact estimate: eta * daily_volatility * sqrt(trade / ADV20).
+# Eta is illustrative and must be calibrated with broker/order data before live use.
+square_root_impact_eta: 0.5
+adv_window_trading_days: 20
+analysis_period: test_lockbox
+amount_unit: CNY_vendor_assumption_checked_against_volume_times_price

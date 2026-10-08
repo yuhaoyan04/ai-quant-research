@@ -1,0 +1,8 @@
+aum_cny: [10000000, 50000000, 100000000, 500000000]
+adv_participation_limits: [0.01, 0.05]
+round_trip_cost_bps: 20
+square_root_impact_eta: 0.5
+annualization_periods: 52
+minimum_realized_weight_fraction: 0.98
+analysis_period: test_lockbox
+target_portfolio: validation_selected_turnover_buffer_v1

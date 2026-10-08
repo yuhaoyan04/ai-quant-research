@@ -1,0 +1,21 @@
+{
+  "snapshot_count": 1059,
+  "bar_file_count": 4049,
+  "sample_instrument": "sh.600000",
+  "sample_rows": 5040,
+  "sample_start": "2006-01-04",
+  "sample_end": "2026-09-30",
+  "quality": {
+    "pass": 4941,
+    "warn": 99
+  },
+  "factor_coverage": {
+    "momentum_20d": 5021,
+    "momentum_60d": 4981,
+    "momentum_120d": 4921,
+    "volatility_20d": 5021,
+    "amihud_20d": 4586,
+    "earnings_yield": 5040,
+    "book_to_price": 5040
+  }
+}

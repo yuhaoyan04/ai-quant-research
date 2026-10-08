@@ -1,0 +1,21 @@
+# Start before the earliest configured index.  Empty periods are expected before
+# an index's inception; they are retained in manifests for auditability.
+start_date: "2006-01-01"
+indices:
+  - code: "000903.CSI"
+    name: "CSI 100"
+  - code: "000905.CSI"
+    name: "CSI 500"
+  - code: "000852.CSI"
+    name: "CSI 1000"
+
+# Refresh a small overlap window; do not assume vendor data is immutable.
+recent_refresh_calendar_days: 10
+
+# The following tables are point-in-time inputs.  Their announcement dates are
+# retained, not converted into features here.
+fundamental_endpoints:
+  - income
+  - balancesheet
+  - cashflow
+  - fina_indicator

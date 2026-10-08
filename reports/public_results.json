@@ -1,0 +1,28 @@
+{
+  "sample": {
+    "common_weeks": 291,
+    "start": "2021-01-08",
+    "end": "2026-09-18"
+  },
+  "ridge": {
+    "annualized_return_after_20bp": 0.19908873296969398,
+    "excess_vs_csi500_annualized_arithmetic_ci_95": [
+      0.05170363109106627,
+      0.34129704589057785
+    ]
+  },
+  "hgb_ridge_blend": {
+    "annualized_return_after_20bp": 0.22898196710494045,
+    "increment_vs_ridge_annualized_ci_95": [
+      -0.008666286294444084,
+      0.07447269715754343
+    ]
+  },
+  "interpretation": "Ridge shows positive historical OOS evidence after costs. The nonlinear blend has an economic uplift signal, but its incremental confidence interval crosses zero.",
+  "limitations": [
+    "Historical OOS results have been inspected during development and are not a pristine live lockbox.",
+    "No point-in-time industry neutralization.",
+    "The universe is a historical A-share proxy, not official historical CSI membership.",
+    "Market impact is scenario-based and not calibrated to broker fills."
+  ]
+}

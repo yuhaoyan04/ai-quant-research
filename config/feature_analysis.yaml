@@ -1,0 +1,14 @@
+selection_splits:
+  - name: train
+    start_year: 2006
+    end_year: 2015
+  - name: validation
+    start_year: 2016
+    end_year: 2020
+
+correlation_cluster_threshold: 0.75
+ridge_penalty_per_observation: 0.001
+minimum_daily_observations: 100
+target_transform: cross_sectional_rank_zscore
+
+# The 2021+ lockbox is intentionally absent. It cannot influence feature choice.

@@ -1,0 +1,18 @@
+round_trip_cost_bps: 20
+minimum_realized_weight_fraction: 0.98
+annualization_periods: 52
+
+screens:
+  - name: unscreened
+    max_amihud_percentile: null
+    min_turnover_percentile: null
+  - name: exclude_illiquid_10pct
+    max_amihud_percentile: 0.90
+    min_turnover_percentile: 0.10
+  - name: exclude_illiquid_20pct
+    max_amihud_percentile: 0.80
+    min_turnover_percentile: 0.20
+
+selection_metric: sharpe_zero_rate
+selection_period: validation_only
+capacity_status: absolute_capacity_not_available_without_rolling_amount

@@ -1,0 +1,18 @@
+availability: "signal uses data through t close and is tradable no earlier than t+1"
+raw_factors:
+  - return_1d
+  - momentum_20d
+  - momentum_60d
+  - momentum_120d
+  - momentum_20d_skip_5d
+  - reversal_5d
+  - volatility_20d
+  - amihud_20d
+  - turnover_20d
+  - turnover_surprise_20d
+  - volume_surprise_20d
+  - amplitude_20d
+  - return_volume_corr_20d
+  - max_return_20d
+  - earnings_yield
+  - book_to_price

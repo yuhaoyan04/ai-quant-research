@@ -1,0 +1,37 @@
+# The full regularized baseline retains every factor. Ridge/elastic-net style
+# models can share weight across correlated variables.
+full:
+  - momentum_20d
+  - momentum_60d
+  - momentum_120d
+  - momentum_20d_skip_5d
+  - reversal_5d
+  - volatility_20d
+  - amihud_20d
+  - turnover_20d
+  - turnover_surprise_20d
+  - volume_surprise_20d
+  - amplitude_20d
+  - return_volume_corr_20d
+  - max_return_20d
+  - earnings_yield
+  - book_to_price
+
+# The compact baseline chooses one representative from the highly correlated
+# volatility/amplitude/max-return cluster and emphasizes signals whose marginal
+# direction remains stable in both train and validation periods.
+compact:
+  - reversal_5d
+  - volatility_20d
+  - amihud_20d
+  - turnover_20d
+  - volume_surprise_20d
+  - return_volume_corr_20d
+  - earnings_yield
+  - book_to_price
+
+# Missing indicators are included beside each selected standardized exposure.
+include_missing_indicators: true
+selection_data_end: "2020-12-31"
+lockbox_start: "2021-01-01"
+selection_note: "No 2021+ labels were used for this feature-set decision."

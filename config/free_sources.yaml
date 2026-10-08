@@ -1,0 +1,22 @@
+research_start: "2006-01-01"
+research_end: null
+
+network:
+  socket_timeout_seconds: 45
+  max_attempts: 4
+  retry_backoff_seconds: 5
+
+# BaoStock's historical `query_all_stock(date)` snapshots form the initial,
+# point-in-time eligible A-share universe.  This is deliberately NOT labelled
+# as historical CSI membership; that requires a constituent-history source.
+universe:
+  name: "a_share_pit_proxy"
+  snapshot_frequency: "weekly"
+  exclude_bj_exchange: false
+
+# A fixed, deterministic sample is pulled from an independent source and
+# compared to BaoStock. It is a data-quality check, never a data merge rule.
+crosscheck:
+  sample_size: 30
+  price_tolerance: 0.02
+  volume_tolerance: 0.05

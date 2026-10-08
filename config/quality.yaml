@@ -1,0 +1,27 @@
+daily_bars:
+  required_columns:
+    - trade_date
+    - instrument_id
+    - open
+    - high
+    - low
+    - close
+    - volume
+    - amount
+    - trade_status
+  numeric_columns:
+    - open
+    - high
+    - low
+    - close
+    - pre_close
+    - volume
+    - amount
+    - turn
+    - pct_chg
+    - pe_ttm
+    - pb_mrq
+    - ps_ttm
+    - pcf_ncf_ttm
+  maximum_absolute_daily_return: 0.50
+  maximum_missing_required_fraction: 0.01

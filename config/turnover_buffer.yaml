@@ -1,0 +1,10 @@
+round_trip_cost_bps: 20
+minimum_realized_weight_fraction: 0.98
+annualization_periods: 52
+
+# The entry threshold is inherited from the validation-selected portfolio Top-N.
+# Only the wider exit threshold is tuned, and only on 2016-2020 validation data.
+candidate_exit_n: [200, 250, 300, 400]
+selection_metric: sharpe_zero_rate
+selection_period: validation_2016_2020_only
+liquidity_screen_source: liquidity_selection_v1

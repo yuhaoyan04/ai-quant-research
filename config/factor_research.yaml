@@ -1,0 +1,24 @@
+# A partial cross section is allowed only for explicitly labelled exploratory
+# work. Formal factor selection and out-of-sample reports require completion.
+minimum_download_coverage: 1.0
+minimum_cross_section_size: 100
+target: fwd_return_5d_lag1
+bucket_count: 10
+
+# These initial diagnostics are market-neutral only in the loose cross-sectional
+# sense. Industry and size neutralization becomes mandatory once PIT industry
+# and float-market-cap data are added.
+neutralization_status: "not_yet_available"
+
+# These are chronological partitions, never random row splits.  The test block
+# is a lockbox: it must not be used to decide which factors enter the model.
+sample_splits:
+  - name: train
+    start: "2006-01-01"
+    end: "2015-12-31"
+  - name: validation
+    start: "2016-01-01"
+    end: "2020-12-31"
+  - name: test_lockbox
+    start: "2021-01-01"
+    end: "2099-12-31"
