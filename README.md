@@ -1,5 +1,7 @@
 # A 股点时多因子与机器学习研究
 
+[![tests](https://github.com/yuhaoyan04/ai-quant-research/actions/workflows/tests.yml/badge.svg)](https://github.com/yuhaoyan04/ai-quant-research/actions/workflows/tests.yml)
+
 这是一个从原始行情、点时股票池到可执行组合和统计审计的完整 A 股量化研究项目。研究对象是周频横截面选股：在每个决策日只使用当时可获得的信息排序股票，下一交易日收盘执行，随后持有 5 个交易日。
 
 项目的目标不是寻找最好看的回测曲线，而是回答三个可检验的问题：传统因子是否在严格时序下仍有预测力、非线性模型是否提供可泛化增量、收益能否经受成本与成交约束。
