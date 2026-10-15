@@ -1,0 +1,127 @@
+{
+  "experiment_id": "challenger_hgb_blend_v1",
+  "title": "Frozen HGB plus Ridge rank-blend challenger",
+  "stage": "nonlinear_model_challenger",
+  "model_version": "hgb_v1_blend_075",
+  "registered_at_utc": "2026-10-14T11:21:24.799208+00:00",
+  "immutable": true,
+  "selection_policy": "validation_only",
+  "historical_oos_used_for_selection": false,
+  "historical_oos_disclosure": "The 2021-2026 block has already been inspected during project development. It is historical out-of-sample evidence, not a pristine production lockbox.",
+  "dataset_version": "673bfaecacc39be3c7f5d7972ce69fa820f7a625aee4ade55216585f067241ab",
+  "dataset_manifest": {
+    "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\manifests\\ingestion.jsonl",
+    "size_bytes": 25535487,
+    "sha256": "60f351997ef2dab65b61ca07131bd2f726ff9117aa501cee838f95673565ac56"
+  },
+  "input_artifacts": [
+    {
+      "table": "model_features",
+      "key": "2020",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\model_features\\key=2020\\data.parquet",
+      "size_bytes": 64571878,
+      "sha256": "25b87491b66e4c154f31dc822e83652211e914dcc8214fd608b3d087633c6089"
+    },
+    {
+      "table": "model_challenger_validation_predictions",
+      "key": "hgb_v1",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\model_challenger_validation_predictions\\key=hgb_v1\\data.parquet",
+      "size_bytes": 10295104,
+      "sha256": "fe1d832ac9b9cd3f399651c4e4b6a794e7516f4665853574c69840e0c60f589c"
+    },
+    {
+      "table": "model_challenger_oos_predictions",
+      "key": "hgb_v1",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\model_challenger_oos_predictions\\key=hgb_v1\\data.parquet",
+      "size_bytes": 18945634,
+      "sha256": "82c16654de81ba20a8896be4e6e08f9e7dfd2e350c71ab584a55c1409fa70725"
+    },
+    {
+      "table": "challenger_portfolio_oos_holdings",
+      "key": "v1",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\challenger_portfolio_oos_holdings\\key=v1\\data.parquet",
+      "size_bytes": 987452,
+      "sha256": "1a6e1485e50820085c19e7968c6242887f5ac7bdf18b38dbd5e65911f679b47d"
+    }
+  ],
+  "metric_artifacts": [
+    {
+      "table": "model_challenger_selection",
+      "key": "hgb_v1",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\model_challenger_selection\\key=hgb_v1\\data.parquet",
+      "size_bytes": 5093,
+      "sha256": "cadc7aad5c70bdbd7c87e6ea6680eb3319e48fe49eb88bb4360262c4dba8c9da"
+    },
+    {
+      "table": "model_challenger_oos_annual",
+      "key": "hgb_v1",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\model_challenger_oos_annual\\key=hgb_v1\\data.parquet",
+      "size_bytes": 4598,
+      "sha256": "9b021478a85c73a7a48f15927d1ab9d0eb1764f2207d80b053dac2feaece2ec7"
+    },
+    {
+      "table": "challenger_portfolio_validation_summary",
+      "key": "v1",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\challenger_portfolio_validation_summary\\key=v1\\data.parquet",
+      "size_bytes": 9551,
+      "sha256": "c95092308c7dcafca4551fd0096be2ac344101e2581d7366bbc25e51a450d548"
+    },
+    {
+      "table": "challenger_portfolio_oos_summary",
+      "key": "v1",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\challenger_portfolio_oos_summary\\key=v1\\data.parquet",
+      "size_bytes": 9561,
+      "sha256": "7eecd3f3ab4570cdbeead2fc8d6f1ba84c08e6a259a217cf05e35eac41c0bcbd"
+    },
+    {
+      "table": "robustness_cost_grid",
+      "key": "v1",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\robustness_cost_grid\\key=v1\\data.parquet",
+      "size_bytes": 8182,
+      "sha256": "6579dc8eb4a18f6324cb94cb8d2c13a39097027983310383ca94d2f2b96e4159"
+    },
+    {
+      "table": "robustness_block_bootstrap",
+      "key": "v1",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\robustness_block_bootstrap\\key=v1\\data.parquet",
+      "size_bytes": 5372,
+      "sha256": "7a319204d8af34599576fcfc7ceef9b102fdd3937452089fda367693154c7b08"
+    }
+  ],
+  "figures": [
+    {
+      "source": "C:\\Users\\Yyh20\\ai-quant-research\\reports\\figures\\oos_equity_curve.svg",
+      "snapshot": "oos_equity_curve.svg",
+      "sha256": "76b3fc2ff4c9e1ef2cf3137be814e12edd7b3f3c259270cd6ead2b5a4302cfab"
+    },
+    {
+      "source": "C:\\Users\\Yyh20\\ai-quant-research\\reports\\figures\\oos_drawdown.svg",
+      "snapshot": "oos_drawdown.svg",
+      "sha256": "8dd0c652093b82a80a72e288c779260f71e620bcc1909ccc000a61383656e4ab"
+    },
+    {
+      "source": "C:\\Users\\Yyh20\\ai-quant-research\\reports\\figures\\annual_rank_ic.svg",
+      "snapshot": "annual_rank_ic.svg",
+      "sha256": "ab7f3652eb9d2beb3761457a2612a4b7033cda7ef26f792e2b1fe6300cfcfc98"
+    }
+  ],
+  "source_tree_sha256": "bf7fef1d6b52852d1857e6720015711c2b3f323ab77b96a32631274c5c6b8d42",
+  "git": {
+    "commit": "b5a60563484103218c7c2c556555ff0be1d48161",
+    "dirty": true,
+    "status_sha256": "b7b6cfee44737a291844bc929e6403c4c74d1586f8b95cde10c0393067e21c56"
+  },
+  "environment": {
+    "python": "3.11.16",
+    "implementation": "CPython",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "packages": {
+      "pandas": "3.0.6",
+      "pyarrow": "25.0.1",
+      "PyYAML": "6.0.3",
+      "scikit-learn": "1.9.1",
+      "numpy": "2.4.6",
+      "scipy": "1.17.1"
+    }
+  }
+}

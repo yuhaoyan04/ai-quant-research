@@ -1,0 +1,2 @@
+selected_tree_candidate,selected_tree_weight,ridge_weight,target,selection_period,early_stopping,sample_per_training_date
+flexible_63,0.75,0.25,fwd_return_5d_lag1,validation_2016_2020_only,False,300

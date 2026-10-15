@@ -1,0 +1,119 @@
+[
+  {
+    "experiment_id": "baseline_ridge_v1",
+    "title": "Frozen Ridge factor-model baseline",
+    "stage": "model_and_portfolio_baseline",
+    "model_version": "ridge_v1",
+    "registered_at_utc": "2026-10-14T11:21:22.916405+00:00",
+    "dataset_version": "8a46f2af859bc2722005c436d8a871df7f82510d8f4a197f206a840968ce1185",
+    "immutable": true
+  },
+  {
+    "experiment_id": "challenger_hgb_blend_v1",
+    "title": "Frozen HGB plus Ridge rank-blend challenger",
+    "stage": "nonlinear_model_challenger",
+    "model_version": "hgb_v1_blend_075",
+    "registered_at_utc": "2026-10-14T11:21:24.799208+00:00",
+    "dataset_version": "673bfaecacc39be3c7f5d7972ce69fa820f7a625aee4ade55216585f067241ab",
+    "immutable": true
+  },
+  {
+    "experiment_id": "factor_preprocessing_ablation_v1",
+    "title": "Validation-only 3x3 factor preprocessing ablation",
+    "stage": "factor_preprocessing_selection",
+    "model_version": "ridge_full15_quantile_zscore_lambda_1",
+    "registered_at_utc": "2026-10-14T12:51:08.464553+00:00",
+    "dataset_version": "b2f3ab4448e4b4e9a46219814800270f6d4c19b9c7c55f8c317fa27806ae9822",
+    "immutable": true
+  },
+  {
+    "experiment_id": "factor_preprocessing_ablation_v2",
+    "title": "Leakage-corrected validation-only 3x3 preprocessing ablation",
+    "stage": "factor_preprocessing_selection",
+    "model_version": "ridge_full15_quantile_zscore_lambda_1",
+    "registered_at_utc": "2026-10-14T14:37:58.432367+00:00",
+    "dataset_version": "0979a4ee08f6f3fbc65c964da31eef87eddebb162aa7adbb7f507c5dc31f497e",
+    "immutable": true
+  },
+  {
+    "experiment_id": "factor_preprocessing_oos_v1",
+    "title": "Locked expanding-window preprocessing historical OOS",
+    "stage": "factor_preprocessing_historical_oos",
+    "model_version": "ridge_full15_quantile_zscore_lambda_1",
+    "registered_at_utc": "2026-10-14T15:11:46.097398+00:00",
+    "dataset_version": "d1f3f09662f8ba440309e3410db7f02aca8a2ef7d230f5125c5be3e78667bce6",
+    "immutable": true
+  },
+  {
+    "experiment_id": "ic_decay_v1",
+    "title": "Composite and single-factor multi-horizon IC decay",
+    "stage": "factor_decay_diagnostics",
+    "model_version": "locked_quantile_zscore_ridge",
+    "registered_at_utc": "2026-10-14T15:51:08.639857+00:00",
+    "dataset_version": "d78ba046e049240e18e2ec900d06952e327a0f7f0afa51e41684d2efae58f1c9",
+    "immutable": true
+  },
+  {
+    "experiment_id": "label_horizon_v1",
+    "title": "Validation-selected executable label horizon and target transformation",
+    "stage": "label_and_prediction_horizon",
+    "model_version": "ridge_full15_quantile_zscore_multi_horizon_v1",
+    "registered_at_utc": "2026-10-14T17:24:11.509531+00:00",
+    "dataset_version": "884659b6633d90aaf55bdbf73d30cde7810047b998729b78009e8b886c056095",
+    "immutable": true
+  },
+  {
+    "experiment_id": "leave_one_factor_out_v1",
+    "title": "Validation-first leave-one-factor-out marginal contribution",
+    "stage": "factor_marginal_contribution",
+    "model_version": "locked_quantile_zscore_ridge",
+    "registered_at_utc": "2026-10-14T16:30:50.876483+00:00",
+    "dataset_version": "96bb40084f2e01e5d4c208dcd8e995b8be3915cb3a3f2d2bd3ace072773f9a55",
+    "immutable": true
+  },
+  {
+    "experiment_id": "model_benchmark_v1",
+    "title": "Unified validation-first linear and tree model benchmark",
+    "stage": "model_family_benchmark",
+    "model_version": "naive_ols_ridge_elasticnet_rf_hgb_v1",
+    "registered_at_utc": "2026-10-15T02:40:28.129262+00:00",
+    "dataset_version": "b57ecfba6099efc0ca9d020a55dd7e8edee15acf1d10b9b042e18325d0f58701",
+    "immutable": true
+  },
+  {
+    "experiment_id": "rf_daily_retry_execution_v1",
+    "title": "Random-forest non-overlapping daily retry execution audit",
+    "stage": "daily_execution_and_timing_forensics",
+    "model_version": "frozen_rf_depth6_share_order_retry_v1",
+    "registered_at_utc": "2026-10-15T08:11:02.945675+00:00",
+    "dataset_version": "96637b320ceb947f8121664d3f6176bfdd34ee203c2328845bdaaf4e172eb5af",
+    "immutable": true
+  },
+  {
+    "experiment_id": "rf_execution_forensics_v1",
+    "title": "Random-forest return and next-day execution forensic audit",
+    "stage": "execution_bias_forensics",
+    "model_version": "frozen_rf_depth6_execution_audit_v1",
+    "registered_at_utc": "2026-10-15T03:57:01.797446+00:00",
+    "dataset_version": "c7222412b370e174948abdd3c74ce538f37fe49d27c74831cfa25fed5ea8e1bb",
+    "immutable": true
+  },
+  {
+    "experiment_id": "rf_hyperparameter_stability_v1",
+    "title": "Validation-only random-forest local hyperparameter stability",
+    "stage": "model_hyperparameter_robustness",
+    "model_version": "rf_oat_local_sensitivity_v1",
+    "registered_at_utc": "2026-10-15T03:16:29.390733+00:00",
+    "dataset_version": "9127c7832a70381e61533388382a666b3949d7af5d77141d68cd1665c6a12a0e",
+    "immutable": true
+  },
+  {
+    "experiment_id": "size_neutralization_v1",
+    "title": "Point-in-time size-neutralized factor stress test",
+    "stage": "risk_exposure_and_factor_neutralization",
+    "model_version": "ridge_full15_quantile_zscore_lambda_1_size_residualized",
+    "registered_at_utc": "2026-10-14T18:04:25.000622+00:00",
+    "dataset_version": "abcfa10cb4fcb73aaa9d18d2e73d3316e2ab0a7c52b3632d05867e8f7b7487f6",
+    "immutable": true
+  }
+]

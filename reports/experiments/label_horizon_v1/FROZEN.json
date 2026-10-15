@@ -1,0 +1,18 @@
+{
+  "experiment_id": "label_horizon_v1",
+  "frozen_at_utc": "2026-10-14T17:24:11.509531+00:00",
+  "content_sha256": "565e5080afacbe02078e4998a15ff45e2a21da8ea0a9102738f79a4004cc659e",
+  "files": {
+    "config.yaml": "17cde475bc99ac33f6b6db914dfb3a8aa6ee665cb7f6bcb399b954bfc32fef8f",
+    "metadata.json": "f8f623c18e07671733970c9da53378bf633af053a2306f513c3aeb2e01c8b74f",
+    "metrics.json": "e25a0ba033ea10d358128574341770a0608e7c11163f414c1d982fec686d4bd2",
+    "notes.md": "a394fce3041f30e4d4bdfd5c6f22cf32aebf82a41e4d17d5d626845e76182f4a",
+    "tables/label_horizon_oos_annual__v1.csv": "202e7fa4861987ac9309ef49a584fa8cca4924512b252449668ec1e187e9ce70",
+    "tables/label_horizon_oos_bootstrap__v1.csv": "adc3c5ee52ae2d48608147016a98d0dde4b367f6a7ff2574eb975f165b32dacd",
+    "tables/label_horizon_oos_summary__v1.csv": "44750698567ef82d4f691289e3636a45b1f066225eb509452e83d9857d6184f9",
+    "tables/label_horizon_panel_audit__v1.csv": "2087b4a5b5c4cb05a87422048703c6c5262e789becb08df12900f4d24a152900",
+    "tables/label_horizon_selection__v1.csv": "9ffbfd7430d27f055cbc56215fbce45ec342083c2ff0433f47e713f2e450f3a5",
+    "tables/label_horizon_validation_candidates__v1.csv": "d17b30ebaccc58e86378ad12cd8ecee42c12ff72fb1c1d0fda53326238b4c2b6",
+    "tables/label_horizon_validation_grid__v1.csv": "a9e3169bb0b8e0cbb37d58db63182fd8984f2a9a630902cbbba72dd6990af56f"
+  }
+}

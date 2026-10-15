@@ -1,0 +1,2 @@
+split,scenario,periods,terminal_wealth,annualized_return,annualized_volatility,sharpe_zero_rate,maximum_drawdown,mean_turnover,mean_blocked_buy_weight,mean_blocked_sell_weight,mean_target_tracking_l1,mean_cash_weight
+validation,nonoverlap_all_fills_upper_bound,1210,8.845432288099925,0.574591624186662,0.25874769052027824,1.8867975861648256,-0.28479776321945005,0.1348506683008493,0.0,0.0,0.017744027073257927,1.4224920138655282e-17

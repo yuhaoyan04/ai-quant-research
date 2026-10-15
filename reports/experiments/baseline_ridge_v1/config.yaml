@@ -1,0 +1,213 @@
+experiment_id: baseline_ridge_v1
+registry_version: 1
+selection_policy: validation_only
+historical_oos_disclosure: The 2021-2026 block has already been inspected during project
+  development. It is historical out-of-sample evidence, not a pristine production
+  lockbox.
+experiment:
+  title: Frozen Ridge factor-model baseline
+  stage: model_and_portfolio_baseline
+  model_version: ridge_v1
+  dataset_version_method: sha256_of_registered_inputs_and_ingestion_manifest
+  historical_oos_used_for_selection: false
+  config_files:
+  - preprocessing.yaml
+  - model_features.yaml
+  - model_baseline.yaml
+  - portfolio.yaml
+  - liquidity_stress.yaml
+  - turnover_buffer.yaml
+  - robustness.yaml
+  input_tables:
+  - table: model_features
+    key: '2020'
+  - table: model_validation_predictions
+    key: ridge_v1
+  - table: model_oos_predictions
+    key: ridge_v1
+  - table: turnover_buffer_oos_holdings
+    key: v1
+  metric_tables:
+  - table: model_selection
+    key: ridge_v1
+  - table: model_oos_annual
+    key: ridge_v1
+  - table: turnover_buffer_selection
+    key: v1
+  - table: turnover_buffer_oos_summary
+    key: v1
+  - table: robustness_cost_grid
+    key: v1
+    where:
+      model: ridge
+  - table: robustness_block_bootstrap
+    key: v1
+    where_prefix:
+      metric: ridge_
+  figures:
+  - reports/figures/oos_equity_curve.svg
+  - reports/figures/oos_drawdown.svg
+  - reports/figures/annual_rank_ic.svg
+resolved_configs:
+  preprocessing.yaml:
+    factor_columns:
+    - momentum_20d
+    - momentum_60d
+    - momentum_120d
+    - momentum_20d_skip_5d
+    - reversal_5d
+    - volatility_20d
+    - amihud_20d
+    - turnover_20d
+    - turnover_surprise_20d
+    - volume_surprise_20d
+    - amplitude_20d
+    - return_volume_corr_20d
+    - max_return_20d
+    - earnings_yield
+    - book_to_price
+    target: fwd_return_5d_lag1
+    winsorization:
+      method: cross_sectional_median_mad
+      mad_multiplier: 5.0
+    normalization: cross_sectional_zscore
+    missing_strategy: cross_sectional_median_plus_indicator
+    minimum_cross_section_size: 100
+    neutralization: none_pit_exposures_unavailable
+  model_features.yaml:
+    full:
+    - momentum_20d
+    - momentum_60d
+    - momentum_120d
+    - momentum_20d_skip_5d
+    - reversal_5d
+    - volatility_20d
+    - amihud_20d
+    - turnover_20d
+    - turnover_surprise_20d
+    - volume_surprise_20d
+    - amplitude_20d
+    - return_volume_corr_20d
+    - max_return_20d
+    - earnings_yield
+    - book_to_price
+    compact:
+    - reversal_5d
+    - volatility_20d
+    - amihud_20d
+    - turnover_20d
+    - volume_surprise_20d
+    - return_volume_corr_20d
+    - earnings_yield
+    - book_to_price
+    include_missing_indicators: true
+    selection_data_end: '2020-12-31'
+    lockbox_start: '2021-01-01'
+    selection_note: No 2021+ labels were used for this feature-set decision.
+  model_baseline.yaml:
+    target: fwd_return_5d_lag1
+    label_horizon_trading_days: 5
+    rebalance_frequency: weekly_last_trading_day
+    minimum_cross_section_size: 100
+    train:
+      start_year: 2006
+      end_year: 2015
+    validation:
+      start_year: 2016
+      end_year: 2020
+    test:
+      start_year: 2021
+      end_year: 2026
+    ridge_penalties_per_observation:
+    - 0.0001
+    - 0.001
+    - 0.01
+    - 0.1
+    - 1.0
+    selection_metric: mean_rank_ic
+    portfolio_buckets: 10
+    annualization_periods: 52
+    scaling:
+      factor_exposures: same_date_cross_sectional_mad_zscore
+      missing_indicators: same_date_cross_sectional_zscore
+      global_time_scaler: none
+      validation_or_test_fitted_scaler: forbidden
+    walk_forward:
+      refit_at_start_of_each_test_year: true
+      expanding_window: true
+      purge_latest_label_horizon: true
+  portfolio.yaml:
+    candidate_top_n:
+    - 50
+    - 100
+    - 200
+    selection_round_trip_cost_bps: 20
+    report_round_trip_cost_bps:
+    - 0
+    - 10
+    - 20
+    - 40
+    minimum_realized_weight_fraction: 0.98
+    annualization_periods: 52
+    weighting: equal_weight
+    benchmark: eligible_universe_equal_weight
+    turnover: drift_adjusted_one_way
+    cost_definition: round-trip bps multiplied by one-way turnover; full replacement
+      has turnover 1
+    constraint_status: no_industry_size_or_capacity_constraints_yet
+  liquidity_stress.yaml:
+    round_trip_cost_bps: 20
+    minimum_realized_weight_fraction: 0.98
+    annualization_periods: 52
+    screens:
+    - name: unscreened
+      max_amihud_percentile: null
+      min_turnover_percentile: null
+    - name: exclude_illiquid_10pct
+      max_amihud_percentile: 0.9
+      min_turnover_percentile: 0.1
+    - name: exclude_illiquid_20pct
+      max_amihud_percentile: 0.8
+      min_turnover_percentile: 0.2
+    selection_metric: sharpe_zero_rate
+    selection_period: validation_only
+    capacity_status: absolute_capacity_not_available_without_rolling_amount
+  turnover_buffer.yaml:
+    round_trip_cost_bps: 20
+    minimum_realized_weight_fraction: 0.98
+    annualization_periods: 52
+    candidate_exit_n:
+    - 200
+    - 250
+    - 300
+    - 400
+    selection_metric: sharpe_zero_rate
+    selection_period: validation_2016_2020_only
+    liquidity_screen_source: liquidity_selection_v1
+  robustness.yaml:
+    block_length_weeks: 13
+    bootstrap_samples: 5000
+    random_seed: 20261003
+    annualization_periods: 52
+    cost_grid_bps:
+    - 0
+    - 10
+    - 20
+    - 40
+    benchmarks:
+    - name: CSI300
+      instrument_id: sh.000300
+    - name: CSI500
+      instrument_id: sh.000905
+    - name: CSI1000
+      instrument_id: sh.000852
+    subperiods:
+    - name: early_oos
+      start: '2021-01-01'
+      end: '2022-12-31'
+    - name: middle_oos
+      start: '2023-01-01'
+      end: '2024-12-31'
+    - name: recent_oos
+      start: '2025-01-01'
+      end: '2026-12-31'

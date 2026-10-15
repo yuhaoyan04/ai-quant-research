@@ -1,0 +1,225 @@
+experiment_id: factor_preprocessing_ablation_v1
+registry_version: 1
+selection_policy: validation_only
+historical_oos_disclosure: The 2021-2026 block has already been inspected during project
+  development. It is historical out-of-sample evidence, not a pristine production
+  lockbox.
+experiment:
+  title: Validation-only 3x3 factor preprocessing ablation
+  stage: factor_preprocessing_selection
+  model_version: ridge_full15_quantile_zscore_lambda_1
+  dataset_version_method: sha256_of_registered_inputs_and_ingestion_manifest
+  historical_oos_used_for_selection: false
+  config_files:
+  - preprocessing.yaml
+  - model_features.yaml
+  - model_baseline.yaml
+  - factor_preprocessing_ablation.yaml
+  - factor_preprocessing_selected.yaml
+  input_tables:
+  - table: eligible_factor_panel_staging
+    key: '2006'
+  - table: eligible_factor_panel_staging
+    key: '2007'
+  - table: eligible_factor_panel_staging
+    key: '2008'
+  - table: eligible_factor_panel_staging
+    key: '2009'
+  - table: eligible_factor_panel_staging
+    key: '2010'
+  - table: eligible_factor_panel_staging
+    key: '2011'
+  - table: eligible_factor_panel_staging
+    key: '2012'
+  - table: eligible_factor_panel_staging
+    key: '2013'
+  - table: eligible_factor_panel_staging
+    key: '2014'
+  - table: eligible_factor_panel_staging
+    key: '2015'
+  - table: eligible_factor_panel_staging
+    key: '2016'
+  - table: eligible_factor_panel_staging
+    key: '2017'
+  - table: eligible_factor_panel_staging
+    key: '2018'
+  - table: eligible_factor_panel_staging
+    key: '2019'
+  - table: eligible_factor_panel_staging
+    key: '2020'
+  metric_tables:
+  - table: factor_preprocessing_ablation_selection
+    key: v1
+  - table: factor_preprocessing_ablation_grid
+    key: v1
+  - table: factor_preprocessing_ablation_annual
+    key: v1
+  - table: factor_preprocessing_ablation_factor_summary
+    key: v1
+  figures: []
+resolved_configs:
+  preprocessing.yaml:
+    factor_columns:
+    - momentum_20d
+    - momentum_60d
+    - momentum_120d
+    - momentum_20d_skip_5d
+    - reversal_5d
+    - volatility_20d
+    - amihud_20d
+    - turnover_20d
+    - turnover_surprise_20d
+    - volume_surprise_20d
+    - amplitude_20d
+    - return_volume_corr_20d
+    - max_return_20d
+    - earnings_yield
+    - book_to_price
+    target: fwd_return_5d_lag1
+    winsorization:
+      method: cross_sectional_median_mad
+      mad_multiplier: 5.0
+    normalization: cross_sectional_zscore
+    missing_strategy: cross_sectional_median_plus_indicator
+    minimum_cross_section_size: 100
+    neutralization: none_pit_exposures_unavailable
+  model_features.yaml:
+    full:
+    - momentum_20d
+    - momentum_60d
+    - momentum_120d
+    - momentum_20d_skip_5d
+    - reversal_5d
+    - volatility_20d
+    - amihud_20d
+    - turnover_20d
+    - turnover_surprise_20d
+    - volume_surprise_20d
+    - amplitude_20d
+    - return_volume_corr_20d
+    - max_return_20d
+    - earnings_yield
+    - book_to_price
+    compact:
+    - reversal_5d
+    - volatility_20d
+    - amihud_20d
+    - turnover_20d
+    - volume_surprise_20d
+    - return_volume_corr_20d
+    - earnings_yield
+    - book_to_price
+    include_missing_indicators: true
+    selection_data_end: '2020-12-31'
+    lockbox_start: '2021-01-01'
+    selection_note: No 2021+ labels were used for this feature-set decision.
+  model_baseline.yaml:
+    target: fwd_return_5d_lag1
+    label_horizon_trading_days: 5
+    rebalance_frequency: weekly_last_trading_day
+    minimum_cross_section_size: 100
+    train:
+      start_year: 2006
+      end_year: 2015
+    validation:
+      start_year: 2016
+      end_year: 2020
+    test:
+      start_year: 2021
+      end_year: 2026
+    ridge_penalties_per_observation:
+    - 0.0001
+    - 0.001
+    - 0.01
+    - 0.1
+    - 1.0
+    selection_metric: mean_rank_ic
+    portfolio_buckets: 10
+    annualization_periods: 52
+    scaling:
+      factor_exposures: same_date_cross_sectional_mad_zscore
+      missing_indicators: same_date_cross_sectional_zscore
+      global_time_scaler: none
+      validation_or_test_fitted_scaler: forbidden
+    walk_forward:
+      refit_at_start_of_each_test_year: true
+      expanding_window: true
+      purge_latest_label_horizon: true
+  factor_preprocessing_ablation.yaml:
+    experiment_id: factor_preprocessing_ablation_v1
+    selection_period: validation_2016_2020_only
+    train:
+      start_year: 2006
+      end_year: 2015
+    validation:
+      start_year: 2016
+      end_year: 2020
+    target: fwd_return_5d_lag1
+    label_horizon_trading_days: 5
+    minimum_cross_section_size: 100
+    annualization_periods: 52
+    winsor_methods:
+    - none
+    - quantile
+    - mad
+    normalization_methods:
+    - raw
+    - zscore
+    - rank_zscore
+    quantile_limits:
+    - 0.01
+    - 0.99
+    mad_multiplier: 5.0
+    ridge_penalties_per_observation:
+    - 0.0001
+    - 0.001
+    - 0.01
+    - 0.1
+    - 1.0
+    include_missing_indicators: true
+    top_n: 200
+    round_trip_cost_bps: 20.0
+    minimum_realized_weight_fraction: 0.95
+    selection_metric: mean_rank_ic
+    selection_tiebreakers:
+    - portfolio_sharpe_zero_rate
+    - portfolio_annualized_return
+    historical_oos_used_for_selection: false
+  factor_preprocessing_selected.yaml:
+    decision_id: factor_preprocessing_selection_v1
+    locked_at_utc: '2026-10-14T12:30:00Z'
+    selected_on: validation_2016_2020_only
+    historical_oos_used_for_selection: false
+    historical_oos_disclosure: The preprocessing decision was produced without querying
+      2021+ observations in this ablation. However, the project's older baseline OOS
+      results had already been inspected, so subsequent 2021+ evaluation remains historical
+      OOS rather than a pristine lockbox.
+    pipeline:
+      winsor_method: quantile
+      quantile_limits:
+      - 0.01
+      - 0.99
+      normalization_method: cross_sectional_zscore
+      missing_strategy: cross_sectional_median_plus_indicator
+      ridge_penalty_per_observation: 1.0
+      feature_set: full_15_factors
+    selection_rule:
+      primary: mean_rank_ic
+      tiebreakers:
+      - portfolio_sharpe_zero_rate
+      - portfolio_annualized_return
+      validation_mean_rank_ic: 0.088893
+      validation_annualized_icir: 4.638006
+    oos_evaluation_protocol:
+      years:
+      - 2021
+      - 2022
+      - 2023
+      - 2024
+      - 2025
+      - 2026
+      refit: expanding_window_at_start_of_each_year
+      purge_latest_label_horizon: true
+      top_n: 200
+      round_trip_cost_bps: 20.0
+      no_reselection: true

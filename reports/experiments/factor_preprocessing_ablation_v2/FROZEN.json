@@ -1,0 +1,15 @@
+{
+  "experiment_id": "factor_preprocessing_ablation_v2",
+  "frozen_at_utc": "2026-10-14T14:37:58.432367+00:00",
+  "content_sha256": "82ad66fa0020eb7551c9f67497eb0020532f47021b7e65d0f7dbad9e811f27a5",
+  "files": {
+    "config.yaml": "9f86d543546e0f03242fad81c1a9ac34f8a08827b01cce94c1d341d4ecb53eca",
+    "metadata.json": "4afbfe36a0de37c95d43a5b50ca81e7c20ba5c7de65307ac389599d65f046ce6",
+    "metrics.json": "d140af3155efa224af35e51242b786f287008dbea7882b2f1eccfa424a3986e7",
+    "notes.md": "df0d505593fd3ea79127d83e331f8720f7941d296acca6d175761cd9e90e97c5",
+    "tables/factor_preprocessing_ablation_annual__v2.csv": "fe7df849d53ceb59654c99c4163df88c787241148d145808201a3e62acba6851",
+    "tables/factor_preprocessing_ablation_factor_summary__v2.csv": "25030df1e2ec9804b55030377abb109cdff5e38dffac09e51aeeafa355786ae6",
+    "tables/factor_preprocessing_ablation_grid__v2.csv": "eb6b360d3448da7d00e231fa8759a9e45f9f24360c146af003e26320af7077aa",
+    "tables/factor_preprocessing_ablation_selection__v2.csv": "721f7f46cb9426069f363a67a416b0ffd5d147bf9387f2baca4b878b9e61f6d8"
+  }
+}

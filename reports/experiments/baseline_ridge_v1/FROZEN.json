@@ -1,0 +1,20 @@
+{
+  "experiment_id": "baseline_ridge_v1",
+  "frozen_at_utc": "2026-10-14T11:21:22.916405+00:00",
+  "content_sha256": "ef89a23eb167266a957fc3bbba6cc20d48f1a0b3e23940bb833bce006bcc836b",
+  "files": {
+    "config.yaml": "0cc4682cd0c822c79d6f1abf01829de2cd178a612bd4dc0462592da9e0cbd63b",
+    "figures/annual_rank_ic.svg": "ab7f3652eb9d2beb3761457a2612a4b7033cda7ef26f792e2b1fe6300cfcfc98",
+    "figures/oos_drawdown.svg": "8dd0c652093b82a80a72e288c779260f71e620bcc1909ccc000a61383656e4ab",
+    "figures/oos_equity_curve.svg": "76b3fc2ff4c9e1ef2cf3137be814e12edd7b3f3c259270cd6ead2b5a4302cfab",
+    "metadata.json": "a16d6580bbe34cc084dead017819878d666c57ce88336908e6fb128e785a96f6",
+    "metrics.json": "83f31b50588315f3f99ddce6916685dd0d082dd77052fd70053f0bfa10c14075",
+    "notes.md": "7b150893f7d80e2aead4b259af7597e9fbeb2576c8c5799d2cae690da8155287",
+    "tables/model_oos_annual__ridge_v1.csv": "cc25f63316b95efd5f5f5e67b10959a97aae0112f9252cc7376afb450cf711ac",
+    "tables/model_selection__ridge_v1.csv": "9aaf4b1fe0ce2abf8b657657824bf8dfd672ec21839c3c68bbcc3ab4409268b1",
+    "tables/robustness_block_bootstrap__v1.csv": "c0afd9cac5103a986f234835031fcfe197b6b2cabdeb8d7eadbfbc6605e35ca0",
+    "tables/robustness_cost_grid__v1.csv": "0cf3e0ab42ace73c68e148f14b0a5e19d619f71797a65d9ec37cd5505d9668cd",
+    "tables/turnover_buffer_oos_summary__v1.csv": "bfaa84234dc61d71df798b68c33327965b0abe62e5312d35071222f3363fc7fb",
+    "tables/turnover_buffer_selection__v1.csv": "459af9d91ffe20a16d30a7655bab2fbe387ba18c34c190a1df880696499a2f2c"
+  }
+}

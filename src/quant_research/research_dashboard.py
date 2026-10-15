@@ -220,6 +220,23 @@ def generate(output: Path = REPORT) -> Path:
         on="test_year", how="inner")
     annual_ic = annual_ic.rename(columns={"test_year": "year"})
     execution = lake.read("execution_constraint_summary", "v1")
+    rf_validation_execution = pd.concat([
+        lake.read("rf_daily_ideal_summary", "validation_v1"),
+        lake.read("rf_daily_retry_summary", "validation_v1"),
+    ], ignore_index=True)
+    rf_validation_execution.insert(0, "period", "validation_2016_2020")
+    rf_oos_execution = pd.concat([
+        lake.read("rf_daily_ideal_summary", "historical_oos_v1"),
+        lake.read("rf_daily_retry_summary", "historical_oos_v1"),
+    ], ignore_index=True)
+    rf_oos_execution.insert(0, "period", "historical_oos_2021_2026")
+    rf_execution = pd.concat(
+        [rf_validation_execution, rf_oos_execution], ignore_index=True
+    )[["period", "scenario", "periods", "annualized_return", "sharpe_zero_rate",
+       "maximum_drawdown", "mean_turnover"]]
+    rf_oos_constrained = rf_oos_execution.loc[
+        rf_oos_execution["scenario"].eq("daily_retry_limit_and_suspension_constrained")
+    ].iloc[0]
     selected_cost = cost_display.loc[cost_display["cost_bps"].eq(20)].set_index("model")
     increment = bootstrap.loc[bootstrap["metric"].eq("challenger_minus_ridge_net_return")].iloc[0]
     ridge_excess = bootstrap.loc[bootstrap["metric"].eq("ridge_net_excess_vs_CSI500")].iloc[0]
@@ -228,6 +245,7 @@ def generate(output: Path = REPORT) -> Path:
         ("Ridge 年化净收益", f"{selected_cost.loc['Ridge','annualized_return']:.1%}", "20bp，缓冲后"),
         ("Ridge 相对 CSI500 区间", f"[{ridge_excess.ci_2_5pct:.1%}, {ridge_excess.ci_97_5pct:.1%}]", "13周块 bootstrap，95%"),
         ("AI 相对增量区间", f"[{increment.ci_2_5pct:.1%}, {increment.ci_97_5pct:.1%}]", "13周块 bootstrap，95%"),
+        ("RF 日频重试后年化", f"{rf_oos_constrained.annualized_return:.1%}", "historical OOS；同口径上界 25.4%"),
     ]
     cards_html = "".join(
         f'<section class="card"><small>{label}</small><strong>{value}</strong><span>{note}</span></section>'
@@ -253,6 +271,7 @@ def generate(output: Path = REPORT) -> Path:
         "capacity_execution": capacity,
         "annual_rank_ic": annual_ic,
         "annual_returns": annual_returns,
+        "rf_execution_forensics": rf_execution,
     }
     for name, frame in public_tables.items():
         frame.to_csv(TABLES / f"{name}.csv", index=False, encoding="utf-8")
@@ -267,6 +286,25 @@ def generate(output: Path = REPORT) -> Path:
             "annualized_return_after_20bp": float(selected_cost.loc["AI blend", "annualized_return"]),
             "increment_vs_ridge_annualized_ci_95": [
                 float(increment.ci_2_5pct), float(increment.ci_97_5pct)],
+        },
+        "random_forest": {
+            "nonoverlap_ideal_oos_annualized_return": float(
+                rf_oos_execution.loc[
+                    rf_oos_execution["scenario"].eq("nonoverlap_all_fills_upper_bound"),
+                    "annualized_return",
+                ].iloc[0]
+            ),
+            "daily_retry_constrained_oos_annualized_return": float(
+                rf_oos_constrained.annualized_return
+            ),
+            "daily_retry_constrained_oos_sharpe": float(rf_oos_constrained.sharpe_zero_rate),
+            "daily_retry_constrained_oos_maximum_drawdown": float(
+                rf_oos_constrained.maximum_drawdown
+            ),
+            "warning": (
+                "The old 69.98%, 19.09%, and 24.19% figures are superseded: overlapping "
+                "holding clocks and incomplete blocked-order handling were corrected."
+            ),
         },
         "interpretation": (
             "Ridge shows positive historical OOS evidence after costs. The nonlinear blend has an "
@@ -308,7 +346,8 @@ code{{background:#edf2f7;padding:2px 5px;border-radius:4px}}@media(max-width:850
 <section class="panel"><h2>小市值剔除压力测试</h2>{_table(size, {'minimum_size_percentile':'{:.0%}','annualized_return':'{:.1%}','information_ratio':'{:.2f}','maximum_drawdown':'{:.1%}','mean_turnover':'{:.3f}'})}</section>
 <section class="panel"><h2>动态容量执行（Ridge 缓冲组合）</h2>{_table(capacity, {'aum_cny':'{:,.0f}','participation_limit':'{:.0%}','annualized_return':'{:.1%}','mean_order_fill_ratio':'{:.1%}','mean_cash_weight':'{:.1%}','mean_target_tracking_l1':'{:.3f}','mean_impact_cost_bps':'{:.2f}'})}</section>
 <section class="panel"><h2>t+1 停牌/涨跌停执行约束</h2>{_table(execution, {'annualized_return':'{:.1%}','maximum_drawdown':'{:.1%}','mean_blocked_buy_weight':'{:.3%}','mean_blocked_sell_weight':'{:.3%}','mean_cash_weight':'{:.3%}','mean_target_tracking_l1':'{:.3f}'})}</section>
-<section class="panel finding"><h2>最终 finding</h2><p>Ridge 多因子基线在各历史样本外年度均保持正 RankIC；20bp 成本后，相对 CSI 500 的年化算术超额块 bootstrap 95% 区间仍高于 0，这是当前最可靠的正向证据。非线性模型在验证集把 RankIC 从 0.0862 提高到约 0.0994，但共同历史样本外日期上的平均 RankIC 并未超过 Ridge。AI blend 的年化收益高约 3.2 个百分点，但增量区间跨 0，因此只能表述为经济增量迹象。结果仍受行业暴露、股票池代理和冲击模型未校准等限制；2021–2026 已在开发中被检查，应称为历史样本外，不再称作从未查看的 lockbox。</p></section>
+<section class="panel"><h2>RF 非重叠日频执行取证</h2>{_table(rf_execution, {'annualized_return':'{:.1%}','sharpe_zero_rate':'{:.2f}','maximum_drawdown':'{:.1%}','mean_turnover':'{:.3f}'})}<p class="muted">所有场景使用唯一日频净值时钟与 20bp 成本。验证期从理想全成交上界 57.46% 降至日频重试约束 10.77%；historical OOS 从 25.38% 降至 21.62%。</p></section>
+<section class="panel finding"><h2>最终 finding</h2><p>Ridge 多因子基线在各历史样本外年度均保持正 RankIC；20bp 成本后，相对 CSI 500 的年化算术超额块 bootstrap 95% 区间仍高于 0，这是当前最可靠的正向证据。RF 的 RankIC 约 0.100，但旧组合回测同时含持有期重叠和不可成交偏差。改用股数订单、非重叠日频时钟及停牌/涨跌停逐日重试后，historical OOS 年化 21.62%、Sharpe 0.87、最大回撤 -43.27%；验证期仅 10.77%。模型统计信号与可实现组合收益必须分开陈述。结果仍受行业暴露、股票池代理和冲击模型未校准等限制；2021–2026 已在开发中被检查，应称为历史样本外，不再称作从未查看的 lockbox。</p></section>
 </main></body></html>'''
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(document, encoding="utf-8")

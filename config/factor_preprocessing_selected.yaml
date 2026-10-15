@@ -1,0 +1,32 @@
+decision_id: factor_preprocessing_selection_v1
+locked_at_utc: "2026-10-14T12:30:00Z"
+selected_on: validation_2016_2020_only
+historical_oos_used_for_selection: false
+historical_oos_disclosure: >-
+  The preprocessing decision was produced without querying 2021+ observations in
+  this ablation. However, the project's older baseline OOS results had already
+  been inspected, so subsequent 2021+ evaluation remains historical OOS rather
+  than a pristine lockbox.
+
+pipeline:
+  winsor_method: quantile
+  quantile_limits: [0.01, 0.99]
+  normalization_method: cross_sectional_zscore
+  missing_strategy: cross_sectional_median_plus_indicator
+  ridge_penalty_per_observation: 1.0
+  feature_set: full_15_factors
+
+selection_rule:
+  primary: mean_rank_ic
+  tiebreakers: [portfolio_sharpe_zero_rate, portfolio_annualized_return]
+  validation_mean_rank_ic: 0.088893
+  validation_annualized_icir: 4.638006
+
+oos_evaluation_protocol:
+  years: [2021, 2022, 2023, 2024, 2025, 2026]
+  refit: expanding_window_at_start_of_each_year
+  purge_latest_label_horizon: true
+  top_n: 200
+  round_trip_cost_bps: 20.0
+  no_reselection: true
+

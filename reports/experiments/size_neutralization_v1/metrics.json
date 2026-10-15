@@ -1,0 +1,5604 @@
+{
+  "size_neutralization_validation_summary__v1": [
+    {
+      "split": "validation",
+      "pipeline": "raw",
+      "observations": 254,
+      "mean_rank_ic": 0.08889286864886033,
+      "rank_ic_std": 0.13820932098483457,
+      "annualized_icir": 4.638005507193251,
+      "mean_top_minus_bottom": 0.006379494881215244,
+      "portfolio_periods": 254,
+      "portfolio_annualized_return": 0.19108622971437028,
+      "portfolio_annualized_volatility": 0.2794051661246869,
+      "portfolio_sharpe_zero_rate": 0.7680942056346907,
+      "portfolio_annualized_excess_return_arithmetic": 0.047674294438789844,
+      "portfolio_information_ratio": 0.5852532925651217,
+      "portfolio_maximum_drawdown": -0.28132332445229424,
+      "portfolio_mean_turnover": 0.5650592352659732,
+      "portfolio_mean_realized_weight_fraction": 0.9996653543307087,
+      "mean_score_log_size_correlation": -0.1245240175561319,
+      "mean_selected_size_z": -0.5365776695574519,
+      "mean_selected_size_percentile": 0.3317826498049645
+    },
+    {
+      "split": "validation",
+      "pipeline": "size_neutralized",
+      "observations": 254,
+      "mean_rank_ic": 0.08996193594878456,
+      "rank_ic_std": 0.13155016027771624,
+      "annualized_icir": 4.931386966288551,
+      "mean_top_minus_bottom": 0.005094427568590986,
+      "portfolio_periods": 254,
+      "portfolio_annualized_return": 0.13993814455798192,
+      "portfolio_annualized_volatility": 0.2713285808429927,
+      "portfolio_sharpe_zero_rate": 0.6202973824767443,
+      "portfolio_annualized_excess_return_arithmetic": 0.0013692138020577787,
+      "portfolio_information_ratio": 0.017583829970341042,
+      "portfolio_maximum_drawdown": -0.3353291388590982,
+      "portfolio_mean_turnover": 0.6339426770798855,
+      "portfolio_mean_realized_weight_fraction": 0.999763779527559,
+      "mean_score_log_size_correlation": -9.00658590890411e-19,
+      "mean_selected_size_z": -0.18117853624083854,
+      "mean_selected_size_percentile": 0.4440073951864657
+    }
+  ],
+  "size_neutralization_oos_summary__v1": [
+    {
+      "split": "historical_oos",
+      "pipeline": "raw",
+      "observations": 293,
+      "mean_rank_ic": 0.09771564140313886,
+      "rank_ic_std": 0.15545586612647194,
+      "annualized_icir": 4.5327174107053425,
+      "mean_top_minus_bottom": 0.011174975376407596,
+      "portfolio_periods": 293,
+      "portfolio_annualized_return": 0.21216015951661404,
+      "portfolio_annualized_volatility": 0.2963508341126248,
+      "portfolio_sharpe_zero_rate": 0.7973986624464937,
+      "portfolio_annualized_excess_return_arithmetic": 0.08341377033034215,
+      "portfolio_information_ratio": 0.807700970690064,
+      "portfolio_maximum_drawdown": -0.3695736927758855,
+      "portfolio_mean_turnover": 0.5629992475483515,
+      "portfolio_mean_realized_weight_fraction": 0.9988395904436861,
+      "mean_score_log_size_correlation": -0.06891764703486872,
+      "mean_selected_size_z": -0.48613325544348185,
+      "mean_selected_size_percentile": 0.3437131447532647
+    },
+    {
+      "split": "historical_oos",
+      "pipeline": "size_neutralized",
+      "observations": 293,
+      "mean_rank_ic": 0.0943606700512136,
+      "rank_ic_std": 0.15764168203284437,
+      "annualized_icir": 4.316399442958304,
+      "mean_top_minus_bottom": 0.010310313079436825,
+      "portfolio_periods": 293,
+      "portfolio_annualized_return": 0.16300301209294266,
+      "portfolio_annualized_volatility": 0.272490959754222,
+      "portfolio_sharpe_zero_rate": 0.6893679448725514,
+      "portfolio_annualized_excess_return_arithmetic": 0.034950544516149505,
+      "portfolio_information_ratio": 0.3081607191345677,
+      "portfolio_maximum_drawdown": -0.3245593503391426,
+      "portfolio_mean_turnover": 0.575353327439036,
+      "portfolio_mean_realized_weight_fraction": 0.9991467576791809,
+      "mean_score_log_size_correlation": -8.420356227198554e-18,
+      "mean_selected_size_z": -0.06617860731497026,
+      "mean_selected_size_percentile": 0.4645101360260423
+    }
+  ],
+  "size_neutralization_oos_annual__v1": [
+    {
+      "pipeline": "raw",
+      "year": 2021,
+      "observations": 52,
+      "mean_rank_ic": 0.09690070861514781,
+      "rank_ic_std": 0.1351608080725937,
+      "annualized_icir": 5.169848841878206,
+      "mean_top_minus_bottom": 0.011935389018538915,
+      "portfolio_periods": 52,
+      "portfolio_annualized_return": 0.43005763446307155,
+      "portfolio_annualized_volatility": 0.19016325864420164,
+      "portfolio_sharpe_zero_rate": 1.978668154055964,
+      "portfolio_annualized_excess_return_arithmetic": 0.11780564413501468,
+      "portfolio_information_ratio": 1.414775246033434,
+      "portfolio_maximum_drawdown": -0.09939937941643628,
+      "portfolio_mean_turnover": 0.5782560056066172,
+      "portfolio_mean_realized_weight_fraction": 0.9998076923076924
+    },
+    {
+      "pipeline": "raw",
+      "year": 2022,
+      "observations": 50,
+      "mean_rank_ic": 0.10519858419433581,
+      "rank_ic_std": 0.1171273483348375,
+      "annualized_icir": 6.4766921613315045,
+      "mean_top_minus_bottom": 0.014886101790793275,
+      "portfolio_periods": 50,
+      "portfolio_annualized_return": 0.08150673273219322,
+      "portfolio_annualized_volatility": 0.27882776677115434,
+      "portfolio_sharpe_zero_rate": 0.4193504778817052,
+      "portfolio_annualized_excess_return_arithmetic": 0.11754045387425921,
+      "portfolio_information_ratio": 1.4028567878573583,
+      "portfolio_maximum_drawdown": -0.2795367187562011,
+      "portfolio_mean_turnover": 0.5569341690579117,
+      "portfolio_mean_realized_weight_fraction": 0.9992
+    },
+    {
+      "pipeline": "raw",
+      "year": 2023,
+      "observations": 50,
+      "mean_rank_ic": 0.09302653630236453,
+      "rank_ic_std": 0.1472200615586443,
+      "annualized_icir": 4.556606525848761,
+      "mean_top_minus_bottom": 0.009970067240571388,
+      "portfolio_periods": 50,
+      "portfolio_annualized_return": 0.10569076646792053,
+      "portfolio_annualized_volatility": 0.19646887569888813,
+      "portfolio_sharpe_zero_rate": 0.6066883664763295,
+      "portfolio_annualized_excess_return_arithmetic": 0.0920737721368064,
+      "portfolio_information_ratio": 1.0909368108276865,
+      "portfolio_maximum_drawdown": -0.10698039319770247,
+      "portfolio_mean_turnover": 0.6042219966553471,
+      "portfolio_mean_realized_weight_fraction": 0.9982
+    },
+    {
+      "pipeline": "raw",
+      "year": 2024,
+      "observations": 52,
+      "mean_rank_ic": 0.1085040915709565,
+      "rank_ic_std": 0.16899821619634137,
+      "annualized_icir": 4.629836628597422,
+      "mean_top_minus_bottom": 0.014992892596560678,
+      "portfolio_periods": 52,
+      "portfolio_annualized_return": 0.0014137156708620147,
+      "portfolio_annualized_volatility": 0.5123598584192965,
+      "portfolio_sharpe_zero_rate": 0.25102982248233396,
+      "portfolio_annualized_excess_return_arithmetic": 0.040251568108171785,
+      "portfolio_information_ratio": 0.32144614925991727,
+      "portfolio_maximum_drawdown": -0.32260107027201446,
+      "portfolio_mean_turnover": 0.5293715273956011,
+      "portfolio_mean_realized_weight_fraction": 0.99875
+    },
+    {
+      "pipeline": "raw",
+      "year": 2025,
+      "observations": 53,
+      "mean_rank_ic": 0.09130871062838487,
+      "rank_ic_std": 0.16530368010097282,
+      "annualized_icir": 3.9831930888174814,
+      "mean_top_minus_bottom": 0.005339694366297164,
+      "portfolio_periods": 53,
+      "portfolio_annualized_return": 0.6396281025247135,
+      "portfolio_annualized_volatility": 0.2060190631130853,
+      "portfolio_sharpe_zero_rate": 2.5125642058095377,
+      "portfolio_annualized_excess_return_arithmetic": -0.02186521863056176,
+      "portfolio_information_ratio": -0.24071845767424002,
+      "portfolio_maximum_drawdown": -0.12884312787750984,
+      "portfolio_mean_turnover": 0.5492293828710557,
+      "portfolio_mean_realized_weight_fraction": 0.9982075471698113
+    },
+    {
+      "pipeline": "raw",
+      "year": 2026,
+      "observations": 36,
+      "mean_rank_ic": 0.08886154536952355,
+      "rank_ic_std": 0.20689676721290523,
+      "annualized_icir": 3.0971470706169844,
+      "mean_top_minus_bottom": 0.009671802453340667,
+      "portfolio_periods": 36,
+      "portfolio_annualized_return": 0.07344992913257764,
+      "portfolio_annualized_volatility": 0.2593010836977992,
+      "portfolio_sharpe_zero_rate": 0.40105600474272385,
+      "portfolio_annualized_excess_return_arithmetic": 0.1916501376947513,
+      "portfolio_information_ratio": 1.2557148285191415,
+      "portfolio_maximum_drawdown": -0.1941313890157288,
+      "portfolio_mean_turnover": 0.5609772843811869,
+      "portfolio_mean_realized_weight_fraction": 0.9988888888888889
+    },
+    {
+      "pipeline": "size_neutralized",
+      "year": 2021,
+      "observations": 52,
+      "mean_rank_ic": 0.08965675023433366,
+      "rank_ic_std": 0.12991166964370732,
+      "annualized_icir": 4.976643146038055,
+      "mean_top_minus_bottom": 0.01039245141126171,
+      "portfolio_periods": 52,
+      "portfolio_annualized_return": 0.30382106321778446,
+      "portfolio_annualized_volatility": 0.1722913853277935,
+      "portfolio_sharpe_zero_rate": 1.6265292187391494,
+      "portfolio_annualized_excess_return_arithmetic": 0.02177263255692707,
+      "portfolio_information_ratio": 0.24018505305430862,
+      "portfolio_maximum_drawdown": -0.09948657868333688,
+      "portfolio_mean_turnover": 0.6191972346039816,
+      "portfolio_mean_realized_weight_fraction": 0.9998076923076924
+    },
+    {
+      "pipeline": "size_neutralized",
+      "year": 2022,
+      "observations": 50,
+      "mean_rank_ic": 0.10370793309969678,
+      "rank_ic_std": 0.12086650722821832,
+      "annualized_icir": 6.187392670449351,
+      "mean_top_minus_bottom": 0.013773356527142202,
+      "portfolio_periods": 50,
+      "portfolio_annualized_return": -0.012029820695178217,
+      "portfolio_annualized_volatility": 0.2642183590116027,
+      "portfolio_sharpe_zero_rate": 0.08673477227034558,
+      "portfolio_annualized_excess_return_arithmetic": 0.023530815830602726,
+      "portfolio_information_ratio": 0.297925797598641,
+      "portfolio_maximum_drawdown": -0.2726438249324663,
+      "portfolio_mean_turnover": 0.596629266911902,
+      "portfolio_mean_realized_weight_fraction": 0.9994
+    },
+    {
+      "pipeline": "size_neutralized",
+      "year": 2023,
+      "observations": 50,
+      "mean_rank_ic": 0.0953380355514661,
+      "rank_ic_std": 0.1458032005902466,
+      "annualized_icir": 4.7152075440216965,
+      "mean_top_minus_bottom": 0.009451738866630111,
+      "portfolio_periods": 50,
+      "portfolio_annualized_return": 0.08285765367774078,
+      "portfolio_annualized_volatility": 0.1825163154132339,
+      "portfolio_sharpe_zero_rate": 0.5246454496964004,
+      "portfolio_annualized_excess_return_arithmetic": 0.06863474525251305,
+      "portfolio_information_ratio": 0.8804565951182982,
+      "portfolio_maximum_drawdown": -0.10111158208036386,
+      "portfolio_mean_turnover": 0.6082185759929442,
+      "portfolio_mean_realized_weight_fraction": 0.9985
+    },
+    {
+      "pipeline": "size_neutralized",
+      "year": 2024,
+      "observations": 52,
+      "mean_rank_ic": 0.102424622194979,
+      "rank_ic_std": 0.16593596119138826,
+      "annualized_icir": 4.451081303203245,
+      "mean_top_minus_bottom": 0.01369636568617633,
+      "portfolio_periods": 52,
+      "portfolio_annualized_return": 0.01873835506680721,
+      "portfolio_annualized_volatility": 0.4759732417267355,
+      "portfolio_sharpe_zero_rate": 0.2667897471248978,
+      "portfolio_annualized_excess_return_arithmetic": 0.038618744600595424,
+      "portfolio_information_ratio": 0.3260900596643299,
+      "portfolio_maximum_drawdown": -0.2776454609410738,
+      "portfolio_mean_turnover": 0.5549359794939248,
+      "portfolio_mean_realized_weight_fraction": 0.99875
+    },
+    {
+      "pipeline": "size_neutralized",
+      "year": 2025,
+      "observations": 53,
+      "mean_rank_ic": 0.09052883487757912,
+      "rank_ic_std": 0.17211585570520427,
+      "annualized_icir": 3.7928679460907415,
+      "mean_top_minus_bottom": 0.00454301960105099,
+      "portfolio_periods": 53,
+      "portfolio_annualized_return": 0.5396922590710982,
+      "portfolio_annualized_volatility": 0.19332736782837157,
+      "portfolio_sharpe_zero_rate": 2.3363799870842077,
+      "portfolio_annualized_excess_return_arithmetic": -0.08781514917304137,
+      "portfolio_information_ratio": -0.8200500834217621,
+      "portfolio_maximum_drawdown": -0.11705221066257954,
+      "portfolio_mean_turnover": 0.534526148676665,
+      "portfolio_mean_realized_weight_fraction": 0.9989622641509434
+    },
+    {
+      "pipeline": "size_neutralized",
+      "year": 2026,
+      "observations": 36,
+      "mean_rank_ic": 0.0808088410447636,
+      "rank_ic_std": 0.21890543185665629,
+      "annualized_icir": 2.6619752413316347,
+      "mean_top_minus_bottom": 0.010174123185108151,
+      "portfolio_periods": 36,
+      "portfolio_annualized_return": 0.09401470480806884,
+      "portfolio_annualized_volatility": 0.20668996345520685,
+      "portfolio_sharpe_zero_rate": 0.5362931834467297,
+      "portfolio_annualized_excess_return_arithmetic": 0.19850229952933449,
+      "portfolio_information_ratio": 0.9972624292233154,
+      "portfolio_maximum_drawdown": -0.15356579368241818,
+      "portfolio_mean_turnover": 0.5264255494844673,
+      "portfolio_mean_realized_weight_fraction": 0.9995833333333333
+    }
+  ],
+  "size_neutralization_oos_bootstrap__v1": [
+    {
+      "metric": "size_neutralized_minus_raw_rank_ic",
+      "observations": 293,
+      "point_estimate": -0.0033549713519252645,
+      "ci_2_5pct": -0.007014028862292412,
+      "ci_97_5pct": 0.00025313750796796116,
+      "one_sided_probability_nonpositive": 0.9655172413793104,
+      "block_length_weeks": 13
+    },
+    {
+      "metric": "size_neutralized_minus_raw_net_return_annualized_arithmetic",
+      "observations": 293,
+      "point_estimate": -0.04846322581419264,
+      "ci_2_5pct": -0.08762867391696517,
+      "ci_97_5pct": -0.005449060689559533,
+      "one_sided_probability_nonpositive": 0.984007996001999,
+      "block_length_weeks": 13
+    }
+  ],
+  "size_neutralization_oos_exposures__v1": [
+    {
+      "asof_date": "2021-01-08",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.4726360771054592,
+      "selected_mean_size_z": -0.9935158848329325,
+      "selected_mean_size_percentile": 0.17883660213958227
+    },
+    {
+      "asof_date": "2021-01-08",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -4.127318848625545e-16,
+      "selected_mean_size_z": 0.8903327888805097,
+      "selected_mean_size_percentile": 0.7138487009679062
+    },
+    {
+      "asof_date": "2021-01-15",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.3543305297513116,
+      "selected_mean_size_z": -0.7735551303734934,
+      "selected_mean_size_percentile": 0.24291964285714285
+    },
+    {
+      "asof_date": "2021-01-15",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -2.0833649394868457e-16,
+      "selected_mean_size_z": 0.10077992837529333,
+      "selected_mean_size_percentile": 0.5402672193877551
+    },
+    {
+      "asof_date": "2021-01-22",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.3169628760792598,
+      "selected_mean_size_z": -0.8794208309873512,
+      "selected_mean_size_percentile": 0.21575222363405339
+    },
+    {
+      "asof_date": "2021-01-22",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 1.771436216495563e-16,
+      "selected_mean_size_z": 0.38231128905129297,
+      "selected_mean_size_percentile": 0.5881416772554003
+    },
+    {
+      "asof_date": "2021-01-29",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.2654436778868593,
+      "selected_mean_size_z": -0.7856861226066811,
+      "selected_mean_size_percentile": 0.2463734802431611
+    },
+    {
+      "asof_date": "2021-01-29",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -1.1833585723283623e-16,
+      "selected_mean_size_z": 0.14687416206252976,
+      "selected_mean_size_percentile": 0.5309656788247213
+    },
+    {
+      "asof_date": "2021-02-05",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.31874070014934613,
+      "selected_mean_size_z": -0.8541144976873586,
+      "selected_mean_size_percentile": 0.2186838400900901
+    },
+    {
+      "asof_date": "2021-02-05",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -1.7709657402143514e-17,
+      "selected_mean_size_z": 0.3356590891724666,
+      "selected_mean_size_percentile": 0.5917377533783784
+    },
+    {
+      "asof_date": "2021-02-10",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.3253464629146225,
+      "selected_mean_size_z": -0.6998428755587861,
+      "selected_mean_size_percentile": 0.27471529352481733
+    },
+    {
+      "asof_date": "2021-02-10",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -2.7217469835273537e-17,
+      "selected_mean_size_z": 0.4374316358972255,
+      "selected_mean_size_percentile": 0.6100951121189216
+    },
+    {
+      "asof_date": "2021-02-19",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.2350766215818954,
+      "selected_mean_size_z": -0.7480748350579753,
+      "selected_mean_size_percentile": 0.25829129886506935
+    },
+    {
+      "asof_date": "2021-02-19",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 7.992439367235125e-17,
+      "selected_mean_size_z": 0.3385724314864544,
+      "selected_mean_size_percentile": 0.5600662042875157
+    },
+    {
+      "asof_date": "2021-02-26",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.08510808664505941,
+      "selected_mean_size_z": -0.69090436140178,
+      "selected_mean_size_percentile": 0.28415177447772466
+    },
+    {
+      "asof_date": "2021-02-26",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -1.7273681612329337e-17,
+      "selected_mean_size_z": -0.3509334604648663,
+      "selected_mean_size_percentile": 0.4016391895293229
+    },
+    {
+      "asof_date": "2021-03-05",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.01823706021890964,
+      "selected_mean_size_z": -0.4801936141244103,
+      "selected_mean_size_percentile": 0.34217437767161174
+    },
+    {
+      "asof_date": "2021-03-05",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -2.8463719074164487e-18,
+      "selected_mean_size_z": -0.37137272783100217,
+      "selected_mean_size_percentile": 0.3815344480764395
+    },
+    {
+      "asof_date": "2021-03-12",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.11352335155454349,
+      "selected_mean_size_z": -0.5763957550067053,
+      "selected_mean_size_percentile": 0.3070618880241024
+    },
+    {
+      "asof_date": "2021-03-12",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -1.0911438989409513e-16,
+      "selected_mean_size_z": -0.02800229169604584,
+      "selected_mean_size_percentile": 0.47066783831282955
+    },
+    {
+      "asof_date": "2021-03-19",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "raw",
+      "score_log_size_correlation": 0.12303597356755842,
+      "selected_mean_size_z": -0.02014503462815485,
+      "selected_mean_size_percentile": 0.46811372745490987
+    },
+    {
+      "asof_date": "2021-03-19",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -4.87923589298424e-17,
+      "selected_mean_size_z": -0.6205771204223431,
+      "selected_mean_size_percentile": 0.3093336673346693
+    },
+    {
+      "asof_date": "2021-03-26",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "raw",
+      "score_log_size_correlation": 0.00425844223578446,
+      "selected_mean_size_z": -0.5807004502774943,
+      "selected_mean_size_percentile": 0.31161515453639077
+    },
+    {
+      "asof_date": "2021-03-26",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -1.0763845154017939e-17,
+      "selected_mean_size_z": -0.49013385521096475,
+      "selected_mean_size_percentile": 0.34561689930209366
+    },
+    {
+      "asof_date": "2021-04-02",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.04371657181829391,
+      "selected_mean_size_z": -0.704368330954925,
+      "selected_mean_size_percentile": 0.27264589024087416
+    },
+    {
+      "asof_date": "2021-04-02",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -5.290644034218532e-17,
+      "selected_mean_size_z": -0.45222462615485526,
+      "selected_mean_size_percentile": 0.34981375713930973
+    },
+    {
+      "asof_date": "2021-04-09",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "raw",
+      "score_log_size_correlation": 0.0533017690372287,
+      "selected_mean_size_z": -0.4567165807211375,
+      "selected_mean_size_percentile": 0.3449950470529965
+    },
+    {
+      "asof_date": "2021-04-09",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -1.302679173160176e-16,
+      "selected_mean_size_z": -0.600057773957896,
+      "selected_mean_size_percentile": 0.3167719167904903
+    },
+    {
+      "asof_date": "2021-04-16",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "raw",
+      "score_log_size_correlation": 0.09488205916385038,
+      "selected_mean_size_z": 0.10722271271328704,
+      "selected_mean_size_percentile": 0.508929802955665
+    },
+    {
+      "asof_date": "2021-04-16",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -9.927539863353709e-17,
+      "selected_mean_size_z": -0.3488372170393187,
+      "selected_mean_size_percentile": 0.3970135467980295
+    },
+    {
+      "asof_date": "2021-04-23",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.07716966191945755,
+      "selected_mean_size_z": -0.4146505920789767,
+      "selected_mean_size_percentile": 0.3705517326124355
+    },
+    {
+      "asof_date": "2021-04-23",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 3.0819742278396336e-17,
+      "selected_mean_size_z": 0.08664351369187998,
+      "selected_mean_size_percentile": 0.5110973212091423
+    },
+    {
+      "asof_date": "2021-04-30",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.17407638062947337,
+      "selected_mean_size_z": -0.5753541953024903,
+      "selected_mean_size_percentile": 0.3200706319702602
+    },
+    {
+      "asof_date": "2021-04-30",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 3.2037124770671435e-17,
+      "selected_mean_size_z": 0.07444881733900235,
+      "selected_mean_size_percentile": 0.5039343246592317
+    },
+    {
+      "asof_date": "2021-05-07",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.1768249019158997,
+      "selected_mean_size_z": -0.8087168121148406,
+      "selected_mean_size_percentile": 0.23889205248823964
+    },
+    {
+      "asof_date": "2021-05-07",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -1.3462003853070412e-17,
+      "selected_mean_size_z": -0.04142016764349012,
+      "selected_mean_size_percentile": 0.46640257489477593
+    },
+    {
+      "asof_date": "2021-05-14",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.1288017325288347,
+      "selected_mean_size_z": -0.6993937636261307,
+      "selected_mean_size_percentile": 0.28646827348745696
+    },
+    {
+      "asof_date": "2021-05-14",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -1.746528709163955e-17,
+      "selected_mean_size_z": 0.07844576078158277,
+      "selected_mean_size_percentile": 0.5009886866699459
+    },
+    {
+      "asof_date": "2021-05-21",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.12592587608393702,
+      "selected_mean_size_z": -0.8041126414573089,
+      "selected_mean_size_percentile": 0.2509046454767726
+    },
+    {
+      "asof_date": "2021-05-21",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -8.363250750275371e-17,
+      "selected_mean_size_z": -0.21609372705223565,
+      "selected_mean_size_percentile": 0.4133276283618582
+    },
+    {
+      "asof_date": "2021-05-28",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.12895024672056143,
+      "selected_mean_size_z": -0.6774997261911517,
+      "selected_mean_size_percentile": 0.28837551715745924
+    },
+    {
+      "asof_date": "2021-05-28",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 2.682880054458186e-17,
+      "selected_mean_size_z": -0.07826687834757116,
+      "selected_mean_size_percentile": 0.4600401557556583
+    },
+    {
+      "asof_date": "2021-06-04",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.05435199566840839,
+      "selected_mean_size_z": -0.4254371663430547,
+      "selected_mean_size_percentile": 0.36756246967491507
+    },
+    {
+      "asof_date": "2021-06-04",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 1.489834596742167e-17,
+      "selected_mean_size_z": -0.045670971743327946,
+      "selected_mean_size_percentile": 0.48383794274623965
+    },
+    {
+      "asof_date": "2021-06-11",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.06635256268469698,
+      "selected_mean_size_z": -0.3344403055028327,
+      "selected_mean_size_percentile": 0.4008629441624365
+    },
+    {
+      "asof_date": "2021-06-11",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 8.601020737625179e-17,
+      "selected_mean_size_z": 0.01048669159254406,
+      "selected_mean_size_percentile": 0.505545080976553
+    },
+    {
+      "asof_date": "2021-06-18",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.06452874700536702,
+      "selected_mean_size_z": -0.47567668407909935,
+      "selected_mean_size_percentile": 0.35897009165460686
+    },
+    {
+      "asof_date": "2021-06-18",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 4.706592612925838e-18,
+      "selected_mean_size_z": -0.20090222234083488,
+      "selected_mean_size_percentile": 0.4482103232030873
+    },
+    {
+      "asof_date": "2021-06-25",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.11459486615836766,
+      "selected_mean_size_z": -0.3901567832533398,
+      "selected_mean_size_percentile": 0.3784902714388662
+    },
+    {
+      "asof_date": "2021-06-25",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -7.466202344708387e-18,
+      "selected_mean_size_z": 0.20543374559292502,
+      "selected_mean_size_percentile": 0.548950876771559
+    },
+    {
+      "asof_date": "2021-07-02",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.10367278801290122,
+      "selected_mean_size_z": -0.6187074309403684,
+      "selected_mean_size_percentile": 0.3092432950191571
+    },
+    {
+      "asof_date": "2021-07-02",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 1.2543009570751264e-17,
+      "selected_mean_size_z": -0.12205528403719575,
+      "selected_mean_size_percentile": 0.4597312021072797
+    },
+    {
+      "asof_date": "2021-07-09",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.12063556184950242,
+      "selected_mean_size_z": -0.49558040318056656,
+      "selected_mean_size_percentile": 0.34344860481755307
+    },
+    {
+      "asof_date": "2021-07-09",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -2.3109493480901028e-17,
+      "selected_mean_size_z": 0.1524335539924972,
+      "selected_mean_size_percentile": 0.5298181492964464
+    },
+    {
+      "asof_date": "2021-07-16",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.22800412321118219,
+      "selected_mean_size_z": -0.728234747934975,
+      "selected_mean_size_percentile": 0.2746033825631253
+    },
+    {
+      "asof_date": "2021-07-16",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 6.986326353605181e-17,
+      "selected_mean_size_z": 0.48039588440752007,
+      "selected_mean_size_percentile": 0.6025934969032872
+    },
+    {
+      "asof_date": "2021-07-23",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.176107919645637,
+      "selected_mean_size_z": -0.6155516078742881,
+      "selected_mean_size_percentile": 0.29814119324934635
+    },
+    {
+      "asof_date": "2021-07-23",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 4.15316075984155e-17,
+      "selected_mean_size_z": 0.42256587050417954,
+      "selected_mean_size_percentile": 0.5870038031851676
+    },
+    {
+      "asof_date": "2021-07-30",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.1447694465574667,
+      "selected_mean_size_z": -0.7318118457708652,
+      "selected_mean_size_percentile": 0.2586084793936523
+    },
+    {
+      "asof_date": "2021-07-30",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -5.516774403653854e-17,
+      "selected_mean_size_z": 0.19817548907935353,
+      "selected_mean_size_percentile": 0.5125805305542397
+    },
+    {
+      "asof_date": "2021-08-06",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.1586978210961136,
+      "selected_mean_size_z": -0.5983024991471213,
+      "selected_mean_size_percentile": 0.29862370160528806
+    },
+    {
+      "asof_date": "2021-08-06",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 2.756682688722841e-17,
+      "selected_mean_size_z": 0.26119898498940836,
+      "selected_mean_size_percentile": 0.5464187913125591
+    },
+    {
+      "asof_date": "2021-08-13",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.07412516955640583,
+      "selected_mean_size_z": -0.5623988659834882,
+      "selected_mean_size_percentile": 0.3258035294117647
+    },
+    {
+      "asof_date": "2021-08-13",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -6.957450439092135e-17,
+      "selected_mean_size_z": -0.024354001349500977,
+      "selected_mean_size_percentile": 0.48204235294117653
+    },
+    {
+      "asof_date": "2021-08-20",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.12065546457966898,
+      "selected_mean_size_z": -0.6205145525198726,
+      "selected_mean_size_percentile": 0.3053356807511737
+    },
+    {
+      "asof_date": "2021-08-20",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 3.549277681428923e-17,
+      "selected_mean_size_z": -0.22441668737152567,
+      "selected_mean_size_percentile": 0.43527816901408456
+    },
+    {
+      "asof_date": "2021-08-27",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.0851595088599401,
+      "selected_mean_size_z": -0.4480400713708793,
+      "selected_mean_size_percentile": 0.3631559202813599
+    },
+    {
+      "asof_date": "2021-08-27",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 1.4982610877451785e-17,
+      "selected_mean_size_z": -0.039671860498796445,
+      "selected_mean_size_percentile": 0.4798159437280188
+    },
+    {
+      "asof_date": "2021-09-03",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.16103513703919403,
+      "selected_mean_size_z": -0.4680400104300139,
+      "selected_mean_size_percentile": 0.34807809568480297
+    },
+    {
+      "asof_date": "2021-09-03",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -4.70685587733127e-17,
+      "selected_mean_size_z": 0.2547964180897993,
+      "selected_mean_size_percentile": 0.551483348968105
+    },
+    {
+      "asof_date": "2021-09-10",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.23704524878335767,
+      "selected_mean_size_z": -0.7041640013852755,
+      "selected_mean_size_percentile": 0.2785854570960954
+    },
+    {
+      "asof_date": "2021-09-10",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -5.276320820943076e-17,
+      "selected_mean_size_z": 0.32111006697543815,
+      "selected_mean_size_percentile": 0.5740974982464344
+    },
+    {
+      "asof_date": "2021-09-17",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.15266449191049025,
+      "selected_mean_size_z": -0.5557313832941384,
+      "selected_mean_size_percentile": 0.32732563564264056
+    },
+    {
+      "asof_date": "2021-09-17",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -1.0925241615708313e-16,
+      "selected_mean_size_z": 0.27504435892004175,
+      "selected_mean_size_percentile": 0.5623746209470493
+    },
+    {
+      "asof_date": "2021-09-24",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.2125280228278146,
+      "selected_mean_size_z": -0.7893289767332066,
+      "selected_mean_size_percentile": 0.2517179846046186
+    },
+    {
+      "asof_date": "2021-09-24",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -7.814313352814877e-17,
+      "selected_mean_size_z": 0.08183317411104465,
+      "selected_mean_size_percentile": 0.4947200839748075
+    },
+    {
+      "asof_date": "2021-09-30",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.2650472198467011,
+      "selected_mean_size_z": -0.980443701047108,
+      "selected_mean_size_percentile": 0.1902292830540037
+    },
+    {
+      "asof_date": "2021-09-30",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -7.333777775488506e-18,
+      "selected_mean_size_z": 0.11825525337758414,
+      "selected_mean_size_percentile": 0.49588337988826814
+    },
+    {
+      "asof_date": "2021-10-08",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.20521678370580676,
+      "selected_mean_size_z": -0.9491275479455326,
+      "selected_mean_size_percentile": 0.20775308354666044
+    },
+    {
+      "asof_date": "2021-10-08",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 2.6799844513155512e-17,
+      "selected_mean_size_z": 0.000686174987868764,
+      "selected_mean_size_percentile": 0.47660693507097973
+    },
+    {
+      "asof_date": "2021-10-15",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.1869181831251079,
+      "selected_mean_size_z": -0.8648887921996365,
+      "selected_mean_size_percentile": 0.22488440985130112
+    },
+    {
+      "asof_date": "2021-10-15",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -1.1917562401434238e-16,
+      "selected_mean_size_z": 0.018131130240736384,
+      "selected_mean_size_percentile": 0.4809334340148699
+    },
+    {
+      "asof_date": "2021-10-22",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.22705851159432663,
+      "selected_mean_size_z": -1.0120848233007778,
+      "selected_mean_size_percentile": 0.18328855951829554
+    },
+    {
+      "asof_date": "2021-10-22",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 2.3903551352418667e-17,
+      "selected_mean_size_z": -0.01712507533652496,
+      "selected_mean_size_percentile": 0.4750156322371468
+    },
+    {
+      "asof_date": "2021-10-29",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.23934322921857631,
+      "selected_mean_size_z": -0.855559805634627,
+      "selected_mean_size_percentile": 0.2361513613290263
+    },
+    {
+      "asof_date": "2021-10-29",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 4.6018046974311425e-17,
+      "selected_mean_size_z": 0.2671138216199205,
+      "selected_mean_size_percentile": 0.572892247346562
+    },
+    {
+      "asof_date": "2021-11-05",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.09105381512217105,
+      "selected_mean_size_z": -0.6368914915404228,
+      "selected_mean_size_percentile": 0.29363044480295
+    },
+    {
+      "asof_date": "2021-11-05",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 4.4355242344343716e-18,
+      "selected_mean_size_z": 0.0056562219817041905,
+      "selected_mean_size_percentile": 0.49234501037105316
+    },
+    {
+      "asof_date": "2021-11-12",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.016118441733770958,
+      "selected_mean_size_z": -0.46627943959693124,
+      "selected_mean_size_percentile": 0.3504582086115589
+    },
+    {
+      "asof_date": "2021-11-12",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 3.529271453475455e-17,
+      "selected_mean_size_z": -0.19899381319747556,
+      "selected_mean_size_percentile": 0.4349401335482385
+    },
+    {
+      "asof_date": "2021-11-19",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "raw",
+      "score_log_size_correlation": 0.016495451244300696,
+      "selected_mean_size_z": -0.2515084618186709,
+      "selected_mean_size_percentile": 0.4150338535689695
+    },
+    {
+      "asof_date": "2021-11-19",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 7.01268977815747e-17,
+      "selected_mean_size_z": -0.14429996636981046,
+      "selected_mean_size_percentile": 0.45863208629791147
+    },
+    {
+      "asof_date": "2021-11-26",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "raw",
+      "score_log_size_correlation": 0.08311429142703457,
+      "selected_mean_size_z": -0.18304642295953052,
+      "selected_mean_size_percentile": 0.43333276020174233
+    },
+    {
+      "asof_date": "2021-11-26",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 1.5060553563565695e-16,
+      "selected_mean_size_z": -0.307543217706255,
+      "selected_mean_size_percentile": 0.4129911737734984
+    },
+    {
+      "asof_date": "2021-12-03",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.0063178427563442136,
+      "selected_mean_size_z": -0.22413142944434525,
+      "selected_mean_size_percentile": 0.42334725400457673
+    },
+    {
+      "asof_date": "2021-12-03",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -2.5478631586882144e-17,
+      "selected_mean_size_z": -0.10673173251586071,
+      "selected_mean_size_percentile": 0.4631287185354691
+    },
+    {
+      "asof_date": "2021-12-10",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.11605678431158975,
+      "selected_mean_size_z": -0.8630153276201742,
+      "selected_mean_size_percentile": 0.2319561743894088
+    },
+    {
+      "asof_date": "2021-12-10",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -1.580665736972198e-17,
+      "selected_mean_size_z": -0.5176930831041602,
+      "selected_mean_size_percentile": 0.3411818078064369
+    },
+    {
+      "asof_date": "2021-12-17",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "raw",
+      "score_log_size_correlation": 0.05264370388815798,
+      "selected_mean_size_z": -0.41351930989954483,
+      "selected_mean_size_percentile": 0.3689719626168224
+    },
+    {
+      "asof_date": "2021-12-17",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 3.468053987557351e-17,
+      "selected_mean_size_z": -0.5465587095489325,
+      "selected_mean_size_percentile": 0.335094027809437
+    },
+    {
+      "asof_date": "2021-12-24",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.038143308373335474,
+      "selected_mean_size_z": -0.5976023996454153,
+      "selected_mean_size_percentile": 0.3123421889191643
+    },
+    {
+      "asof_date": "2021-12-24",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 2.8675487570553843e-17,
+      "selected_mean_size_z": -0.3598419488614558,
+      "selected_mean_size_percentile": 0.37560513169845594
+    },
+    {
+      "asof_date": "2021-12-31",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.02224055017198841,
+      "selected_mean_size_z": -0.5884346845386584,
+      "selected_mean_size_percentile": 0.3116564695218672
+    },
+    {
+      "asof_date": "2021-12-31",
+      "split": "historical_oos",
+      "test_year": 2021,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 8.451402343589638e-17,
+      "selected_mean_size_z": -0.3183913243786575,
+      "selected_mean_size_percentile": 0.39148425107636525
+    },
+    {
+      "asof_date": "2022-01-07",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "raw",
+      "score_log_size_correlation": 0.03447588145126367,
+      "selected_mean_size_z": -0.17439452605776143,
+      "selected_mean_size_percentile": 0.4332846467391305
+    },
+    {
+      "asof_date": "2022-01-07",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 7.060036242907805e-17,
+      "selected_mean_size_z": -0.5608515660324878,
+      "selected_mean_size_percentile": 0.3302049365942029
+    },
+    {
+      "asof_date": "2022-01-14",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "raw",
+      "score_log_size_correlation": 0.0806899935279021,
+      "selected_mean_size_z": -0.23607595351940364,
+      "selected_mean_size_percentile": 0.42687740330242024
+    },
+    {
+      "asof_date": "2022-01-14",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 3.8665210979759434e-17,
+      "selected_mean_size_z": -0.6459366328909752,
+      "selected_mean_size_percentile": 0.3085353992309432
+    },
+    {
+      "asof_date": "2022-01-21",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.05029715138889889,
+      "selected_mean_size_z": -0.7015306603696954,
+      "selected_mean_size_percentile": 0.2907941708088568
+    },
+    {
+      "asof_date": "2022-01-21",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -1.2405393035153941e-18,
+      "selected_mean_size_z": -0.5897680035755072,
+      "selected_mean_size_percentile": 0.3273169905106191
+    },
+    {
+      "asof_date": "2022-01-28",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.08190597201598512,
+      "selected_mean_size_z": -0.7977498310170745,
+      "selected_mean_size_percentile": 0.2578844854762441
+    },
+    {
+      "asof_date": "2022-01-28",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 4.6015630651350276e-17,
+      "selected_mean_size_z": -0.46452965093938126,
+      "selected_mean_size_percentile": 0.3651598739022742
+    },
+    {
+      "asof_date": "2022-02-11",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.10380046995199405,
+      "selected_mean_size_z": -0.9342616042766457,
+      "selected_mean_size_percentile": 0.2058953880764904
+    },
+    {
+      "asof_date": "2022-02-11",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -4.8281913842863436e-17,
+      "selected_mean_size_z": -0.5184691695095281,
+      "selected_mean_size_percentile": 0.3332508436445444
+    },
+    {
+      "asof_date": "2022-02-18",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.04163757509570137,
+      "selected_mean_size_z": -0.8477098896043418,
+      "selected_mean_size_percentile": 0.235495171794296
+    },
+    {
+      "asof_date": "2022-02-18",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -3.259237628913897e-17,
+      "selected_mean_size_z": -0.6730162888810266,
+      "selected_mean_size_percentile": 0.2915169548618909
+    },
+    {
+      "asof_date": "2022-02-25",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.049502491986374554,
+      "selected_mean_size_z": -0.7282848670973152,
+      "selected_mean_size_percentile": 0.2699169658886894
+    },
+    {
+      "asof_date": "2022-02-25",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 1.0887401417205216e-16,
+      "selected_mean_size_z": -0.3880089505162021,
+      "selected_mean_size_percentile": 0.37006508078994615
+    },
+    {
+      "asof_date": "2022-03-04",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.014384016081811791,
+      "selected_mean_size_z": -0.7404230793800383,
+      "selected_mean_size_percentile": 0.26828061911170925
+    },
+    {
+      "asof_date": "2022-03-04",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 9.370148998522548e-18,
+      "selected_mean_size_z": -0.6444394159955417,
+      "selected_mean_size_percentile": 0.3002074921489457
+    },
+    {
+      "asof_date": "2022-03-11",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.041904477396660755,
+      "selected_mean_size_z": -0.8662142351134622,
+      "selected_mean_size_percentile": 0.23812976243836842
+    },
+    {
+      "asof_date": "2022-03-11",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -1.9821010547315176e-17,
+      "selected_mean_size_z": -0.41885132300157346,
+      "selected_mean_size_percentile": 0.369634692962797
+    },
+    {
+      "asof_date": "2022-03-18",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.04716405291855184,
+      "selected_mean_size_z": -0.9483541157653016,
+      "selected_mean_size_percentile": 0.2112086684539768
+    },
+    {
+      "asof_date": "2022-03-18",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 3.61308821790023e-17,
+      "selected_mean_size_z": -0.6578676304598008,
+      "selected_mean_size_percentile": 0.3078719839142091
+    },
+    {
+      "asof_date": "2022-03-25",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "raw",
+      "score_log_size_correlation": 0.02345911810716096,
+      "selected_mean_size_z": -0.8672662363666968,
+      "selected_mean_size_percentile": 0.2308368620459104
+    },
+    {
+      "asof_date": "2022-03-25",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 2.0043481152725072e-17,
+      "selected_mean_size_z": -0.7938563566617102,
+      "selected_mean_size_percentile": 0.2565221751727212
+    },
+    {
+      "asof_date": "2022-04-01",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.0976528921759213,
+      "selected_mean_size_z": -0.9366223706270717,
+      "selected_mean_size_percentile": 0.217225189141077
+    },
+    {
+      "asof_date": "2022-04-01",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -2.5006300739485798e-17,
+      "selected_mean_size_z": -0.5176386385403178,
+      "selected_mean_size_percentile": 0.3477659101023587
+    },
+    {
+      "asof_date": "2022-04-08",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.09935119135967671,
+      "selected_mean_size_z": -0.9594174561850796,
+      "selected_mean_size_percentile": 0.20883229537366546
+    },
+    {
+      "asof_date": "2022-04-08",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 4.742970720809143e-18,
+      "selected_mean_size_z": -0.588170024948958,
+      "selected_mean_size_percentile": 0.32411143238434165
+    },
+    {
+      "asof_date": "2022-04-15",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.15150540853520603,
+      "selected_mean_size_z": -1.026566930336708,
+      "selected_mean_size_percentile": 0.18651009316770184
+    },
+    {
+      "asof_date": "2022-04-15",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 4.8649431467984236e-17,
+      "selected_mean_size_z": -0.4220110385782568,
+      "selected_mean_size_percentile": 0.3748408385093168
+    },
+    {
+      "asof_date": "2022-04-22",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.06150128300415929,
+      "selected_mean_size_z": -0.959434251355919,
+      "selected_mean_size_percentile": 0.20312140645731977
+    },
+    {
+      "asof_date": "2022-04-22",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 7.523305136982478e-17,
+      "selected_mean_size_z": -0.7252798120995351,
+      "selected_mean_size_percentile": 0.2799762273330385
+    },
+    {
+      "asof_date": "2022-04-29",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.23772586513845578,
+      "selected_mean_size_z": -0.9778139125810236,
+      "selected_mean_size_percentile": 0.19784566807001994
+    },
+    {
+      "asof_date": "2022-04-29",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 2.6188494462996214e-17,
+      "selected_mean_size_z": -0.031486361764801664,
+      "selected_mean_size_percentile": 0.47300299135829826
+    },
+    {
+      "asof_date": "2022-05-06",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.11870045860408485,
+      "selected_mean_size_z": -0.8334837956125276,
+      "selected_mean_size_percentile": 0.24095010024504343
+    },
+    {
+      "asof_date": "2022-05-06",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 4.811544593801387e-17,
+      "selected_mean_size_z": -0.06374035738008431,
+      "selected_mean_size_percentile": 0.45392403653374913
+    },
+    {
+      "asof_date": "2022-05-13",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.04542031717817505,
+      "selected_mean_size_z": -0.710852852811578,
+      "selected_mean_size_percentile": 0.2807577777777778
+    },
+    {
+      "asof_date": "2022-05-13",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 4.1036046261793286e-17,
+      "selected_mean_size_z": -0.25179194706918656,
+      "selected_mean_size_percentile": 0.41215555555555555
+    },
+    {
+      "asof_date": "2022-05-20",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.119863665797238,
+      "selected_mean_size_z": -0.8567371970516394,
+      "selected_mean_size_percentile": 0.2380731707317073
+    },
+    {
+      "asof_date": "2022-05-20",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -8.215085204828551e-17,
+      "selected_mean_size_z": -0.04864461769958153,
+      "selected_mean_size_percentile": 0.4676723946784922
+    },
+    {
+      "asof_date": "2022-05-27",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.10511022954377015,
+      "selected_mean_size_z": -1.019423411182049,
+      "selected_mean_size_percentile": 0.1917121546961326
+    },
+    {
+      "asof_date": "2022-05-27",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -1.951352079457256e-17,
+      "selected_mean_size_z": -0.34358439171994215,
+      "selected_mean_size_percentile": 0.3751370165745856
+    },
+    {
+      "asof_date": "2022-06-02",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "raw",
+      "score_log_size_correlation": 0.04265780212636931,
+      "selected_mean_size_z": -0.2632354394456556,
+      "selected_mean_size_percentile": 0.40179398148148143
+    },
+    {
+      "asof_date": "2022-06-02",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -5.903028300405374e-17,
+      "selected_mean_size_z": -0.3696045772042864,
+      "selected_mean_size_percentile": 0.3780913800705467
+    },
+    {
+      "asof_date": "2022-06-10",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.25078031149295765,
+      "selected_mean_size_z": -0.9935341185084162,
+      "selected_mean_size_percentile": 0.19158079368559527
+    },
+    {
+      "asof_date": "2022-06-10",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -1.7987240753686725e-16,
+      "selected_mean_size_z": 0.2339403350640942,
+      "selected_mean_size_percentile": 0.5361335233501425
+    },
+    {
+      "asof_date": "2022-06-17",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.15557843363760812,
+      "selected_mean_size_z": -0.9246539500130612,
+      "selected_mean_size_percentile": 0.21867705133830626
+    },
+    {
+      "asof_date": "2022-06-17",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 3.607039413198891e-17,
+      "selected_mean_size_z": 0.007887823562712767,
+      "selected_mean_size_percentile": 0.4768999561211058
+    },
+    {
+      "asof_date": "2022-06-24",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.03707048275382069,
+      "selected_mean_size_z": -0.3761966314976742,
+      "selected_mean_size_percentile": 0.37957867630944564
+    },
+    {
+      "asof_date": "2022-06-24",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 4.154368146161255e-17,
+      "selected_mean_size_z": 0.08898626612747834,
+      "selected_mean_size_percentile": 0.5120222441376288
+    },
+    {
+      "asof_date": "2022-07-01",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.08913273156339434,
+      "selected_mean_size_z": -0.6390609084587902,
+      "selected_mean_size_percentile": 0.30483074057844
+    },
+    {
+      "asof_date": "2022-07-01",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 1.6950130745792444e-17,
+      "selected_mean_size_z": -0.020883254720697287,
+      "selected_mean_size_percentile": 0.48071812007011394
+    },
+    {
+      "asof_date": "2022-07-08",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.07105334115087425,
+      "selected_mean_size_z": -0.3943444216400421,
+      "selected_mean_size_percentile": 0.38746663019693656
+    },
+    {
+      "asof_date": "2022-07-08",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 2.0377947786900244e-17,
+      "selected_mean_size_z": 0.07646512364824125,
+      "selected_mean_size_percentile": 0.5263588621444201
+    },
+    {
+      "asof_date": "2022-07-15",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.026065595270987257,
+      "selected_mean_size_z": -0.5841552447797236,
+      "selected_mean_size_percentile": 0.3222535519125683
+    },
+    {
+      "asof_date": "2022-07-15",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 0.0,
+      "selected_mean_size_z": -0.2683805619399397,
+      "selected_mean_size_percentile": 0.42355683060109295
+    },
+    {
+      "asof_date": "2022-07-22",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "raw",
+      "score_log_size_correlation": 0.05645062492254812,
+      "selected_mean_size_z": 0.1661599881538735,
+      "selected_mean_size_percentile": 0.5249344692005242
+    },
+    {
+      "asof_date": "2022-07-22",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 3.8158529608023127e-17,
+      "selected_mean_size_z": -0.10197660304398663,
+      "selected_mean_size_percentile": 0.4645707732634338
+    },
+    {
+      "asof_date": "2022-07-29",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "raw",
+      "score_log_size_correlation": 0.07965595363793446,
+      "selected_mean_size_z": 0.01164217837171405,
+      "selected_mean_size_percentile": 0.49447764449291165
+    },
+    {
+      "asof_date": "2022-07-29",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 7.383348301544768e-17,
+      "selected_mean_size_z": -0.2820970947223179,
+      "selected_mean_size_percentile": 0.4204351145038169
+    },
+    {
+      "asof_date": "2022-08-05",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "raw",
+      "score_log_size_correlation": 0.013478515353347573,
+      "selected_mean_size_z": -0.21673763218963166,
+      "selected_mean_size_percentile": 0.4204297214969539
+    },
+    {
+      "asof_date": "2022-08-05",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -6.652687526639451e-17,
+      "selected_mean_size_z": -0.1119982864865067,
+      "selected_mean_size_percentile": 0.46889632288946914
+    },
+    {
+      "asof_date": "2022-08-12",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "raw",
+      "score_log_size_correlation": 0.03536459310016045,
+      "selected_mean_size_z": -0.26322104312123806,
+      "selected_mean_size_percentile": 0.4183355048859935
+    },
+    {
+      "asof_date": "2022-08-12",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 2.2055617863017406e-17,
+      "selected_mean_size_z": -0.21065186775390213,
+      "selected_mean_size_percentile": 0.4387155266015201
+    },
+    {
+      "asof_date": "2022-08-19",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.009162998203580205,
+      "selected_mean_size_z": -0.49777465876558114,
+      "selected_mean_size_percentile": 0.35420164430982254
+    },
+    {
+      "asof_date": "2022-08-19",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 5.194661086743135e-17,
+      "selected_mean_size_z": -0.19816286689866264,
+      "selected_mean_size_percentile": 0.4462765036780614
+    },
+    {
+      "asof_date": "2022-08-26",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.12151985305913421,
+      "selected_mean_size_z": -0.9202642380423821,
+      "selected_mean_size_percentile": 0.22580146899978398
+    },
+    {
+      "asof_date": "2022-08-26",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 7.592064589003015e-17,
+      "selected_mean_size_z": -0.2940731926982047,
+      "selected_mean_size_percentile": 0.40832253186433354
+    },
+    {
+      "asof_date": "2022-09-02",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.002235612896206288,
+      "selected_mean_size_z": -0.7879044326119032,
+      "selected_mean_size_percentile": 0.26487077320697827
+    },
+    {
+      "asof_date": "2022-09-02",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 1.1485851033569446e-17,
+      "selected_mean_size_z": -0.6970464643766353,
+      "selected_mean_size_percentile": 0.2954135257376696
+    },
+    {
+      "asof_date": "2022-09-09",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.16446794951760665,
+      "selected_mean_size_z": -1.0390750716824986,
+      "selected_mean_size_percentile": 0.18783856405846946
+    },
+    {
+      "asof_date": "2022-09-09",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 3.9826056071085194e-17,
+      "selected_mean_size_z": -0.3442885531062576,
+      "selected_mean_size_percentile": 0.39381556319862426
+    },
+    {
+      "asof_date": "2022-09-16",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.15497173012430324,
+      "selected_mean_size_z": -1.0249522131311875,
+      "selected_mean_size_percentile": 0.1852395788568973
+    },
+    {
+      "asof_date": "2022-09-16",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -1.457770209250649e-17,
+      "selected_mean_size_z": -0.5542988683452205,
+      "selected_mean_size_percentile": 0.337222819080361
+    },
+    {
+      "asof_date": "2022-09-23",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.0683720560049877,
+      "selected_mean_size_z": -0.9498178845978,
+      "selected_mean_size_percentile": 0.20919147569072608
+    },
+    {
+      "asof_date": "2022-09-23",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 2.3388337214466957e-18,
+      "selected_mean_size_z": -0.6681413436046678,
+      "selected_mean_size_percentile": 0.2920807453416149
+    },
+    {
+      "asof_date": "2022-09-30",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.0877709444588051,
+      "selected_mean_size_z": -0.9801290276144599,
+      "selected_mean_size_percentile": 0.19599551377910704
+    },
+    {
+      "asof_date": "2022-09-30",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 5.521251910419061e-17,
+      "selected_mean_size_z": -0.4971919316890519,
+      "selected_mean_size_percentile": 0.3463640247810297
+    },
+    {
+      "asof_date": "2022-10-14",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.02007856294294986,
+      "selected_mean_size_z": -0.7102231168325129,
+      "selected_mean_size_percentile": 0.2853464818763326
+    },
+    {
+      "asof_date": "2022-10-14",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -2.3884810764752542e-17,
+      "selected_mean_size_z": -0.35865065115367,
+      "selected_mean_size_percentile": 0.39548507462686566
+    },
+    {
+      "asof_date": "2022-10-21",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "raw",
+      "score_log_size_correlation": 0.03907973576612789,
+      "selected_mean_size_z": -0.34491933335266106,
+      "selected_mean_size_percentile": 0.3958155877342419
+    },
+    {
+      "asof_date": "2022-10-21",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -1.1900197437125271e-16,
+      "selected_mean_size_z": -0.3359366559090923,
+      "selected_mean_size_percentile": 0.40742120954003413
+    },
+    {
+      "asof_date": "2022-10-28",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.0029598217313505787,
+      "selected_mean_size_z": -0.20088640872138616,
+      "selected_mean_size_percentile": 0.4234153731660642
+    },
+    {
+      "asof_date": "2022-10-28",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -1.4922530836302659e-18,
+      "selected_mean_size_z": 0.07138255652441423,
+      "selected_mean_size_percentile": 0.5117951307675952
+    },
+    {
+      "asof_date": "2022-11-04",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.018366037731178238,
+      "selected_mean_size_z": -0.05512832587753314,
+      "selected_mean_size_percentile": 0.4693294754724995
+    },
+    {
+      "asof_date": "2022-11-04",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -1.8723184378335208e-16,
+      "selected_mean_size_z": 0.21978241507131738,
+      "selected_mean_size_percentile": 0.5517179868337226
+    },
+    {
+      "asof_date": "2022-11-11",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.023414675015959566,
+      "selected_mean_size_z": -0.6977634719830462,
+      "selected_mean_size_percentile": 0.28780303030303034
+    },
+    {
+      "asof_date": "2022-11-11",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -3.8856986602213715e-17,
+      "selected_mean_size_z": -0.5062760187162867,
+      "selected_mean_size_percentile": 0.34926043653316374
+    },
+    {
+      "asof_date": "2022-11-18",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "raw",
+      "score_log_size_correlation": 0.026525812322534988,
+      "selected_mean_size_z": -0.2741500465987322,
+      "selected_mean_size_percentile": 0.41172380952380955
+    },
+    {
+      "asof_date": "2022-11-18",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -1.8603591291276916e-16,
+      "selected_mean_size_z": -0.19619751916894182,
+      "selected_mean_size_percentile": 0.43579523809523807
+    },
+    {
+      "asof_date": "2022-11-25",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.0777933605807109,
+      "selected_mean_size_z": -0.8451420821812272,
+      "selected_mean_size_percentile": 0.23888178744982042
+    },
+    {
+      "asof_date": "2022-11-25",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 6.508501966093596e-17,
+      "selected_mean_size_z": -0.5849045483948637,
+      "selected_mean_size_percentile": 0.32053929854215085
+    },
+    {
+      "asof_date": "2022-12-02",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "raw",
+      "score_log_size_correlation": 0.009530014173651416,
+      "selected_mean_size_z": -0.6433364517717108,
+      "selected_mean_size_percentile": 0.29650031652247316
+    },
+    {
+      "asof_date": "2022-12-02",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 9.511812914488863e-18,
+      "selected_mean_size_z": -0.6667976413054643,
+      "selected_mean_size_percentile": 0.2946613209537877
+    },
+    {
+      "asof_date": "2022-12-09",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.16145044762312952,
+      "selected_mean_size_z": -0.9805531786653989,
+      "selected_mean_size_percentile": 0.1986938409618224
+    },
+    {
+      "asof_date": "2022-12-09",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 4.0148711679769635e-17,
+      "selected_mean_size_z": -0.3303541025064512,
+      "selected_mean_size_percentile": 0.39020090698164944
+    },
+    {
+      "asof_date": "2022-12-16",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.04821597243080433,
+      "selected_mean_size_z": -0.9812548809922826,
+      "selected_mean_size_percentile": 0.2018851337123605
+    },
+    {
+      "asof_date": "2022-12-16",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -2.5127725546445087e-17,
+      "selected_mean_size_z": -0.8161948100369731,
+      "selected_mean_size_percentile": 0.2573146978311224
+    },
+    {
+      "asof_date": "2022-12-23",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.05728903343751426,
+      "selected_mean_size_z": -0.9737685252349969,
+      "selected_mean_size_percentile": 0.20417543675015787
+    },
+    {
+      "asof_date": "2022-12-23",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -7.37689206643112e-17,
+      "selected_mean_size_z": -0.6807561474760797,
+      "selected_mean_size_percentile": 0.2949263312986739
+    },
+    {
+      "asof_date": "2022-12-30",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.11330087327932861,
+      "selected_mean_size_z": -1.1332646340889776,
+      "selected_mean_size_percentile": 0.15726628151260505
+    },
+    {
+      "asof_date": "2022-12-30",
+      "split": "historical_oos",
+      "test_year": 2022,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 2.0627968449801985e-17,
+      "selected_mean_size_z": -0.685566869862173,
+      "selected_mean_size_percentile": 0.295811974789916
+    },
+    {
+      "asof_date": "2023-01-06",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.04010626350364342,
+      "selected_mean_size_z": -0.7234214640021225,
+      "selected_mean_size_percentile": 0.28600146966197776
+    },
+    {
+      "asof_date": "2023-01-06",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 6.94322985674591e-17,
+      "selected_mean_size_z": -0.20963005080841218,
+      "selected_mean_size_percentile": 0.44066869619987403
+    },
+    {
+      "asof_date": "2023-01-13",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.1259367538830607,
+      "selected_mean_size_z": -0.9611899664923795,
+      "selected_mean_size_percentile": 0.21540056698866025
+    },
+    {
+      "asof_date": "2023-01-13",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -2.941984018707659e-17,
+      "selected_mean_size_z": -0.30681664505410045,
+      "selected_mean_size_percentile": 0.41123635027299454
+    },
+    {
+      "asof_date": "2023-01-20",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.11502107883397424,
+      "selected_mean_size_z": -0.7011093037704572,
+      "selected_mean_size_percentile": 0.28622139407936176
+    },
+    {
+      "asof_date": "2023-01-20",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 1.9773623975445285e-17,
+      "selected_mean_size_z": 0.04579461940549681,
+      "selected_mean_size_percentile": 0.49116733151375186
+    },
+    {
+      "asof_date": "2023-02-03",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "raw",
+      "score_log_size_correlation": 0.10745379100820421,
+      "selected_mean_size_z": 0.2512609779495561,
+      "selected_mean_size_percentile": 0.5484146725440806
+    },
+    {
+      "asof_date": "2023-02-03",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -2.014619782122143e-17,
+      "selected_mean_size_z": -0.30260746021477763,
+      "selected_mean_size_percentile": 0.40828348026868183
+    },
+    {
+      "asof_date": "2023-02-10",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "raw",
+      "score_log_size_correlation": 0.11623479995951393,
+      "selected_mean_size_z": 0.18457869439856778,
+      "selected_mean_size_percentile": 0.5327546635925383
+    },
+    {
+      "asof_date": "2023-02-10",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -1.575456661187442e-16,
+      "selected_mean_size_z": -0.339240344095497,
+      "selected_mean_size_percentile": 0.391034374345001
+    },
+    {
+      "asof_date": "2023-02-17",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "raw",
+      "score_log_size_correlation": 0.06462124359512966,
+      "selected_mean_size_z": 0.17369668867207694,
+      "selected_mean_size_percentile": 0.5267508893073866
+    },
+    {
+      "asof_date": "2023-02-17",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -7.532688054451238e-17,
+      "selected_mean_size_z": -0.2159325788093169,
+      "selected_mean_size_percentile": 0.42815442561205275
+    },
+    {
+      "asof_date": "2023-02-24",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "raw",
+      "score_log_size_correlation": 0.06487238152334683,
+      "selected_mean_size_z": -0.13880833882403246,
+      "selected_mean_size_percentile": 0.4476270920502092
+    },
+    {
+      "asof_date": "2023-02-24",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 1.569074711961708e-17,
+      "selected_mean_size_z": -0.5115772830826656,
+      "selected_mean_size_percentile": 0.3409879707112971
+    },
+    {
+      "asof_date": "2023-03-03",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.04299901058276092,
+      "selected_mean_size_z": -0.48901324621418835,
+      "selected_mean_size_percentile": 0.34829713927751094
+    },
+    {
+      "asof_date": "2023-03-03",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 1.5252720201814074e-17,
+      "selected_mean_size_z": -0.3109378915899945,
+      "selected_mean_size_percentile": 0.397924410106494
+    },
+    {
+      "asof_date": "2023-03-10",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "raw",
+      "score_log_size_correlation": 0.041782178663228954,
+      "selected_mean_size_z": -0.43216613588925673,
+      "selected_mean_size_percentile": 0.36068456725755993
+    },
+    {
+      "asof_date": "2023-03-10",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -1.250474914470458e-16,
+      "selected_mean_size_z": -0.5285716163474858,
+      "selected_mean_size_percentile": 0.3325015641293014
+    },
+    {
+      "asof_date": "2023-03-17",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.09911672812809687,
+      "selected_mean_size_z": -0.6596576186157272,
+      "selected_mean_size_percentile": 0.29377370285476145
+    },
+    {
+      "asof_date": "2023-03-17",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -1.3760209932610395e-17,
+      "selected_mean_size_z": -0.2426210611690626,
+      "selected_mean_size_percentile": 0.4256183579912482
+    },
+    {
+      "asof_date": "2023-03-24",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.03024964773999296,
+      "selected_mean_size_z": -0.40115727954972885,
+      "selected_mean_size_percentile": 0.3766069941715237
+    },
+    {
+      "asof_date": "2023-03-24",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -4.685535704168394e-17,
+      "selected_mean_size_z": -0.0537696882078552,
+      "selected_mean_size_percentile": 0.48541319733555377
+    },
+    {
+      "asof_date": "2023-03-31",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.10705879078179963,
+      "selected_mean_size_z": -0.623777554653332,
+      "selected_mean_size_percentile": 0.3111076475477972
+    },
+    {
+      "asof_date": "2023-03-31",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 6.811077383095857e-17,
+      "selected_mean_size_z": 0.08445089867317596,
+      "selected_mean_size_percentile": 0.5255818786367414
+    },
+    {
+      "asof_date": "2023-04-07",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.12510190064679017,
+      "selected_mean_size_z": -0.6481813260852237,
+      "selected_mean_size_percentile": 0.302310566742786
+    },
+    {
+      "asof_date": "2023-04-07",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -3.011285036079384e-17,
+      "selected_mean_size_z": 0.3061913456127623,
+      "selected_mean_size_percentile": 0.575342536848661
+    },
+    {
+      "asof_date": "2023-04-14",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.13716569500226972,
+      "selected_mean_size_z": -0.8607037859720214,
+      "selected_mean_size_percentile": 0.22952775476387735
+    },
+    {
+      "asof_date": "2023-04-14",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -6.404900736809788e-17,
+      "selected_mean_size_z": -0.18967003138587224,
+      "selected_mean_size_percentile": 0.4337510356255178
+    },
+    {
+      "asof_date": "2023-04-21",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.20485591943837272,
+      "selected_mean_size_z": -1.0090946084840886,
+      "selected_mean_size_percentile": 0.18007337742868956
+    },
+    {
+      "asof_date": "2023-04-21",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 1.2166915203142157e-16,
+      "selected_mean_size_z": -0.35001374226833065,
+      "selected_mean_size_percentile": 0.3723635799917321
+    },
+    {
+      "asof_date": "2023-04-28",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.17622133567168782,
+      "selected_mean_size_z": -0.8125956737327615,
+      "selected_mean_size_percentile": 0.2516611261167671
+    },
+    {
+      "asof_date": "2023-04-28",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 5.92964421110216e-17,
+      "selected_mean_size_z": 0.05963059517802528,
+      "selected_mean_size_percentile": 0.5106305838354457
+    },
+    {
+      "asof_date": "2023-05-05",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.18699292077777008,
+      "selected_mean_size_z": -0.927862935815549,
+      "selected_mean_size_percentile": 0.21903814002089864
+    },
+    {
+      "asof_date": "2023-05-05",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -3.8353977202655986e-17,
+      "selected_mean_size_z": 0.13464576235281686,
+      "selected_mean_size_percentile": 0.5363056426332288
+    },
+    {
+      "asof_date": "2023-05-12",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.09616794919468818,
+      "selected_mean_size_z": -0.8981017588180006,
+      "selected_mean_size_percentile": 0.2297851929092805
+    },
+    {
+      "asof_date": "2023-05-12",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 1.0913857398799816e-18,
+      "selected_mean_size_z": -0.5202339512203911,
+      "selected_mean_size_percentile": 0.3510401459854014
+    },
+    {
+      "asof_date": "2023-05-19",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "raw",
+      "score_log_size_correlation": 0.025208016977599505,
+      "selected_mean_size_z": -0.42113054782476944,
+      "selected_mean_size_percentile": 0.3772629937629938
+    },
+    {
+      "asof_date": "2023-05-19",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 2.119642020512491e-17,
+      "selected_mean_size_z": -0.39669501361672155,
+      "selected_mean_size_percentile": 0.38914656964656963
+    },
+    {
+      "asof_date": "2023-05-26",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "raw",
+      "score_log_size_correlation": 0.11597507178796591,
+      "selected_mean_size_z": 0.05973466252155081,
+      "selected_mean_size_percentile": 0.5149055624740556
+    },
+    {
+      "asof_date": "2023-05-26",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 6.796844801374122e-17,
+      "selected_mean_size_z": -0.30583301739188107,
+      "selected_mean_size_percentile": 0.4211768368617683
+    },
+    {
+      "asof_date": "2023-06-02",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "raw",
+      "score_log_size_correlation": 0.0242126985745431,
+      "selected_mean_size_z": -0.25179424460221483,
+      "selected_mean_size_percentile": 0.4155633802816901
+    },
+    {
+      "asof_date": "2023-06-02",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 7.892835519996551e-17,
+      "selected_mean_size_z": -0.24207821835121357,
+      "selected_mean_size_percentile": 0.42649855012427507
+    },
+    {
+      "asof_date": "2023-06-09",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.006988033357409862,
+      "selected_mean_size_z": -0.5255785949735126,
+      "selected_mean_size_percentile": 0.33950382468472184
+    },
+    {
+      "asof_date": "2023-06-09",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 4.006054086057997e-18,
+      "selected_mean_size_z": -0.3805299410221437,
+      "selected_mean_size_percentile": 0.3918751292123217
+    },
+    {
+      "asof_date": "2023-06-16",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.0346641124982842,
+      "selected_mean_size_z": -0.5182766515355194,
+      "selected_mean_size_percentile": 0.34036819306930693
+    },
+    {
+      "asof_date": "2023-06-16",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -5.615270596786613e-17,
+      "selected_mean_size_z": -0.06174664378150652,
+      "selected_mean_size_percentile": 0.46886035478547855
+    },
+    {
+      "asof_date": "2023-06-21",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.03652847523376861,
+      "selected_mean_size_z": -0.8199907181898203,
+      "selected_mean_size_percentile": 0.2412353425221148
+    },
+    {
+      "asof_date": "2023-06-21",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -9.61295990803567e-17,
+      "selected_mean_size_z": -0.4492306567492301,
+      "selected_mean_size_percentile": 0.3543735856819584
+    },
+    {
+      "asof_date": "2023-06-30",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "raw",
+      "score_log_size_correlation": 0.08398034295489115,
+      "selected_mean_size_z": -0.1389609769126516,
+      "selected_mean_size_percentile": 0.45061243331965534
+    },
+    {
+      "asof_date": "2023-06-30",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -1.118317068045452e-16,
+      "selected_mean_size_z": -0.4756898527183134,
+      "selected_mean_size_percentile": 0.360662700041034
+    },
+    {
+      "asof_date": "2023-07-07",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "raw",
+      "score_log_size_correlation": 0.029742743466584735,
+      "selected_mean_size_z": -0.5092035117533207,
+      "selected_mean_size_percentile": 0.35140923076923075
+    },
+    {
+      "asof_date": "2023-07-07",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -5.63477572331067e-17,
+      "selected_mean_size_z": -0.43942133819521456,
+      "selected_mean_size_percentile": 0.36829025641025637
+    },
+    {
+      "asof_date": "2023-07-14",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "raw",
+      "score_log_size_correlation": 0.03725487302505868,
+      "selected_mean_size_z": -0.4437934672832155,
+      "selected_mean_size_percentile": 0.37396350215296287
+    },
+    {
+      "asof_date": "2023-07-14",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -1.718093851925588e-17,
+      "selected_mean_size_z": -0.46845930663955043,
+      "selected_mean_size_percentile": 0.3678326840270658
+    },
+    {
+      "asof_date": "2023-07-21",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "raw",
+      "score_log_size_correlation": 0.10303469701455607,
+      "selected_mean_size_z": -0.3114271685348198,
+      "selected_mean_size_percentile": 0.40873311502251325
+    },
+    {
+      "asof_date": "2023-07-21",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -9.29399386265802e-17,
+      "selected_mean_size_z": -0.5844511276099292,
+      "selected_mean_size_percentile": 0.326338518215309
+    },
+    {
+      "asof_date": "2023-07-28",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.0642351856986075,
+      "selected_mean_size_z": -0.5420755548049471,
+      "selected_mean_size_percentile": 0.33783803104575155
+    },
+    {
+      "asof_date": "2023-07-28",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -4.678342465464893e-17,
+      "selected_mean_size_z": -0.31729739691253,
+      "selected_mean_size_percentile": 0.4146844362745098
+    },
+    {
+      "asof_date": "2023-08-04",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.11424421613098518,
+      "selected_mean_size_z": -0.6900971062257126,
+      "selected_mean_size_percentile": 0.2884503162619873
+    },
+    {
+      "asof_date": "2023-08-04",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 2.6083933253845777e-17,
+      "selected_mean_size_z": -0.26933923457837333,
+      "selected_mean_size_percentile": 0.4123148337074067
+    },
+    {
+      "asof_date": "2023-08-11",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "raw",
+      "score_log_size_correlation": 0.022969616268717238,
+      "selected_mean_size_z": -0.6424143652983645,
+      "selected_mean_size_percentile": 0.30065950295375843
+    },
+    {
+      "asof_date": "2023-08-11",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 0.0,
+      "selected_mean_size_z": -0.7033269558598596,
+      "selected_mean_size_percentile": 0.2793221633733958
+    },
+    {
+      "asof_date": "2023-08-18",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "raw",
+      "score_log_size_correlation": 0.153959120553001,
+      "selected_mean_size_z": -0.1566726599557438,
+      "selected_mean_size_percentile": 0.4707501017087063
+    },
+    {
+      "asof_date": "2023-08-18",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -3.4520883501223746e-17,
+      "selected_mean_size_z": -0.5762681812853173,
+      "selected_mean_size_percentile": 0.3257470504475183
+    },
+    {
+      "asof_date": "2023-08-25",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "raw",
+      "score_log_size_correlation": 0.043185205206211684,
+      "selected_mean_size_z": -0.5310622801204284,
+      "selected_mean_size_percentile": 0.3374827270879902
+    },
+    {
+      "asof_date": "2023-08-25",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 1.456130893606279e-16,
+      "selected_mean_size_z": -0.6173333997855863,
+      "selected_mean_size_percentile": 0.31073460678723835
+    },
+    {
+      "asof_date": "2023-09-01",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "raw",
+      "score_log_size_correlation": 0.1954608474773044,
+      "selected_mean_size_z": 0.16653571269542816,
+      "selected_mean_size_percentile": 0.5606830184846638
+    },
+    {
+      "asof_date": "2023-09-01",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 8.663568490334061e-18,
+      "selected_mean_size_z": -0.37220014564815185,
+      "selected_mean_size_percentile": 0.39628021531586427
+    },
+    {
+      "asof_date": "2023-09-08",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "raw",
+      "score_log_size_correlation": 0.155976219701303,
+      "selected_mean_size_z": 0.21343813181790847,
+      "selected_mean_size_percentile": 0.573197403124366
+    },
+    {
+      "asof_date": "2023-09-08",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -1.53757678151797e-16,
+      "selected_mean_size_z": -0.3854436504300688,
+      "selected_mean_size_percentile": 0.39629995942381824
+    },
+    {
+      "asof_date": "2023-09-15",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.015206919078408165,
+      "selected_mean_size_z": -0.3671224435496929,
+      "selected_mean_size_percentile": 0.38215835360908357
+    },
+    {
+      "asof_date": "2023-09-15",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -6.868095162310346e-17,
+      "selected_mean_size_z": -0.2601305462148763,
+      "selected_mean_size_percentile": 0.41755575831305763
+    },
+    {
+      "asof_date": "2023-09-22",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "raw",
+      "score_log_size_correlation": 0.050874281087459124,
+      "selected_mean_size_z": -0.13007208245146715,
+      "selected_mean_size_percentile": 0.4670654376012966
+    },
+    {
+      "asof_date": "2023-09-22",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 3.613305941966379e-17,
+      "selected_mean_size_z": -0.26635171345453496,
+      "selected_mean_size_percentile": 0.4304760940032415
+    },
+    {
+      "asof_date": "2023-09-28",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "raw",
+      "score_log_size_correlation": 0.06548169255269568,
+      "selected_mean_size_z": -0.1939180861047424,
+      "selected_mean_size_percentile": 0.44812170919400574
+    },
+    {
+      "asof_date": "2023-09-28",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -1.8436700500184265e-16,
+      "selected_mean_size_z": -0.3738230873360576,
+      "selected_mean_size_percentile": 0.3962317739975698
+    },
+    {
+      "asof_date": "2023-10-13",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.015581541575910131,
+      "selected_mean_size_z": -0.24172434076486343,
+      "selected_mean_size_percentile": 0.4298248278655326
+    },
+    {
+      "asof_date": "2023-10-13",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 4.342688416107722e-17,
+      "selected_mean_size_z": -0.05817649399546912,
+      "selected_mean_size_percentile": 0.48663325232887816
+    },
+    {
+      "asof_date": "2023-10-20",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.005260165052622459,
+      "selected_mean_size_z": -0.40929064853010005,
+      "selected_mean_size_percentile": 0.3820206310679612
+    },
+    {
+      "asof_date": "2023-10-20",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 7.829384408791586e-17,
+      "selected_mean_size_z": -0.263639582614205,
+      "selected_mean_size_percentile": 0.4274378033980583
+    },
+    {
+      "asof_date": "2023-10-27",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "raw",
+      "score_log_size_correlation": 0.06534884498123422,
+      "selected_mean_size_z": 0.06632734307736825,
+      "selected_mean_size_percentile": 0.5177315002021836
+    },
+    {
+      "asof_date": "2023-10-27",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 7.552960901615786e-17,
+      "selected_mean_size_z": -0.15531236420593245,
+      "selected_mean_size_percentile": 0.46211484027496974
+    },
+    {
+      "asof_date": "2023-11-03",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "raw",
+      "score_log_size_correlation": 0.10052176260195488,
+      "selected_mean_size_z": 0.1950389495575141,
+      "selected_mean_size_percentile": 0.5504393051908706
+    },
+    {
+      "asof_date": "2023-11-03",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -6.802571849950768e-17,
+      "selected_mean_size_z": -0.1635147545072532,
+      "selected_mean_size_percentile": 0.4547106645122197
+    },
+    {
+      "asof_date": "2023-11-10",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "raw",
+      "score_log_size_correlation": 0.08834551726646842,
+      "selected_mean_size_z": 0.24354730834773428,
+      "selected_mean_size_percentile": 0.5555256513835589
+    },
+    {
+      "asof_date": "2023-11-10",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -1.0210469040344241e-17,
+      "selected_mean_size_z": -0.1269687310872284,
+      "selected_mean_size_percentile": 0.46490708947687337
+    },
+    {
+      "asof_date": "2023-11-17",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "raw",
+      "score_log_size_correlation": 0.1264268844931857,
+      "selected_mean_size_z": 0.5111160903566803,
+      "selected_mean_size_percentile": 0.6151004441752473
+    },
+    {
+      "asof_date": "2023-11-17",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 1.2353280552621581e-17,
+      "selected_mean_size_z": -0.23400760376941926,
+      "selected_mean_size_percentile": 0.43622753886533416
+    },
+    {
+      "asof_date": "2023-11-24",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "raw",
+      "score_log_size_correlation": 0.10251054506366207,
+      "selected_mean_size_z": 0.20903168939798314,
+      "selected_mean_size_percentile": 0.5387348729326341
+    },
+    {
+      "asof_date": "2023-11-24",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 4.50116767318405e-17,
+      "selected_mean_size_z": -0.23215587388034012,
+      "selected_mean_size_percentile": 0.4285911657926583
+    },
+    {
+      "asof_date": "2023-12-01",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "raw",
+      "score_log_size_correlation": 0.06378601561081673,
+      "selected_mean_size_z": 0.014748838018497806,
+      "selected_mean_size_percentile": 0.4903336693548387
+    },
+    {
+      "asof_date": "2023-12-01",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -6.265400953020074e-17,
+      "selected_mean_size_z": -0.36019930501346054,
+      "selected_mean_size_percentile": 0.39416935483870974
+    },
+    {
+      "asof_date": "2023-12-08",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.04418674575597337,
+      "selected_mean_size_z": -0.3189523699368713,
+      "selected_mean_size_percentile": 0.38859208140237755
+    },
+    {
+      "asof_date": "2023-12-08",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 7.327656229877299e-17,
+      "selected_mean_size_z": 0.16649266200830268,
+      "selected_mean_size_percentile": 0.5233895829135604
+    },
+    {
+      "asof_date": "2023-12-15",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "raw",
+      "score_log_size_correlation": 0.030643110336298875,
+      "selected_mean_size_z": -0.5825673439621428,
+      "selected_mean_size_percentile": 0.32777587595650426
+    },
+    {
+      "asof_date": "2023-12-15",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -4.95000321377038e-17,
+      "selected_mean_size_z": -0.6610415555760106,
+      "selected_mean_size_percentile": 0.30705296012887634
+    },
+    {
+      "asof_date": "2023-12-22",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "raw",
+      "score_log_size_correlation": 0.024447382330545383,
+      "selected_mean_size_z": -0.5174679070744407,
+      "selected_mean_size_percentile": 0.3495992750704792
+    },
+    {
+      "asof_date": "2023-12-22",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -5.70551744615676e-17,
+      "selected_mean_size_z": -0.40508553211092196,
+      "selected_mean_size_percentile": 0.39023862263391057
+    },
+    {
+      "asof_date": "2023-12-29",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "raw",
+      "score_log_size_correlation": 0.005744309991749905,
+      "selected_mean_size_z": -0.4004833981358483,
+      "selected_mean_size_percentile": 0.38705693019513177
+    },
+    {
+      "asof_date": "2023-12-29",
+      "split": "historical_oos",
+      "test_year": 2023,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 5.586375346225786e-17,
+      "selected_mean_size_z": -0.29351467748955157,
+      "selected_mean_size_percentile": 0.4187869643934822
+    },
+    {
+      "asof_date": "2024-01-05",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "raw",
+      "score_log_size_correlation": 0.045533774061708415,
+      "selected_mean_size_z": -0.38006224252756027,
+      "selected_mean_size_percentile": 0.39882743362831863
+    },
+    {
+      "asof_date": "2024-01-05",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 7.452002872405971e-17,
+      "selected_mean_size_z": -0.5251993493695833,
+      "selected_mean_size_percentile": 0.3508165728077232
+    },
+    {
+      "asof_date": "2024-01-12",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "raw",
+      "score_log_size_correlation": 0.0660956054512395,
+      "selected_mean_size_z": -0.37681306093469047,
+      "selected_mean_size_percentile": 0.3974150753768844
+    },
+    {
+      "asof_date": "2024-01-12",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -2.2462686724351616e-16,
+      "selected_mean_size_z": -0.5614064926399754,
+      "selected_mean_size_percentile": 0.3366512562814071
+    },
+    {
+      "asof_date": "2024-01-19",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.08650396042975252,
+      "selected_mean_size_z": -0.7503764455993083,
+      "selected_mean_size_percentile": 0.27210993975903613
+    },
+    {
+      "asof_date": "2024-01-19",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 2.7193634231361803e-17,
+      "selected_mean_size_z": -0.37162566473987924,
+      "selected_mean_size_percentile": 0.40401455823293175
+    },
+    {
+      "asof_date": "2024-01-26",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.1423190544946613,
+      "selected_mean_size_z": -0.8273650614445177,
+      "selected_mean_size_percentile": 0.24493777599357686
+    },
+    {
+      "asof_date": "2024-01-26",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 8.006175233841319e-17,
+      "selected_mean_size_z": -0.3924892338150518,
+      "selected_mean_size_percentile": 0.3895890204737053
+    },
+    {
+      "asof_date": "2024-02-02",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.3076456628332384,
+      "selected_mean_size_z": -0.9748919531876745,
+      "selected_mean_size_percentile": 0.1945062224006423
+    },
+    {
+      "asof_date": "2024-02-02",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -1.5336919299933045e-16,
+      "selected_mean_size_z": -0.20777387816401963,
+      "selected_mean_size_percentile": 0.4254024488157367
+    },
+    {
+      "asof_date": "2024-02-08",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.34682720074303286,
+      "selected_mean_size_z": -0.8883382527856652,
+      "selected_mean_size_percentile": 0.22037296972127532
+    },
+    {
+      "asof_date": "2024-02-08",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 1.8674109197828253e-17,
+      "selected_mean_size_z": -0.03317062765115969,
+      "selected_mean_size_percentile": 0.43817274914778426
+    },
+    {
+      "asof_date": "2024-02-23",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "raw",
+      "score_log_size_correlation": 0.038317232203428565,
+      "selected_mean_size_z": -0.5288595119497661,
+      "selected_mean_size_percentile": 0.3408473726434015
+    },
+    {
+      "asof_date": "2024-02-23",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -3.531573379842673e-17,
+      "selected_mean_size_z": -0.5668482051860358,
+      "selected_mean_size_percentile": 0.33313678299237864
+    },
+    {
+      "asof_date": "2024-03-01",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.16788188745403557,
+      "selected_mean_size_z": -0.8346811786752459,
+      "selected_mean_size_percentile": 0.2338312274368231
+    },
+    {
+      "asof_date": "2024-03-01",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -8.160426042251812e-17,
+      "selected_mean_size_z": -0.13306418528774383,
+      "selected_mean_size_percentile": 0.4345296831127156
+    },
+    {
+      "asof_date": "2024-03-08",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.10689092813512194,
+      "selected_mean_size_z": -0.8165826407288074,
+      "selected_mean_size_percentile": 0.24053449659045328
+    },
+    {
+      "asof_date": "2024-03-08",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 6.32743515509054e-17,
+      "selected_mean_size_z": -0.41327476659212176,
+      "selected_mean_size_percentile": 0.37031036903329323
+    },
+    {
+      "asof_date": "2024-03-15",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "raw",
+      "score_log_size_correlation": 0.03816899495485911,
+      "selected_mean_size_z": -0.30140888022353685,
+      "selected_mean_size_percentile": 0.4010384923817161
+    },
+    {
+      "asof_date": "2024-03-15",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -4.5310950274816045e-17,
+      "selected_mean_size_z": -0.3803029356589589,
+      "selected_mean_size_percentile": 0.3942757618283882
+    },
+    {
+      "asof_date": "2024-03-22",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "raw",
+      "score_log_size_correlation": 0.05424527500504805,
+      "selected_mean_size_z": -0.4241747964881508,
+      "selected_mean_size_percentile": 0.3754934869739479
+    },
+    {
+      "asof_date": "2024-03-22",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 7.617850197967313e-18,
+      "selected_mean_size_z": -0.449076432166573,
+      "selected_mean_size_percentile": 0.37729408817635274
+    },
+    {
+      "asof_date": "2024-03-29",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "raw",
+      "score_log_size_correlation": 0.03663402378738023,
+      "selected_mean_size_z": -0.5264289227503969,
+      "selected_mean_size_percentile": 0.34829260965351494
+    },
+    {
+      "asof_date": "2024-03-29",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 6.718359839459576e-17,
+      "selected_mean_size_z": -0.4843595684803944,
+      "selected_mean_size_percentile": 0.3648953534948929
+    },
+    {
+      "asof_date": "2024-04-03",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "raw",
+      "score_log_size_correlation": 0.0725001253121374,
+      "selected_mean_size_z": -0.22281625585764558,
+      "selected_mean_size_percentile": 0.4034067694772682
+    },
+    {
+      "asof_date": "2024-04-03",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -6.614788769762245e-17,
+      "selected_mean_size_z": -0.48937000999765845,
+      "selected_mean_size_percentile": 0.34166933707190067
+    },
+    {
+      "asof_date": "2024-04-12",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.04872960031756261,
+      "selected_mean_size_z": -0.7951994428440883,
+      "selected_mean_size_percentile": 0.25452612089671733
+    },
+    {
+      "asof_date": "2024-04-12",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -2.1710330783272388e-17,
+      "selected_mean_size_z": -0.5903479575665829,
+      "selected_mean_size_percentile": 0.31665882706164933
+    },
+    {
+      "asof_date": "2024-04-19",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.23428074562366435,
+      "selected_mean_size_z": -0.9449437572046885,
+      "selected_mean_size_percentile": 0.2037059294871795
+    },
+    {
+      "asof_date": "2024-04-19",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -1.7476353309568023e-17,
+      "selected_mean_size_z": -0.31300872626827947,
+      "selected_mean_size_percentile": 0.3890730168269231
+    },
+    {
+      "asof_date": "2024-04-26",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.10126917723519274,
+      "selected_mean_size_z": -0.6710851885040519,
+      "selected_mean_size_percentile": 0.293494575045208
+    },
+    {
+      "asof_date": "2024-04-26",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -4.652073759383146e-18,
+      "selected_mean_size_z": -0.24965673760729382,
+      "selected_mean_size_percentile": 0.42374171187462323
+    },
+    {
+      "asof_date": "2024-04-30",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.07245027588416732,
+      "selected_mean_size_z": -0.5059828632316976,
+      "selected_mean_size_percentile": 0.34384712923513894
+    },
+    {
+      "asof_date": "2024-04-30",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -1.4513153758412496e-16,
+      "selected_mean_size_z": -0.1509817608474728,
+      "selected_mean_size_percentile": 0.4453230878474336
+    },
+    {
+      "asof_date": "2024-05-10",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.02503819066089119,
+      "selected_mean_size_z": -0.49416020169292113,
+      "selected_mean_size_percentile": 0.34302781161185547
+    },
+    {
+      "asof_date": "2024-05-10",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -1.377008509480484e-16,
+      "selected_mean_size_z": -0.25925580737361725,
+      "selected_mean_size_percentile": 0.41326989443767764
+    },
+    {
+      "asof_date": "2024-05-17",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "raw",
+      "score_log_size_correlation": 0.12413488604673206,
+      "selected_mean_size_z": -0.1368613045692406,
+      "selected_mean_size_percentile": 0.44495382585751986
+    },
+    {
+      "asof_date": "2024-05-17",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 1.0356939856963044e-17,
+      "selected_mean_size_z": -0.577801562296898,
+      "selected_mean_size_percentile": 0.3250197889182058
+    },
+    {
+      "asof_date": "2024-05-24",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "raw",
+      "score_log_size_correlation": 0.05107421802115194,
+      "selected_mean_size_z": -0.5539060506253205,
+      "selected_mean_size_percentile": 0.32467519285424273
+    },
+    {
+      "asof_date": "2024-05-24",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -8.085276446699865e-18,
+      "selected_mean_size_z": -0.6433514500613152,
+      "selected_mean_size_percentile": 0.3019133170929761
+    },
+    {
+      "asof_date": "2024-05-31",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "raw",
+      "score_log_size_correlation": 0.041872732817271156,
+      "selected_mean_size_z": -0.6507491740517728,
+      "selected_mean_size_percentile": 0.297063628983154
+    },
+    {
+      "asof_date": "2024-05-31",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 5.038672510231556e-17,
+      "selected_mean_size_z": -0.6929471373923048,
+      "selected_mean_size_percentile": 0.28370560178607673
+    },
+    {
+      "asof_date": "2024-06-07",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.13922035293432994,
+      "selected_mean_size_z": -0.8254545501144845,
+      "selected_mean_size_percentile": 0.24334126823338736
+    },
+    {
+      "asof_date": "2024-06-07",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 1.8194598430271468e-17,
+      "selected_mean_size_z": -0.413736215980427,
+      "selected_mean_size_percentile": 0.38203859400324147
+    },
+    {
+      "asof_date": "2024-06-14",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.06387341341375448,
+      "selected_mean_size_z": -0.6290588008457095,
+      "selected_mean_size_percentile": 0.3082150070692789
+    },
+    {
+      "asof_date": "2024-06-14",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -9.830779965544269e-17,
+      "selected_mean_size_z": -0.42982460474519313,
+      "selected_mean_size_percentile": 0.3788199353665926
+    },
+    {
+      "asof_date": "2024-06-21",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.02543027672480862,
+      "selected_mean_size_z": -0.6134316357005868,
+      "selected_mean_size_percentile": 0.3114016757520695
+    },
+    {
+      "asof_date": "2024-06-21",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -6.273685628565779e-17,
+      "selected_mean_size_z": -0.46714652114476346,
+      "selected_mean_size_percentile": 0.365359882899253
+    },
+    {
+      "asof_date": "2024-06-28",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.027477077706740738,
+      "selected_mean_size_z": -0.7047231032843922,
+      "selected_mean_size_percentile": 0.2805887991927346
+    },
+    {
+      "asof_date": "2024-06-28",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -1.275569877592578e-16,
+      "selected_mean_size_z": -0.5742503884994595,
+      "selected_mean_size_percentile": 0.3294742684157417
+    },
+    {
+      "asof_date": "2024-07-05",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "raw",
+      "score_log_size_correlation": 0.014379480164013199,
+      "selected_mean_size_z": -0.650228169653966,
+      "selected_mean_size_percentile": 0.2962182331585317
+    },
+    {
+      "asof_date": "2024-07-05",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 8.647453352045313e-18,
+      "selected_mean_size_z": -0.6212300231610707,
+      "selected_mean_size_percentile": 0.3113639572408229
+    },
+    {
+      "asof_date": "2024-07-12",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "raw",
+      "score_log_size_correlation": 0.041366876998072705,
+      "selected_mean_size_z": -0.5402818462011387,
+      "selected_mean_size_percentile": 0.33926850171405526
+    },
+    {
+      "asof_date": "2024-07-12",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 0.0,
+      "selected_mean_size_z": -0.5558899026958032,
+      "selected_mean_size_percentile": 0.34030953821334947
+    },
+    {
+      "asof_date": "2024-07-19",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.08873559887546001,
+      "selected_mean_size_z": -0.7646854195535648,
+      "selected_mean_size_percentile": 0.256204843592331
+    },
+    {
+      "asof_date": "2024-07-19",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 3.2733318774879925e-17,
+      "selected_mean_size_z": -0.4895653112960687,
+      "selected_mean_size_percentile": 0.351313824419778
+    },
+    {
+      "asof_date": "2024-07-26",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "raw",
+      "score_log_size_correlation": 0.02656759810837889,
+      "selected_mean_size_z": -0.6800804777615216,
+      "selected_mean_size_percentile": 0.28830340932015336
+    },
+    {
+      "asof_date": "2024-07-26",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -1.1644129678147212e-16,
+      "selected_mean_size_z": -0.6236600180843198,
+      "selected_mean_size_percentile": 0.30948002824288884
+    },
+    {
+      "asof_date": "2024-08-02",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "raw",
+      "score_log_size_correlation": 0.05664759502106573,
+      "selected_mean_size_z": -0.4456867934600922,
+      "selected_mean_size_percentile": 0.35443122226704316
+    },
+    {
+      "asof_date": "2024-08-02",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 3.283565068125509e-17,
+      "selected_mean_size_z": -0.5503475532211123,
+      "selected_mean_size_percentile": 0.3291755748285599
+    },
+    {
+      "asof_date": "2024-08-09",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "raw",
+      "score_log_size_correlation": 0.04592440731947823,
+      "selected_mean_size_z": -0.7639925597136136,
+      "selected_mean_size_percentile": 0.2504078443234523
+    },
+    {
+      "asof_date": "2024-08-09",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 4.693130847715808e-17,
+      "selected_mean_size_z": -0.7672983822123567,
+      "selected_mean_size_percentile": 0.2508610606977213
+    },
+    {
+      "asof_date": "2024-08-16",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "raw",
+      "score_log_size_correlation": 0.09247133939985305,
+      "selected_mean_size_z": -0.701671898099335,
+      "selected_mean_size_percentile": 0.2741460096735187
+    },
+    {
+      "asof_date": "2024-08-16",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 1.5215494068995366e-16,
+      "selected_mean_size_z": -0.8004309506116022,
+      "selected_mean_size_percentile": 0.2442508061265619
+    },
+    {
+      "asof_date": "2024-08-23",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.02207993194468501,
+      "selected_mean_size_z": -0.8166424591693303,
+      "selected_mean_size_percentile": 0.23927916582712072
+    },
+    {
+      "asof_date": "2024-08-23",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 1.4076448638050185e-16,
+      "selected_mean_size_z": -0.7072405589319518,
+      "selected_mean_size_percentile": 0.27955268990529925
+    },
+    {
+      "asof_date": "2024-08-30",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "raw",
+      "score_log_size_correlation": 0.02495740819757348,
+      "selected_mean_size_z": -0.47209856586288623,
+      "selected_mean_size_percentile": 0.34947662704009674
+    },
+    {
+      "asof_date": "2024-08-30",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 2.986473450115864e-17,
+      "selected_mean_size_z": -0.3638068889320285,
+      "selected_mean_size_percentile": 0.3882057223453556
+    },
+    {
+      "asof_date": "2024-09-06",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "raw",
+      "score_log_size_correlation": 0.020891635396946766,
+      "selected_mean_size_z": -0.5512818899515817,
+      "selected_mean_size_percentile": 0.32542623941958887
+    },
+    {
+      "asof_date": "2024-09-06",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -6.878266986866517e-17,
+      "selected_mean_size_z": -0.5560297790881402,
+      "selected_mean_size_percentile": 0.3276788593309149
+    },
+    {
+      "asof_date": "2024-09-13",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "raw",
+      "score_log_size_correlation": 0.01211890941964059,
+      "selected_mean_size_z": -0.5194466679206757,
+      "selected_mean_size_percentile": 0.3231345688960516
+    },
+    {
+      "asof_date": "2024-09-13",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 2.7395404455438822e-17,
+      "selected_mean_size_z": -0.36538834049904956,
+      "selected_mean_size_percentile": 0.37458350120870265
+    },
+    {
+      "asof_date": "2024-09-20",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.05099435856383953,
+      "selected_mean_size_z": -0.8427083409833319,
+      "selected_mean_size_percentile": 0.22539139633286318
+    },
+    {
+      "asof_date": "2024-09-20",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 4.699854388449467e-17,
+      "selected_mean_size_z": -0.5586087324802976,
+      "selected_mean_size_percentile": 0.31523826314729
+    },
+    {
+      "asof_date": "2024-09-27",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.10155194099025242,
+      "selected_mean_size_z": -0.36127340037299177,
+      "selected_mean_size_percentile": 0.34316878019323677
+    },
+    {
+      "asof_date": "2024-09-27",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -7.929919417554103e-17,
+      "selected_mean_size_z": 0.3421790720597971,
+      "selected_mean_size_percentile": 0.5317647946859904
+    },
+    {
+      "asof_date": "2024-09-30",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "raw",
+      "score_log_size_correlation": 0.02505841008594064,
+      "selected_mean_size_z": 0.5443439065307183,
+      "selected_mean_size_percentile": 0.5922925478348439
+    },
+    {
+      "asof_date": "2024-09-30",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 2.6200892831516896e-17,
+      "selected_mean_size_z": 0.4822680207816243,
+      "selected_mean_size_percentile": 0.583904833836858
+    },
+    {
+      "asof_date": "2024-10-11",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.02752415934371178,
+      "selected_mean_size_z": 0.00011535707604341638,
+      "selected_mean_size_percentile": 0.4481359516616314
+    },
+    {
+      "asof_date": "2024-10-11",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -2.5372810088864108e-17,
+      "selected_mean_size_z": 0.22378226041713375,
+      "selected_mean_size_percentile": 0.5177547834843907
+    },
+    {
+      "asof_date": "2024-10-18",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.03322666985040176,
+      "selected_mean_size_z": -0.2946332271503369,
+      "selected_mean_size_percentile": 0.3721811506739086
+    },
+    {
+      "asof_date": "2024-10-18",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 2.2856074556775324e-17,
+      "selected_mean_size_z": 0.10791484978239603,
+      "selected_mean_size_percentile": 0.4911652584992959
+    },
+    {
+      "asof_date": "2024-10-25",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "raw",
+      "score_log_size_correlation": 0.04760194814694073,
+      "selected_mean_size_z": 0.4639480105466072,
+      "selected_mean_size_percentile": 0.5692077464788733
+    },
+    {
+      "asof_date": "2024-10-25",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -8.620606990897587e-17,
+      "selected_mean_size_z": 0.22493433192763454,
+      "selected_mean_size_percentile": 0.5308707243460765
+    },
+    {
+      "asof_date": "2024-11-01",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.04410258423534809,
+      "selected_mean_size_z": -0.11276233745327882,
+      "selected_mean_size_percentile": 0.43002567975830813
+    },
+    {
+      "asof_date": "2024-11-01",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 2.326333166634321e-17,
+      "selected_mean_size_z": 0.3450534103116356,
+      "selected_mean_size_percentile": 0.5614330312185297
+    },
+    {
+      "asof_date": "2024-11-08",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.06714861490682848,
+      "selected_mean_size_z": -0.20045233617297645,
+      "selected_mean_size_percentile": 0.3878063380281691
+    },
+    {
+      "asof_date": "2024-11-08",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 3.374764587133533e-17,
+      "selected_mean_size_z": 0.449591642479356,
+      "selected_mean_size_percentile": 0.5660623742454729
+    },
+    {
+      "asof_date": "2024-11-15",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.017091897921346497,
+      "selected_mean_size_z": -0.4170885631094097,
+      "selected_mean_size_percentile": 0.35451116475558236
+    },
+    {
+      "asof_date": "2024-11-15",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -1.92476542274954e-18,
+      "selected_mean_size_z": -0.12996612909313066,
+      "selected_mean_size_percentile": 0.4448747736873868
+    },
+    {
+      "asof_date": "2024-11-22",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "raw",
+      "score_log_size_correlation": 0.024155947605034585,
+      "selected_mean_size_z": -0.4046331230163143,
+      "selected_mean_size_percentile": 0.34405075376884425
+    },
+    {
+      "asof_date": "2024-11-22",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -2.2190737244815792e-17,
+      "selected_mean_size_z": -0.36773815280912486,
+      "selected_mean_size_percentile": 0.36181105527638185
+    },
+    {
+      "asof_date": "2024-11-29",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "raw",
+      "score_log_size_correlation": 0.09524579085949497,
+      "selected_mean_size_z": 0.25995504837270567,
+      "selected_mean_size_percentile": 0.5382492969063881
+    },
+    {
+      "asof_date": "2024-11-29",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 1.151373028182702e-16,
+      "selected_mean_size_z": -0.19216678237988397,
+      "selected_mean_size_percentile": 0.4357784250703094
+    },
+    {
+      "asof_date": "2024-12-06",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "raw",
+      "score_log_size_correlation": 0.07859648607727701,
+      "selected_mean_size_z": -0.1342453604185536,
+      "selected_mean_size_percentile": 0.4400733373518183
+    },
+    {
+      "asof_date": "2024-12-06",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 6.863988401161897e-18,
+      "selected_mean_size_z": -0.5563295890714431,
+      "selected_mean_size_percentile": 0.33004420333534257
+    },
+    {
+      "asof_date": "2024-12-13",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "raw",
+      "score_log_size_correlation": 0.042782284453584306,
+      "selected_mean_size_z": -0.6703089160290978,
+      "selected_mean_size_percentile": 0.28157574844283706
+    },
+    {
+      "asof_date": "2024-12-13",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -2.796077432535564e-17,
+      "selected_mean_size_z": -0.6792232736648804,
+      "selected_mean_size_percentile": 0.28299879445449067
+    },
+    {
+      "asof_date": "2024-12-20",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.0015083838702959638,
+      "selected_mean_size_z": -0.5707253766889244,
+      "selected_mean_size_percentile": 0.3246130295121462
+    },
+    {
+      "asof_date": "2024-12-20",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 8.917775527561094e-17,
+      "selected_mean_size_z": -0.40785858729090985,
+      "selected_mean_size_percentile": 0.38078950010038143
+    },
+    {
+      "asof_date": "2024-12-27",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.12420350377717582,
+      "selected_mean_size_z": -1.050599465914898,
+      "selected_mean_size_percentile": 0.1612452299658566
+    },
+    {
+      "asof_date": "2024-12-27",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -1.2039545515990183e-17,
+      "selected_mean_size_z": -0.6584693960185857,
+      "selected_mean_size_percentile": 0.2755754167503515
+    },
+    {
+      "asof_date": "2024-12-31",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.15587460235504094,
+      "selected_mean_size_z": -1.0655055812594383,
+      "selected_mean_size_percentile": 0.1559272654209363
+    },
+    {
+      "asof_date": "2024-12-31",
+      "split": "historical_oos",
+      "test_year": 2024,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -5.775818689775643e-17,
+      "selected_mean_size_z": -0.6781814406752212,
+      "selected_mean_size_percentile": 0.2783971267832028
+    },
+    {
+      "asof_date": "2025-01-03",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.10392103351880413,
+      "selected_mean_size_z": -1.0152012657948695,
+      "selected_mean_size_percentile": 0.17364855363599838
+    },
+    {
+      "asof_date": "2025-01-03",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 3.202845521525096e-17,
+      "selected_mean_size_z": -0.7009194007156425,
+      "selected_mean_size_percentile": 0.2655996384089996
+    },
+    {
+      "asof_date": "2025-01-10",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.04483561363431958,
+      "selected_mean_size_z": -0.7214724937021215,
+      "selected_mean_size_percentile": 0.273515562248996
+    },
+    {
+      "asof_date": "2025-01-10",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -2.4647922712333162e-17,
+      "selected_mean_size_z": -0.3296658247972229,
+      "selected_mean_size_percentile": 0.4024156626506024
+    },
+    {
+      "asof_date": "2025-01-17",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.013057273771122027,
+      "selected_mean_size_z": -0.4326619020891817,
+      "selected_mean_size_percentile": 0.34893738711619504
+    },
+    {
+      "asof_date": "2025-01-17",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 2.831418819623569e-17,
+      "selected_mean_size_z": -0.20604454508910577,
+      "selected_mean_size_percentile": 0.4218216937587799
+    },
+    {
+      "asof_date": "2025-01-24",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.005400428684756027,
+      "selected_mean_size_z": -0.13357335544642082,
+      "selected_mean_size_percentile": 0.44500150421179296
+    },
+    {
+      "asof_date": "2025-01-24",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -2.567441513954811e-17,
+      "selected_mean_size_z": -0.00950384029686539,
+      "selected_mean_size_percentile": 0.49706227436823097
+    },
+    {
+      "asof_date": "2025-01-27",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.013247897983035536,
+      "selected_mean_size_z": -0.2926883302788811,
+      "selected_mean_size_percentile": 0.4041071786645277
+    },
+    {
+      "asof_date": "2025-01-27",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 9.45375410687702e-17,
+      "selected_mean_size_z": -0.0893167803848021,
+      "selected_mean_size_percentile": 0.47378433928213354
+    },
+    {
+      "asof_date": "2025-02-07",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.022093171984961146,
+      "selected_mean_size_z": 0.2905221508933509,
+      "selected_mean_size_percentile": 0.5559689378757515
+    },
+    {
+      "asof_date": "2025-02-07",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -7.108962178623666e-17,
+      "selected_mean_size_z": 0.6593732827189572,
+      "selected_mean_size_percentile": 0.6550511022044089
+    },
+    {
+      "asof_date": "2025-02-14",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.04689967697467376,
+      "selected_mean_size_z": -0.006710873733955252,
+      "selected_mean_size_percentile": 0.473746744139451
+    },
+    {
+      "asof_date": "2025-02-14",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -6.595739671430467e-17,
+      "selected_mean_size_z": 0.4928922040458733,
+      "selected_mean_size_percentile": 0.6211520737327189
+    },
+    {
+      "asof_date": "2025-02-21",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.06356906892777231,
+      "selected_mean_size_z": 0.02081452714428278,
+      "selected_mean_size_percentile": 0.5038273583016223
+    },
+    {
+      "asof_date": "2025-02-21",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -7.837957786021237e-17,
+      "selected_mean_size_z": 0.7033584300912562,
+      "selected_mean_size_percentile": 0.6950305427598638
+    },
+    {
+      "asof_date": "2025-02-28",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.049242537895774124,
+      "selected_mean_size_z": -0.19451185000293542,
+      "selected_mean_size_percentile": 0.42163575295769
+    },
+    {
+      "asof_date": "2025-02-28",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 8.397437695702275e-17,
+      "selected_mean_size_z": 0.4064704395526833,
+      "selected_mean_size_percentile": 0.5982454381391618
+    },
+    {
+      "asof_date": "2025-03-07",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.031471033262162516,
+      "selected_mean_size_z": -0.1288748167141842,
+      "selected_mean_size_percentile": 0.44787412236710133
+    },
+    {
+      "asof_date": "2025-03-07",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -5.816817892161706e-17,
+      "selected_mean_size_z": 0.30477531139942815,
+      "selected_mean_size_percentile": 0.571013039117352
+    },
+    {
+      "asof_date": "2025-03-14",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.03129205954787044,
+      "selected_mean_size_z": -0.24671036837336133,
+      "selected_mean_size_percentile": 0.40681485565356856
+    },
+    {
+      "asof_date": "2025-03-14",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -2.2107216366443737e-18,
+      "selected_mean_size_z": 0.13301546546803342,
+      "selected_mean_size_percentile": 0.5160455092221331
+    },
+    {
+      "asof_date": "2025-03-21",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "raw",
+      "score_log_size_correlation": 0.04505051914204102,
+      "selected_mean_size_z": -0.5492111535560857,
+      "selected_mean_size_percentile": 0.32807160048134776
+    },
+    {
+      "asof_date": "2025-03-21",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -1.2703667442728649e-16,
+      "selected_mean_size_z": -0.6151248556916026,
+      "selected_mean_size_percentile": 0.3090713999197754
+    },
+    {
+      "asof_date": "2025-03-28",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.024517444802267387,
+      "selected_mean_size_z": -0.8526211105430244,
+      "selected_mean_size_percentile": 0.22346670677898117
+    },
+    {
+      "asof_date": "2025-03-28",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 1.2915698081403658e-16,
+      "selected_mean_size_z": -0.6715165775683508,
+      "selected_mean_size_percentile": 0.27521660649819496
+    },
+    {
+      "asof_date": "2025-04-03",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "raw",
+      "score_log_size_correlation": 0.021630860259211192,
+      "selected_mean_size_z": -0.511987467516566,
+      "selected_mean_size_percentile": 0.32812337141711767
+    },
+    {
+      "asof_date": "2025-04-03",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -4.222664689157801e-17,
+      "selected_mean_size_z": -0.5369039979071656,
+      "selected_mean_size_percentile": 0.3229109039887753
+    },
+    {
+      "asof_date": "2025-04-11",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.05739112240969454,
+      "selected_mean_size_z": -0.5945341338188864,
+      "selected_mean_size_percentile": 0.31622270086155074
+    },
+    {
+      "asof_date": "2025-04-11",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -2.7280522714761584e-18,
+      "selected_mean_size_z": -0.0395098056235615,
+      "selected_mean_size_percentile": 0.49151673011420555
+    },
+    {
+      "asof_date": "2025-04-18",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "raw",
+      "score_log_size_correlation": 0.09187048535967936,
+      "selected_mean_size_z": -0.19862114143749193,
+      "selected_mean_size_percentile": 0.45316793510915276
+    },
+    {
+      "asof_date": "2025-04-18",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 1.0204752236466952e-16,
+      "selected_mean_size_z": -0.4735577000743569,
+      "selected_mean_size_percentile": 0.3678730222311236
+    },
+    {
+      "asof_date": "2025-04-25",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "raw",
+      "score_log_size_correlation": 0.07261543399016362,
+      "selected_mean_size_z": -0.18566665744109856,
+      "selected_mean_size_percentile": 0.42026740919125033
+    },
+    {
+      "asof_date": "2025-04-25",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -1.389775559559665e-16,
+      "selected_mean_size_z": -0.5167495513375188,
+      "selected_mean_size_percentile": 0.3389123018262091
+    },
+    {
+      "asof_date": "2025-04-30",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "raw",
+      "score_log_size_correlation": 0.09112576425033114,
+      "selected_mean_size_z": 0.13101686254025519,
+      "selected_mean_size_percentile": 0.5367071312474604
+    },
+    {
+      "asof_date": "2025-04-30",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -1.22583697796653e-16,
+      "selected_mean_size_z": -0.2690017610760265,
+      "selected_mean_size_percentile": 0.43445906135717194
+    },
+    {
+      "asof_date": "2025-05-09",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "raw",
+      "score_log_size_correlation": 0.164655575358657,
+      "selected_mean_size_z": 0.363702546500322,
+      "selected_mean_size_percentile": 0.5944541396103896
+    },
+    {
+      "asof_date": "2025-05-09",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -3.57250979329529e-17,
+      "selected_mean_size_z": -0.30286591624426323,
+      "selected_mean_size_percentile": 0.4193886972402598
+    },
+    {
+      "asof_date": "2025-05-16",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "raw",
+      "score_log_size_correlation": 0.12350672848750513,
+      "selected_mean_size_z": -0.07038290748621995,
+      "selected_mean_size_percentile": 0.49037974041776516
+    },
+    {
+      "asof_date": "2025-05-16",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -8.256980223346886e-17,
+      "selected_mean_size_z": -0.46756380757491484,
+      "selected_mean_size_percentile": 0.3684379436219834
+    },
+    {
+      "asof_date": "2025-05-23",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "raw",
+      "score_log_size_correlation": 0.11075347783182551,
+      "selected_mean_size_z": 0.020513283228000913,
+      "selected_mean_size_percentile": 0.5053746456055083
+    },
+    {
+      "asof_date": "2025-05-23",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -2.6981141803346263e-16,
+      "selected_mean_size_z": -0.31956997652728164,
+      "selected_mean_size_percentile": 0.4132690360469826
+    },
+    {
+      "asof_date": "2025-05-30",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "raw",
+      "score_log_size_correlation": 0.10359660452602573,
+      "selected_mean_size_z": -0.017146210834475657,
+      "selected_mean_size_percentile": 0.49603635074929125
+    },
+    {
+      "asof_date": "2025-05-30",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 2.1737329646477714e-16,
+      "selected_mean_size_z": -0.45960149783718585,
+      "selected_mean_size_percentile": 0.3744653705953827
+    },
+    {
+      "asof_date": "2025-06-06",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "raw",
+      "score_log_size_correlation": 0.08206992218034607,
+      "selected_mean_size_z": -0.09062734531522543,
+      "selected_mean_size_percentile": 0.4745796281325788
+    },
+    {
+      "asof_date": "2025-06-06",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 4.2500598481450366e-17,
+      "selected_mean_size_z": -0.3729722861956489,
+      "selected_mean_size_percentile": 0.3988404405820533
+    },
+    {
+      "asof_date": "2025-06-13",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "raw",
+      "score_log_size_correlation": 0.009442897863009593,
+      "selected_mean_size_z": -0.4342861330836341,
+      "selected_mean_size_percentile": 0.3665751765893037
+    },
+    {
+      "asof_date": "2025-06-13",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -2.6099160295794334e-17,
+      "selected_mean_size_z": -0.40859539288658425,
+      "selected_mean_size_percentile": 0.3793007063572149
+    },
+    {
+      "asof_date": "2025-06-20",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "raw",
+      "score_log_size_correlation": 0.026992247398158947,
+      "selected_mean_size_z": -0.33642041152176216,
+      "selected_mean_size_percentile": 0.40105337361530713
+    },
+    {
+      "asof_date": "2025-06-20",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -4.6536440749728567e-17,
+      "selected_mean_size_z": -0.3592040890842236,
+      "selected_mean_size_percentile": 0.39474823766364553
+    },
+    {
+      "asof_date": "2025-06-27",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "raw",
+      "score_log_size_correlation": 0.04376451798133384,
+      "selected_mean_size_z": 0.14030719882739626,
+      "selected_mean_size_percentile": 0.5523887210473313
+    },
+    {
+      "asof_date": "2025-06-27",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -9.303523303066607e-17,
+      "selected_mean_size_z": -0.052086932982489974,
+      "selected_mean_size_percentile": 0.509503524672709
+    },
+    {
+      "asof_date": "2025-07-04",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "raw",
+      "score_log_size_correlation": 0.038053518398871916,
+      "selected_mean_size_z": -0.15644962244652347,
+      "selected_mean_size_percentile": 0.45605350665054417
+    },
+    {
+      "asof_date": "2025-07-04",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 2.3797332187664406e-17,
+      "selected_mean_size_z": -0.24960639357588016,
+      "selected_mean_size_percentile": 0.4340351672712616
+    },
+    {
+      "asof_date": "2025-07-11",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.01251642077894836,
+      "selected_mean_size_z": -0.10911510921165672,
+      "selected_mean_size_percentile": 0.45848106365834
+    },
+    {
+      "asof_date": "2025-07-11",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -1.2450047713638945e-17,
+      "selected_mean_size_z": -0.06192533384817029,
+      "selected_mean_size_percentile": 0.47924405721192587
+    },
+    {
+      "asof_date": "2025-07-18",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "raw",
+      "score_log_size_correlation": 0.01915109957203909,
+      "selected_mean_size_z": 0.06759546803635093,
+      "selected_mean_size_percentile": 0.518820269997985
+    },
+    {
+      "asof_date": "2025-07-18",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 1.1617095384187224e-16,
+      "selected_mean_size_z": 0.03323374298064075,
+      "selected_mean_size_percentile": 0.5191220028208745
+    },
+    {
+      "asof_date": "2025-07-25",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.026012167691163438,
+      "selected_mean_size_z": 0.17165343228614993,
+      "selected_mean_size_percentile": 0.5184273624823695
+    },
+    {
+      "asof_date": "2025-07-25",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 1.4839660019762954e-17,
+      "selected_mean_size_z": 0.3582217119471289,
+      "selected_mean_size_percentile": 0.577154442877292
+    },
+    {
+      "asof_date": "2025-08-01",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "raw",
+      "score_log_size_correlation": 0.03123784171918843,
+      "selected_mean_size_z": 0.1787071008438267,
+      "selected_mean_size_percentile": 0.554560245819061
+    },
+    {
+      "asof_date": "2025-08-01",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -5.0842693751177984e-17,
+      "selected_mean_size_z": 0.09059141372050934,
+      "selected_mean_size_percentile": 0.5371222043119082
+    },
+    {
+      "asof_date": "2025-08-08",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "raw",
+      "score_log_size_correlation": 0.060353739499462725,
+      "selected_mean_size_z": 0.3516975746909769,
+      "selected_mean_size_percentile": 0.5969844945630285
+    },
+    {
+      "asof_date": "2025-08-08",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 9.76962929762034e-18,
+      "selected_mean_size_z": 0.09626820297574139,
+      "selected_mean_size_percentile": 0.5423746476037051
+    },
+    {
+      "asof_date": "2025-08-15",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.09560358349722277,
+      "selected_mean_size_z": -0.11377426826345102,
+      "selected_mean_size_percentile": 0.4680273752012883
+    },
+    {
+      "asof_date": "2025-08-15",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -2.45968568205722e-17,
+      "selected_mean_size_z": 0.6266569310086327,
+      "selected_mean_size_percentile": 0.6589331723027375
+    },
+    {
+      "asof_date": "2025-08-22",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.12409904746279588,
+      "selected_mean_size_z": 0.07807027196477553,
+      "selected_mean_size_percentile": 0.5005134917438582
+    },
+    {
+      "asof_date": "2025-08-22",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -1.1782977889477412e-16,
+      "selected_mean_size_z": 0.8433466930794015,
+      "selected_mean_size_percentile": 0.7045690696737816
+    },
+    {
+      "asof_date": "2025-08-29",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.2648842255719302,
+      "selected_mean_size_z": -0.7337661213655916,
+      "selected_mean_size_percentile": 0.26278147029204435
+    },
+    {
+      "asof_date": "2025-08-29",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 4.791583593141351e-17,
+      "selected_mean_size_z": 0.7076043053909377,
+      "selected_mean_size_percentile": 0.6724692849949647
+    },
+    {
+      "asof_date": "2025-09-05",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.1596661402006498,
+      "selected_mean_size_z": -0.22958164679329357,
+      "selected_mean_size_percentile": 0.40253723083115317
+    },
+    {
+      "asof_date": "2025-09-05",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -1.1422420339257343e-16,
+      "selected_mean_size_z": 0.8784284710602225,
+      "selected_mean_size_percentile": 0.70706480177098
+    },
+    {
+      "asof_date": "2025-09-12",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.20094386756927077,
+      "selected_mean_size_z": -0.4867225782223032,
+      "selected_mean_size_percentile": 0.3414307259199678
+    },
+    {
+      "asof_date": "2025-09-12",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 5.540866970943833e-17,
+      "selected_mean_size_z": 0.8684638647631076,
+      "selected_mean_size_percentile": 0.6972360748039413
+    },
+    {
+      "asof_date": "2025-09-19",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.1810855184525288,
+      "selected_mean_size_z": -0.3113521176901716,
+      "selected_mean_size_percentile": 0.3870127715205149
+    },
+    {
+      "asof_date": "2025-09-19",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -1.1274852249478706e-16,
+      "selected_mean_size_z": 1.0446909575734167,
+      "selected_mean_size_percentile": 0.738755028157683
+    },
+    {
+      "asof_date": "2025-09-26",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.19042792036673595,
+      "selected_mean_size_z": -0.2793961216828219,
+      "selected_mean_size_percentile": 0.41212474849094577
+    },
+    {
+      "asof_date": "2025-09-26",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 8.219937770067328e-17,
+      "selected_mean_size_z": 0.9265970944197474,
+      "selected_mean_size_percentile": 0.7184461770623742
+    },
+    {
+      "asof_date": "2025-09-30",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.24302842396465865,
+      "selected_mean_size_z": -0.4165010456081468,
+      "selected_mean_size_percentile": 0.3694840950271794
+    },
+    {
+      "asof_date": "2025-09-30",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 6.23205926671758e-17,
+      "selected_mean_size_z": 1.1184637973529616,
+      "selected_mean_size_percentile": 0.7615653311858266
+    },
+    {
+      "asof_date": "2025-10-10",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.24885661683824536,
+      "selected_mean_size_z": -0.5891026054707434,
+      "selected_mean_size_percentile": 0.30924456083803387
+    },
+    {
+      "asof_date": "2025-10-10",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -9.415547819056728e-17,
+      "selected_mean_size_z": 1.018603661247645,
+      "selected_mean_size_percentile": 0.7282322723609993
+    },
+    {
+      "asof_date": "2025-10-17",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.1782825600254418,
+      "selected_mean_size_z": -0.6707895232904383,
+      "selected_mean_size_percentile": 0.28459020514883343
+    },
+    {
+      "asof_date": "2025-10-17",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -4.3735808702559236e-17,
+      "selected_mean_size_z": 0.29516967731514115,
+      "selected_mean_size_percentile": 0.5644609814963797
+    },
+    {
+      "asof_date": "2025-10-24",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.08755304402907824,
+      "selected_mean_size_z": -0.2569741534372014,
+      "selected_mean_size_percentile": 0.4290579127287352
+    },
+    {
+      "asof_date": "2025-10-24",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -2.9266149521941986e-17,
+      "selected_mean_size_z": 0.37161780479803097,
+      "selected_mean_size_percentile": 0.5962050070380053
+    },
+    {
+      "asof_date": "2025-10-31",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.17399883150710796,
+      "selected_mean_size_z": -0.3439829519731363,
+      "selected_mean_size_percentile": 0.38694176222088117
+    },
+    {
+      "asof_date": "2025-10-31",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 1.0267971291374166e-16,
+      "selected_mean_size_z": 0.4640087280120611,
+      "selected_mean_size_percentile": 0.605297223898612
+    },
+    {
+      "asof_date": "2025-11-07",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.08418229932720174,
+      "selected_mean_size_z": -0.2737468947803611,
+      "selected_mean_size_percentile": 0.40300372008847773
+    },
+    {
+      "asof_date": "2025-11-07",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -1.4805320296910234e-18,
+      "selected_mean_size_z": 0.293977797352792,
+      "selected_mean_size_percentile": 0.5654785843555197
+    },
+    {
+      "asof_date": "2025-11-14",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.0030306220179463985,
+      "selected_mean_size_z": -0.21184298196522636,
+      "selected_mean_size_percentile": 0.41537012856568906
+    },
+    {
+      "asof_date": "2025-11-14",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -3.7074014974409773e-17,
+      "selected_mean_size_z": -0.09329396648049937,
+      "selected_mean_size_percentile": 0.45468511450381677
+    },
+    {
+      "asof_date": "2025-11-21",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.09879248776757431,
+      "selected_mean_size_z": -0.6215389092889022,
+      "selected_mean_size_percentile": 0.30347319815298135
+    },
+    {
+      "asof_date": "2025-11-21",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 2.6461441337198253e-18,
+      "selected_mean_size_z": -0.16941762410296973,
+      "selected_mean_size_percentile": 0.44025245934551294
+    },
+    {
+      "asof_date": "2025-11-28",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.01078602516480399,
+      "selected_mean_size_z": -0.27046052044645214,
+      "selected_mean_size_percentile": 0.4238216656608328
+    },
+    {
+      "asof_date": "2025-11-28",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -4.0565623379045855e-17,
+      "selected_mean_size_z": -0.08787248846413984,
+      "selected_mean_size_percentile": 0.4895358076845705
+    },
+    {
+      "asof_date": "2025-12-05",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.11329641326432953,
+      "selected_mean_size_z": -0.7331287142630647,
+      "selected_mean_size_percentile": 0.2753894472361809
+    },
+    {
+      "asof_date": "2025-12-05",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -5.257861673936674e-17,
+      "selected_mean_size_z": 0.08023969589618392,
+      "selected_mean_size_percentile": 0.5070381909547739
+    },
+    {
+      "asof_date": "2025-12-12",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.2104132450120922,
+      "selected_mean_size_z": -0.8688755495397049,
+      "selected_mean_size_percentile": 0.22324628364805144
+    },
+    {
+      "asof_date": "2025-12-12",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -2.3980163531695288e-17,
+      "selected_mean_size_z": 0.4114080180521472,
+      "selected_mean_size_percentile": 0.5954585174768984
+    },
+    {
+      "asof_date": "2025-12-19",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.1072936372804692,
+      "selected_mean_size_z": -0.5867577143342781,
+      "selected_mean_size_percentile": 0.3154531312725813
+    },
+    {
+      "asof_date": "2025-12-19",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 3.5635174033010775e-17,
+      "selected_mean_size_z": 0.23978918558478213,
+      "selected_mean_size_percentile": 0.5441790445604175
+    },
+    {
+      "asof_date": "2025-12-26",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.16761570688627564,
+      "selected_mean_size_z": -0.5499506724472728,
+      "selected_mean_size_percentile": 0.31210747944656103
+    },
+    {
+      "asof_date": "2025-12-26",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -2.0035673630070454e-17,
+      "selected_mean_size_z": 0.8523970200144723,
+      "selected_mean_size_percentile": 0.6912517545618608
+    },
+    {
+      "asof_date": "2025-12-31",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.15662441932276974,
+      "selected_mean_size_z": -0.5264942440297381,
+      "selected_mean_size_percentile": 0.330499498997996
+    },
+    {
+      "asof_date": "2025-12-31",
+      "split": "historical_oos",
+      "test_year": 2025,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 4.4540046350574265e-17,
+      "selected_mean_size_z": 0.7778894122667742,
+      "selected_mean_size_percentile": 0.6815200400801603
+    },
+    {
+      "asof_date": "2026-01-09",
+      "split": "historical_oos",
+      "test_year": 2026,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.1869336570879082,
+      "selected_mean_size_z": -0.1570560730590551,
+      "selected_mean_size_percentile": 0.41853607214428856
+    },
+    {
+      "asof_date": "2026-01-09",
+      "split": "historical_oos",
+      "test_year": 2026,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 8.653083922504342e-17,
+      "selected_mean_size_z": 0.9581016032726616,
+      "selected_mean_size_percentile": 0.7237775551102203
+    },
+    {
+      "asof_date": "2026-01-16",
+      "split": "historical_oos",
+      "test_year": 2026,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.15786943198887893,
+      "selected_mean_size_z": -0.3000657232311195,
+      "selected_mean_size_percentile": 0.4045516032064128
+    },
+    {
+      "asof_date": "2026-01-16",
+      "split": "historical_oos",
+      "test_year": 2026,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -7.25071889529366e-17,
+      "selected_mean_size_z": 0.7341450141446461,
+      "selected_mean_size_percentile": 0.6813712424849698
+    },
+    {
+      "asof_date": "2026-01-23",
+      "split": "historical_oos",
+      "test_year": 2026,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.1466330187200368,
+      "selected_mean_size_z": -0.026052714921817516,
+      "selected_mean_size_percentile": 0.4591144373247898
+    },
+    {
+      "asof_date": "2026-01-23",
+      "split": "historical_oos",
+      "test_year": 2026,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 6.047847932602802e-17,
+      "selected_mean_size_z": 0.8915784937481979,
+      "selected_mean_size_percentile": 0.7049699639567482
+    },
+    {
+      "asof_date": "2026-01-30",
+      "split": "historical_oos",
+      "test_year": 2026,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.20309112535906462,
+      "selected_mean_size_z": -0.2999281819368614,
+      "selected_mean_size_percentile": 0.37540573031456625
+    },
+    {
+      "asof_date": "2026-01-30",
+      "split": "historical_oos",
+      "test_year": 2026,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 8.650748996446365e-18,
+      "selected_mean_size_z": 0.9275395562348074,
+      "selected_mean_size_percentile": 0.7095416750150271
+    },
+    {
+      "asof_date": "2026-02-06",
+      "split": "historical_oos",
+      "test_year": 2026,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.10148356173496449,
+      "selected_mean_size_z": -0.09885236690129517,
+      "selected_mean_size_percentile": 0.4507182182182182
+    },
+    {
+      "asof_date": "2026-02-06",
+      "split": "historical_oos",
+      "test_year": 2026,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 5.446378620479094e-17,
+      "selected_mean_size_z": 0.610723883000805,
+      "selected_mean_size_percentile": 0.6343003003003003
+    },
+    {
+      "asof_date": "2026-02-13",
+      "split": "historical_oos",
+      "test_year": 2026,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.163796634118289,
+      "selected_mean_size_z": -0.29160217848998565,
+      "selected_mean_size_percentile": 0.3823659463785515
+    },
+    {
+      "asof_date": "2026-02-13",
+      "split": "historical_oos",
+      "test_year": 2026,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 6.216260587749275e-17,
+      "selected_mean_size_z": 0.8942789963649568,
+      "selected_mean_size_percentile": 0.6935554221688676
+    },
+    {
+      "asof_date": "2026-02-27",
+      "split": "historical_oos",
+      "test_year": 2026,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.17452089891418585,
+      "selected_mean_size_z": -0.3144483782214101,
+      "selected_mean_size_percentile": 0.3854126650660264
+    },
+    {
+      "asof_date": "2026-02-27",
+      "split": "historical_oos",
+      "test_year": 2026,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -1.4276938603504742e-16,
+      "selected_mean_size_z": 0.9171134049420226,
+      "selected_mean_size_percentile": 0.7088200280112045
+    },
+    {
+      "asof_date": "2026-03-06",
+      "split": "historical_oos",
+      "test_year": 2026,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.15962650559200112,
+      "selected_mean_size_z": -0.5994151796492684,
+      "selected_mean_size_percentile": 0.3175350070014003
+    },
+    {
+      "asof_date": "2026-03-06",
+      "split": "historical_oos",
+      "test_year": 2026,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 9.409229041547432e-19,
+      "selected_mean_size_z": 0.6527676862492793,
+      "selected_mean_size_percentile": 0.638488197639528
+    },
+    {
+      "asof_date": "2026-03-13",
+      "split": "historical_oos",
+      "test_year": 2026,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.19386248474237505,
+      "selected_mean_size_z": -0.6936471825253249,
+      "selected_mean_size_percentile": 0.2802818309014591
+    },
+    {
+      "asof_date": "2026-03-13",
+      "split": "historical_oos",
+      "test_year": 2026,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -6.711936397286203e-17,
+      "selected_mean_size_z": 0.7292355879430014,
+      "selected_mean_size_percentile": 0.6473935638616831
+    },
+    {
+      "asof_date": "2026-03-20",
+      "split": "historical_oos",
+      "test_year": 2026,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.17561032191233497,
+      "selected_mean_size_z": -0.5761834532678836,
+      "selected_mean_size_percentile": 0.31590563774490205
+    },
+    {
+      "asof_date": "2026-03-20",
+      "split": "historical_oos",
+      "test_year": 2026,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -6.421774072603691e-17,
+      "selected_mean_size_z": 0.5747398322073494,
+      "selected_mean_size_percentile": 0.6255267892842863
+    },
+    {
+      "asof_date": "2026-03-27",
+      "split": "historical_oos",
+      "test_year": 2026,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.1360360811282893,
+      "selected_mean_size_z": -0.30509668470703255,
+      "selected_mean_size_percentile": 0.40726535921552937
+    },
+    {
+      "asof_date": "2026-03-27",
+      "split": "historical_oos",
+      "test_year": 2026,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -1.845037373887505e-17,
+      "selected_mean_size_z": 0.8004678606518945,
+      "selected_mean_size_percentile": 0.698300980588353
+    },
+    {
+      "asof_date": "2026-04-03",
+      "split": "historical_oos",
+      "test_year": 2026,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.13397364376443424,
+      "selected_mean_size_z": -0.51019045775798,
+      "selected_mean_size_percentile": 0.34148070385922824
+    },
+    {
+      "asof_date": "2026-04-03",
+      "split": "historical_oos",
+      "test_year": 2026,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -9.274577303197588e-18,
+      "selected_mean_size_z": 0.5552102907540342,
+      "selected_mean_size_percentile": 0.6258488302339532
+    },
+    {
+      "asof_date": "2026-04-10",
+      "split": "historical_oos",
+      "test_year": 2026,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.18288528630671874,
+      "selected_mean_size_z": -0.1640549450133907,
+      "selected_mean_size_percentile": 0.4381525863790693
+    },
+    {
+      "asof_date": "2026-04-10",
+      "split": "historical_oos",
+      "test_year": 2026,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 1.7831873412718964e-17,
+      "selected_mean_size_z": 0.8648626895982328,
+      "selected_mean_size_percentile": 0.7035350509286998
+    },
+    {
+      "asof_date": "2026-04-17",
+      "split": "historical_oos",
+      "test_year": 2026,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.16752796330501538,
+      "selected_mean_size_z": -0.33835937534943933,
+      "selected_mean_size_percentile": 0.3890770305328277
+    },
+    {
+      "asof_date": "2026-04-17",
+      "split": "historical_oos",
+      "test_year": 2026,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 9.910155567689371e-17,
+      "selected_mean_size_z": 0.9974045081310732,
+      "selected_mean_size_percentile": 0.7231929754540012
+    },
+    {
+      "asof_date": "2026-04-24",
+      "split": "historical_oos",
+      "test_year": 2026,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.2098392975628113,
+      "selected_mean_size_z": -0.413680490951178,
+      "selected_mean_size_percentile": 0.3680633873225355
+    },
+    {
+      "asof_date": "2026-04-24",
+      "split": "historical_oos",
+      "test_year": 2026,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 7.766930800650602e-17,
+      "selected_mean_size_z": 0.965118662912833,
+      "selected_mean_size_percentile": 0.7172415516896621
+    },
+    {
+      "asof_date": "2026-04-30",
+      "split": "historical_oos",
+      "test_year": 2026,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.19392113479716724,
+      "selected_mean_size_z": -0.3593544803254211,
+      "selected_mean_size_percentile": 0.3980450669914738
+    },
+    {
+      "asof_date": "2026-04-30",
+      "split": "historical_oos",
+      "test_year": 2026,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -1.0312613865907682e-18,
+      "selected_mean_size_z": 0.600176905447708,
+      "selected_mean_size_percentile": 0.6507140682095006
+    },
+    {
+      "asof_date": "2026-05-08",
+      "split": "historical_oos",
+      "test_year": 2026,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.1855274288735795,
+      "selected_mean_size_z": -0.3087865421998,
+      "selected_mean_size_percentile": 0.3965288207834382
+    },
+    {
+      "asof_date": "2026-05-08",
+      "split": "historical_oos",
+      "test_year": 2026,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 1.959931628409423e-16,
+      "selected_mean_size_z": 0.8872521656746821,
+      "selected_mean_size_percentile": 0.7056910899127257
+    },
+    {
+      "asof_date": "2026-05-15",
+      "split": "historical_oos",
+      "test_year": 2026,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.22236280761443436,
+      "selected_mean_size_z": -0.5726568348026657,
+      "selected_mean_size_percentile": 0.3176763632677884
+    },
+    {
+      "asof_date": "2026-05-15",
+      "split": "historical_oos",
+      "test_year": 2026,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 1.7295238686418543e-16,
+      "selected_mean_size_z": 0.7597056552114354,
+      "selected_mean_size_percentile": 0.6676626799108049
+    },
+    {
+      "asof_date": "2026-05-22",
+      "split": "historical_oos",
+      "test_year": 2026,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.22417132416548674,
+      "selected_mean_size_z": -0.5446543506798918,
+      "selected_mean_size_percentile": 0.3325596321002628
+    },
+    {
+      "asof_date": "2026-05-22",
+      "split": "historical_oos",
+      "test_year": 2026,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -6.197120961721777e-17,
+      "selected_mean_size_z": 0.7116942935676949,
+      "selected_mean_size_percentile": 0.6663583990297149
+    },
+    {
+      "asof_date": "2026-05-29",
+      "split": "historical_oos",
+      "test_year": 2026,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.3401620635916186,
+      "selected_mean_size_z": -0.8441257697815435,
+      "selected_mean_size_percentile": 0.22664965642683912
+    },
+    {
+      "asof_date": "2026-05-29",
+      "split": "historical_oos",
+      "test_year": 2026,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 4.167663376349691e-16,
+      "selected_mean_size_z": 0.9230498087270333,
+      "selected_mean_size_percentile": 0.7005739692805173
+    },
+    {
+      "asof_date": "2026-06-05",
+      "split": "historical_oos",
+      "test_year": 2026,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.2432083907727977,
+      "selected_mean_size_z": -0.6285306993570089,
+      "selected_mean_size_percentile": 0.3057856278976013
+    },
+    {
+      "asof_date": "2026-06-05",
+      "split": "historical_oos",
+      "test_year": 2026,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 1.2723503885823031e-16,
+      "selected_mean_size_z": 0.9437954642307028,
+      "selected_mean_size_percentile": 0.7228330981656924
+    },
+    {
+      "asof_date": "2026-06-12",
+      "split": "historical_oos",
+      "test_year": 2026,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.3721969728602459,
+      "selected_mean_size_z": -0.8691529106102271,
+      "selected_mean_size_percentile": 0.21885475423045933
+    },
+    {
+      "asof_date": "2026-06-12",
+      "split": "historical_oos",
+      "test_year": 2026,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -1.8005193322262463e-16,
+      "selected_mean_size_z": 0.89463881466037,
+      "selected_mean_size_percentile": 0.6977835414987914
+    },
+    {
+      "asof_date": "2026-06-18",
+      "split": "historical_oos",
+      "test_year": 2026,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.3370624821652506,
+      "selected_mean_size_z": -0.8224427273701477,
+      "selected_mean_size_percentile": 0.2382848661702556
+    },
+    {
+      "asof_date": "2026-06-18",
+      "split": "historical_oos",
+      "test_year": 2026,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -1.7647115212376125e-16,
+      "selected_mean_size_z": 1.1503669333787088,
+      "selected_mean_size_percentile": 0.7562663513785469
+    },
+    {
+      "asof_date": "2026-06-26",
+      "split": "historical_oos",
+      "test_year": 2026,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.36670751483929065,
+      "selected_mean_size_z": -0.7429772154880524,
+      "selected_mean_size_percentile": 0.26504469666532743
+    },
+    {
+      "asof_date": "2026-06-26",
+      "split": "historical_oos",
+      "test_year": 2026,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -1.5673302458407637e-16,
+      "selected_mean_size_z": 1.4800019134961466,
+      "selected_mean_size_percentile": 0.841364503816794
+    },
+    {
+      "asof_date": "2026-07-03",
+      "split": "historical_oos",
+      "test_year": 2026,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.2479286097155106,
+      "selected_mean_size_z": -0.3341191205860895,
+      "selected_mean_size_percentile": 0.40596717526601084
+    },
+    {
+      "asof_date": "2026-07-03",
+      "split": "historical_oos",
+      "test_year": 2026,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 3.5865149123187084e-17,
+      "selected_mean_size_z": 1.1275342609489734,
+      "selected_mean_size_percentile": 0.7702082915077295
+    },
+    {
+      "asof_date": "2026-07-10",
+      "split": "historical_oos",
+      "test_year": 2026,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.3213457995602915,
+      "selected_mean_size_z": -0.6820819925120134,
+      "selected_mean_size_percentile": 0.28541875878690504
+    },
+    {
+      "asof_date": "2026-07-10",
+      "split": "historical_oos",
+      "test_year": 2026,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 3.5223189824658497e-16,
+      "selected_mean_size_z": 1.1304384681165955,
+      "selected_mean_size_percentile": 0.7671681060453907
+    },
+    {
+      "asof_date": "2026-07-17",
+      "split": "historical_oos",
+      "test_year": 2026,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.29176543516044373,
+      "selected_mean_size_z": -0.7902208059410972,
+      "selected_mean_size_percentile": 0.2486280610196708
+    },
+    {
+      "asof_date": "2026-07-17",
+      "split": "historical_oos",
+      "test_year": 2026,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -6.176568575893725e-17,
+      "selected_mean_size_z": 0.26814673183659626,
+      "selected_mean_size_percentile": 0.543655158570855
+    },
+    {
+      "asof_date": "2026-07-24",
+      "split": "historical_oos",
+      "test_year": 2026,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.37303395030565123,
+      "selected_mean_size_z": -1.0041662083235068,
+      "selected_mean_size_percentile": 0.16694232698094283
+    },
+    {
+      "asof_date": "2026-07-24",
+      "split": "historical_oos",
+      "test_year": 2026,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -3.308290604786982e-16,
+      "selected_mean_size_z": 0.18552486698944193,
+      "selected_mean_size_percentile": 0.5051700100300903
+    },
+    {
+      "asof_date": "2026-07-31",
+      "split": "historical_oos",
+      "test_year": 2026,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.24698092301297908,
+      "selected_mean_size_z": -0.902679186569585,
+      "selected_mean_size_percentile": 0.20338497793822705
+    },
+    {
+      "asof_date": "2026-07-31",
+      "split": "historical_oos",
+      "test_year": 2026,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 1.3091687957487503e-16,
+      "selected_mean_size_z": -0.21660852448915272,
+      "selected_mean_size_percentile": 0.4047081829121541
+    },
+    {
+      "asof_date": "2026-08-07",
+      "split": "historical_oos",
+      "test_year": 2026,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.22228746363621832,
+      "selected_mean_size_z": -0.7483073355516189,
+      "selected_mean_size_percentile": 0.25826522435897437
+    },
+    {
+      "asof_date": "2026-08-07",
+      "split": "historical_oos",
+      "test_year": 2026,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -2.0644557311770192e-16,
+      "selected_mean_size_z": 0.9416520667043774,
+      "selected_mean_size_percentile": 0.7002443910256411
+    },
+    {
+      "asof_date": "2026-08-14",
+      "split": "historical_oos",
+      "test_year": 2026,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.11187372654430222,
+      "selected_mean_size_z": -0.26951834798234353,
+      "selected_mean_size_percentile": 0.4076311311311311
+    },
+    {
+      "asof_date": "2026-08-14",
+      "split": "historical_oos",
+      "test_year": 2026,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -5.2764165326852093e-17,
+      "selected_mean_size_z": 0.7376606884851106,
+      "selected_mean_size_percentile": 0.6739854854854854
+    },
+    {
+      "asof_date": "2026-08-21",
+      "split": "historical_oos",
+      "test_year": 2026,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.07860187879275418,
+      "selected_mean_size_z": -0.005135870398252153,
+      "selected_mean_size_percentile": 0.49599149149149147
+    },
+    {
+      "asof_date": "2026-08-21",
+      "split": "historical_oos",
+      "test_year": 2026,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -1.6226332841897325e-17,
+      "selected_mean_size_z": 0.5662977862944015,
+      "selected_mean_size_percentile": 0.6603633633633634
+    },
+    {
+      "asof_date": "2026-08-28",
+      "split": "historical_oos",
+      "test_year": 2026,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.05727107836372167,
+      "selected_mean_size_z": -0.05460866832406838,
+      "selected_mean_size_percentile": 0.4780603879224155
+    },
+    {
+      "asof_date": "2026-08-28",
+      "split": "historical_oos",
+      "test_year": 2026,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -3.847974684566772e-17,
+      "selected_mean_size_z": 0.4258780953712336,
+      "selected_mean_size_percentile": 0.6089522095580884
+    },
+    {
+      "asof_date": "2026-09-04",
+      "split": "historical_oos",
+      "test_year": 2026,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.019233710422276597,
+      "selected_mean_size_z": -0.18906696844091533,
+      "selected_mean_size_percentile": 0.44378372976214275
+    },
+    {
+      "asof_date": "2026-09-04",
+      "split": "historical_oos",
+      "test_year": 2026,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 1.0892664718931093e-17,
+      "selected_mean_size_z": -0.05249632105670704,
+      "selected_mean_size_percentile": 0.4875894463322007
+    },
+    {
+      "asof_date": "2026-09-11",
+      "split": "historical_oos",
+      "test_year": 2026,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.12156116931298962,
+      "selected_mean_size_z": -0.6340108550835608,
+      "selected_mean_size_percentile": 0.30019888067159706
+    },
+    {
+      "asof_date": "2026-09-11",
+      "split": "historical_oos",
+      "test_year": 2026,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": 6.5326755209283985e-18,
+      "selected_mean_size_z": 0.037171259901576874,
+      "selected_mean_size_percentile": 0.48481011393164103
+    },
+    {
+      "asof_date": "2026-09-18",
+      "split": "historical_oos",
+      "test_year": 2026,
+      "pipeline": "raw",
+      "score_log_size_correlation": -0.07685122115197875,
+      "selected_mean_size_z": -0.4942592051000247,
+      "selected_mean_size_percentile": 0.34097402597402593
+    },
+    {
+      "asof_date": "2026-09-18",
+      "split": "historical_oos",
+      "test_year": 2026,
+      "pipeline": "size_neutralized",
+      "score_log_size_correlation": -3.7019192719938413e-17,
+      "selected_mean_size_z": 0.06427604254952649,
+      "selected_mean_size_percentile": 0.511081918081918
+    }
+  ]
+}

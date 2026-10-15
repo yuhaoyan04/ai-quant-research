@@ -1,0 +1,8 @@
+asset_version: pit_size_exposures_v1
+start_year: 2006
+end_year: 2026
+size_proxy: amount_cny_divided_by_turnover_fraction
+turnover_input_unit: percent
+weekly_date_rule: same_dates_as_multi_horizon_factor_panel
+industry_status: blocked_until_effective_dated_classification_is_available
+industry_safety_rule: never_backfill_current_industry_into_history

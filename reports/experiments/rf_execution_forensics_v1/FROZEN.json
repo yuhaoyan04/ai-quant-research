@@ -1,0 +1,21 @@
+{
+  "experiment_id": "rf_execution_forensics_v1",
+  "frozen_at_utc": "2026-10-15T03:57:01.797446+00:00",
+  "content_sha256": "4db2274bbc5c2648b098c1314036cd56e0a5fb3ff14e355b2f0fb0c9214ed89e",
+  "files": {
+    "config.yaml": "7a8a0347e110cd30c0142997ab1abd2388ca058f472f983e3e1ba7d5b6b1af25",
+    "metadata.json": "f422b69ade6624921233106577ffd1cf53c19fc9ce7e404d6f6c1e5530925db4",
+    "metrics.json": "93f338c217c406f65fd85a5d2c496f3bc8f31720b9aeb9f75908888f1c5bdb03",
+    "notes.md": "31abfce0a1c67b3db8573a311110daba64175ad434dc158186088187c153f21e",
+    "tables/rf_forensic_concentration__v1.csv": "3d71572d02437237949b7d828fcd3f42e2a0f05c479701bf41544a861e53e868",
+    "tables/rf_forensic_holdings_summary__v1.csv": "8b519720e685bf20820714b1906a957d5f3d0581643838d0b89f167c67528b98",
+    "tables/rf_forensic_label_audit__v1.csv": "3163b6e81313fd8a1e285b891371e906c7b9d6c3e91cc6dee1dbc4e9e31259a5",
+    "tables/rf_forensic_missingness__v1.csv": "a44e16c42d066a6932296ea9c547165741e8d156717305f1ff6eb14356d200f8",
+    "tables/rf_forensic_summary__v1.csv": "4747cbc3e3897da1979c497c13e92d615ebcfafca3d1efc767345ed53e1ea26d",
+    "tables/rf_forensic_yearly__v1.csv": "8526f05aebbd4fc2554334df44ba3db50fae7a81b7f8f5b614103ce659c4c8e2",
+    "tables/rf_oos_execution_diagnostics__v1.csv": "5e8cd7cccbe22510517cfda2fdb6795c5038aefdc3075494537c22e2d791b5fc",
+    "tables/rf_oos_execution_fit_audit__v1.csv": "305cfb30d1f2c5a090489c59314977e0ebc808b46b1fae2a0ca5e7d98fb2e403",
+    "tables/rf_oos_execution_summary__v1.csv": "da5dbae73871ae21c0e5d8641fb3dd6300121ae4e75fe1d6a60ffe4bb1afc1a0",
+    "tables/rf_oos_execution_yearly__v1.csv": "c9ad60ddeaea2c9ccde8a59995898cbabb75be61937ebdea091605a3a7ee6721"
+  }
+}

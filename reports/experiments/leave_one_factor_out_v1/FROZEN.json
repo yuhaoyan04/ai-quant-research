@@ -1,0 +1,14 @@
+{
+  "experiment_id": "leave_one_factor_out_v1",
+  "frozen_at_utc": "2026-10-14T16:30:50.876483+00:00",
+  "content_sha256": "9cf730eebf6b0a23ae6c7452cb70aa7d8d6a5e610ed93afe5e2207d9b69e9c12",
+  "files": {
+    "config.yaml": "5891c3dd1c79845d6e4891aba3900f7b68a59820816f85b57d222cea724de3e1",
+    "metadata.json": "638a713fc897d2f40a3e5d97d05203ead3c3a244fe03da4dd484c9fccc0e5fb7",
+    "metrics.json": "5c8319c0d59d3b707bced1c89c0143172b76417504feb0e424c79e7f6ea4b1c9",
+    "notes.md": "cf8a3d52fe56f2e7872695efb29f481c28115951c8b10e4734b7f16467293b41",
+    "tables/lofo_comparison__v1.csv": "35e2fc1f1247fc28db1f9288ad07264f0988e45425583ecf8251d743186ad569",
+    "tables/lofo_paired_bootstrap__v1.csv": "add63106045d8142eed582867002efd3d9cfd7f64a3dde6c84f116b774120e37",
+    "tables/lofo_summary__v1.csv": "1204df022c0f7cdcc74e1243a48eb368118fcbd92fc7c9b36c117d95a217528e"
+  }
+}

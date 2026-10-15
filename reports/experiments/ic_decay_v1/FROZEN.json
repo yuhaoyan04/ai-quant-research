@@ -1,0 +1,13 @@
+{
+  "experiment_id": "ic_decay_v1",
+  "frozen_at_utc": "2026-10-14T15:51:08.639857+00:00",
+  "content_sha256": "be25d306771ea4ab3cce39977b56a6aef9b27154a18adbac7076ed6d119490e1",
+  "files": {
+    "config.yaml": "bef8234c29132fa8fd354fbb25cfbbb85304c1590b2f50d3b6c7a702edc09d2e",
+    "metadata.json": "be918169f2c277d0b5b49a89e2aa9af5a1df806bedc6f1053f3d8ebc475f4ccf",
+    "metrics.json": "2ce0b312b6f5e49940d7c4f5194a791c2fa664c10ba62d70074a096b4e511283",
+    "notes.md": "f6291cec69ef89ce7e914f121a187ba8c43855509fa4af6e6c5b7053bdf921bf",
+    "tables/ic_decay_annual__v1.csv": "685a9e1b42551c2a9d3acdb1076555058430b8fe3722033b5bb99e0eea3389fa",
+    "tables/ic_decay_summary__v1.csv": "2fbea7e48d6678bd5df76bf9a54d5a8cabc32b86deae4e7f76a7f8236c71c637"
+  }
+}

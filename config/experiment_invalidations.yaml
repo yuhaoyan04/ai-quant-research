@@ -1,0 +1,52 @@
+invalidations:
+  factor_preprocessing_ablation_v1:
+    invalidated_at_utc: "2026-10-14T12:45:00Z"
+    severity: portfolio_metrics_invalid
+    reason: >-
+      Validation portfolios were formed after filtering rows with non-null future
+      returns. RankIC and model-selection metrics used the correct realized subset,
+      but Top-200 portfolio metrics had outcome-availability leakage.
+    unaffected_outputs:
+      - factor_preprocessing_ablation_selection/v1
+      - factor_preprocessing_ablation_daily/v1
+      - factor_preprocessing_ablation_factor_summary/v1
+    invalid_outputs:
+      - factor_preprocessing_ablation_portfolio/v1
+      - portfolio fields in factor_preprocessing_ablation_grid/v1
+      - portfolio fields in factor_preprocessing_ablation_annual/v1
+    superseded_by: factor_preprocessing_ablation_v2
+  model_benchmark_v1:
+    invalidated_at_utc: "2026-10-15T12:00:00Z"
+    severity: portfolio_metrics_execution_idealized
+    reason: >-
+      Model ranking and RankIC are valid, but the benchmark Top-200 portfolio
+      assumes every next-day rebalance is filled. RandomForest disproportionately
+      selected stocks blocked by next-day price limits or suspensions, materially
+      inflating validation returns and modestly inflating historical-OOS returns.
+    unaffected_outputs:
+      - model_benchmark_validation_grid/v1 RankIC fields
+      - model_benchmark_selection/v1
+      - model_benchmark_oos_summary/v1 RankIC fields
+      - model_benchmark_oos_annual/v1 RankIC fields
+    invalid_outputs:
+      - unqualified portfolio return and Sharpe claims from model_benchmark_validation_grid/v1
+      - unqualified portfolio return and Sharpe claims from model_benchmark_oos_summary/v1
+    superseded_by: rf_daily_retry_execution_v1
+  rf_execution_forensics_v1:
+    invalidated_at_utc: "2026-10-15T16:00:00Z"
+    severity: execution_timing_incomplete
+    reason: >-
+      The weekly constrained simulator applied a blocked next-day order only at
+      the following weekly rebalance. It also evaluated every signal with a full
+      five-day label even when holiday-week signal dates were fewer than five
+      trading days apart, creating overlapping portfolio return intervals. The
+      price-limit diagnosis remains valid, but its 19.09% validation and 24.19%
+      historical-OOS returns are not the final executable estimates.
+    unaffected_outputs:
+      - rf_forensic_label_audit/v1
+      - rf_forensic_holdings_summary/v1 size and missingness fields
+      - qualitative finding that RF concentrates in blocked small-cap names
+    invalid_outputs:
+      - rf_forensic_summary/v1 constrained portfolio metrics
+      - rf_oos_execution_summary/v1 constrained portfolio metrics
+    superseded_by: rf_daily_retry_execution_v1

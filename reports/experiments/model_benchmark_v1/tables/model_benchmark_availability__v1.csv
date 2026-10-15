@@ -1,0 +1,9 @@
+model,status
+lightgbm,dependency_not_installed
+xgboost,dependency_not_installed
+naive,executed
+ols,executed
+ridge,executed
+elastic_net,executed
+random_forest,executed
+hgb,executed

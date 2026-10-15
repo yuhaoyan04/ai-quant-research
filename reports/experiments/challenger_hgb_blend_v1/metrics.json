@@ -1,0 +1,191 @@
+{
+  "model_challenger_selection__hgb_v1": [
+    {
+      "selected_tree_candidate": "flexible_63",
+      "selected_tree_weight": 0.75,
+      "ridge_weight": 0.25,
+      "target": "fwd_return_5d_lag1",
+      "selection_period": "validation_2016_2020_only",
+      "early_stopping": false,
+      "sample_per_training_date": 300
+    }
+  ],
+  "model_challenger_oos_annual__hgb_v1": [
+    {
+      "test_year": 2021,
+      "observations": 52,
+      "mean_rank_ic": 0.09192076944764536,
+      "rank_ic_std": 0.11617803730629699,
+      "annualized_icir": 5.70546817983859,
+      "mean_top_minus_bottom": 0.012749244526628518
+    },
+    {
+      "test_year": 2022,
+      "observations": 50,
+      "mean_rank_ic": 0.10309180087117205,
+      "rank_ic_std": 0.12007963048975458,
+      "annualized_icir": 6.190938006802884,
+      "mean_top_minus_bottom": 0.014575380302031753
+    },
+    {
+      "test_year": 2023,
+      "observations": 50,
+      "mean_rank_ic": 0.10107407545956351,
+      "rank_ic_std": 0.1439196977396895,
+      "annualized_icir": 5.064320831867236,
+      "mean_top_minus_bottom": 0.01064419107687266
+    },
+    {
+      "test_year": 2024,
+      "observations": 52,
+      "mean_rank_ic": 0.10762378566383325,
+      "rank_ic_std": 0.16836028286157068,
+      "annualized_icir": 4.609674812551296,
+      "mean_top_minus_bottom": 0.014800837278588708
+    },
+    {
+      "test_year": 2025,
+      "observations": 53,
+      "mean_rank_ic": 0.09091097697302371,
+      "rank_ic_std": 0.15715145476421397,
+      "annualized_icir": 4.171570533286657,
+      "mean_top_minus_bottom": 0.0066352712997638
+    },
+    {
+      "test_year": 2026,
+      "observations": 36,
+      "mean_rank_ic": 0.09035913114023884,
+      "rank_ic_std": 0.19244275276247147,
+      "annualized_icir": 3.385884642116174,
+      "mean_top_minus_bottom": 0.010204083802980251
+    }
+  ],
+  "challenger_portfolio_validation_summary__v1": [
+    {
+      "model": "hgb_ridge_blend",
+      "period": "validation",
+      "entry_n": 200,
+      "exit_n": 400,
+      "liquidity_screen": "exclude_illiquid_10pct",
+      "periods": 254,
+      "annualized_return": 0.22167079139917845,
+      "annualized_volatility": 0.2945714655618733,
+      "sharpe_zero_rate": 0.830005849336426,
+      "annualized_excess_return_arithmetic": 0.0790265743522812,
+      "information_ratio": 1.0836976633117628,
+      "maximum_drawdown": -0.2669681348077054,
+      "mean_turnover": 0.4769850799017387,
+      "mean_realized_weight_fraction": 1.0
+    }
+  ],
+  "challenger_portfolio_oos_summary__v1": [
+    {
+      "model": "hgb_ridge_blend",
+      "period": "test_lockbox",
+      "entry_n": 200,
+      "exit_n": 400,
+      "liquidity_screen": "exclude_illiquid_10pct",
+      "periods": 292,
+      "annualized_return": 0.23506190396276705,
+      "annualized_volatility": 0.3111892802115687,
+      "sharpe_zero_rate": 0.8354198926913114,
+      "annualized_excess_return_arithmetic": 0.11293717131096341,
+      "information_ratio": 1.1671693400538115,
+      "maximum_drawdown": -0.3789921972157483,
+      "mean_turnover": 0.5400536475648854,
+      "mean_realized_weight_fraction": 0.9994349315068495
+    }
+  ],
+  "robustness_cost_grid__v1": [
+    {
+      "model": "hgb_ridge_blend",
+      "cost_bps": 0.0,
+      "periods": 291,
+      "annualized_return": 0.29965746143571725,
+      "annualized_volatility": 0.31153904400735716,
+      "sharpe_zero_rate": 0.9990463631664915,
+      "annualized_excess_return_arithmetic": 0.1681330074000937,
+      "information_ratio": 1.7351951211680126,
+      "maximum_drawdown": -0.3716529260689674,
+      "mean_turnover": 0.5396720898052079,
+      "mean_realized_weight_fraction": 0.9995017182130584
+    },
+    {
+      "model": "hgb_ridge_blend",
+      "cost_bps": 10.0,
+      "periods": 291,
+      "annualized_return": 0.2638358544362438,
+      "annualized_volatility": 0.31152405490940493,
+      "sharpe_zero_rate": 0.9090116662496481,
+      "annualized_excess_return_arithmetic": 0.14007005873022288,
+      "information_ratio": 1.4455904537176176,
+      "maximum_drawdown": -0.37533232594120913,
+      "mean_turnover": 0.5396720898052079,
+      "mean_realized_weight_fraction": 0.9995017182130584
+    },
+    {
+      "model": "hgb_ridge_blend",
+      "cost_bps": 20.0,
+      "periods": 291,
+      "annualized_return": 0.22898196710494045,
+      "annualized_volatility": 0.31151200995903466,
+      "sharpe_zero_rate": 0.8189605646142608,
+      "annualized_excess_return_arithmetic": 0.11200711006035208,
+      "information_ratio": 1.1558666825419455,
+      "maximum_drawdown": -0.3789921972157483,
+      "mean_turnover": 0.5396720898052079,
+      "mean_realized_weight_fraction": 0.9995017182130584
+    },
+    {
+      "model": "hgb_ridge_blend",
+      "cost_bps": 40.0,
+      "periods": 291,
+      "annualized_return": 0.16207556007085966,
+      "annualized_volatility": 0.31149675378369,
+      "sharpe_zero_rate": 0.6388193514164696,
+      "annualized_excess_return_arithmetic": 0.05588121272061049,
+      "information_ratio": 0.576401603466937,
+      "maximum_drawdown": -0.38625372561361704,
+      "mean_turnover": 0.5396720898052079,
+      "mean_realized_weight_fraction": 0.9995017182130584
+    }
+  ],
+  "robustness_block_bootstrap__v1": [
+    {
+      "metric": "challenger_net_excess_vs_CSI500",
+      "observations": 291,
+      "point_estimate": 0.22762731025795616,
+      "ci_2_5pct": 0.0737983283414213,
+      "ci_97_5pct": 0.384101776180272,
+      "one_sided_probability_nonpositive": 0.004999000199960008,
+      "block_length_weeks": 13
+    },
+    {
+      "metric": "challenger_minus_ridge_net_return",
+      "observations": 291,
+      "point_estimate": 0.03211179924324033,
+      "ci_2_5pct": -0.008666286294444084,
+      "ci_97_5pct": 0.07447269715754343,
+      "one_sided_probability_nonpositive": 0.059988002399520096,
+      "block_length_weeks": 13
+    },
+    {
+      "metric": "challenger_mean_rank_ic",
+      "observations": 293,
+      "point_estimate": 0.0978014374844796,
+      "ci_2_5pct": 0.08054904394450182,
+      "ci_97_5pct": 0.11409312227720403,
+      "one_sided_probability_nonpositive": 0.0001999600079984003,
+      "block_length_weeks": 13
+    },
+    {
+      "metric": "challenger_minus_ridge_rank_ic",
+      "observations": 293,
+      "point_estimate": -0.00040802687356786483,
+      "ci_2_5pct": -0.00450218942405015,
+      "ci_97_5pct": 0.0036995384233760313,
+      "one_sided_probability_nonpositive": 0.5708858228354329,
+      "block_length_weeks": 13
+    }
+  ]
+}

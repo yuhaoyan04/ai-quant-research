@@ -1,0 +1,23 @@
+experiment_id: factor_preprocessing_ablation_v2
+selection_period: validation_2016_2020_only
+train: {start_year: 2006, end_year: 2015}
+validation: {start_year: 2016, end_year: 2020}
+target: fwd_return_5d_lag1
+label_horizon_trading_days: 5
+minimum_cross_section_size: 100
+annualization_periods: 52
+
+winsor_methods: [none, quantile, mad]
+normalization_methods: [raw, zscore, rank_zscore]
+quantile_limits: [0.01, 0.99]
+mad_multiplier: 5.0
+
+ridge_penalties_per_observation: [0.0001, 0.001, 0.01, 0.1, 1.0]
+include_missing_indicators: true
+top_n: 200
+round_trip_cost_bps: 20.0
+minimum_realized_weight_fraction: 0.95
+
+selection_metric: mean_rank_ic
+selection_tiebreakers: [portfolio_sharpe_zero_rate, portfolio_annualized_return]
+historical_oos_used_for_selection: false

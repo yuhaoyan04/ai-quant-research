@@ -1,0 +1,139 @@
+{
+  "experiment_id": "rf_execution_forensics_v1",
+  "title": "Random-forest return and next-day execution forensic audit",
+  "stage": "execution_bias_forensics",
+  "model_version": "frozen_rf_depth6_execution_audit_v1",
+  "registered_at_utc": "2026-10-15T03:57:01.797446+00:00",
+  "immutable": true,
+  "selection_policy": "validation_only",
+  "historical_oos_used_for_selection": false,
+  "historical_oos_disclosure": "The 2021-2026 block has already been inspected during project development. It is historical out-of-sample evidence, not a pristine production lockbox.",
+  "dataset_version": "c7222412b370e174948abdd3c74ce538f37fe49d27c74831cfa25fed5ea8e1bb",
+  "dataset_manifest": {
+    "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\manifests\\ingestion.jsonl",
+    "size_bytes": 25762784,
+    "sha256": "39e618ca8637e712b36144a65e7a74acf275227bf47c1ea379982db1baec00b0"
+  },
+  "input_artifacts": [
+    {
+      "table": "model_benchmark_validation_portfolio",
+      "key": "v1",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\model_benchmark_validation_portfolio\\key=v1\\data.parquet",
+      "size_bytes": 213624,
+      "sha256": "a0bcaea15dad87caad4af06a59f9c60f74726e732a2c0795092833980c50d070"
+    },
+    {
+      "table": "model_benchmark_oos_portfolio",
+      "key": "v1",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\model_benchmark_oos_portfolio\\key=v1\\data.parquet",
+      "size_bytes": 110426,
+      "sha256": "737b8709ab13eb74818adf87b2d7f73d36cf16a8bd938b896945217f15843768"
+    },
+    {
+      "table": "execution_flag_index",
+      "key": "v1",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\execution_flag_index\\key=v1\\data.parquet",
+      "size_bytes": 3298,
+      "sha256": "6f2f21851abee8ce082aa15757623c26492f1e723f11f87e8eceaeab73138a56"
+    },
+    {
+      "table": "pit_size_exposure_index",
+      "key": "v1",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\pit_size_exposure_index\\key=v1\\data.parquet",
+      "size_bytes": 5826,
+      "sha256": "3786e77dcfa7fae034c361a9b6c60ef1b63bd40219dc0c3f6fa8035239cdb1df"
+    }
+  ],
+  "metric_artifacts": [
+    {
+      "table": "rf_forensic_summary",
+      "key": "v1",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\rf_forensic_summary\\key=v1\\data.parquet",
+      "size_bytes": 7357,
+      "sha256": "e93c14094c5344e2235e4d9fd8c1ac5b577fcac7d83e51488bdadf07f662afa1"
+    },
+    {
+      "table": "rf_forensic_yearly",
+      "key": "v1",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\rf_forensic_yearly\\key=v1\\data.parquet",
+      "size_bytes": 8316,
+      "sha256": "efeef129e103f079c57427d81d8996c64ad93149731eb11628dfb9c0d1e04b52"
+    },
+    {
+      "table": "rf_forensic_concentration",
+      "key": "v1",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\rf_forensic_concentration\\key=v1\\data.parquet",
+      "size_bytes": 4059,
+      "sha256": "aa23785e89510e0cc17b599d4862e9b02ff4b493cf763849fd61b813b3e33e9a"
+    },
+    {
+      "table": "rf_forensic_holdings_summary",
+      "key": "v1",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\rf_forensic_holdings_summary\\key=v1\\data.parquet",
+      "size_bytes": 6804,
+      "sha256": "3c5626b904e19a2262ab63288d927df0caa3dd6089bbed880e94d55fc7064e45"
+    },
+    {
+      "table": "rf_forensic_missingness",
+      "key": "v1",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\rf_forensic_missingness\\key=v1\\data.parquet",
+      "size_bytes": 3663,
+      "sha256": "30bd95af392d78df489513004384adf4f90d316c48cca76f8822492381f4579e"
+    },
+    {
+      "table": "rf_forensic_label_audit",
+      "key": "v1",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\rf_forensic_label_audit\\key=v1\\data.parquet",
+      "size_bytes": 9633,
+      "sha256": "d754b201ac9a7001be18969b37e5fd184a034e011e7c2c6d3039143d12a1f279"
+    },
+    {
+      "table": "rf_oos_execution_summary",
+      "key": "v1",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\rf_oos_execution_summary\\key=v1\\data.parquet",
+      "size_bytes": 7357,
+      "sha256": "6e785f834da19b567dd788151749db200aa07a5e7d9b073907eba1141d8099cd"
+    },
+    {
+      "table": "rf_oos_execution_yearly",
+      "key": "v1",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\rf_oos_execution_yearly\\key=v1\\data.parquet",
+      "size_bytes": 8467,
+      "sha256": "c218d3f0d65ac08e85878509544991598f374fb1ebbb0aca487c3e80ff48951a"
+    },
+    {
+      "table": "rf_oos_execution_diagnostics",
+      "key": "v1",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\rf_oos_execution_diagnostics\\key=v1\\data.parquet",
+      "size_bytes": 7120,
+      "sha256": "1dc8b79bdb5e64944050480b09f243db80df0217a041948105aa07aa896936ee"
+    },
+    {
+      "table": "rf_oos_execution_fit_audit",
+      "key": "v1",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\rf_oos_execution_fit_audit\\key=v1\\data.parquet",
+      "size_bytes": 2543,
+      "sha256": "7c9ca0b5b5d65f0fb47d28f67289dacf042c8f375d215eb7bcdac010ab7e6001"
+    }
+  ],
+  "figures": [],
+  "source_tree_sha256": "f6fdfd522493036a080dd231319a909fddbad6e409413d0c5cbbbb643d53c213",
+  "git": {
+    "commit": "b5a60563484103218c7c2c556555ff0be1d48161",
+    "dirty": true,
+    "status_sha256": "0f17a5c491bc3971581345f65b1eb1adedf53a639b609744c135b2106edaf4fe"
+  },
+  "environment": {
+    "python": "3.9.12",
+    "implementation": "CPython",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "packages": {
+      "pandas": "2.3.3",
+      "pyarrow": "21.0.0",
+      "PyYAML": "6.0",
+      "scikit-learn": "1.1.3",
+      "numpy": "1.25.2",
+      "scipy": "1.9.3"
+    }
+  }
+}

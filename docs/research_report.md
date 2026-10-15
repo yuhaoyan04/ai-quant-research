@@ -155,6 +155,29 @@ impact = \eta\sigma\sqrt{\frac{trade}{ADV}}, \qquad \eta=0.5.
 
 2023–2024 是明显弱阶段：Ridge/AI blend 年化约 3.4%/7.6%，说明策略存在状态依赖。块 bootstrap 没有处理所有可能的多重研究选择，因此仍应避免过度陈述显著性。
 
+### 7.1 统一模型基准与 RF 参数稳健性
+
+在相同 PIT 股票池、因子、标签、切分和组合口径下，进一步统一比较 naive、OLS、Ridge、
+ElasticNet、RandomForest 与 HGB。验证期选择的深度 6 RF 在 2021–2026 historical OOS 的
+Mean RankIC 为 0.1002；理想完整成交口径下 20bp 后年化收益 27.95%、Sharpe 0.95、最大
+回撤 -39.56%。相对
+Ridge 的年化算术净收益增量为 +5.94 pct，13 周块 bootstrap 95% 区间为
+[+1.30, +10.98] pct；但 RankIC 增量区间 [-0.00272, +0.00785] 跨零，且 RF 相对 HGB 的
+收益差区间也跨零。后续执行取证发现，旧回测还包含节假日短周导致的持有期重叠；改用唯一
+日频净值时钟、股数订单及停牌/涨跌停逐日重试后，验证期从同口径理想上界 57.46% 降至
+10.77%，OOS 从 25.38% 降至 21.62%、Sharpe 0.87、最大回撤 -43.27%。因此结论是“存在非线性排序
+信息，但验证期高收益被不可成交股票严重放大”，而不是“RF 在总体预测或可实现收益上显著
+优于所有模型”。详见 [RF 收益取证与成交约束审计](rf_return_forensics.md)。
+
+RF 胜出后另做了不读取 historical OOS 的局部参数稳健性实验。10 个 one-factor-at-a-time
+邻居中 7 个通过预设 IC/Sharpe 下限，70% 低于 75% 门槛，正式判定为未通过。随机种子和树
+数量稳定，但 depth=4、min leaf=200、max features=0.5 显著损害 Top-200 Sharpe。这提示
+高组合收益依赖足够的非线性容量，并非宽阔参数平台；没有据此事后改选 depth=8。
+
+规模中性化也揭示了收益来源：Ridge 原始分数与 log 规模平均相关 -0.069；逐日残差化后相关
+为数值零，年化收益由 21.22% 降至 16.30%。中性化减原始模型的年化算术收益差 95% 区间为
+[-8.76, -0.54] pct，说明收益显著包含小盘暴露，但中性化后 RankIC 仍有 0.0944。
+
 ## 8. 尚未解决的限制
 
 1. 没有可靠的历史申万行业点时分类，因此尚未完成行业中性化；当前收益可能含行业暴露。
@@ -183,6 +206,14 @@ quant-model-interpretation
 quant-size-stress analyze
 quant-execution-constraints analyze
 quant-robustness
+quant-label-panel build
+quant-label-horizon
+quant-risk-exposure build
+quant-size-neutralization
+quant-model-benchmark
+quant-rf-hyperparameter-stability
+quant-rf-target-holdings
+quant-rf-daily-retry all --split both
 quant-research-dashboard
 quant-audit
 python -m pytest -q
@@ -192,6 +223,8 @@ python -m pytest -q
 
 推荐简历表述：
 
-> 搭建 2006–2026 A 股点时量化研究系统，覆盖 5521 只历史股票与约 1479 万行模型特征；实现可执行标签、purged walk-forward、15 因子 Ridge/HGB 排序、验证集选参、Top-200 缓冲组合及成本/流动性/规模/涨跌停/ADV 容量审计。历史样本外阶段 20bp 后 Ridge/AI blend 年化约 19.9%/22.9%；13 周块 bootstrap 显示 AI 增量区间跨零，据此将结论限定为经济增量迹象而非显著胜出。
+> 搭建 2006–2026 A 股点时量化研究系统，覆盖 5521 只历史股票与约 1479 万行模型特征；实现可执行标签、purged walk-forward、15 因子、多模型统一基准、Top-200 组合及成本/流动性/规模/涨跌停/ADV 容量审计。识别并修复 RF 回测的持有期重叠、不可成交和失败订单处理问题；采用股数订单、唯一日频净值时钟、20bp 成本及涨跌停/停牌逐日重试后，historical OOS 年化 21.62%、Sharpe 0.87、最大回撤 -43.27%（理想全成交上界 25.38%），同时披露 RankIC 增量不显著、参数邻域仅 70% 通过门槛及显著小盘暴露，并将负面取证纳入不可变实验审计。
 
-面试时应主动解释三件事：为什么原始 t+1 标签有泄漏、为什么横截面标准化不等于用测试期拟合 scaler、以及为什么较高样本外收益仍不能证明 AI 模型显著优于 Ridge。
+面试时应主动解释四件事：为什么原始 t+1 标签有泄漏、为什么横截面标准化不等于用测试期
+拟合 scaler、为什么较高样本外收益不等于总体预测显著改善，以及为什么 RF 参数稳健性未通过
+仍是可信且有价值的研究结论。

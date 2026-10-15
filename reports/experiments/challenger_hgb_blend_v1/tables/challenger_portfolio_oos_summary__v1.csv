@@ -1,0 +1,2 @@
+model,period,entry_n,exit_n,liquidity_screen,periods,annualized_return,annualized_volatility,sharpe_zero_rate,annualized_excess_return_arithmetic,information_ratio,maximum_drawdown,mean_turnover,mean_realized_weight_fraction
+hgb_ridge_blend,test_lockbox,200,400,exclude_illiquid_10pct,292,0.23506190396276705,0.3111892802115687,0.8354198926913114,0.11293717131096341,1.1671693400538115,-0.3789921972157483,0.5400536475648854,0.9994349315068495

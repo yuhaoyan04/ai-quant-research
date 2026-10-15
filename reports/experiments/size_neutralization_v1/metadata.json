@@ -1,0 +1,377 @@
+{
+  "experiment_id": "size_neutralization_v1",
+  "title": "Point-in-time size-neutralized factor stress test",
+  "stage": "risk_exposure_and_factor_neutralization",
+  "model_version": "ridge_full15_quantile_zscore_lambda_1_size_residualized",
+  "registered_at_utc": "2026-10-14T18:04:25.000622+00:00",
+  "immutable": true,
+  "selection_policy": "validation_only",
+  "historical_oos_used_for_selection": false,
+  "historical_oos_disclosure": "The 2021-2026 block has already been inspected during project development. It is historical out-of-sample evidence, not a pristine production lockbox.",
+  "dataset_version": "abcfa10cb4fcb73aaa9d18d2e73d3316e2ab0a7c52b3632d05867e8f7b7487f6",
+  "dataset_manifest": {
+    "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\manifests\\ingestion.jsonl",
+    "size_bytes": 25660739,
+    "sha256": "4542188f9b1b7ba01168bcf38ef78ec87d58c1ad9a1914a082c72ad38648cf4d"
+  },
+  "input_artifacts": [
+    {
+      "table": "pit_size_exposure_index",
+      "key": "v1",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\pit_size_exposure_index\\key=v1\\data.parquet",
+      "size_bytes": 5826,
+      "sha256": "3786e77dcfa7fae034c361a9b6c60ef1b63bd40219dc0c3f6fa8035239cdb1df"
+    },
+    {
+      "table": "multi_horizon_factor_panel",
+      "key": "2006",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\multi_horizon_factor_panel\\key=2006\\data.parquet",
+      "size_bytes": 32869567,
+      "sha256": "f541b92797be0ce735ffc4ab718833b6f57ee20caf467dc39b90d62c69112e74"
+    },
+    {
+      "table": "multi_horizon_factor_panel",
+      "key": "2007",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\multi_horizon_factor_panel\\key=2007\\data.parquet",
+      "size_bytes": 40650052,
+      "sha256": "025deb5576389dfc6ccac7a997a3259b24f2f739f99abdd0735231020fe6daf9"
+    },
+    {
+      "table": "multi_horizon_factor_panel",
+      "key": "2008",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\multi_horizon_factor_panel\\key=2008\\data.parquet",
+      "size_bytes": 45272279,
+      "sha256": "0ca51947f16828327002d81bdb8e0bf3ff9b432316edaa3d95456870226fdfa5"
+    },
+    {
+      "table": "multi_horizon_factor_panel",
+      "key": "2009",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\multi_horizon_factor_panel\\key=2009\\data.parquet",
+      "size_bytes": 46500579,
+      "sha256": "580fd0b2ee30e6d800904c77f1318dcbbb03090bf223632757ac96cbce5f1fa9"
+    },
+    {
+      "table": "multi_horizon_factor_panel",
+      "key": "2010",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\multi_horizon_factor_panel\\key=2010\\data.parquet",
+      "size_bytes": 52466873,
+      "sha256": "4cf33652406b9c8d7ed0fe575e6fbacd3593b36a38fee99dfdfbb5267814d925"
+    },
+    {
+      "table": "multi_horizon_factor_panel",
+      "key": "2011",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\multi_horizon_factor_panel\\key=2011\\data.parquet",
+      "size_bytes": 62467503,
+      "sha256": "a033fcc3e18d69b38f52321be82384b40657b0b83d3e1b7f4c074074a08a707d"
+    },
+    {
+      "table": "multi_horizon_factor_panel",
+      "key": "2012",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\multi_horizon_factor_panel\\key=2012\\data.parquet",
+      "size_bytes": 70686131,
+      "sha256": "f2900d70711e003012713b50c5c879460a7ae26583b80fe4d089f78949831e34"
+    },
+    {
+      "table": "multi_horizon_factor_panel",
+      "key": "2013",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\multi_horizon_factor_panel\\key=2013\\data.parquet",
+      "size_bytes": 74091319,
+      "sha256": "04308d614ee108bcf6819766757e2b86bb84a389f9b76e9f295941bc47f218ba"
+    },
+    {
+      "table": "multi_horizon_factor_panel",
+      "key": "2014",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\multi_horizon_factor_panel\\key=2014\\data.parquet",
+      "size_bytes": 74895160,
+      "sha256": "b022d75d2cf0fa6deb4a675b946e8e5dc1f6091ed37a6f8b684543eb62601f89"
+    },
+    {
+      "table": "multi_horizon_factor_panel",
+      "key": "2015",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\multi_horizon_factor_panel\\key=2015\\data.parquet",
+      "size_bytes": 74466152,
+      "sha256": "e1e8cdc196e7775c9e294026ca293ac529a830ac0732b90c85ebeaea556d2931"
+    },
+    {
+      "table": "multi_horizon_factor_panel",
+      "key": "2016",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\multi_horizon_factor_panel\\key=2016\\data.parquet",
+      "size_bytes": 83484453,
+      "sha256": "1cc79296c2b3b8bfad0f86ea7f0c332f49b3c5730eaaa94ab30ea74b7185aa88"
+    },
+    {
+      "table": "multi_horizon_factor_panel",
+      "key": "2017",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\multi_horizon_factor_panel\\key=2017\\data.parquet",
+      "size_bytes": 95702522,
+      "sha256": "522b4b151383c913715191aef2860eaabe37ed6233bf887a9779cca6663b85bf"
+    },
+    {
+      "table": "multi_horizon_factor_panel",
+      "key": "2018",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\multi_horizon_factor_panel\\key=2018\\data.parquet",
+      "size_bytes": 104646167,
+      "sha256": "7de739a65f4f4dbabe956d1d63459cd962e77a84ff2e445dc30fb46ad9802bcb"
+    },
+    {
+      "table": "multi_horizon_factor_panel",
+      "key": "2019",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\multi_horizon_factor_panel\\key=2019\\data.parquet",
+      "size_bytes": 110556314,
+      "sha256": "e76d9a5b68dab4da10d7f12ee6e511d8f3e9f6e53dcc34850a3df8bf8de6b93c"
+    },
+    {
+      "table": "multi_horizon_factor_panel",
+      "key": "2020",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\multi_horizon_factor_panel\\key=2020\\data.parquet",
+      "size_bytes": 117980872,
+      "sha256": "4107b856dbc393a12a3364c7d7f5e40537fe58afddb530d6fbbd6399fb474112"
+    },
+    {
+      "table": "multi_horizon_factor_panel",
+      "key": "2021",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\multi_horizon_factor_panel\\key=2021\\data.parquet",
+      "size_bytes": 131466385,
+      "sha256": "4040b7b5924b5d4ceba6394a7b9ea31ede8ce9c1eae48a2e1ad45801fa8f666c"
+    },
+    {
+      "table": "multi_horizon_factor_panel",
+      "key": "2022",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\multi_horizon_factor_panel\\key=2022\\data.parquet",
+      "size_bytes": 145539173,
+      "sha256": "4e2f7f3b394bb20729970b8d282e95fab493bb60af9a7d8fc044732081ab1813"
+    },
+    {
+      "table": "multi_horizon_factor_panel",
+      "key": "2023",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\multi_horizon_factor_panel\\key=2023\\data.parquet",
+      "size_bytes": 156296318,
+      "sha256": "509cf18346f21bf1433958a6785c69b7a74b81403d3902482ab7e5c835f99452"
+    },
+    {
+      "table": "multi_horizon_factor_panel",
+      "key": "2024",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\multi_horizon_factor_panel\\key=2024\\data.parquet",
+      "size_bytes": 161084384,
+      "sha256": "3448f7f5474093d4788dc0176dcc44431379be408e45f07b170e8b1145e14850"
+    },
+    {
+      "table": "multi_horizon_factor_panel",
+      "key": "2025",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\multi_horizon_factor_panel\\key=2025\\data.parquet",
+      "size_bytes": 160585420,
+      "sha256": "fe5862752a5cbdde048ea6097d8a47ea7ea48e8327924fa0d258028a5b3976c7"
+    },
+    {
+      "table": "multi_horizon_factor_panel",
+      "key": "2026",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\multi_horizon_factor_panel\\key=2026\\data.parquet",
+      "size_bytes": 116291112,
+      "sha256": "12f520926b9847340f70137cbc95efc15b65e0a2c18cfc7eb94e0d27c1813c8c"
+    },
+    {
+      "table": "pit_size_exposures",
+      "key": "2006",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\pit_size_exposures\\key=2006\\data.parquet",
+      "size_bytes": 1672284,
+      "sha256": "f1f0daf0baa17836a30baf043458e7015e1fa02b6156c6a3a0c36b9323b305da"
+    },
+    {
+      "table": "pit_size_exposures",
+      "key": "2007",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\pit_size_exposures\\key=2007\\data.parquet",
+      "size_bytes": 1838879,
+      "sha256": "0cf5c571b3f0a1fa2994ddbaff2295c185ca7819a47d6abbe840f4d1acc6b697"
+    },
+    {
+      "table": "pit_size_exposures",
+      "key": "2008",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\pit_size_exposures\\key=2008\\data.parquet",
+      "size_bytes": 1981864,
+      "sha256": "d729e7f423b8a69f20afececb366290c1b7d704f3f5aa8aba7a1dc00b716b41e"
+    },
+    {
+      "table": "pit_size_exposures",
+      "key": "2009",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\pit_size_exposures\\key=2009\\data.parquet",
+      "size_bytes": 2094911,
+      "sha256": "9b09391d8691ac17637efd6bd278ac32ce9ff4fe28cd0cfa1807c0efd6a6658a"
+    },
+    {
+      "table": "pit_size_exposures",
+      "key": "2010",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\pit_size_exposures\\key=2010\\data.parquet",
+      "size_bytes": 2468028,
+      "sha256": "e8dc7431bad099152f25cc969931a4ff33e22ce8435681eb7f40427dbab5a2ab"
+    },
+    {
+      "table": "pit_size_exposures",
+      "key": "2011",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\pit_size_exposures\\key=2011\\data.parquet",
+      "size_bytes": 2850673,
+      "sha256": "d420e7c92802a90e09abb3d4e0f9c19ab2da3c631abe7d933e279b28bc6c19c9"
+    },
+    {
+      "table": "pit_size_exposures",
+      "key": "2012",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\pit_size_exposures\\key=2012\\data.parquet",
+      "size_bytes": 3063761,
+      "sha256": "fe1a59c646e1599107fbb42146e08c6f1ce11f196a93f39a45583cb647b98283"
+    },
+    {
+      "table": "pit_size_exposures",
+      "key": "2013",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\pit_size_exposures\\key=2013\\data.parquet",
+      "size_bytes": 3155522,
+      "sha256": "a0dc957eddf4f7911bdcc2f6cf066cdc4e5d9b6447a0cefde15005867e371d35"
+    },
+    {
+      "table": "pit_size_exposures",
+      "key": "2014",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\pit_size_exposures\\key=2014\\data.parquet",
+      "size_bytes": 3241778,
+      "sha256": "ace002a10ef2d64d599332387e76f06442ffde55a59d2d3ac370a8d8358036a3"
+    },
+    {
+      "table": "pit_size_exposures",
+      "key": "2015",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\pit_size_exposures\\key=2015\\data.parquet",
+      "size_bytes": 3419329,
+      "sha256": "0848ac1a975e474a63870dea7a1e3a905c8f3507b3f5bc1e12285131eded5452"
+    },
+    {
+      "table": "pit_size_exposures",
+      "key": "2016",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\pit_size_exposures\\key=2016\\data.parquet",
+      "size_bytes": 3633459,
+      "sha256": "ed2f0eff36877ca7864d1ca76638ecf6f7c73ae5003562300acce12204023383"
+    },
+    {
+      "table": "pit_size_exposures",
+      "key": "2017",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\pit_size_exposures\\key=2017\\data.parquet",
+      "size_bytes": 4222972,
+      "sha256": "c5aa3dc42bf8a574bd375a025559f5450cd2a4376f709be81ee15d631221cb0d"
+    },
+    {
+      "table": "pit_size_exposures",
+      "key": "2018",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\pit_size_exposures\\key=2018\\data.parquet",
+      "size_bytes": 4470879,
+      "sha256": "4d42bc0d575daa25777d031c40761060d3e30eb57a09047edee35c2d271a7ccd"
+    },
+    {
+      "table": "pit_size_exposures",
+      "key": "2019",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\pit_size_exposures\\key=2019\\data.parquet",
+      "size_bytes": 4806293,
+      "sha256": "cc5f4efdadc333f949c82a740f83fddb9ff49eadc6ccff43be0f8c10e3e51be7"
+    },
+    {
+      "table": "pit_size_exposures",
+      "key": "2020",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\pit_size_exposures\\key=2020\\data.parquet",
+      "size_bytes": 5201548,
+      "sha256": "56ffda39e26ee6fd05d118b2f7c07b6940269ad9db1e3e19a0f48efe6089f08c"
+    },
+    {
+      "table": "pit_size_exposures",
+      "key": "2021",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\pit_size_exposures\\key=2021\\data.parquet",
+      "size_bytes": 5796053,
+      "sha256": "529e6bc364401cbb1e43dd0f54527265f1f73babf120a33b58355cbc679cd5af"
+    },
+    {
+      "table": "pit_size_exposures",
+      "key": "2022",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\pit_size_exposures\\key=2022\\data.parquet",
+      "size_bytes": 6099397,
+      "sha256": "216e309bf092e37165b3242d3f462b0dfbbc7ee0cfae824d81aa37b938cdba77"
+    },
+    {
+      "table": "pit_size_exposures",
+      "key": "2023",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\pit_size_exposures\\key=2023\\data.parquet",
+      "size_bytes": 6450079,
+      "sha256": "9325711d37bed5ec66fd06abfce5e5b96dbbada7cdf5dde8d71ce92b6649def0"
+    },
+    {
+      "table": "pit_size_exposures",
+      "key": "2024",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\pit_size_exposures\\key=2024\\data.parquet",
+      "size_bytes": 6583929,
+      "sha256": "8da6ee47402321bf2db46df5b9addebb8a9c1f0741ef58cbe21645deb1dbc2ab"
+    },
+    {
+      "table": "pit_size_exposures",
+      "key": "2025",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\pit_size_exposures\\key=2025\\data.parquet",
+      "size_bytes": 6736886,
+      "sha256": "352630c454e0256fb87e9e8352df0f096212f2d3415f08e00acce682c78fa30c"
+    },
+    {
+      "table": "pit_size_exposures",
+      "key": "2026",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\pit_size_exposures\\key=2026\\data.parquet",
+      "size_bytes": 5807685,
+      "sha256": "f6aa98454c71b0aabde9c57bc43385357adb2dcfaf68f9041d32e57036a1602e"
+    }
+  ],
+  "metric_artifacts": [
+    {
+      "table": "size_neutralization_validation_summary",
+      "key": "v1",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\size_neutralization_validation_summary\\key=v1\\data.parquet",
+      "size_bytes": 13816,
+      "sha256": "18d6b8c501d4f98be520c02580d010db81a1b6f1f8d685a7a9397dd0e1b3c776"
+    },
+    {
+      "table": "size_neutralization_oos_summary",
+      "key": "v1",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\size_neutralization_oos_summary\\key=v1\\data.parquet",
+      "size_bytes": 13836,
+      "sha256": "0dec704e005ec7359fa9e2da876b34827404af786f9f79a549eb235a7863e300"
+    },
+    {
+      "table": "size_neutralization_oos_annual",
+      "key": "v1",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\size_neutralization_oos_annual\\key=v1\\data.parquet",
+      "size_bytes": 12738,
+      "sha256": "77811afb36bd2f006a3485572b5547fba834d820218b9e7b2389c7d9cfc3c65f"
+    },
+    {
+      "table": "size_neutralization_oos_bootstrap",
+      "key": "v1",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\size_neutralization_oos_bootstrap\\key=v1\\data.parquet",
+      "size_bytes": 5230,
+      "sha256": "0d17e6e90afb51599e04ed6ebc406de1e1e9be3e7626d775ca87beac23bd0a29"
+    },
+    {
+      "table": "size_neutralization_oos_exposures",
+      "key": "v1",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\size_neutralization_oos_exposures\\key=v1\\data.parquet",
+      "size_bytes": 22109,
+      "sha256": "6d9cbe40051ae7dc14b8c248ec26ab3ceda58b56f05f72488cc47b8fe022185a"
+    }
+  ],
+  "figures": [],
+  "source_tree_sha256": "349d924883eaaca5dc9510ad8f93dea08622397c6a1af22963dc3263dc2fd6b3",
+  "git": {
+    "commit": "b5a60563484103218c7c2c556555ff0be1d48161",
+    "dirty": true,
+    "status_sha256": "8c27a58650ae58a8c6c02601da50497f44d28815efb667553da9a198723661bf"
+  },
+  "environment": {
+    "python": "3.9.12",
+    "implementation": "CPython",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "packages": {
+      "pandas": "2.3.3",
+      "pyarrow": "21.0.0",
+      "PyYAML": "6.0",
+      "scikit-learn": "1.1.3",
+      "numpy": "1.25.2",
+      "scipy": "1.9.3"
+    }
+  }
+}

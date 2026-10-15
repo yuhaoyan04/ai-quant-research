@@ -1,0 +1,25 @@
+experiment_id: leave_one_factor_out_v1
+preprocessing_lock: factor_preprocessing_selection_v1
+historical_oos_used_for_selection: false
+train: {start_year: 2006, end_year: 2015}
+validation: {start_year: 2016, end_year: 2020}
+historical_oos: {start_year: 2021, end_year: 2026}
+target: fwd_return_5d_lag1
+label_horizon_trading_days: 5
+minimum_cross_section_size: 100
+annualization_periods: 52
+ridge_penalty_per_observation: 1.0
+quantile_limits: [0.01, 0.99]
+mad_multiplier: 5.0
+include_missing_indicators: true
+portfolio:
+  top_n: 200
+  round_trip_cost_bps: 20.0
+  minimum_realized_weight_fraction: 0.95
+bootstrap:
+  block_length_weeks: 13
+  samples: 5000
+  random_seed: 20261015
+multiple_testing: benjamini_hochberg
+false_discovery_rate: 0.10
+

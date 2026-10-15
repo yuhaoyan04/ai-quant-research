@@ -1,0 +1,18 @@
+experiment_id: rf_return_forensics_v1
+train: {start_year: 2006, end_year: 2015}
+validation: {start_year: 2016, end_year: 2020}
+target: fwd_return_5d_lag1
+label_horizon_trading_days: 5
+minimum_cross_section_size: 100
+annualization_periods: 52
+sample_per_training_date: 300
+random_state: 20261016
+quantile_limits: [0.01, 0.99]
+mad_multiplier: 5.0
+include_missing_indicators: true
+portfolio:
+  top_n: 200
+  round_trip_cost_bps: 20.0
+  minimum_realized_weight_fraction: 0.95
+label_audit_sample_rows: 250
+model: {candidate: rf_forensic_baseline, family: random_forest, kind: random_forest, n_estimators: 100, max_depth: 6, min_samples_leaf: 100, max_features: 0.7, random_state: 20261016}

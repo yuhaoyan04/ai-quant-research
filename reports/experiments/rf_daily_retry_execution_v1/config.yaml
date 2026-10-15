@@ -1,0 +1,195 @@
+experiment_id: rf_daily_retry_execution_v1
+registry_version: 1
+selection_policy: validation_only
+historical_oos_disclosure: The 2021-2026 block has already been inspected during project
+  development. It is historical out-of-sample evidence, not a pristine production
+  lockbox.
+experiment:
+  title: Random-forest non-overlapping daily retry execution audit
+  stage: daily_execution_and_timing_forensics
+  model_version: frozen_rf_depth6_share_order_retry_v1
+  dataset_version_method: sha256_of_registered_inputs_and_ingestion_manifest
+  historical_oos_used_for_selection: false
+  config_files:
+  - model_benchmark.yaml
+  - rf_daily_retry_execution.yaml
+  input_tables:
+  - table: rf_target_holdings
+    key: validation_v1
+  - table: rf_target_holdings
+    key: historical_oos_v1
+  - table: rf_daily_execution_market
+    key: validation_v1
+  - table: rf_daily_execution_market
+    key: historical_oos_v1
+  metric_tables:
+  - table: rf_daily_retry_daily
+    key: validation_v1
+  - table: rf_daily_retry_daily
+    key: historical_oos_v1
+  - table: rf_daily_retry_summary
+    key: validation_v1
+  - table: rf_daily_retry_summary
+    key: historical_oos_v1
+  - table: rf_daily_retry_annual
+    key: validation_v1
+  - table: rf_daily_retry_annual
+    key: historical_oos_v1
+  - table: rf_daily_ideal_daily
+    key: validation_v1
+  - table: rf_daily_ideal_daily
+    key: historical_oos_v1
+  - table: rf_daily_ideal_summary
+    key: validation_v1
+  - table: rf_daily_ideal_summary
+    key: historical_oos_v1
+  - table: rf_daily_ideal_annual
+    key: validation_v1
+  - table: rf_daily_ideal_annual
+    key: historical_oos_v1
+  - table: rf_daily_timing_audit
+    key: validation_v1
+  - table: rf_daily_timing_audit
+    key: historical_oos_v1
+  figures: []
+resolved_configs:
+  model_benchmark.yaml:
+    experiment_id: model_benchmark_v1
+    historical_oos_used_for_selection: false
+    train:
+      start_year: 2006
+      end_year: 2015
+    validation:
+      start_year: 2016
+      end_year: 2020
+    historical_oos:
+      start_year: 2021
+      end_year: 2026
+    target: fwd_return_5d_lag1
+    label_horizon_trading_days: 5
+    minimum_cross_section_size: 100
+    annualization_periods: 52
+    sample_per_training_date: 300
+    random_state: 20261016
+    quantile_limits:
+    - 0.01
+    - 0.99
+    mad_multiplier: 5.0
+    include_missing_indicators: true
+    selection_metric: mean_rank_ic
+    selection_tiebreakers:
+    - portfolio_sharpe_zero_rate
+    - portfolio_annualized_return
+    portfolio:
+      top_n: 200
+      round_trip_cost_bps: 20.0
+      minimum_realized_weight_fraction: 0.95
+    bootstrap:
+      block_length_weeks: 13
+      samples: 2000
+      random_seed: 20261016
+    candidates:
+    - candidate: naive_directional
+      family: naive
+      kind: naive
+    - candidate: ols
+      family: ols
+      kind: ols
+    - candidate: ridge_0.0001
+      family: ridge
+      kind: ridge
+      penalty: 0.0001
+    - candidate: ridge_0.001
+      family: ridge
+      kind: ridge
+      penalty: 0.001
+    - candidate: ridge_0.01
+      family: ridge
+      kind: ridge
+      penalty: 0.01
+    - candidate: ridge_0.1
+      family: ridge
+      kind: ridge
+      penalty: 0.1
+    - candidate: ridge_1
+      family: ridge
+      kind: ridge
+      penalty: 1.0
+    - candidate: elastic_a0.0001_l10.1
+      family: elastic_net
+      kind: elastic_net
+      alpha: 0.0001
+      l1_ratio: 0.1
+    - candidate: elastic_a0.001_l10.1
+      family: elastic_net
+      kind: elastic_net
+      alpha: 0.001
+      l1_ratio: 0.1
+    - candidate: elastic_a0.001_l10.5
+      family: elastic_net
+      kind: elastic_net
+      alpha: 0.001
+      l1_ratio: 0.5
+    - candidate: elastic_a0.01_l10.5
+      family: elastic_net
+      kind: elastic_net
+      alpha: 0.01
+      l1_ratio: 0.5
+    - candidate: elastic_a0.01_l10.9
+      family: elastic_net
+      kind: elastic_net
+      alpha: 0.01
+      l1_ratio: 0.9
+    - candidate: random_forest_depth6
+      family: random_forest
+      kind: random_forest
+      n_estimators: 100
+      max_depth: 6
+      min_samples_leaf: 100
+      max_features: 0.7
+    - candidate: hgb_shallow15
+      family: hgb
+      kind: hgb
+      learning_rate: 0.05
+      max_iter: 120
+      max_leaf_nodes: 15
+      min_samples_leaf: 100
+      l2_regularization: 1.0
+    - candidate: hgb_regularized31
+      family: hgb
+      kind: hgb
+      learning_rate: 0.04
+      max_iter: 150
+      max_leaf_nodes: 31
+      min_samples_leaf: 150
+      l2_regularization: 10.0
+    - candidate: hgb_flexible63
+      family: hgb
+      kind: hgb
+      learning_rate: 0.03
+      max_iter: 180
+      max_leaf_nodes: 63
+      min_samples_leaf: 200
+      l2_regularization: 20.0
+    unavailable_models:
+      lightgbm: dependency_not_installed
+      xgboost: dependency_not_installed
+  rf_daily_retry_execution.yaml:
+    experiment_id: rf_daily_retry_execution_v1
+    historical_oos_used_for_selection: false
+    target_source: validation_selected_rf_depth6_frozen_before_daily_execution_study
+    target_holdings:
+      validation: validation_v1
+      historical_oos: historical_oos_v1
+    round_trip_cost_bps: 20.0
+    annualization_periods: 252
+    label_horizon_trading_days: 5
+    limit_detection_tolerance_percentage_points: 0.2
+    rules:
+      st_limit_pct: 5.0
+      main_board_limit_pct: 10.0
+      star_limit_pct: 20.0
+      chinext_limit_pct_before_2020_08_24: 10.0
+      chinext_limit_pct_after_2020_08_24: 20.0
+    execution_convention: returns_accrue_before_close_trade_blocked_orders_retry_daily
+    scope_note: conservative_close_limit_rule_intraday_queue_and_ipo_no_limit_windows_not_modeled

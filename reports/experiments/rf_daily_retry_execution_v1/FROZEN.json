@@ -1,0 +1,25 @@
+{
+  "experiment_id": "rf_daily_retry_execution_v1",
+  "frozen_at_utc": "2026-10-15T08:11:02.945675+00:00",
+  "content_sha256": "543e4d5fa2b37b3ecd38732dfe0c36c28381783b7debc2179bba00e6435705ae",
+  "files": {
+    "config.yaml": "e8ee331bf9074e44868819b04fe76a295f99cc5419780d8b007b56b5575d3b94",
+    "metadata.json": "c89b500ff79927a12a175fc9d52eb046d5b5a032731cb2a0225f43f2ef9a7f19",
+    "metrics.json": "e383c28dd7f9d3c61c8abff5401dde57b645418c7eea688cd44d5ff01827f5b0",
+    "notes.md": "fd7ef69d703d432e173f503d7c036aa7790aa95988fd81bace42a39fa0890620",
+    "tables/rf_daily_ideal_annual__historical_oos_v1.csv": "e27208651650db2d344ffb20f7db0ac6c0b47ba4f9531418bed7564016431490",
+    "tables/rf_daily_ideal_annual__validation_v1.csv": "3221bc02d7e874eb73cdab368e38851bb4aefd6c565a5697ee06a5e0c5365c3a",
+    "tables/rf_daily_ideal_daily__historical_oos_v1.csv": "d3a882c26a2ad3d7416facae336313f11150ddf8b68e9f9fa473aaac9e77e1c6",
+    "tables/rf_daily_ideal_daily__validation_v1.csv": "9308ebe6ce1dd2f277c8899596e556d7208ddfaec9d2b67eb99222e470fb4880",
+    "tables/rf_daily_ideal_summary__historical_oos_v1.csv": "3c1df2e13070fd7deba3df2fe4e6d3ddbf6b30d763ee4b136d91bb59e678fc4b",
+    "tables/rf_daily_ideal_summary__validation_v1.csv": "ccc76eb16ec21b3b7e3d21057206534b50f53d8d24a970d32ba09bb5049f4e64",
+    "tables/rf_daily_retry_annual__historical_oos_v1.csv": "79901d1bbd7a5a4e247204034e8c48711e52340b8d4c745bdb07e7b6699feadb",
+    "tables/rf_daily_retry_annual__validation_v1.csv": "fe4798a9651f8053bda5a57ed129f33cb08a3c3a3bf3bee94ec991d4ca8b7ebd",
+    "tables/rf_daily_retry_daily__historical_oos_v1.csv": "457b7ab58547f988b7fab5426cd7e5f1993e3236b3ab7316f3f4be27fe5e1cdf",
+    "tables/rf_daily_retry_daily__validation_v1.csv": "7e3803b20466495edd37beb45ee41b7c05b9b33d510580d24b18ae3718f6fa72",
+    "tables/rf_daily_retry_summary__historical_oos_v1.csv": "9db9b4007e387b0f2dc81d026616bc1a37c55d4945d3304c69e731f4abcf05e4",
+    "tables/rf_daily_retry_summary__validation_v1.csv": "093c651189fdf2c4e01fb0cc08ae40d6258b405afa8aa8dfacc34b120a7bf312",
+    "tables/rf_daily_timing_audit__historical_oos_v1.csv": "856561f7f8c52a02b3c20170f24c791d84b8a48df651479421955f24d4ecf956",
+    "tables/rf_daily_timing_audit__validation_v1.csv": "0048dce7f1e49cccd7f33dcaaa84d3c5069fdf945bcb12ec6f521a75a9429be1"
+  }
+}

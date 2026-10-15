@@ -1,0 +1,20 @@
+{
+  "experiment_id": "model_benchmark_v1",
+  "frozen_at_utc": "2026-10-15T02:40:28.129262+00:00",
+  "content_sha256": "e048c523b3878c4282639604a84261b3d498195ce54a26f5b60dea2637f6d979",
+  "files": {
+    "config.yaml": "c75236d751a769f91fee50eab6150b674fd2c0697a16c3d1b127954e8f8b6f6a",
+    "metadata.json": "1f2663811d7d9dd1e2ed200a448e67946d14f56e563ee546f1fac0860a019027",
+    "metrics.json": "90f923f6547342e16939bbc4d8ea289c87a147d575aa40c26eaa19020b6c4b0d",
+    "notes.md": "5d944be9a10b5b9681f14d9807d04b3c9847576de3ac10bf901b04fcd9623137",
+    "tables/model_benchmark_availability__v1.csv": "0e6a5498bd8517f163dd155e45ff655dbc7ba35883eb66524ca28c129a810b30",
+    "tables/model_benchmark_family_selection__v1.csv": "1bce181f74703a1667a5aef67407d1ce312aaf535b74c8514e7afdc50f6f9664",
+    "tables/model_benchmark_fit_audit__v1.csv": "9e9d58d949d85fb10520d129b20ecd975e6a00394c1f5d104f78f5fd5ddcbd5c",
+    "tables/model_benchmark_oos_annual__v1.csv": "f46095b68066fad06b87b948d5f619b825cdba20c4db180a92d60d53cd0920e7",
+    "tables/model_benchmark_oos_bootstrap__v1.csv": "8c4c274ceef31eb12f5f2faf93757cb10986aabf68b6042b06d40099a522fbdd",
+    "tables/model_benchmark_oos_summary__v1.csv": "3d262905fdc6a10b6a3247328540fff788f4ee9f2302172f5dd46ef3d9a5d926",
+    "tables/model_benchmark_selection__v1.csv": "e9381676f976588971a7267a67ff5b0936934d73807d578039e92aed4dbdc711",
+    "tables/model_benchmark_validation_grid__v1.csv": "3d5a10a08e971ced9661394a270e7ad6fb3a091f4ce9b21cea5e2fd739048f35",
+    "tables/model_benchmark_winner_pairwise__v1.csv": "b878ac940ee9a0cd68d4a40374ac467d36b1064a4b2e0b885870e6be8d666670"
+  }
+}

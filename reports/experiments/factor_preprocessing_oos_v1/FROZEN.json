@@ -1,0 +1,14 @@
+{
+  "experiment_id": "factor_preprocessing_oos_v1",
+  "frozen_at_utc": "2026-10-14T15:11:46.097398+00:00",
+  "content_sha256": "4962525e5bdce5aa0d73f5fead7e860a3b80c408d7aa649228b53b9b038bcb05",
+  "files": {
+    "config.yaml": "a7638660fa4e116f5cbd927415665be3c73c1e67404798879fe0d05c5b52f78b",
+    "metadata.json": "582e99de084e93bbc7755b279fc973cec5a58a5cf4280ee8b53bd6ee3436c559",
+    "metrics.json": "5bffa4283653d2a39e24b4adcf48b1e9cfb088146f133d9fcc6406fb62067826",
+    "notes.md": "342c3c82720fe219b5f669dc5d4adfb77d797861ea1a88b8005a3b63b15ef804",
+    "tables/factor_preprocessing_oos_annual__v1.csv": "a698444546581a61060c7c0c8b803e24bc0588a9b2bf5c39f3992dcea89a0da0",
+    "tables/factor_preprocessing_oos_bootstrap__v1.csv": "f2adddc6d3237b23cde35d16a6190654322711b8ad25dacd98e4c1d2168fad12",
+    "tables/factor_preprocessing_oos_summary__v1.csv": "0bd5fa898749f145b7fb2695aa48e4009172876de9dda325ff84b5992072114c"
+  }
+}

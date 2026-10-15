@@ -1,0 +1,224 @@
+experiment_id: size_neutralization_v1
+registry_version: 1
+selection_policy: validation_only
+historical_oos_disclosure: The 2021-2026 block has already been inspected during project
+  development. It is historical out-of-sample evidence, not a pristine production
+  lockbox.
+experiment:
+  title: Point-in-time size-neutralized factor stress test
+  stage: risk_exposure_and_factor_neutralization
+  model_version: ridge_full15_quantile_zscore_lambda_1_size_residualized
+  dataset_version_method: sha256_of_registered_inputs_and_ingestion_manifest
+  historical_oos_used_for_selection: false
+  config_files:
+  - preprocessing.yaml
+  - factor_preprocessing_selected.yaml
+  - risk_exposure.yaml
+  - size_neutralization.yaml
+  input_tables:
+  - table: pit_size_exposure_index
+    key: v1
+  - table: multi_horizon_factor_panel
+    key: '2006'
+  - table: multi_horizon_factor_panel
+    key: '2007'
+  - table: multi_horizon_factor_panel
+    key: '2008'
+  - table: multi_horizon_factor_panel
+    key: '2009'
+  - table: multi_horizon_factor_panel
+    key: '2010'
+  - table: multi_horizon_factor_panel
+    key: '2011'
+  - table: multi_horizon_factor_panel
+    key: '2012'
+  - table: multi_horizon_factor_panel
+    key: '2013'
+  - table: multi_horizon_factor_panel
+    key: '2014'
+  - table: multi_horizon_factor_panel
+    key: '2015'
+  - table: multi_horizon_factor_panel
+    key: '2016'
+  - table: multi_horizon_factor_panel
+    key: '2017'
+  - table: multi_horizon_factor_panel
+    key: '2018'
+  - table: multi_horizon_factor_panel
+    key: '2019'
+  - table: multi_horizon_factor_panel
+    key: '2020'
+  - table: multi_horizon_factor_panel
+    key: '2021'
+  - table: multi_horizon_factor_panel
+    key: '2022'
+  - table: multi_horizon_factor_panel
+    key: '2023'
+  - table: multi_horizon_factor_panel
+    key: '2024'
+  - table: multi_horizon_factor_panel
+    key: '2025'
+  - table: multi_horizon_factor_panel
+    key: '2026'
+  - table: pit_size_exposures
+    key: '2006'
+  - table: pit_size_exposures
+    key: '2007'
+  - table: pit_size_exposures
+    key: '2008'
+  - table: pit_size_exposures
+    key: '2009'
+  - table: pit_size_exposures
+    key: '2010'
+  - table: pit_size_exposures
+    key: '2011'
+  - table: pit_size_exposures
+    key: '2012'
+  - table: pit_size_exposures
+    key: '2013'
+  - table: pit_size_exposures
+    key: '2014'
+  - table: pit_size_exposures
+    key: '2015'
+  - table: pit_size_exposures
+    key: '2016'
+  - table: pit_size_exposures
+    key: '2017'
+  - table: pit_size_exposures
+    key: '2018'
+  - table: pit_size_exposures
+    key: '2019'
+  - table: pit_size_exposures
+    key: '2020'
+  - table: pit_size_exposures
+    key: '2021'
+  - table: pit_size_exposures
+    key: '2022'
+  - table: pit_size_exposures
+    key: '2023'
+  - table: pit_size_exposures
+    key: '2024'
+  - table: pit_size_exposures
+    key: '2025'
+  - table: pit_size_exposures
+    key: '2026'
+  metric_tables:
+  - table: size_neutralization_validation_summary
+    key: v1
+  - table: size_neutralization_oos_summary
+    key: v1
+  - table: size_neutralization_oos_annual
+    key: v1
+  - table: size_neutralization_oos_bootstrap
+    key: v1
+  - table: size_neutralization_oos_exposures
+    key: v1
+  figures: []
+resolved_configs:
+  preprocessing.yaml:
+    factor_columns:
+    - momentum_20d
+    - momentum_60d
+    - momentum_120d
+    - momentum_20d_skip_5d
+    - reversal_5d
+    - volatility_20d
+    - amihud_20d
+    - turnover_20d
+    - turnover_surprise_20d
+    - volume_surprise_20d
+    - amplitude_20d
+    - return_volume_corr_20d
+    - max_return_20d
+    - earnings_yield
+    - book_to_price
+    target: fwd_return_5d_lag1
+    winsorization:
+      method: cross_sectional_median_mad
+      mad_multiplier: 5.0
+    normalization: cross_sectional_zscore
+    missing_strategy: cross_sectional_median_plus_indicator
+    minimum_cross_section_size: 100
+    neutralization: none_pit_exposures_unavailable
+  factor_preprocessing_selected.yaml:
+    decision_id: factor_preprocessing_selection_v1
+    locked_at_utc: '2026-10-14T12:30:00Z'
+    selected_on: validation_2016_2020_only
+    historical_oos_used_for_selection: false
+    historical_oos_disclosure: The preprocessing decision was produced without querying
+      2021+ observations in this ablation. However, the project's older baseline OOS
+      results had already been inspected, so subsequent 2021+ evaluation remains historical
+      OOS rather than a pristine lockbox.
+    pipeline:
+      winsor_method: quantile
+      quantile_limits:
+      - 0.01
+      - 0.99
+      normalization_method: cross_sectional_zscore
+      missing_strategy: cross_sectional_median_plus_indicator
+      ridge_penalty_per_observation: 1.0
+      feature_set: full_15_factors
+    selection_rule:
+      primary: mean_rank_ic
+      tiebreakers:
+      - portfolio_sharpe_zero_rate
+      - portfolio_annualized_return
+      validation_mean_rank_ic: 0.088893
+      validation_annualized_icir: 4.638006
+    oos_evaluation_protocol:
+      years:
+      - 2021
+      - 2022
+      - 2023
+      - 2024
+      - 2025
+      - 2026
+      refit: expanding_window_at_start_of_each_year
+      purge_latest_label_horizon: true
+      top_n: 200
+      round_trip_cost_bps: 20.0
+      no_reselection: true
+  risk_exposure.yaml:
+    asset_version: pit_size_exposures_v1
+    start_year: 2006
+    end_year: 2026
+    size_proxy: amount_cny_divided_by_turnover_fraction
+    turnover_input_unit: percent
+    weekly_date_rule: same_dates_as_multi_horizon_factor_panel
+    industry_status: blocked_until_effective_dated_classification_is_available
+    industry_safety_rule: never_backfill_current_industry_into_history
+  size_neutralization.yaml:
+    experiment_id: size_neutralization_v1
+    historical_oos_used_for_selection: false
+    train:
+      start_year: 2006
+      end_year: 2015
+    validation:
+      start_year: 2016
+      end_year: 2020
+    historical_oos:
+      start_year: 2021
+      end_year: 2026
+    target: fwd_return_5d_lag1
+    label_horizon_trading_days: 5
+    pipelines:
+    - raw
+    - size_neutralized
+    ridge_penalty_per_observation: 1.0
+    minimum_cross_section_size: 100
+    annualization_periods: 52
+    quantile_limits:
+    - 0.01
+    - 0.99
+    mad_multiplier: 5.0
+    include_missing_indicators: true
+    portfolio:
+      top_n: 200
+      round_trip_cost_bps: 20.0
+      minimum_realized_weight_fraction: 0.95
+    bootstrap:
+      block_length_weeks: 13
+      samples: 2000
+      random_seed: 20261016
+    interpretation: paired_risk_stress_not_model_reselection
+    industry_neutralization: blocked_until_effective_dated_history_is_available

@@ -1,0 +1,2 @@
+entry_n,selected_exit_n,liquidity_screen,round_trip_cost_bps,selection_period
+200,400,exclude_illiquid_10pct,20.0,validation_2016_2020_only

@@ -1,0 +1,3 @@
+metric,observations,point_estimate,ci_2_5pct,ci_97_5pct,one_sided_probability_nonpositive,block_length_weeks
+selected_minus_reference_rank_ic,293,0.0005208368511580901,-4.67074794119927e-05,0.0010414747902839643,0.036392721455708855,13
+selected_minus_reference_net_return_annualized_arithmetic,293,0.00980837008440472,0.0001500693777468557,0.01907082343397427,0.022795440911817635,13

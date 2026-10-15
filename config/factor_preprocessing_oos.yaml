@@ -1,0 +1,39 @@
+experiment_id: factor_preprocessing_oos_v1
+selection_lock: factor_preprocessing_selection_v1
+historical_oos_disclosure: >-
+  The preprocessing rule was locked on 2006-2020 before this experiment queried
+  2021+ data. The project's older baselines had already exposed this period, so
+  results are historical OOS evidence rather than a pristine production lockbox.
+
+train_start_year: 2006
+test: {start_year: 2021, end_year: 2026}
+target: fwd_return_5d_lag1
+label_horizon_trading_days: 5
+minimum_cross_section_size: 100
+annualization_periods: 52
+include_missing_indicators: true
+quantile_limits: [0.01, 0.99]
+mad_multiplier: 5.0
+
+pipelines:
+  selected_quantile_zscore:
+    winsor_method: quantile
+    normalization_method: zscore
+    ridge_penalty_per_observation: 1.0
+    selected_on_validation: true
+  reference_mad_zscore:
+    winsor_method: mad
+    normalization_method: zscore
+    ridge_penalty_per_observation: 1.0
+    selected_on_validation: false
+
+portfolio:
+  top_n: 200
+  round_trip_cost_bps: 20.0
+  minimum_realized_weight_fraction: 0.95
+
+bootstrap:
+  block_length_weeks: 13
+  samples: 5000
+  random_seed: 20261014
+

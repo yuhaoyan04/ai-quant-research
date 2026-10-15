@@ -1,0 +1,35 @@
+experiment_id: rf_hyperparameter_stability_v1
+historical_oos_used_for_selection: false
+purpose: validation_only_local_sensitivity_not_model_selection
+train: {start_year: 2006, end_year: 2015}
+validation: {start_year: 2016, end_year: 2020}
+target: fwd_return_5d_lag1
+label_horizon_trading_days: 5
+minimum_cross_section_size: 100
+annualization_periods: 52
+sample_per_training_date: 300
+random_state: 20261016
+quantile_limits: [0.01, 0.99]
+mad_multiplier: 5.0
+include_missing_indicators: true
+portfolio:
+  top_n: 200
+  round_trip_cost_bps: 20.0
+  minimum_realized_weight_fraction: 0.95
+robustness_thresholds:
+  maximum_rank_ic_drop: 0.005
+  maximum_sharpe_drop: 0.25
+  minimum_neighbor_pass_fraction: 0.75
+baseline_candidate: rf_baseline_d6_l100_f0.7_t100_s20261016
+candidates:
+  - {candidate: rf_baseline_d6_l100_f0.7_t100_s20261016, axis: baseline, value: 0, family: random_forest, kind: random_forest, n_estimators: 100, max_depth: 6, min_samples_leaf: 100, max_features: 0.7, random_state: 20261016}
+  - {candidate: rf_depth4, axis: max_depth, value: 4, family: random_forest, kind: random_forest, n_estimators: 100, max_depth: 4, min_samples_leaf: 100, max_features: 0.7, random_state: 20261016}
+  - {candidate: rf_depth8, axis: max_depth, value: 8, family: random_forest, kind: random_forest, n_estimators: 100, max_depth: 8, min_samples_leaf: 100, max_features: 0.7, random_state: 20261016}
+  - {candidate: rf_leaf50, axis: min_samples_leaf, value: 50, family: random_forest, kind: random_forest, n_estimators: 100, max_depth: 6, min_samples_leaf: 50, max_features: 0.7, random_state: 20261016}
+  - {candidate: rf_leaf200, axis: min_samples_leaf, value: 200, family: random_forest, kind: random_forest, n_estimators: 100, max_depth: 6, min_samples_leaf: 200, max_features: 0.7, random_state: 20261016}
+  - {candidate: rf_features0.5, axis: max_features, value: 0.5, family: random_forest, kind: random_forest, n_estimators: 100, max_depth: 6, min_samples_leaf: 100, max_features: 0.5, random_state: 20261016}
+  - {candidate: rf_features1.0, axis: max_features, value: 1.0, family: random_forest, kind: random_forest, n_estimators: 100, max_depth: 6, min_samples_leaf: 100, max_features: 1.0, random_state: 20261016}
+  - {candidate: rf_trees50, axis: n_estimators, value: 50, family: random_forest, kind: random_forest, n_estimators: 50, max_depth: 6, min_samples_leaf: 100, max_features: 0.7, random_state: 20261016}
+  - {candidate: rf_trees200, axis: n_estimators, value: 200, family: random_forest, kind: random_forest, n_estimators: 200, max_depth: 6, min_samples_leaf: 100, max_features: 0.7, random_state: 20261016}
+  - {candidate: rf_seed20261017, axis: random_state, value: 20261017, family: random_forest, kind: random_forest, n_estimators: 100, max_depth: 6, min_samples_leaf: 100, max_features: 0.7, random_state: 20261017}
+  - {candidate: rf_seed20261018, axis: random_state, value: 20261018, family: random_forest, kind: random_forest, n_estimators: 100, max_depth: 6, min_samples_leaf: 100, max_features: 0.7, random_state: 20261018}

@@ -18,6 +18,13 @@
       0.07447269715754343
     ]
   },
+  "random_forest": {
+    "nonoverlap_ideal_oos_annualized_return": 0.2538294055667403,
+    "daily_retry_constrained_oos_annualized_return": 0.2162386898373556,
+    "daily_retry_constrained_oos_sharpe": 0.8738047854052745,
+    "daily_retry_constrained_oos_maximum_drawdown": -0.4327391378303085,
+    "warning": "The old 69.98%, 19.09%, and 24.19% figures are superseded: overlapping holding clocks and incomplete blocked-order handling were corrected."
+  },
   "interpretation": "Ridge shows positive historical OOS evidence after costs. The nonlinear blend has an economic uplift signal, but its incremental confidence interval crosses zero.",
   "limitations": [
     "Historical OOS results have been inspected during development and are not a pristine live lockbox.",

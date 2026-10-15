@@ -1,0 +1,69 @@
+{
+  "experiment_id": "ic_decay_v1",
+  "title": "Composite and single-factor multi-horizon IC decay",
+  "stage": "factor_decay_diagnostics",
+  "model_version": "locked_quantile_zscore_ridge",
+  "registered_at_utc": "2026-10-14T15:51:08.639857+00:00",
+  "immutable": true,
+  "selection_policy": "validation_only",
+  "historical_oos_used_for_selection": false,
+  "historical_oos_disclosure": "The 2021-2026 block has already been inspected during project development. It is historical out-of-sample evidence, not a pristine production lockbox.",
+  "dataset_version": "d78ba046e049240e18e2ec900d06952e327a0f7f0afa51e41684d2efae58f1c9",
+  "dataset_manifest": {
+    "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\manifests\\ingestion.jsonl",
+    "size_bytes": 25579493,
+    "sha256": "77cf45694be7f584897deb2590bbdda5aa1a231b906e71816ad1b08b1fd9a7ee"
+  },
+  "input_artifacts": [
+    {
+      "table": "factor_preprocessing_oos_predictions",
+      "key": "v1",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\factor_preprocessing_oos_predictions\\key=v1\\data.parquet",
+      "size_bytes": 17701588,
+      "sha256": "36e0c1cdde3893031ca9bad07cceb18597547cef2df75cf4af0d3edf1cc576d9"
+    },
+    {
+      "table": "ic_decay_panel",
+      "key": "v1",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\ic_decay_panel\\key=v1\\data.parquet",
+      "size_bytes": 215973927,
+      "sha256": "11f6436effa81f87037df9c4a2e22b4a6278aa0140963b936b4a9548742903fd"
+    }
+  ],
+  "metric_artifacts": [
+    {
+      "table": "ic_decay_summary",
+      "key": "v1",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\ic_decay_summary\\key=v1\\data.parquet",
+      "size_bytes": 12637,
+      "sha256": "990261704f58ff229f45fcc36f16467d2332bbc406b875e332784621825419b8"
+    },
+    {
+      "table": "ic_decay_annual",
+      "key": "v1",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\ic_decay_annual\\key=v1\\data.parquet",
+      "size_bytes": 24565,
+      "sha256": "d4ea1afc480acf4dd2e630814b7279528fe02deb01977452e6dfbda64b15de70"
+    }
+  ],
+  "figures": [],
+  "source_tree_sha256": "a99086daf8c24c78bbcba122a7caca609e01086137946ad722891fdd6a36e5f0",
+  "git": {
+    "commit": "b5a60563484103218c7c2c556555ff0be1d48161",
+    "dirty": true,
+    "status_sha256": "377a84fa2ac9588934bfecd1d8a48814e058902b74a28ad98b7c3251a87768f2"
+  },
+  "environment": {
+    "python": "3.9.12",
+    "implementation": "CPython",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "packages": {
+      "pandas": "2.3.3",
+      "pyarrow": "21.0.0",
+      "PyYAML": "6.0",
+      "scikit-learn": "1.1.3",
+      "numpy": "1.25.2",
+      "scipy": "1.9.3"
+    }
+  }
+}

@@ -1,0 +1,2 @@
+selected_feature_set,selected_ridge_penalty,validation_mean_rank_ic,validation_annualized_icir,target,temporal_scaler,selection_data_end
+full,0.1,0.08624882867830365,4.650305407338505,fwd_return_5d_lag1,none; same-date cross-sectional transforms only,2020-12-31

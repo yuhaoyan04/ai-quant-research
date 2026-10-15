@@ -1,0 +1,2 @@
+experiment_id,selected_candidate,selected_family,validation_mean_rank_ic,selection_period,historical_oos_used_for_selection
+model_benchmark_v1,random_forest_depth6,random_forest,0.09908151136440341,validation_2016_2020_only,False

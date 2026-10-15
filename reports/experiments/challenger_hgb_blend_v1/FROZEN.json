@@ -1,0 +1,20 @@
+{
+  "experiment_id": "challenger_hgb_blend_v1",
+  "frozen_at_utc": "2026-10-14T11:21:24.799208+00:00",
+  "content_sha256": "2386567c49976b2e297c5f423683060645a7f3e88bd6db9b6550e98e0f8bf90c",
+  "files": {
+    "config.yaml": "25ebba669dbd7695a9447cbeab4ce26ca6a156331db77e866884e98da16bace0",
+    "figures/annual_rank_ic.svg": "ab7f3652eb9d2beb3761457a2612a4b7033cda7ef26f792e2b1fe6300cfcfc98",
+    "figures/oos_drawdown.svg": "8dd0c652093b82a80a72e288c779260f71e620bcc1909ccc000a61383656e4ab",
+    "figures/oos_equity_curve.svg": "76b3fc2ff4c9e1ef2cf3137be814e12edd7b3f3c259270cd6ead2b5a4302cfab",
+    "metadata.json": "4c083012bad51064e1a1282761902a31dd4ba2e764408b0f8e1112730013b9ee",
+    "metrics.json": "ad7ae15c3a5cb591e6da432132fbdcbd87630632070d3f34e46088ef2d5dbbac",
+    "notes.md": "425b66e6353eff46e825f6ff98feb87ca14ec7d5c617992b8b35508cd34af7d1",
+    "tables/challenger_portfolio_oos_summary__v1.csv": "b1d0f81421ac597ec8bae1787ed4cd741ca0c95ad5726a5ff79595c8425074b1",
+    "tables/challenger_portfolio_validation_summary__v1.csv": "0189f07ed9f9248084c9a17e757c74055e004e36946a6c812efe320fd8ae885b",
+    "tables/model_challenger_oos_annual__hgb_v1.csv": "60925ecc2bde8106350a2c8d623d290fd1b43215327336dbef8202b0e81cd50c",
+    "tables/model_challenger_selection__hgb_v1.csv": "aba459c5ffa5b9124627dea4a36497709bed287219077af78ed34162898c8536",
+    "tables/robustness_block_bootstrap__v1.csv": "3be1511241e3d45107bb734681ec76405aaff2c07f84f7238cb8b915e776644d",
+    "tables/robustness_cost_grid__v1.csv": "d41234fe1c1e4572c2342c7fe182807502d018ebf3e9a56407cf1117d00da9ec"
+  }
+}

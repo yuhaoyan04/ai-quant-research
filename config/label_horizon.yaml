@@ -1,0 +1,29 @@
+experiment_id: label_horizon_v1
+historical_oos_used_for_selection: false
+train: {start_year: 2006, end_year: 2015}
+validation: {start_year: 2016, end_year: 2020}
+historical_oos: {start_year: 2021, end_year: 2026}
+horizons: [5, 10, 20]
+target_modes: [raw_return, cross_sectional_rank]
+common_validation_boundary_purge_horizon: 20
+execution_lag_trading_days: 1
+minimum_cross_section_size: 100
+annualization_periods: 52
+ridge_penalties_per_observation: [0.0001, 0.001, 0.01, 0.1, 1.0]
+quantile_limits: [0.01, 0.99]
+mad_multiplier: 5.0
+include_missing_indicators: true
+portfolio_evaluation_target: fwd_return_5d_lag1
+portfolio:
+  top_n: 200
+  round_trip_cost_bps: 20.0
+  minimum_realized_weight_fraction: 0.95
+selection:
+  penalty_metric: own_horizon_mean_rank_ic
+  target_metric: weekly_5d_portfolio_sharpe
+  selection_period: validation_2016_2020_only
+bootstrap:
+  block_length_weeks: 13
+  samples: 2000
+  random_seed: 20261015
+newey_west_lags_by_horizon: {5: 1, 10: 2, 20: 4}

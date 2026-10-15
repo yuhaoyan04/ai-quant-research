@@ -1,0 +1,382 @@
+experiment_id: rf_hyperparameter_stability_v1
+registry_version: 1
+selection_policy: validation_only
+historical_oos_disclosure: The 2021-2026 block has already been inspected during project
+  development. It is historical out-of-sample evidence, not a pristine production
+  lockbox.
+experiment:
+  title: Validation-only random-forest local hyperparameter stability
+  stage: model_hyperparameter_robustness
+  model_version: rf_oat_local_sensitivity_v1
+  dataset_version_method: sha256_of_registered_inputs_and_ingestion_manifest
+  historical_oos_used_for_selection: false
+  config_files:
+  - preprocessing.yaml
+  - factor_preprocessing_selected.yaml
+  - model_benchmark.yaml
+  - rf_hyperparameter_stability.yaml
+  input_tables:
+  - table: multi_horizon_factor_panel
+    key: '2006'
+  - table: multi_horizon_factor_panel
+    key: '2007'
+  - table: multi_horizon_factor_panel
+    key: '2008'
+  - table: multi_horizon_factor_panel
+    key: '2009'
+  - table: multi_horizon_factor_panel
+    key: '2010'
+  - table: multi_horizon_factor_panel
+    key: '2011'
+  - table: multi_horizon_factor_panel
+    key: '2012'
+  - table: multi_horizon_factor_panel
+    key: '2013'
+  - table: multi_horizon_factor_panel
+    key: '2014'
+  - table: multi_horizon_factor_panel
+    key: '2015'
+  - table: multi_horizon_factor_panel
+    key: '2016'
+  - table: multi_horizon_factor_panel
+    key: '2017'
+  - table: multi_horizon_factor_panel
+    key: '2018'
+  - table: multi_horizon_factor_panel
+    key: '2019'
+  - table: multi_horizon_factor_panel
+    key: '2020'
+  metric_tables:
+  - table: rf_hyperparameter_validation_summary
+    key: v1
+  - table: rf_hyperparameter_axis_summary
+    key: v1
+  - table: rf_hyperparameter_protocol
+    key: v1
+  figures: []
+resolved_configs:
+  preprocessing.yaml:
+    factor_columns:
+    - momentum_20d
+    - momentum_60d
+    - momentum_120d
+    - momentum_20d_skip_5d
+    - reversal_5d
+    - volatility_20d
+    - amihud_20d
+    - turnover_20d
+    - turnover_surprise_20d
+    - volume_surprise_20d
+    - amplitude_20d
+    - return_volume_corr_20d
+    - max_return_20d
+    - earnings_yield
+    - book_to_price
+    target: fwd_return_5d_lag1
+    winsorization:
+      method: cross_sectional_median_mad
+      mad_multiplier: 5.0
+    normalization: cross_sectional_zscore
+    missing_strategy: cross_sectional_median_plus_indicator
+    minimum_cross_section_size: 100
+    neutralization: none_pit_exposures_unavailable
+  factor_preprocessing_selected.yaml:
+    decision_id: factor_preprocessing_selection_v1
+    locked_at_utc: '2026-10-14T12:30:00Z'
+    selected_on: validation_2016_2020_only
+    historical_oos_used_for_selection: false
+    historical_oos_disclosure: The preprocessing decision was produced without querying
+      2021+ observations in this ablation. However, the project's older baseline OOS
+      results had already been inspected, so subsequent 2021+ evaluation remains historical
+      OOS rather than a pristine lockbox.
+    pipeline:
+      winsor_method: quantile
+      quantile_limits:
+      - 0.01
+      - 0.99
+      normalization_method: cross_sectional_zscore
+      missing_strategy: cross_sectional_median_plus_indicator
+      ridge_penalty_per_observation: 1.0
+      feature_set: full_15_factors
+    selection_rule:
+      primary: mean_rank_ic
+      tiebreakers:
+      - portfolio_sharpe_zero_rate
+      - portfolio_annualized_return
+      validation_mean_rank_ic: 0.088893
+      validation_annualized_icir: 4.638006
+    oos_evaluation_protocol:
+      years:
+      - 2021
+      - 2022
+      - 2023
+      - 2024
+      - 2025
+      - 2026
+      refit: expanding_window_at_start_of_each_year
+      purge_latest_label_horizon: true
+      top_n: 200
+      round_trip_cost_bps: 20.0
+      no_reselection: true
+  model_benchmark.yaml:
+    experiment_id: model_benchmark_v1
+    historical_oos_used_for_selection: false
+    train:
+      start_year: 2006
+      end_year: 2015
+    validation:
+      start_year: 2016
+      end_year: 2020
+    historical_oos:
+      start_year: 2021
+      end_year: 2026
+    target: fwd_return_5d_lag1
+    label_horizon_trading_days: 5
+    minimum_cross_section_size: 100
+    annualization_periods: 52
+    sample_per_training_date: 300
+    random_state: 20261016
+    quantile_limits:
+    - 0.01
+    - 0.99
+    mad_multiplier: 5.0
+    include_missing_indicators: true
+    selection_metric: mean_rank_ic
+    selection_tiebreakers:
+    - portfolio_sharpe_zero_rate
+    - portfolio_annualized_return
+    portfolio:
+      top_n: 200
+      round_trip_cost_bps: 20.0
+      minimum_realized_weight_fraction: 0.95
+    bootstrap:
+      block_length_weeks: 13
+      samples: 2000
+      random_seed: 20261016
+    candidates:
+    - candidate: naive_directional
+      family: naive
+      kind: naive
+    - candidate: ols
+      family: ols
+      kind: ols
+    - candidate: ridge_0.0001
+      family: ridge
+      kind: ridge
+      penalty: 0.0001
+    - candidate: ridge_0.001
+      family: ridge
+      kind: ridge
+      penalty: 0.001
+    - candidate: ridge_0.01
+      family: ridge
+      kind: ridge
+      penalty: 0.01
+    - candidate: ridge_0.1
+      family: ridge
+      kind: ridge
+      penalty: 0.1
+    - candidate: ridge_1
+      family: ridge
+      kind: ridge
+      penalty: 1.0
+    - candidate: elastic_a0.0001_l10.1
+      family: elastic_net
+      kind: elastic_net
+      alpha: 0.0001
+      l1_ratio: 0.1
+    - candidate: elastic_a0.001_l10.1
+      family: elastic_net
+      kind: elastic_net
+      alpha: 0.001
+      l1_ratio: 0.1
+    - candidate: elastic_a0.001_l10.5
+      family: elastic_net
+      kind: elastic_net
+      alpha: 0.001
+      l1_ratio: 0.5
+    - candidate: elastic_a0.01_l10.5
+      family: elastic_net
+      kind: elastic_net
+      alpha: 0.01
+      l1_ratio: 0.5
+    - candidate: elastic_a0.01_l10.9
+      family: elastic_net
+      kind: elastic_net
+      alpha: 0.01
+      l1_ratio: 0.9
+    - candidate: random_forest_depth6
+      family: random_forest
+      kind: random_forest
+      n_estimators: 100
+      max_depth: 6
+      min_samples_leaf: 100
+      max_features: 0.7
+    - candidate: hgb_shallow15
+      family: hgb
+      kind: hgb
+      learning_rate: 0.05
+      max_iter: 120
+      max_leaf_nodes: 15
+      min_samples_leaf: 100
+      l2_regularization: 1.0
+    - candidate: hgb_regularized31
+      family: hgb
+      kind: hgb
+      learning_rate: 0.04
+      max_iter: 150
+      max_leaf_nodes: 31
+      min_samples_leaf: 150
+      l2_regularization: 10.0
+    - candidate: hgb_flexible63
+      family: hgb
+      kind: hgb
+      learning_rate: 0.03
+      max_iter: 180
+      max_leaf_nodes: 63
+      min_samples_leaf: 200
+      l2_regularization: 20.0
+    unavailable_models:
+      lightgbm: dependency_not_installed
+      xgboost: dependency_not_installed
+  rf_hyperparameter_stability.yaml:
+    experiment_id: rf_hyperparameter_stability_v1
+    historical_oos_used_for_selection: false
+    purpose: validation_only_local_sensitivity_not_model_selection
+    train:
+      start_year: 2006
+      end_year: 2015
+    validation:
+      start_year: 2016
+      end_year: 2020
+    target: fwd_return_5d_lag1
+    label_horizon_trading_days: 5
+    minimum_cross_section_size: 100
+    annualization_periods: 52
+    sample_per_training_date: 300
+    random_state: 20261016
+    quantile_limits:
+    - 0.01
+    - 0.99
+    mad_multiplier: 5.0
+    include_missing_indicators: true
+    portfolio:
+      top_n: 200
+      round_trip_cost_bps: 20.0
+      minimum_realized_weight_fraction: 0.95
+    robustness_thresholds:
+      maximum_rank_ic_drop: 0.005
+      maximum_sharpe_drop: 0.25
+      minimum_neighbor_pass_fraction: 0.75
+    baseline_candidate: rf_baseline_d6_l100_f0.7_t100_s20261016
+    candidates:
+    - candidate: rf_baseline_d6_l100_f0.7_t100_s20261016
+      axis: baseline
+      value: 0
+      family: random_forest
+      kind: random_forest
+      n_estimators: 100
+      max_depth: 6
+      min_samples_leaf: 100
+      max_features: 0.7
+      random_state: 20261016
+    - candidate: rf_depth4
+      axis: max_depth
+      value: 4
+      family: random_forest
+      kind: random_forest
+      n_estimators: 100
+      max_depth: 4
+      min_samples_leaf: 100
+      max_features: 0.7
+      random_state: 20261016
+    - candidate: rf_depth8
+      axis: max_depth
+      value: 8
+      family: random_forest
+      kind: random_forest
+      n_estimators: 100
+      max_depth: 8
+      min_samples_leaf: 100
+      max_features: 0.7
+      random_state: 20261016
+    - candidate: rf_leaf50
+      axis: min_samples_leaf
+      value: 50
+      family: random_forest
+      kind: random_forest
+      n_estimators: 100
+      max_depth: 6
+      min_samples_leaf: 50
+      max_features: 0.7
+      random_state: 20261016
+    - candidate: rf_leaf200
+      axis: min_samples_leaf
+      value: 200
+      family: random_forest
+      kind: random_forest
+      n_estimators: 100
+      max_depth: 6
+      min_samples_leaf: 200
+      max_features: 0.7
+      random_state: 20261016
+    - candidate: rf_features0.5
+      axis: max_features
+      value: 0.5
+      family: random_forest
+      kind: random_forest
+      n_estimators: 100
+      max_depth: 6
+      min_samples_leaf: 100
+      max_features: 0.5
+      random_state: 20261016
+    - candidate: rf_features1.0
+      axis: max_features
+      value: 1.0
+      family: random_forest
+      kind: random_forest
+      n_estimators: 100
+      max_depth: 6
+      min_samples_leaf: 100
+      max_features: 1.0
+      random_state: 20261016
+    - candidate: rf_trees50
+      axis: n_estimators
+      value: 50
+      family: random_forest
+      kind: random_forest
+      n_estimators: 50
+      max_depth: 6
+      min_samples_leaf: 100
+      max_features: 0.7
+      random_state: 20261016
+    - candidate: rf_trees200
+      axis: n_estimators
+      value: 200
+      family: random_forest
+      kind: random_forest
+      n_estimators: 200
+      max_depth: 6
+      min_samples_leaf: 100
+      max_features: 0.7
+      random_state: 20261016
+    - candidate: rf_seed20261017
+      axis: random_state
+      value: 20261017
+      family: random_forest
+      kind: random_forest
+      n_estimators: 100
+      max_depth: 6
+      min_samples_leaf: 100
+      max_features: 0.7
+      random_state: 20261017
+    - candidate: rf_seed20261018
+      axis: random_state
+      value: 20261018
+      family: random_forest
+      kind: random_forest
+      n_estimators: 100
+      max_depth: 6
+      min_samples_leaf: 100
+      max_features: 0.7
+      random_state: 20261018

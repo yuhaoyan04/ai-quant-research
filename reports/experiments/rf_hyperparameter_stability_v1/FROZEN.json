@@ -1,0 +1,14 @@
+{
+  "experiment_id": "rf_hyperparameter_stability_v1",
+  "frozen_at_utc": "2026-10-15T03:16:29.390733+00:00",
+  "content_sha256": "cc80822f87e50bc56da7d86520ce0efc16c15aabc785bfaf398c899c510bdb1d",
+  "files": {
+    "config.yaml": "8dd9c5b812f459942f1a6006b0ac647251bd41ecb43ce0779bef0a184d4b5328",
+    "metadata.json": "99744ad63335c6a349b478dc8c5e16d0a4ca564d0ef8dfcfafb71779815674fd",
+    "metrics.json": "60d044c194b471e9aca5532293e71ddc8d10bcc55f614efe85728f5db0fdf0d5",
+    "notes.md": "2e22871818694f885bb1299ab738200b7577061e54e5c0ec05c7bbb56fe36879",
+    "tables/rf_hyperparameter_axis_summary__v1.csv": "de37c40d7664453f9d611d209d78657a8b1bb857fc075e26189e05b8d76d5dcc",
+    "tables/rf_hyperparameter_protocol__v1.csv": "ec5558d22a972c96d946ff66f8db4458077e80edd036c06076ef86f2bb6ab970",
+    "tables/rf_hyperparameter_validation_summary__v1.csv": "b335251f458c7fcc50765c2d0573699406226b323dceca19ff3ef43cd36bd9dd"
+  }
+}

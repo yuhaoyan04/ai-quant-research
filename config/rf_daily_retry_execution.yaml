@@ -1,0 +1,18 @@
+experiment_id: rf_daily_retry_execution_v1
+historical_oos_used_for_selection: false
+target_source: validation_selected_rf_depth6_frozen_before_daily_execution_study
+target_holdings:
+  validation: validation_v1
+  historical_oos: historical_oos_v1
+round_trip_cost_bps: 20.0
+annualization_periods: 252
+label_horizon_trading_days: 5
+limit_detection_tolerance_percentage_points: 0.20
+rules:
+  st_limit_pct: 5.0
+  main_board_limit_pct: 10.0
+  star_limit_pct: 20.0
+  chinext_limit_pct_before_2020_08_24: 10.0
+  chinext_limit_pct_after_2020_08_24: 20.0
+execution_convention: returns_accrue_before_close_trade_blocked_orders_retry_daily
+scope_note: conservative_close_limit_rule_intraday_queue_and_ipo_no_limit_windows_not_modeled

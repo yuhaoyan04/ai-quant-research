@@ -1,0 +1,190 @@
+experiment_id: label_horizon_v1
+registry_version: 1
+selection_policy: validation_only
+historical_oos_disclosure: The 2021-2026 block has already been inspected during project
+  development. It is historical out-of-sample evidence, not a pristine production
+  lockbox.
+experiment:
+  title: Validation-selected executable label horizon and target transformation
+  stage: label_and_prediction_horizon
+  model_version: ridge_full15_quantile_zscore_multi_horizon_v1
+  dataset_version_method: sha256_of_registered_inputs_and_ingestion_manifest
+  historical_oos_used_for_selection: false
+  config_files:
+  - preprocessing.yaml
+  - factor_preprocessing_selected.yaml
+  - label_horizon.yaml
+  input_tables:
+  - table: multi_horizon_factor_panel
+    key: '2006'
+  - table: multi_horizon_factor_panel
+    key: '2007'
+  - table: multi_horizon_factor_panel
+    key: '2008'
+  - table: multi_horizon_factor_panel
+    key: '2009'
+  - table: multi_horizon_factor_panel
+    key: '2010'
+  - table: multi_horizon_factor_panel
+    key: '2011'
+  - table: multi_horizon_factor_panel
+    key: '2012'
+  - table: multi_horizon_factor_panel
+    key: '2013'
+  - table: multi_horizon_factor_panel
+    key: '2014'
+  - table: multi_horizon_factor_panel
+    key: '2015'
+  - table: multi_horizon_factor_panel
+    key: '2016'
+  - table: multi_horizon_factor_panel
+    key: '2017'
+  - table: multi_horizon_factor_panel
+    key: '2018'
+  - table: multi_horizon_factor_panel
+    key: '2019'
+  - table: multi_horizon_factor_panel
+    key: '2020'
+  - table: multi_horizon_factor_panel
+    key: '2021'
+  - table: multi_horizon_factor_panel
+    key: '2022'
+  - table: multi_horizon_factor_panel
+    key: '2023'
+  - table: multi_horizon_factor_panel
+    key: '2024'
+  - table: multi_horizon_factor_panel
+    key: '2025'
+  - table: multi_horizon_factor_panel
+    key: '2026'
+  metric_tables:
+  - table: label_horizon_panel_audit
+    key: v1
+  - table: label_horizon_validation_grid
+    key: v1
+  - table: label_horizon_validation_candidates
+    key: v1
+  - table: label_horizon_selection
+    key: v1
+  - table: label_horizon_oos_summary
+    key: v1
+  - table: label_horizon_oos_annual
+    key: v1
+  - table: label_horizon_oos_bootstrap
+    key: v1
+  figures: []
+resolved_configs:
+  preprocessing.yaml:
+    factor_columns:
+    - momentum_20d
+    - momentum_60d
+    - momentum_120d
+    - momentum_20d_skip_5d
+    - reversal_5d
+    - volatility_20d
+    - amihud_20d
+    - turnover_20d
+    - turnover_surprise_20d
+    - volume_surprise_20d
+    - amplitude_20d
+    - return_volume_corr_20d
+    - max_return_20d
+    - earnings_yield
+    - book_to_price
+    target: fwd_return_5d_lag1
+    winsorization:
+      method: cross_sectional_median_mad
+      mad_multiplier: 5.0
+    normalization: cross_sectional_zscore
+    missing_strategy: cross_sectional_median_plus_indicator
+    minimum_cross_section_size: 100
+    neutralization: none_pit_exposures_unavailable
+  factor_preprocessing_selected.yaml:
+    decision_id: factor_preprocessing_selection_v1
+    locked_at_utc: '2026-10-14T12:30:00Z'
+    selected_on: validation_2016_2020_only
+    historical_oos_used_for_selection: false
+    historical_oos_disclosure: The preprocessing decision was produced without querying
+      2021+ observations in this ablation. However, the project's older baseline OOS
+      results had already been inspected, so subsequent 2021+ evaluation remains historical
+      OOS rather than a pristine lockbox.
+    pipeline:
+      winsor_method: quantile
+      quantile_limits:
+      - 0.01
+      - 0.99
+      normalization_method: cross_sectional_zscore
+      missing_strategy: cross_sectional_median_plus_indicator
+      ridge_penalty_per_observation: 1.0
+      feature_set: full_15_factors
+    selection_rule:
+      primary: mean_rank_ic
+      tiebreakers:
+      - portfolio_sharpe_zero_rate
+      - portfolio_annualized_return
+      validation_mean_rank_ic: 0.088893
+      validation_annualized_icir: 4.638006
+    oos_evaluation_protocol:
+      years:
+      - 2021
+      - 2022
+      - 2023
+      - 2024
+      - 2025
+      - 2026
+      refit: expanding_window_at_start_of_each_year
+      purge_latest_label_horizon: true
+      top_n: 200
+      round_trip_cost_bps: 20.0
+      no_reselection: true
+  label_horizon.yaml:
+    experiment_id: label_horizon_v1
+    historical_oos_used_for_selection: false
+    train:
+      start_year: 2006
+      end_year: 2015
+    validation:
+      start_year: 2016
+      end_year: 2020
+    historical_oos:
+      start_year: 2021
+      end_year: 2026
+    horizons:
+    - 5
+    - 10
+    - 20
+    target_modes:
+    - raw_return
+    - cross_sectional_rank
+    common_validation_boundary_purge_horizon: 20
+    execution_lag_trading_days: 1
+    minimum_cross_section_size: 100
+    annualization_periods: 52
+    ridge_penalties_per_observation:
+    - 0.0001
+    - 0.001
+    - 0.01
+    - 0.1
+    - 1.0
+    quantile_limits:
+    - 0.01
+    - 0.99
+    mad_multiplier: 5.0
+    include_missing_indicators: true
+    portfolio_evaluation_target: fwd_return_5d_lag1
+    portfolio:
+      top_n: 200
+      round_trip_cost_bps: 20.0
+      minimum_realized_weight_fraction: 0.95
+    selection:
+      penalty_metric: own_horizon_mean_rank_ic
+      target_metric: weekly_5d_portfolio_sharpe
+      selection_period: validation_2016_2020_only
+    bootstrap:
+      block_length_weeks: 13
+      samples: 2000
+      random_seed: 20261015
+    newey_west_lags_by_horizon:
+      5: 1
+      10: 2
+      20: 4

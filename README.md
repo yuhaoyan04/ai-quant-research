@@ -23,7 +23,10 @@
 
 ![年度 RankIC](reports/figures/annual_rank_ic.svg)
 
-完整结果见 [研究报告](docs/research_report.md)、[离线交互面板](reports/research_dashboard.html) 和 [自动审计报告](reports/research_audit.md)。机器可读结果位于 [public_results.json](reports/public_results.json) 与 [结果表](reports/tables/)。
+完整结果见 [研究报告](docs/research_report.md)、[离线交互面板](reports/research_dashboard.html) 和 [自动审计报告](reports/research_audit.md)。新一轮研究包括 [因子预处理消融实验](docs/factor_preprocessing_ablation.md)、[标签期限实验](docs/label_horizon.md)、[PIT 规模中性化实验](docs/size_neutralization.md)、[统一模型基准](docs/model_benchmark.md)、[RF 超参数局部稳健性](docs/rf_hyperparameter_stability.md) 与 [RF 非重叠日频成交取证](docs/rf_return_forensics.md)，机构级实验缺口与实施顺序见 [研究升级路线](docs/institutional_upgrade_plan.md)。机器可读结果位于 [public_results.json](reports/public_results.json) 与 [结果表](reports/tables/)。
+
+跨机器接力请直接使用 GitHub Release 中的完整冻结数据湖，或从 BaoStock/AKShare 重新构建；
+环境安装、分卷下载、SHA-256 校验、恢复及全流水线命令见[跨机器复现指南](docs/reproduction.md)。
 
 ## 研究流程
 
@@ -62,11 +65,12 @@ flowchart LR
 - 15 个量价、流动性、估值与反转/动量因子。
 - 训练、验证、年度扩展窗口样本外预测，以及持仓级结果。
 - 成本、换手、流动性、规模、ADV 容量、市场冲击和 t+1 涨跌停/停牌压力测试。
-- 40 个单元/回归测试和 47 项产物审计检查（45 PASS、2 个已知限制 WARN、0 FAIL）。
+- 40+ 个单元/回归测试，以及覆盖数据、时序、组合和冻结实验的自动产物审计。
 
 ## 快速验证已提交结果
 
-仓库不提交体积很大的原始/中间 Parquet 数据。若本地已有研究数据湖，可以直接重新生成面板并执行审计：
+普通 Git 不提交体积很大的原始/中间 Parquet；完整数据湖通过 GitHub Release `data-v1`
+发布。按[跨机器复现指南](docs/reproduction.md)恢复后，可直接执行：
 
 ```powershell
 conda create -n ai-quant python=3.11 -y
@@ -76,9 +80,25 @@ pip install -e ".[dev]"
 python -m pytest -q
 quant-research-dashboard
 quant-audit
+quant-rf-hyperparameter-stability
 ```
 
 `quant-audit` 会检查预测键唯一性、信息可用日期、验证集选参来源、组合收益恒等式、持仓权重、共同比较日期、年度 RankIC 和 bootstrap 结论；任何硬失败都会返回非零退出码。
+
+### 冻结实验与可复现性
+
+当前 Ridge 基线和 HGB + Ridge challenger 已登记为不可覆盖的实验快照。每个快照包含解析后的配置、指标表、图表、环境版本、代码树哈希、输入数据 SHA-256 与历史样本外使用声明。后续因子、标签、模型和组合实验都沿用同一协议，避免结果文件被静默覆盖，也避免只保留“成功实验”。
+
+```powershell
+# 查看已登记实验
+quant-experiment list
+
+# 同时校验快照自身与当前数据湖输入
+quant-experiment verify baseline_ridge_v1
+quant-experiment verify challenger_hgb_blend_v1
+```
+
+实验索引见 [reports/experiments/index.json](reports/experiments/index.json)，注册规则见 [config/frozen_baselines.yaml](config/frozen_baselines.yaml)。若重建上游表改变了内容，即使文件名不变，哈希门禁也会报告失败。
 
 ## 从原始数据复现
 

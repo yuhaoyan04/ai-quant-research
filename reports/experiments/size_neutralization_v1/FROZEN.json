@@ -1,0 +1,16 @@
+{
+  "experiment_id": "size_neutralization_v1",
+  "frozen_at_utc": "2026-10-14T18:04:25.000622+00:00",
+  "content_sha256": "17155e55e43d5ee6c55d4c5d3f763defd008f19c4ed79ff49b16ac1a2415932b",
+  "files": {
+    "config.yaml": "ae9060543833d561f4f2546cf79137e26990250d6e329f8b3e2bcf94a5377830",
+    "metadata.json": "530fd436ca19e01e59d0671c6c1449636df92ed1377960604223c8d6b114cf43",
+    "metrics.json": "6cf11947b6802786e2bf179fed7a6727f724c94e8ceb7639302a718eb27147db",
+    "notes.md": "466c625dbaa7b4f98376617b50d507feead530459750e6658ef3f7756c49a421",
+    "tables/size_neutralization_oos_annual__v1.csv": "6c7d183cd9fb02273a9654b40c700cff99c27ae081afd7b03cf808c02d70f0da",
+    "tables/size_neutralization_oos_bootstrap__v1.csv": "81c6d1fdb528619d9e1762404322e6dc305c957a2bf6387956013e6d8ddb139b",
+    "tables/size_neutralization_oos_exposures__v1.csv": "bf8d07dd758ae5296cd6607f54c5857c877b5bfbdf94e6fb9f1aa678e3ba795a",
+    "tables/size_neutralization_oos_summary__v1.csv": "b9e47379c10c3dc035823168e92079ca5ddf2bea4fe8b593b677e3a3c3702cbc",
+    "tables/size_neutralization_validation_summary__v1.csv": "a14de0b0ee72f35bc1d062fc953afb610869ac6cf6d90658523144423a676386"
+  }
+}

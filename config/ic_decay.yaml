@@ -1,0 +1,17 @@
+experiment_id: ic_decay_v1
+source_prediction_experiment: factor_preprocessing_oos_v1
+period: historical_oos_2021_2026
+historical_oos_used_for_selection: false
+minimum_cross_section_size: 100
+annualization_periods: 52
+newey_west_lags: 4
+quantile_limits: [0.01, 0.99]
+mad_multiplier: 5.0
+include_missing_indicators: false
+targets:
+  - {name: cumulative_5d, column: fwd_return_5d_lag1, end_day: 5}
+  - {name: cumulative_10d, column: fwd_return_10d_lag1, end_day: 10}
+  - {name: cumulative_20d, column: fwd_return_20d_lag1, end_day: 20}
+  - {name: incremental_6_10d, column: incremental_return_6_10d_lag1, start_day: 6, end_day: 10}
+  - {name: incremental_11_20d, column: incremental_return_11_20d_lag1, start_day: 11, end_day: 20}
+

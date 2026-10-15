@@ -1,0 +1,209 @@
+{
+  "experiment_id": "factor_preprocessing_oos_v1",
+  "title": "Locked expanding-window preprocessing historical OOS",
+  "stage": "factor_preprocessing_historical_oos",
+  "model_version": "ridge_full15_quantile_zscore_lambda_1",
+  "registered_at_utc": "2026-10-14T15:11:46.097398+00:00",
+  "immutable": true,
+  "selection_policy": "validation_only",
+  "historical_oos_used_for_selection": false,
+  "historical_oos_disclosure": "The 2021-2026 block has already been inspected during project development. It is historical out-of-sample evidence, not a pristine production lockbox.",
+  "dataset_version": "d1f3f09662f8ba440309e3410db7f02aca8a2ef7d230f5125c5be3e78667bce6",
+  "dataset_manifest": {
+    "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\manifests\\ingestion.jsonl",
+    "size_bytes": 25573084,
+    "sha256": "6fe677d54b0cae86334a641e29545803c9ec73b8bba8fcbe6448e3c611ce7ad4"
+  },
+  "input_artifacts": [
+    {
+      "table": "eligible_factor_panel_staging",
+      "key": "2006",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\eligible_factor_panel_staging\\key=2006\\data.parquet",
+      "size_bytes": 30061638,
+      "sha256": "483e688e71be7a1048334c1683a74190799ed0b684aee71f8d6bce1a6386dc4a"
+    },
+    {
+      "table": "eligible_factor_panel_staging",
+      "key": "2007",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\eligible_factor_panel_staging\\key=2007\\data.parquet",
+      "size_bytes": 39129017,
+      "sha256": "1bcbd5b38c8e4a0d77898c84827f1cd88f1ffbed2d97ab2796701739fecec889"
+    },
+    {
+      "table": "eligible_factor_panel_staging",
+      "key": "2008",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\eligible_factor_panel_staging\\key=2008\\data.parquet",
+      "size_bytes": 44167648,
+      "sha256": "2ecc643429951b876be9e81e21c56f101629cd11d927e231d4f64e2b9660301d"
+    },
+    {
+      "table": "eligible_factor_panel_staging",
+      "key": "2009",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\eligible_factor_panel_staging\\key=2009\\data.parquet",
+      "size_bytes": 45571333,
+      "sha256": "2f4b676b1cca9521e1971f62bc15b5cf9612551f7a137577953a796db04df5c1"
+    },
+    {
+      "table": "eligible_factor_panel_staging",
+      "key": "2010",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\eligible_factor_panel_staging\\key=2010\\data.parquet",
+      "size_bytes": 52048058,
+      "sha256": "61279a8b68a69bfc079405c51e0262be3642b4b2b4d37b9f47118de23a2281fa"
+    },
+    {
+      "table": "eligible_factor_panel_staging",
+      "key": "2011",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\eligible_factor_panel_staging\\key=2011\\data.parquet",
+      "size_bytes": 63090906,
+      "sha256": "f35e2907307515f95a070ec4665af9ff70366d88c47df25b44ef067ec0a3e1be"
+    },
+    {
+      "table": "eligible_factor_panel_staging",
+      "key": "2012",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\eligible_factor_panel_staging\\key=2012\\data.parquet",
+      "size_bytes": 72461376,
+      "sha256": "8dcbdd1688298ff0d36c8efd0e767192fca9c332d04e52a937b7a8c710e937bf"
+    },
+    {
+      "table": "eligible_factor_panel_staging",
+      "key": "2013",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\eligible_factor_panel_staging\\key=2013\\data.parquet",
+      "size_bytes": 76559225,
+      "sha256": "86e0bb291a86ae9ae322d2373d6ebc98f38138e3ec033b14294b0ff92fd8534e"
+    },
+    {
+      "table": "eligible_factor_panel_staging",
+      "key": "2014",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\eligible_factor_panel_staging\\key=2014\\data.parquet",
+      "size_bytes": 77315063,
+      "sha256": "6094071914a635aac6e5d09f7f7a4848f31096662eee28c3d78deb381a1c7726"
+    },
+    {
+      "table": "eligible_factor_panel_staging",
+      "key": "2015",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\eligible_factor_panel_staging\\key=2015\\data.parquet",
+      "size_bytes": 76570903,
+      "sha256": "bc44bf4b1f0d04ccf6e42383c7387128a717da3bfc3c95158680582e36d1ae79"
+    },
+    {
+      "table": "eligible_factor_panel_staging",
+      "key": "2016",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\eligible_factor_panel_staging\\key=2016\\data.parquet",
+      "size_bytes": 87039653,
+      "sha256": "030e2b93ca9d8c6145b9eb7735d11a20e158ed9f8ec38b59a8e2cc152ba11445"
+    },
+    {
+      "table": "eligible_factor_panel_staging",
+      "key": "2017",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\eligible_factor_panel_staging\\key=2017\\data.parquet",
+      "size_bytes": 100553226,
+      "sha256": "131fb23ecefbae82ac8884433914b62c596c85afd41c3b59ae2da31f9983e14a"
+    },
+    {
+      "table": "eligible_factor_panel_staging",
+      "key": "2018",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\eligible_factor_panel_staging\\key=2018\\data.parquet",
+      "size_bytes": 110515880,
+      "sha256": "adfbda3486fea88d2881bb57a8ee0fec3a5b757781614b8993656a88b4979faf"
+    },
+    {
+      "table": "eligible_factor_panel_staging",
+      "key": "2019",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\eligible_factor_panel_staging\\key=2019\\data.parquet",
+      "size_bytes": 117240027,
+      "sha256": "aeb70417d46e2637006a1e86028a0967aae6b6cf88f09c2991fabb00d86c88ba"
+    },
+    {
+      "table": "eligible_factor_panel_staging",
+      "key": "2020",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\eligible_factor_panel_staging\\key=2020\\data.parquet",
+      "size_bytes": 125142500,
+      "sha256": "b669b5852351e05178a22d9db9b0993c9fa07ba1ed7a573832a8d2d51910545c"
+    },
+    {
+      "table": "eligible_factor_panel_staging",
+      "key": "2021",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\eligible_factor_panel_staging\\key=2021\\data.parquet",
+      "size_bytes": 139966811,
+      "sha256": "4fcfb57408bb77ac9d387a7818993b63c82ba3736c919a77d7f1d2e3d6443202"
+    },
+    {
+      "table": "eligible_factor_panel_staging",
+      "key": "2022",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\eligible_factor_panel_staging\\key=2022\\data.parquet",
+      "size_bytes": 153507843,
+      "sha256": "5a7f7eab11194419ffe255286d824c1bd615f46b8396c6e914eb978ed1462542"
+    },
+    {
+      "table": "eligible_factor_panel_staging",
+      "key": "2023",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\eligible_factor_panel_staging\\key=2023\\data.parquet",
+      "size_bytes": 162631681,
+      "sha256": "39fa7e7046fd1dae8663bb7034fb98c88dee6d2d101d77dc6afdfdf8bba79d17"
+    },
+    {
+      "table": "eligible_factor_panel_staging",
+      "key": "2024",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\eligible_factor_panel_staging\\key=2024\\data.parquet",
+      "size_bytes": 167517597,
+      "sha256": "b30eb7522ef7ad596e454cbf37e139e3a3542625d3ccc980f237f11d9ad284f0"
+    },
+    {
+      "table": "eligible_factor_panel_staging",
+      "key": "2025",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\eligible_factor_panel_staging\\key=2025\\data.parquet",
+      "size_bytes": 166991062,
+      "sha256": "9ea99613d1544468f8f13b818f755f72da75f5acba5c9dba14f103d3f79c8581"
+    },
+    {
+      "table": "eligible_factor_panel_staging",
+      "key": "2026",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\eligible_factor_panel_staging\\key=2026\\data.parquet",
+      "size_bytes": 124344695,
+      "sha256": "02cf2a401212768a46a7283dfbfe6c5f1501a278d2832c6b9e23c95f9799ab6d"
+    }
+  ],
+  "metric_artifacts": [
+    {
+      "table": "factor_preprocessing_oos_summary",
+      "key": "v1",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\factor_preprocessing_oos_summary\\key=v1\\data.parquet",
+      "size_bytes": 11735,
+      "sha256": "46b6377e772252b1b2ad80b2e6ecdbb3ca6cd7aa0318d62d65ddec2fecf74f23"
+    },
+    {
+      "table": "factor_preprocessing_oos_annual",
+      "key": "v1",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\factor_preprocessing_oos_annual\\key=v1\\data.parquet",
+      "size_bytes": 13390,
+      "sha256": "b0dfe4dff39d0043bbe4d686d021ee443d24ef7a60771982dfef8996e22b8fb5"
+    },
+    {
+      "table": "factor_preprocessing_oos_bootstrap",
+      "key": "v1",
+      "path": "C:\\Users\\Yyh20\\ai-quant-research\\data\\lake\\curated\\factor_preprocessing_oos_bootstrap\\key=v1\\data.parquet",
+      "size_bytes": 5221,
+      "sha256": "25eaad1b486cb515c39dbda329bbe2b906d18c327bcc47f5c5f62e1303462327"
+    }
+  ],
+  "figures": [],
+  "source_tree_sha256": "d9742fd2b988724e971c5205dd55c9db0703059456fa02584188c2d531116c01",
+  "git": {
+    "commit": "b5a60563484103218c7c2c556555ff0be1d48161",
+    "dirty": true,
+    "status_sha256": "8b3523621150a81d9d2daf26754bd4d2ac4017c9f4f83b08bf461dbc36fe32d3"
+  },
+  "environment": {
+    "python": "3.9.12",
+    "implementation": "CPython",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "packages": {
+      "pandas": "2.3.3",
+      "pyarrow": "21.0.0",
+      "PyYAML": "6.0",
+      "scikit-learn": "1.1.3",
+      "numpy": "1.25.2",
+      "scipy": "1.9.3"
+    }
+  }
+}

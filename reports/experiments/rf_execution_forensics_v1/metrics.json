@@ -1,0 +1,2283 @@
+{
+  "rf_forensic_summary__v1": [
+    {
+      "scenario": "ideal_close_to_close",
+      "periods": 254,
+      "annualized_return": 0.6997555143830458,
+      "annualized_volatility": 0.28875322879036924,
+      "sharpe_zero_rate": 1.992013934236907,
+      "annualized_excess_return_arithmetic": 0.40826526062033286,
+      "information_ratio": 4.211154178644013,
+      "maximum_drawdown": -0.24289462523716254,
+      "mean_turnover": 0.6426108217809888,
+      "mean_realized_weight_fraction": 0.9998818897637796
+    },
+    {
+      "scenario": "t_plus_1_limit_and_suspension_constrained",
+      "periods": 254,
+      "annualized_return": 0.19087190628281858,
+      "annualized_volatility": 0.2651681219558769,
+      "sharpe_zero_rate": 0.7939433407986268,
+      "annualized_excess_return_arithmetic": 0.043593269932966396,
+      "information_ratio": 0.5857806355057316,
+      "maximum_drawdown": -0.3057542843364436,
+      "mean_turnover": 0.5877244990183501,
+      "mean_realized_weight_fraction": 1.0
+    }
+  ],
+  "rf_forensic_yearly__v1": [
+    {
+      "scenario": "ideal",
+      "year": 2016,
+      "periods": 50,
+      "annualized_return": 2.362534430749665,
+      "annualized_volatility": 0.30364667596798,
+      "sharpe_zero_rate": 4.191755735843716,
+      "annualized_excess_return_arithmetic": 0.9173707446793282,
+      "information_ratio": 11.459624394781418,
+      "maximum_drawdown": -0.11407531335889454,
+      "mean_turnover": 0.6289060685609287,
+      "mean_realized_weight_fraction": 1.0
+    },
+    {
+      "scenario": "ideal",
+      "year": 2017,
+      "periods": 51,
+      "annualized_return": 0.7103479163244215,
+      "annualized_volatility": 0.2598653330188921,
+      "sharpe_zero_rate": 2.20467914547616,
+      "annualized_excess_return_arithmetic": 0.5396217498228534,
+      "information_ratio": 5.086174324829629,
+      "maximum_drawdown": -0.11351632026359892,
+      "mean_turnover": 0.6236236872915099,
+      "mean_realized_weight_fraction": 1.0
+    },
+    {
+      "scenario": "ideal",
+      "year": 2018,
+      "periods": 51,
+      "annualized_return": 0.06439383662101661,
+      "annualized_volatility": 0.3264553088147085,
+      "sharpe_zero_rate": 0.3539307326604567,
+      "annualized_excess_return_arithmetic": 0.2994615111146355,
+      "information_ratio": 4.069156462335301,
+      "maximum_drawdown": -0.24289462523716243,
+      "mean_turnover": 0.6634745118107328,
+      "mean_realized_weight_fraction": 1.0
+    },
+    {
+      "scenario": "ideal",
+      "year": 2019,
+      "periods": 52,
+      "annualized_return": 0.7501824898646543,
+      "annualized_volatility": 0.24616419425853714,
+      "sharpe_zero_rate": 2.4064434025106065,
+      "annualized_excess_return_arithmetic": 0.21225347168076072,
+      "information_ratio": 2.976025170270658,
+      "maximum_drawdown": -0.11461675012987071,
+      "mean_turnover": 0.6548460195604703,
+      "mean_realized_weight_fraction": 0.9999038461538461
+    },
+    {
+      "scenario": "ideal",
+      "year": 2020,
+      "periods": 50,
+      "annualized_return": 0.33505529171436144,
+      "annualized_volatility": 0.2874388147812063,
+      "sharpe_zero_rate": 1.15119705174526,
+      "annualized_excess_return_arithmetic": 0.08000824256773292,
+      "information_ratio": 0.7544107985371747,
+      "maximum_drawdown": -0.14837486577418424,
+      "mean_turnover": 0.6416768826593184,
+      "mean_realized_weight_fraction": 0.9995
+    },
+    {
+      "scenario": "constrained",
+      "year": 2016,
+      "periods": 50,
+      "annualized_return": 0.5650416172980843,
+      "annualized_volatility": 0.29353069181937697,
+      "sharpe_zero_rate": 1.678449374357392,
+      "annualized_excess_return_arithmetic": 0.13723445505959533,
+      "information_ratio": 2.0128896141454056,
+      "maximum_drawdown": -0.11785600241184413,
+      "mean_turnover": 0.5876915257056994,
+      "mean_realized_weight_fraction": 1.0
+    },
+    {
+      "scenario": "constrained",
+      "year": 2017,
+      "periods": 51,
+      "annualized_return": -0.09994398061418386,
+      "annualized_volatility": 0.21963480190073253,
+      "sharpe_zero_rate": -0.3683004435501868,
+      "annualized_excess_return_arithmetic": -0.11418952547521283,
+      "information_ratio": -1.7912608486009662,
+      "maximum_drawdown": -0.18134132950643,
+      "mean_turnover": 0.5748376859129217,
+      "mean_realized_weight_fraction": 1.0
+    },
+    {
+      "scenario": "constrained",
+      "year": 2018,
+      "periods": 51,
+      "annualized_return": -0.019930856333997604,
+      "annualized_volatility": 0.3045768638803898,
+      "sharpe_zero_rate": 0.08556143991775148,
+      "annualized_excess_return_arithmetic": 0.20997897952418912,
+      "information_ratio": 3.630208244925799,
+      "maximum_drawdown": -0.25382563370887923,
+      "mean_turnover": 0.6016596843331563,
+      "mean_realized_weight_fraction": 1.0
+    },
+    {
+      "scenario": "constrained",
+      "year": 2019,
+      "periods": 52,
+      "annualized_return": 0.5483221973870529,
+      "annualized_volatility": 0.23902855086050245,
+      "sharpe_zero_rate": 1.9538972935319483,
+      "annualized_excess_return_arithmetic": 0.08691050907616424,
+      "information_ratio": 1.3011159747727592,
+      "maximum_drawdown": -0.11758325304473038,
+      "mean_turnover": 0.6034331797210062,
+      "mean_realized_weight_fraction": 1.0
+    },
+    {
+      "scenario": "constrained",
+      "year": 2020,
+      "periods": 50,
+      "annualized_return": 0.119375990705469,
+      "annualized_volatility": 0.2611021511372581,
+      "sharpe_zero_rate": 0.5630656681911662,
+      "annualized_excess_return_arithmetic": -0.10387281636929264,
+      "information_ratio": -1.0359972414732634,
+      "maximum_drawdown": -0.14537084950713086,
+      "mean_turnover": 0.5703511047466729,
+      "mean_realized_weight_fraction": 1.0
+    }
+  ],
+  "rf_forensic_concentration__v1": [
+    {
+      "requested_dropped_best_weeks": 0,
+      "dropped_best_weeks": 0,
+      "remaining_periods": 254,
+      "terminal_wealth": 13.345942243338671,
+      "annualized_return": 0.6997555143830458
+    },
+    {
+      "requested_dropped_best_weeks": 1,
+      "dropped_best_weeks": 1,
+      "remaining_periods": 253,
+      "terminal_wealth": 12.112609155972807,
+      "annualized_return": 0.6697126655289798
+    },
+    {
+      "requested_dropped_best_weeks": 5,
+      "dropped_best_weeks": 5,
+      "remaining_periods": 249,
+      "terminal_wealth": 8.633056436005198,
+      "annualized_return": 0.5685712463092796
+    },
+    {
+      "requested_dropped_best_weeks": 10,
+      "dropped_best_weeks": 10,
+      "remaining_periods": 244,
+      "terminal_wealth": 5.990146394542983,
+      "annualized_return": 0.46447980797463284
+    },
+    {
+      "requested_dropped_best_weeks": 20,
+      "dropped_best_weeks": 20,
+      "remaining_periods": 234,
+      "terminal_wealth": 3.0688269220231432,
+      "annualized_return": 0.28296877875607596
+    }
+  ],
+  "rf_forensic_holdings_summary__v1": [
+    {
+      "dates": 254,
+      "mean_size_percentile": 0.28788580033544275,
+      "bottom_size_decile_weight": 0.19653543307086613,
+      "bottom_size_30pct_weight": 0.5806692913385827,
+      "median_float_cap_proxy_cny": 2470434465.3369102,
+      "mean_blocked_buy_weight": 0.02590663168490841,
+      "maximum_blocked_buy_weight": 0.11500000000000003,
+      "mean_cash_weight": 0.0029395303665610876,
+      "supplemented_execution_flag_rows": 3606
+    }
+  ],
+  "rf_forensic_missingness__v1": [
+    {
+      "factor": "amihud_20d",
+      "universe_missing_fraction": 0.03467741612080405,
+      "top200_missing_fraction": 0.033208661417322836,
+      "top_minus_universe": -0.0014687547034812135
+    },
+    {
+      "factor": "amplitude_20d",
+      "universe_missing_fraction": 0.006646764043587417,
+      "top200_missing_fraction": 0.033188976377952754,
+      "top_minus_universe": 0.026542212334365337
+    },
+    {
+      "factor": "book_to_price",
+      "universe_missing_fraction": 0.0014005276052738045,
+      "top200_missing_fraction": 0.0019488188976377952,
+      "top_minus_universe": 0.0005482912923639907
+    },
+    {
+      "factor": "earnings_yield",
+      "universe_missing_fraction": 0.10997116170587146,
+      "top200_missing_fraction": 0.14301181102362207,
+      "top_minus_universe": 0.03304064931775061
+    },
+    {
+      "factor": "max_return_20d",
+      "universe_missing_fraction": 0.00668485234248377,
+      "top200_missing_fraction": 0.033208661417322836,
+      "top_minus_universe": 0.026523809074839068
+    },
+    {
+      "factor": "momentum_120d",
+      "universe_missing_fraction": 0.03866570875775039,
+      "top200_missing_fraction": 0.03903543307086615,
+      "top_minus_universe": 0.0003697243131157574
+    },
+    {
+      "factor": "momentum_20d",
+      "universe_missing_fraction": 0.00668485234248377,
+      "top200_missing_fraction": 0.033208661417322836,
+      "top_minus_universe": 0.026523809074839068
+    },
+    {
+      "factor": "momentum_20d_skip_5d",
+      "universe_missing_fraction": 0.008437168015837895,
+      "top200_missing_fraction": 0.033208661417322836,
+      "top_minus_universe": 0.02477149340148494
+    },
+    {
+      "factor": "momentum_60d",
+      "universe_missing_fraction": 0.020379016857731507,
+      "top200_missing_fraction": 0.03322834645669291,
+      "top_minus_universe": 0.012849329598961404
+    },
+    {
+      "factor": "return_volume_corr_20d",
+      "universe_missing_fraction": 0.036648536103317544,
+      "top200_missing_fraction": 0.0343503937007874,
+      "top_minus_universe": -0.002298142402530144
+    },
+    {
+      "factor": "reversal_5d",
+      "universe_missing_fraction": 0.0014299265847815008,
+      "top200_missing_fraction": 0.0,
+      "top_minus_universe": -0.0014299265847815008
+    },
+    {
+      "factor": "turnover_20d",
+      "universe_missing_fraction": 0.0346699530967184,
+      "top200_missing_fraction": 0.033208661417322836,
+      "top_minus_universe": -0.001461291679395564
+    },
+    {
+      "factor": "turnover_surprise_20d",
+      "universe_missing_fraction": 0.03664005523851989,
+      "top200_missing_fraction": 0.0343503937007874,
+      "top_minus_universe": -0.002289661537732489
+    },
+    {
+      "factor": "volatility_20d",
+      "universe_missing_fraction": 0.00668485234248377,
+      "top200_missing_fraction": 0.033208661417322836,
+      "top_minus_universe": 0.026523809074839068
+    },
+    {
+      "factor": "volume_surprise_20d",
+      "universe_missing_fraction": 0.007036171901496875,
+      "top200_missing_fraction": 0.033208661417322836,
+      "top_minus_universe": 0.026172489515825962
+    }
+  ],
+  "rf_forensic_label_audit__v1": [
+    {
+      "instrument_id": "sh.600071",
+      "asof_date": "2020-03-06",
+      "observed_label": -0.08559981087936341,
+      "rebuilt_label": -0.08559981087936341,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.600082",
+      "asof_date": "2019-12-13",
+      "observed_label": -0.01804123308474448,
+      "rebuilt_label": -0.01804123308474448,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.600101",
+      "asof_date": "2016-09-23",
+      "observed_label": 0.031014245819767305,
+      "rebuilt_label": 0.031014245819767305,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.600135",
+      "asof_date": "2020-05-22",
+      "observed_label": 0.047170783812388484,
+      "rebuilt_label": 0.047170783812388484,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.600152",
+      "asof_date": "2017-12-22",
+      "observed_label": 0.031209339086842425,
+      "rebuilt_label": 0.031209339086842425,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.600155",
+      "asof_date": "2017-01-06",
+      "observed_label": -0.06754869964224697,
+      "rebuilt_label": -0.06754869964224697,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.600159",
+      "asof_date": "2018-05-04",
+      "observed_label": 0.015576299344942202,
+      "rebuilt_label": 0.015576299344942202,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.600180",
+      "asof_date": "2017-02-24",
+      "observed_label": 4.983618184795091e-09,
+      "rebuilt_label": 4.983618184795091e-09,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.600191",
+      "asof_date": "2019-09-27",
+      "observed_label": 0.04606543109772088,
+      "rebuilt_label": 0.04606543109772088,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.600217",
+      "asof_date": "2017-07-07",
+      "observed_label": -0.08513934334296236,
+      "rebuilt_label": -0.08513934334296236,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.600222",
+      "asof_date": "2017-05-26",
+      "observed_label": 0.009724466089222394,
+      "rebuilt_label": 0.009724466089222394,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.600281",
+      "asof_date": "2020-07-03",
+      "observed_label": 0.04714607594300091,
+      "rebuilt_label": 0.04714607594300091,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.600302",
+      "asof_date": "2020-02-21",
+      "observed_label": -0.035129179765073126,
+      "rebuilt_label": -0.035129179765073126,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.600306",
+      "asof_date": "2020-01-17",
+      "observed_label": -0.19107153938393417,
+      "rebuilt_label": -0.19107153938393417,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.600310",
+      "asof_date": "2017-07-07",
+      "observed_label": -0.05349185553605984,
+      "rebuilt_label": -0.05349185553605984,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.600320",
+      "asof_date": "2020-05-08",
+      "observed_label": -0.00943445903514295,
+      "rebuilt_label": -0.00943445903514295,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.600353",
+      "asof_date": "2018-11-23",
+      "observed_label": 0.061643828278020285,
+      "rebuilt_label": 0.061643828278020285,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.600386",
+      "asof_date": "2019-06-21",
+      "observed_label": -0.004750596900842785,
+      "rebuilt_label": -0.004750596900842785,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.600387",
+      "asof_date": "2016-07-29",
+      "observed_label": 0.01330065309166173,
+      "rebuilt_label": 0.01330065309166173,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.600429",
+      "asof_date": "2017-06-02",
+      "observed_label": 0.006005994936391756,
+      "rebuilt_label": 0.006005994936391756,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.600463",
+      "asof_date": "2018-03-16",
+      "observed_label": -0.007714557445659409,
+      "rebuilt_label": -0.007714557445659409,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.600501",
+      "asof_date": "2019-11-29",
+      "observed_label": 0.03347156525893569,
+      "rebuilt_label": 0.03347156525893569,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.600523",
+      "asof_date": "2016-03-11",
+      "observed_label": 0.08709692837094951,
+      "rebuilt_label": 0.08709692837094951,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.600538",
+      "asof_date": "2019-04-12",
+      "observed_label": -0.0018903022098178957,
+      "rebuilt_label": -0.0018903022098178957,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.600540",
+      "asof_date": "2019-09-27",
+      "observed_label": 0.07197873042570446,
+      "rebuilt_label": 0.07197873042570446,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.600616",
+      "asof_date": "2017-06-16",
+      "observed_label": 0.03007515238872438,
+      "rebuilt_label": 0.03007515238872438,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.600620",
+      "asof_date": "2016-04-08",
+      "observed_label": 0.007524176499531521,
+      "rebuilt_label": 0.007524176499531521,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.600626",
+      "asof_date": "2018-01-12",
+      "observed_label": 0.035714277245963544,
+      "rebuilt_label": 0.035714277245963544,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.600644",
+      "asof_date": "2020-02-14",
+      "observed_label": 0.03755072257135339,
+      "rebuilt_label": 0.03755072257135339,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.600647",
+      "asof_date": "2018-01-26",
+      "observed_label": -0.13702622343405724,
+      "rebuilt_label": -0.13702622343405724,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.600665",
+      "asof_date": "2018-07-20",
+      "observed_label": 0.014409209619077323,
+      "rebuilt_label": 0.014409209619077323,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.600686",
+      "asof_date": "2020-04-03",
+      "observed_label": -0.012841777327970316,
+      "rebuilt_label": -0.012841777327970316,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.600691",
+      "asof_date": "2019-12-31",
+      "observed_label": 0.03773534452131022,
+      "rebuilt_label": 0.03773534452131022,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.600716",
+      "asof_date": "2019-05-24",
+      "observed_label": -0.03631963116499326,
+      "rebuilt_label": -0.03631963116499326,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.600722",
+      "asof_date": "2020-05-08",
+      "observed_label": -0.04081622544376495,
+      "rebuilt_label": -0.04081622544376495,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.600727",
+      "asof_date": "2019-03-22",
+      "observed_label": 0.035346126993789584,
+      "rebuilt_label": 0.035346126993789584,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.600784",
+      "asof_date": "2017-11-10",
+      "observed_label": -0.05980068932847249,
+      "rebuilt_label": -0.05980068932847249,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.600792",
+      "asof_date": "2017-04-21",
+      "observed_label": 0.04821804498587445,
+      "rebuilt_label": 0.04821804498587445,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.600810",
+      "asof_date": "2016-06-17",
+      "observed_label": 0.019336324951580774,
+      "rebuilt_label": 0.019336324951580774,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.600821",
+      "asof_date": "2019-05-31",
+      "observed_label": 0.01960782502538816,
+      "rebuilt_label": 0.01960782502538816,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.600821",
+      "asof_date": "2018-06-22",
+      "observed_label": 0.002057562354648157,
+      "rebuilt_label": 0.002057562354648157,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.600829",
+      "asof_date": "2018-12-28",
+      "observed_label": 0.0347221893016596,
+      "rebuilt_label": 0.0347221893016596,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.600829",
+      "asof_date": "2018-07-27",
+      "observed_label": 0.023578372378490364,
+      "rebuilt_label": 0.023578372378490364,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.600841",
+      "asof_date": "2020-02-14",
+      "observed_label": 0.010785467762570056,
+      "rebuilt_label": 0.010785467762570056,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.600845",
+      "asof_date": "2017-01-26",
+      "observed_label": 0.0017191380378620558,
+      "rebuilt_label": 0.0017191380378620558,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.600860",
+      "asof_date": "2016-04-01",
+      "observed_label": 0.04004473764931049,
+      "rebuilt_label": 0.04004473764931049,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.600860",
+      "asof_date": "2016-08-26",
+      "observed_label": -0.01239340330939509,
+      "rebuilt_label": -0.01239340330939509,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.600861",
+      "asof_date": "2016-06-17",
+      "observed_label": -0.0007483348701953219,
+      "rebuilt_label": -0.0007483348701953219,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.600864",
+      "asof_date": "2017-05-12",
+      "observed_label": -0.018028798134391955,
+      "rebuilt_label": -0.018028798134391955,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.600894",
+      "asof_date": "2019-04-04",
+      "observed_label": -0.04134363174049338,
+      "rebuilt_label": -0.04134363174049338,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.600897",
+      "asof_date": "2020-03-20",
+      "observed_label": 0.012231870235358988,
+      "rebuilt_label": 0.012231870235358988,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.600936",
+      "asof_date": "2019-08-09",
+      "observed_label": 0.04271421499871253,
+      "rebuilt_label": 0.04271421499871253,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.600976",
+      "asof_date": "2016-08-19",
+      "observed_label": 0.03386855279518386,
+      "rebuilt_label": 0.03386855279518386,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.600980",
+      "asof_date": "2020-02-28",
+      "observed_label": 0.0055247292597364606,
+      "rebuilt_label": 0.0055247292597364606,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.600983",
+      "asof_date": "2017-09-15",
+      "observed_label": -0.02721085279574631,
+      "rebuilt_label": -0.02721085279574631,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.601007",
+      "asof_date": "2020-07-24",
+      "observed_label": 0.09308217182487244,
+      "rebuilt_label": 0.09308217182487244,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.601015",
+      "asof_date": "2019-01-11",
+      "observed_label": 0.005385953507771157,
+      "rebuilt_label": 0.005385953507771157,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.601086",
+      "asof_date": "2019-08-16",
+      "observed_label": -0.025341448314528225,
+      "rebuilt_label": -0.025341448314528225,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.601188",
+      "asof_date": "2016-04-01",
+      "observed_label": -0.0201346875549121,
+      "rebuilt_label": -0.0201346875549121,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.601368",
+      "asof_date": "2017-05-19",
+      "observed_label": -0.012282573965841537,
+      "rebuilt_label": -0.012282573965841537,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.603017",
+      "asof_date": "2020-09-30",
+      "observed_label": 0.01497470339126461,
+      "rebuilt_label": 0.01497470339126461,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.603022",
+      "asof_date": "2017-12-15",
+      "observed_label": 0.01311474392616252,
+      "rebuilt_label": 0.01311474392616252,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.603025",
+      "asof_date": "2018-11-16",
+      "observed_label": -0.07358949925735192,
+      "rebuilt_label": -0.07358949925735192,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.603088",
+      "asof_date": "2018-08-24",
+      "observed_label": -0.03601334687801516,
+      "rebuilt_label": -0.03601334687801516,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.603108",
+      "asof_date": "2019-12-31",
+      "observed_label": 0.04676583532936163,
+      "rebuilt_label": 0.04676583532936163,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.603126",
+      "asof_date": "2018-09-28",
+      "observed_label": -0.11720225226576975,
+      "rebuilt_label": -0.11720225226576975,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.603139",
+      "asof_date": "2018-11-30",
+      "observed_label": -0.06329884501911098,
+      "rebuilt_label": -0.06329884501911098,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.603168",
+      "asof_date": "2020-04-30",
+      "observed_label": 7.67430102799338e-07,
+      "rebuilt_label": 7.67430102799338e-07,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.603268",
+      "asof_date": "2019-12-27",
+      "observed_label": 0.03873010780548869,
+      "rebuilt_label": 0.03873010780548869,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.603269",
+      "asof_date": "2020-03-06",
+      "observed_label": -0.033093961897926794,
+      "rebuilt_label": -0.033093961897926794,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.603321",
+      "asof_date": "2020-02-28",
+      "observed_label": 0.030830920139163664,
+      "rebuilt_label": 0.030830920139163664,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.603339",
+      "asof_date": "2016-06-08",
+      "observed_label": 0.08122589019256576,
+      "rebuilt_label": 0.08122589019256576,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.603367",
+      "asof_date": "2020-11-13",
+      "observed_label": 0.004708384698444812,
+      "rebuilt_label": 0.004708384698444812,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.603380",
+      "asof_date": "2020-08-14",
+      "observed_label": -0.0016073878669715658,
+      "rebuilt_label": -0.0016073878669715658,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.603458",
+      "asof_date": "2017-08-25",
+      "observed_label": -0.011849119767298966,
+      "rebuilt_label": -0.011849119767298966,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.603535",
+      "asof_date": "2020-03-06",
+      "observed_label": -0.07450039234215866,
+      "rebuilt_label": -0.07450039234215866,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.603555",
+      "asof_date": "2016-09-14",
+      "observed_label": 0.04955317633260292,
+      "rebuilt_label": 0.04955317633260292,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.603608",
+      "asof_date": "2017-01-13",
+      "observed_label": 0.038163980916798845,
+      "rebuilt_label": 0.038163980916798845,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.603618",
+      "asof_date": "2017-08-25",
+      "observed_label": 0.04301070233470594,
+      "rebuilt_label": 0.04301070233470594,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.603665",
+      "asof_date": "2020-01-23",
+      "observed_label": 0.07374833823064075,
+      "rebuilt_label": 0.07374833823064075,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.603667",
+      "asof_date": "2019-05-24",
+      "observed_label": -0.011668544969274164,
+      "rebuilt_label": -0.011668544969274164,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.603685",
+      "asof_date": "2019-02-01",
+      "observed_label": 0.06214285726889357,
+      "rebuilt_label": 0.06214285726889357,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.603717",
+      "asof_date": "2017-04-07",
+      "observed_label": -0.20929200849086715,
+      "rebuilt_label": -0.20929200849086715,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.603757",
+      "asof_date": "2019-07-19",
+      "observed_label": 0.09963145601136447,
+      "rebuilt_label": 0.09963145601136447,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.603810",
+      "asof_date": "2020-09-04",
+      "observed_label": -0.08245230663175762,
+      "rebuilt_label": -0.08245230663175762,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.603813",
+      "asof_date": "2017-10-13",
+      "observed_label": 0.07337061161313518,
+      "rebuilt_label": 0.07337061161313518,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.603825",
+      "asof_date": "2017-08-11",
+      "observed_label": 0.15489034327177786,
+      "rebuilt_label": 0.15489034327177786,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.603889",
+      "asof_date": "2019-08-02",
+      "observed_label": -0.05612237249486396,
+      "rebuilt_label": -0.05612237249486396,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.603903",
+      "asof_date": "2020-08-14",
+      "observed_label": -0.01944040806857783,
+      "rebuilt_label": -0.01944040806857783,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.603906",
+      "asof_date": "2019-01-18",
+      "observed_label": -0.040586200901025604,
+      "rebuilt_label": -0.040586200901025604,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.603908",
+      "asof_date": "2018-01-26",
+      "observed_label": -0.12854220006435857,
+      "rebuilt_label": -0.12854220006435857,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.603937",
+      "asof_date": "2018-11-30",
+      "observed_label": -0.03436714058314294,
+      "rebuilt_label": -0.03436714058314294,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.603937",
+      "asof_date": "2018-12-14",
+      "observed_label": 0.029616744267128015,
+      "rebuilt_label": 0.029616744267128015,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.603958",
+      "asof_date": "2017-01-26",
+      "observed_label": 0.007633540651435178,
+      "rebuilt_label": 0.007633540651435178,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.603999",
+      "asof_date": "2020-10-23",
+      "observed_label": -0.013913082823110434,
+      "rebuilt_label": -0.013913082823110434,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.688081",
+      "asof_date": "2020-09-04",
+      "observed_label": -0.023982262258588904,
+      "rebuilt_label": -0.023982262258588904,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.688159",
+      "asof_date": "2020-12-18",
+      "observed_label": -0.12413586253928466,
+      "rebuilt_label": -0.12413586253928466,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sh.688357",
+      "asof_date": "2020-07-31",
+      "observed_label": -0.0462502374982825,
+      "rebuilt_label": -0.0462502374982825,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.000090",
+      "asof_date": "2016-06-24",
+      "observed_label": 0.03832847179649579,
+      "rebuilt_label": 0.03832847179649579,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.000404",
+      "asof_date": "2019-03-22",
+      "observed_label": -0.008032114941028068,
+      "rebuilt_label": -0.008032114941028068,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.000407",
+      "asof_date": "2019-06-14",
+      "observed_label": 0.034120765264701314,
+      "rebuilt_label": 0.034120765264701314,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.000509",
+      "asof_date": "2016-01-15",
+      "observed_label": 0.001672597378216345,
+      "rebuilt_label": 0.001672597378216345,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.000570",
+      "asof_date": "2020-10-23",
+      "observed_label": -0.02537097924096654,
+      "rebuilt_label": -0.02537097924096654,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.000586",
+      "asof_date": "2020-08-07",
+      "observed_label": 0.05128219497170439,
+      "rebuilt_label": 0.05128219497170439,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.000591",
+      "asof_date": "2016-11-11",
+      "observed_label": 0.010832746321914,
+      "rebuilt_label": 0.010832746321914,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.000591",
+      "asof_date": "2016-10-28",
+      "observed_label": -0.008146636722224598,
+      "rebuilt_label": -0.008146636722224598,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.000597",
+      "asof_date": "2016-06-08",
+      "observed_label": 0.01516903728020047,
+      "rebuilt_label": 0.01516903728020047,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.000599",
+      "asof_date": "2019-02-15",
+      "observed_label": 0.04250001766692857,
+      "rebuilt_label": 0.04250001766692857,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.000608",
+      "asof_date": "2020-07-17",
+      "observed_label": -0.09014539550236378,
+      "rebuilt_label": -0.09014539550236378,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.000608",
+      "asof_date": "2018-09-28",
+      "observed_label": -0.1518691746336338,
+      "rebuilt_label": -0.1518691746336338,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.000620",
+      "asof_date": "2020-03-13",
+      "observed_label": -0.09354853128249874,
+      "rebuilt_label": -0.09354853128249874,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.000626",
+      "asof_date": "2019-08-09",
+      "observed_label": 0.022223109181320533,
+      "rebuilt_label": 0.022223109181320533,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.000663",
+      "asof_date": "2016-11-11",
+      "observed_label": 0.041811806991395306,
+      "rebuilt_label": 0.041811806991395306,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.000668",
+      "asof_date": "2017-09-15",
+      "observed_label": -0.024277470679709756,
+      "rebuilt_label": -0.024277470679709756,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.000715",
+      "asof_date": "2016-07-22",
+      "observed_label": -0.10857222490143903,
+      "rebuilt_label": -0.10857222490143903,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.000723",
+      "asof_date": "2016-03-25",
+      "observed_label": 0.08433691332867044,
+      "rebuilt_label": 0.08433691332867044,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.000780",
+      "asof_date": "2017-03-31",
+      "observed_label": -0.005607425844689207,
+      "rebuilt_label": -0.005607425844689207,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.000809",
+      "asof_date": "2020-11-06",
+      "observed_label": 0.033018177903545,
+      "rebuilt_label": 0.033018177903545,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.000819",
+      "asof_date": "2017-05-26",
+      "observed_label": 0.069172122094733,
+      "rebuilt_label": 0.069172122094733,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.000892",
+      "asof_date": "2019-03-01",
+      "observed_label": 0.06666664874731443,
+      "rebuilt_label": 0.06666664874731443,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.000922",
+      "asof_date": "2016-08-05",
+      "observed_label": 0.007769012653974006,
+      "rebuilt_label": 0.007769012653974006,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.000955",
+      "asof_date": "2017-02-24",
+      "observed_label": 0.010899164443458176,
+      "rebuilt_label": 0.010899164443458176,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.000962",
+      "asof_date": "2016-01-08",
+      "observed_label": -0.06204751332690206,
+      "rebuilt_label": -0.06204751332690206,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.002015",
+      "asof_date": "2016-12-16",
+      "observed_label": -0.015855074187403062,
+      "rebuilt_label": -0.015855074187403062,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.002037",
+      "asof_date": "2019-12-31",
+      "observed_label": 0.02676102134937164,
+      "rebuilt_label": 0.02676102134937164,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.002040",
+      "asof_date": "2019-01-25",
+      "observed_label": 0.01139235911073655,
+      "rebuilt_label": 0.01139235911073655,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.002062",
+      "asof_date": "2019-10-25",
+      "observed_label": 0.0057807704174221985,
+      "rebuilt_label": 0.0057807704174221985,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.002069",
+      "asof_date": "2018-10-19",
+      "observed_label": -6.233891181040008e-11,
+      "rebuilt_label": -6.233891181040008e-11,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.002076",
+      "asof_date": "2016-10-14",
+      "observed_label": -0.011421339797409336,
+      "rebuilt_label": -0.011421339797409336,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.002088",
+      "asof_date": "2018-12-21",
+      "observed_label": -0.07150594279408884,
+      "rebuilt_label": -0.07150594279408884,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.002111",
+      "asof_date": "2016-12-30",
+      "observed_label": 0.016055060175237834,
+      "rebuilt_label": 0.016055060175237834,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.002116",
+      "asof_date": "2020-04-17",
+      "observed_label": -0.09441468331456859,
+      "rebuilt_label": -0.09441468331456859,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.002121",
+      "asof_date": "2018-12-07",
+      "observed_label": -0.02178220495935923,
+      "rebuilt_label": -0.02178220495935923,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.002144",
+      "asof_date": "2020-01-10",
+      "observed_label": -0.012757415755349277,
+      "rebuilt_label": -0.012757415755349277,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.002150",
+      "asof_date": "2017-01-13",
+      "observed_label": 0.0234375303531269,
+      "rebuilt_label": 0.0234375303531269,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.002188",
+      "asof_date": "2016-12-16",
+      "observed_label": 0.006876610829855911,
+      "rebuilt_label": 0.006876610829855911,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.002196",
+      "asof_date": "2019-09-27",
+      "observed_label": 0.040463456456587776,
+      "rebuilt_label": 0.040463456456587776,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.002199",
+      "asof_date": "2018-05-04",
+      "observed_label": -0.129032248111706,
+      "rebuilt_label": -0.129032248111706,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.002218",
+      "asof_date": "2016-03-04",
+      "observed_label": 0.015666147180956713,
+      "rebuilt_label": 0.015666147180956713,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.002228",
+      "asof_date": "2018-01-19",
+      "observed_label": -0.002398131021102423,
+      "rebuilt_label": -0.002398131021102423,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.002228",
+      "asof_date": "2016-09-23",
+      "observed_label": 0.009560272752477728,
+      "rebuilt_label": 0.009560272752477728,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.002235",
+      "asof_date": "2016-11-25",
+      "observed_label": -0.06256685064828904,
+      "rebuilt_label": -0.06256685064828904,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.002255",
+      "asof_date": "2016-10-21",
+      "observed_label": -0.01643485683346846,
+      "rebuilt_label": -0.01643485683346846,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.002279",
+      "asof_date": "2019-07-19",
+      "observed_label": 0.011531593576662225,
+      "rebuilt_label": 0.011531593576662225,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.002286",
+      "asof_date": "2019-07-19",
+      "observed_label": 0.07550630919061252,
+      "rebuilt_label": 0.07550630919061252,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.002339",
+      "asof_date": "2018-12-07",
+      "observed_label": -0.04307695204033635,
+      "rebuilt_label": -0.04307695204033635,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.002346",
+      "asof_date": "2019-11-15",
+      "observed_label": 0.00563942027004094,
+      "rebuilt_label": 0.00563942027004094,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.002360",
+      "asof_date": "2017-03-10",
+      "observed_label": 0.009760390244265116,
+      "rebuilt_label": 0.009760390244265116,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.002388",
+      "asof_date": "2018-09-14",
+      "observed_label": 0.08387094087708635,
+      "rebuilt_label": 0.08387094087708635,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.002404",
+      "asof_date": "2016-01-29",
+      "observed_label": 0.04938262359251189,
+      "rebuilt_label": 0.04938262359251189,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.002420",
+      "asof_date": "2018-02-02",
+      "observed_label": 0.009434060481814166,
+      "rebuilt_label": 0.009434060481814166,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.002442",
+      "asof_date": "2016-08-26",
+      "observed_label": -0.000757460079819694,
+      "rebuilt_label": -0.000757460079819694,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.002454",
+      "asof_date": "2016-12-30",
+      "observed_label": 0.005098375891506413,
+      "rebuilt_label": 0.005098375891506413,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.002476",
+      "asof_date": "2017-05-12",
+      "observed_label": 0.037091999434544665,
+      "rebuilt_label": 0.037091999434544665,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.002483",
+      "asof_date": "2018-07-13",
+      "observed_label": 0.039506129417994584,
+      "rebuilt_label": 0.039506129417994584,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.002490",
+      "asof_date": "2019-08-30",
+      "observed_label": 0.028638932001841422,
+      "rebuilt_label": 0.028638932001841422,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.002494",
+      "asof_date": "2020-05-22",
+      "observed_label": 0.05777700122319618,
+      "rebuilt_label": 0.05777700122319618,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.002495",
+      "asof_date": "2018-01-26",
+      "observed_label": -0.12565446201781783,
+      "rebuilt_label": -0.12565446201781783,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.002523",
+      "asof_date": "2020-04-10",
+      "observed_label": -0.019305139055999954,
+      "rebuilt_label": -0.019305139055999954,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.002540",
+      "asof_date": "2019-09-30",
+      "observed_label": 0.009949385468670968,
+      "rebuilt_label": 0.009949385468670968,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.002542",
+      "asof_date": "2016-08-12",
+      "observed_label": -0.0025809221325775455,
+      "rebuilt_label": -0.0025809221325775455,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.002548",
+      "asof_date": "2017-01-20",
+      "observed_label": 0.05519240432416139,
+      "rebuilt_label": 0.05519240432416139,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.002582",
+      "asof_date": "2017-01-20",
+      "observed_label": 0.017908520081833412,
+      "rebuilt_label": 0.017908520081833412,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.002595",
+      "asof_date": "2018-05-11",
+      "observed_label": 0.029870142406368982,
+      "rebuilt_label": 0.029870142406368982,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.002613",
+      "asof_date": "2017-09-08",
+      "observed_label": -0.00869564661885669,
+      "rebuilt_label": -0.00869564661885669,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.002632",
+      "asof_date": "2019-04-12",
+      "observed_label": 0.0058962482148101625,
+      "rebuilt_label": 0.0058962482148101625,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.002633",
+      "asof_date": "2019-01-18",
+      "observed_label": -0.02187112372742883,
+      "rebuilt_label": -0.02187112372742883,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.002661",
+      "asof_date": "2016-09-14",
+      "observed_label": -0.014032920697696794,
+      "rebuilt_label": -0.014032920697696794,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.002666",
+      "asof_date": "2016-03-18",
+      "observed_label": 0.10549909226294174,
+      "rebuilt_label": 0.10549909226294174,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.002669",
+      "asof_date": "2016-04-15",
+      "observed_label": -0.08552095244443103,
+      "rebuilt_label": -0.08552095244443103,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.002671",
+      "asof_date": "2020-12-04",
+      "observed_label": -0.031042501800492284,
+      "rebuilt_label": -0.031042501800492284,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.002678",
+      "asof_date": "2016-04-15",
+      "observed_label": -0.04468383530497122,
+      "rebuilt_label": -0.04468383530497122,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.002691",
+      "asof_date": "2020-02-14",
+      "observed_label": 0.025974629057808896,
+      "rebuilt_label": 0.025974629057808896,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.002706",
+      "asof_date": "2016-01-08",
+      "observed_label": 0.038785978004387545,
+      "rebuilt_label": 0.038785978004387545,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.002718",
+      "asof_date": "2018-04-20",
+      "observed_label": -0.11525281181209679,
+      "rebuilt_label": -0.11525281181209679,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.002737",
+      "asof_date": "2016-03-04",
+      "observed_label": 0.022642732225696127,
+      "rebuilt_label": 0.022642732225696127,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.002742",
+      "asof_date": "2017-01-26",
+      "observed_label": 0.0632129232763623,
+      "rebuilt_label": 0.0632129232763623,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.002755",
+      "asof_date": "2019-06-21",
+      "observed_label": 0.011973963551839883,
+      "rebuilt_label": 0.011973963551839883,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.002774",
+      "asof_date": "2020-01-23",
+      "observed_label": -0.016641145291042436,
+      "rebuilt_label": -0.016641145291042436,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.002789",
+      "asof_date": "2019-03-29",
+      "observed_label": 0.036111095363154044,
+      "rebuilt_label": 0.036111095363154044,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.002790",
+      "asof_date": "2017-12-29",
+      "observed_label": 0.005628518585530706,
+      "rebuilt_label": 0.005628518585530706,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.002791",
+      "asof_date": "2018-07-13",
+      "observed_label": 0.007679191071282121,
+      "rebuilt_label": 0.007679191071282121,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.002791",
+      "asof_date": "2017-11-17",
+      "observed_label": -0.01701031117263374,
+      "rebuilt_label": -0.01701031117263374,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.002808",
+      "asof_date": "2017-09-08",
+      "observed_label": -0.025107154354501282,
+      "rebuilt_label": -0.025107154354501282,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.002811",
+      "asof_date": "2018-04-20",
+      "observed_label": 0.013741370946778408,
+      "rebuilt_label": 0.013741370946778408,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.002815",
+      "asof_date": "2016-10-28",
+      "observed_label": 0.0799289467308224,
+      "rebuilt_label": 0.0799289467308224,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.002828",
+      "asof_date": "2020-09-25",
+      "observed_label": 0.04308384829897527,
+      "rebuilt_label": 0.04308384829897527,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.002831",
+      "asof_date": "2016-12-23",
+      "observed_label": -0.04963186131955166,
+      "rebuilt_label": -0.04963186131955166,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.002847",
+      "asof_date": "2017-08-11",
+      "observed_label": 0.057404015560924115,
+      "rebuilt_label": 0.057404015560924115,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.002849",
+      "asof_date": "2018-02-02",
+      "observed_label": 0.010733451710171149,
+      "rebuilt_label": 0.010733451710171149,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.002896",
+      "asof_date": "2019-05-17",
+      "observed_label": -0.027605223771047016,
+      "rebuilt_label": -0.027605223771047016,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.002899",
+      "asof_date": "2019-11-15",
+      "observed_label": -0.005451365798900043,
+      "rebuilt_label": -0.005451365798900043,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.002927",
+      "asof_date": "2019-04-30",
+      "observed_label": 0.1731379045065231,
+      "rebuilt_label": 0.1731379045065231,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.300043",
+      "asof_date": "2020-08-07",
+      "observed_label": 0.01249979473243057,
+      "rebuilt_label": 0.01249979473243057,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.300048",
+      "asof_date": "2019-08-30",
+      "observed_label": 0.0300748229445571,
+      "rebuilt_label": 0.0300748229445571,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.300057",
+      "asof_date": "2018-04-04",
+      "observed_label": -0.0011960886847410812,
+      "rebuilt_label": -0.0011960886847410812,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.300132",
+      "asof_date": "2016-07-15",
+      "observed_label": -0.008334643486890614,
+      "rebuilt_label": -0.008334643486890614,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.300141",
+      "asof_date": "2017-02-10",
+      "observed_label": 0.04039058717700894,
+      "rebuilt_label": 0.04039058717700894,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.300173",
+      "asof_date": "2016-01-15",
+      "observed_label": 0.03618209214928281,
+      "rebuilt_label": 0.03618209214928281,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.300179",
+      "asof_date": "2019-03-01",
+      "observed_label": 0.06753811772958018,
+      "rebuilt_label": 0.06753811772958018,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.300210",
+      "asof_date": "2018-01-12",
+      "observed_label": 0.00868051596316266,
+      "rebuilt_label": 0.00868051596316266,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.300239",
+      "asof_date": "2018-06-15",
+      "observed_label": 0.009779945177392113,
+      "rebuilt_label": 0.009779945177392113,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.300277",
+      "asof_date": "2017-07-14",
+      "observed_label": 0.01744967562268629,
+      "rebuilt_label": 0.01744967562268629,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.300281",
+      "asof_date": "2016-05-20",
+      "observed_label": -0.009429658265167618,
+      "rebuilt_label": -0.009429658265167618,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.300283",
+      "asof_date": "2016-02-26",
+      "observed_label": 0.1611491857405536,
+      "rebuilt_label": 0.1611491857405536,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.300291",
+      "asof_date": "2016-10-21",
+      "observed_label": -0.007505529741489547,
+      "rebuilt_label": -0.007505529741489547,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.300295",
+      "asof_date": "2019-06-06",
+      "observed_label": 0.026845607396575932,
+      "rebuilt_label": 0.026845607396575932,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.300303",
+      "asof_date": "2016-02-26",
+      "observed_label": 0.042773315059143835,
+      "rebuilt_label": 0.042773315059143835,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.300305",
+      "asof_date": "2017-09-08",
+      "observed_label": -0.005488385242401472,
+      "rebuilt_label": -0.005488385242401472,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.300319",
+      "asof_date": "2017-07-14",
+      "observed_label": 0.04199476866212404,
+      "rebuilt_label": 0.04199476866212404,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.300337",
+      "asof_date": "2020-03-27",
+      "observed_label": 0.0361445744919251,
+      "rebuilt_label": 0.0361445744919251,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.300341",
+      "asof_date": "2018-01-19",
+      "observed_label": 0.047407406473833014,
+      "rebuilt_label": 0.047407406473833014,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.300360",
+      "asof_date": "2017-05-19",
+      "observed_label": -0.0586826909574959,
+      "rebuilt_label": -0.0586826909574959,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.300360",
+      "asof_date": "2017-04-07",
+      "observed_label": -0.019178108495429114,
+      "rebuilt_label": -0.019178108495429114,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.300360",
+      "asof_date": "2020-08-07",
+      "observed_label": 0.009970411514885313,
+      "rebuilt_label": 0.009970411514885313,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.300375",
+      "asof_date": "2017-11-10",
+      "observed_label": 0.0,
+      "rebuilt_label": 0.0,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.300380",
+      "asof_date": "2017-04-21",
+      "observed_label": 0.03789005804340495,
+      "rebuilt_label": 0.03789005804340495,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.300385",
+      "asof_date": "2020-01-03",
+      "observed_label": 0.001642144857183725,
+      "rebuilt_label": 0.001642144857183725,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.300389",
+      "asof_date": "2019-01-18",
+      "observed_label": -0.02159684710937193,
+      "rebuilt_label": -0.02159684710937193,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.300407",
+      "asof_date": "2020-01-03",
+      "observed_label": 0.006172453941069467,
+      "rebuilt_label": 0.006172453941069467,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.300434",
+      "asof_date": "2019-08-09",
+      "observed_label": 0.051350617542630816,
+      "rebuilt_label": 0.051350617542630816,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.300435",
+      "asof_date": "2017-07-28",
+      "observed_label": 0.053208156122493966,
+      "rebuilt_label": 0.053208156122493966,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.300437",
+      "asof_date": "2020-07-03",
+      "observed_label": 0.050279815829288754,
+      "rebuilt_label": 0.050279815829288754,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.300460",
+      "asof_date": "2017-02-10",
+      "observed_label": -0.0042373069973915545,
+      "rebuilt_label": -0.0042373069973915545,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.300484",
+      "asof_date": "2018-06-15",
+      "observed_label": 0.05682021374286261,
+      "rebuilt_label": 0.05682021374286261,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.300485",
+      "asof_date": "2019-03-29",
+      "observed_label": 0.025764880292370673,
+      "rebuilt_label": 0.025764880292370673,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.300488",
+      "asof_date": "2017-04-14",
+      "observed_label": -0.08652791420828987,
+      "rebuilt_label": -0.08652791420828987,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.300491",
+      "asof_date": "2019-07-12",
+      "observed_label": -0.04109585341699884,
+      "rebuilt_label": -0.04109585341699884,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.300509",
+      "asof_date": "2017-08-18",
+      "observed_label": 0.028940836476659904,
+      "rebuilt_label": 0.028940836476659904,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.300515",
+      "asof_date": "2018-08-10",
+      "observed_label": -0.040382592479412116,
+      "rebuilt_label": -0.040382592479412116,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.300515",
+      "asof_date": "2019-05-10",
+      "observed_label": -0.020169900178919398,
+      "rebuilt_label": -0.020169900178919398,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.300517",
+      "asof_date": "2017-08-04",
+      "observed_label": -0.00542341559110926,
+      "rebuilt_label": -0.00542341559110926,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.300517",
+      "asof_date": "2020-12-18",
+      "observed_label": -0.11607647220142059,
+      "rebuilt_label": -0.11607647220142059,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.300519",
+      "asof_date": "2018-12-07",
+      "observed_label": -0.02722063099955485,
+      "rebuilt_label": -0.02722063099955485,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.300519",
+      "asof_date": "2019-10-18",
+      "observed_label": 0.028210137684425707,
+      "rebuilt_label": 0.028210137684425707,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.300540",
+      "asof_date": "2017-11-03",
+      "observed_label": 0.05227110928940215,
+      "rebuilt_label": 0.05227110928940215,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.300546",
+      "asof_date": "2020-03-27",
+      "observed_label": 0.013297082184773545,
+      "rebuilt_label": 0.013297082184773545,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.300549",
+      "asof_date": "2020-05-08",
+      "observed_label": -0.031530874617316185,
+      "rebuilt_label": -0.031530874617316185,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.300557",
+      "asof_date": "2020-02-28",
+      "observed_label": 0.12612602281815644,
+      "rebuilt_label": 0.12612602281815644,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.300563",
+      "asof_date": "2018-01-26",
+      "observed_label": -0.20952060498387926,
+      "rebuilt_label": -0.20952060498387926,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.300591",
+      "asof_date": "2018-12-14",
+      "observed_label": 0.03157900145646231,
+      "rebuilt_label": 0.03157900145646231,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.300610",
+      "asof_date": "2017-06-23",
+      "observed_label": 0.015461163399425049,
+      "rebuilt_label": 0.015461163399425049,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.300611",
+      "asof_date": "2018-01-19",
+      "observed_label": -0.023910006164215347,
+      "rebuilt_label": -0.023910006164215347,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.300655",
+      "asof_date": "2019-04-26",
+      "observed_label": -0.055555961907959084,
+      "rebuilt_label": -0.055555961907959084,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.300656",
+      "asof_date": "2020-03-27",
+      "observed_label": 0.02359699758289313,
+      "rebuilt_label": 0.02359699758289313,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.300668",
+      "asof_date": "2020-03-27",
+      "observed_label": 0.0118332302432409,
+      "rebuilt_label": 0.0118332302432409,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.300716",
+      "asof_date": "2019-04-12",
+      "observed_label": 0.005785093101704941,
+      "rebuilt_label": 0.005785093101704941,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.300732",
+      "asof_date": "2019-12-13",
+      "observed_label": -0.014150333356128142,
+      "rebuilt_label": -0.014150333356128142,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.300752",
+      "asof_date": "2019-11-29",
+      "observed_label": 0.05977254639424712,
+      "rebuilt_label": 0.05977254639424712,
+      "absolute_error": 0.0
+    },
+    {
+      "instrument_id": "sz.300756",
+      "asof_date": "2020-02-07",
+      "observed_label": 0.010397251407699315,
+      "rebuilt_label": 0.010397251407699315,
+      "absolute_error": 0.0
+    }
+  ],
+  "rf_oos_execution_summary__v1": [
+    {
+      "scenario": "ideal_close_to_close",
+      "periods": 293,
+      "annualized_return": 0.2794914760062783,
+      "annualized_volatility": 0.31117061363762083,
+      "sharpe_zero_rate": 0.9502644839080348,
+      "annualized_excess_return_arithmetic": 0.14279839416973267,
+      "information_ratio": 1.417284207385652,
+      "maximum_drawdown": -0.39556865142396136,
+      "mean_turnover": 0.5252131110757274,
+      "mean_realized_weight_fraction": 0.9988225255972696
+    },
+    {
+      "scenario": "t_plus_1_limit_and_suspension_constrained",
+      "periods": 293,
+      "annualized_return": 0.24194049194086764,
+      "annualized_volatility": 0.29975682913889085,
+      "sharpe_zero_rate": 0.8748900492302454,
+      "annualized_excess_return_arithmetic": 0.10935827859645887,
+      "information_ratio": 1.1316263375185385,
+      "maximum_drawdown": -0.3847640988619957,
+      "mean_turnover": 0.5018553610845466,
+      "mean_realized_weight_fraction": 1.0
+    }
+  ],
+  "rf_oos_execution_yearly__v1": [
+    {
+      "scenario": "ideal",
+      "year": 2021,
+      "periods": 52,
+      "annualized_return": 0.589950989613643,
+      "annualized_volatility": 0.20167391793395828,
+      "sharpe_zero_rate": 2.406228957392079,
+      "annualized_excess_return_arithmetic": 0.2268092814676296,
+      "information_ratio": 2.5462935038941312,
+      "maximum_drawdown": -0.09417186652718057,
+      "mean_turnover": 0.5539436368386373,
+      "mean_realized_weight_fraction": 0.9996153846153846
+    },
+    {
+      "scenario": "ideal",
+      "year": 2022,
+      "periods": 50,
+      "annualized_return": 0.1450478230176293,
+      "annualized_volatility": 0.27911251951306226,
+      "sharpe_zero_rate": 0.6231390108595041,
+      "annualized_excess_return_arithmetic": 0.17453979595996066,
+      "information_ratio": 2.3604629403101227,
+      "maximum_drawdown": -0.2598326139023316,
+      "mean_turnover": 0.4989433667421784,
+      "mean_realized_weight_fraction": 0.9986000000000002
+    },
+    {
+      "scenario": "ideal",
+      "year": 2023,
+      "periods": 50,
+      "annualized_return": 0.1601689975067493,
+      "annualized_volatility": 0.20246349924926924,
+      "sharpe_zero_rate": 0.8325836031878344,
+      "annualized_excess_return_arithmetic": 0.1414461805945809,
+      "information_ratio": 1.55711898334765,
+      "maximum_drawdown": -0.10041714162583126,
+      "mean_turnover": 0.5685152703841312,
+      "mean_realized_weight_fraction": 0.9989
+    },
+    {
+      "scenario": "ideal",
+      "year": 2024,
+      "periods": 52,
+      "annualized_return": -0.061624046514462294,
+      "annualized_volatility": 0.5238289116715871,
+      "sharpe_zero_rate": 0.13949146024293713,
+      "annualized_excess_return_arithmetic": -0.015296376391359834,
+      "information_ratio": -0.12560580057078022,
+      "maximum_drawdown": -0.35554489441075554,
+      "mean_turnover": 0.5042373346701463,
+      "mean_realized_weight_fraction": 0.9993269230769232
+    },
+    {
+      "scenario": "ideal",
+      "year": 2025,
+      "periods": 53,
+      "annualized_return": 0.8813172300871823,
+      "annualized_volatility": 0.23397385086055686,
+      "sharpe_zero_rate": 2.831616055570908,
+      "annualized_excess_return_arithmetic": 0.12302277035758996,
+      "information_ratio": 1.4224606034348388,
+      "maximum_drawdown": -0.14631005761691762,
+      "mean_turnover": 0.5014684410506071,
+      "mean_realized_weight_fraction": 0.9981132075471698
+    },
+    {
+      "scenario": "ideal",
+      "year": 2026,
+      "periods": 36,
+      "annualized_return": 0.10865519732596662,
+      "annualized_volatility": 0.3054328866012473,
+      "sharpe_zero_rate": 0.48802692915496637,
+      "annualized_excess_return_arithmetic": 0.23671535475239716,
+      "information_ratio": 1.6708097920889242,
+      "maximum_drawdown": -0.2208965083492178,
+      "mean_turnover": 0.5253131054092706,
+      "mean_realized_weight_fraction": 0.9981944444444445
+    },
+    {
+      "scenario": "constrained",
+      "year": 2021,
+      "periods": 52,
+      "annualized_return": 0.47618676188004727,
+      "annualized_volatility": 0.1957369622586038,
+      "sharpe_zero_rate": 2.0913934507152394,
+      "annualized_excess_return_arithmetic": 0.1508986611147654,
+      "information_ratio": 1.7705897595942528,
+      "maximum_drawdown": -0.09843465458215228,
+      "mean_turnover": 0.5400417590870332,
+      "mean_realized_weight_fraction": 1.0
+    },
+    {
+      "scenario": "constrained",
+      "year": 2022,
+      "periods": 50,
+      "annualized_return": 0.11311042858668241,
+      "annualized_volatility": 0.2735622719139238,
+      "sharpe_zero_rate": 0.526675352035353,
+      "annualized_excess_return_arithmetic": 0.14469240249594373,
+      "information_ratio": 2.0046719905497175,
+      "maximum_drawdown": -0.2588142338524979,
+      "mean_turnover": 0.48179585358535837,
+      "mean_realized_weight_fraction": 1.0
+    },
+    {
+      "scenario": "constrained",
+      "year": 2023,
+      "periods": 50,
+      "annualized_return": 0.14360971879038176,
+      "annualized_volatility": 0.19622869550094066,
+      "sharpe_zero_rate": 0.7795190897081459,
+      "annualized_excess_return_arithmetic": 0.12584240496711704,
+      "information_ratio": 1.4401063740676425,
+      "maximum_drawdown": -0.09710640538471771,
+      "mean_turnover": 0.5464650320088635,
+      "mean_realized_weight_fraction": 1.0
+    },
+    {
+      "scenario": "constrained",
+      "year": 2024,
+      "periods": 52,
+      "annualized_return": -0.07160048170400812,
+      "annualized_volatility": 0.5022364333866413,
+      "sharpe_zero_rate": 0.10206898117652297,
+      "annualized_excess_return_arithmetic": -0.037103275132393,
+      "information_ratio": -0.33058924705331094,
+      "maximum_drawdown": -0.34395952504053195,
+      "mean_turnover": 0.47726582424234265,
+      "mean_realized_weight_fraction": 1.0
+    },
+    {
+      "scenario": "constrained",
+      "year": 2025,
+      "periods": 53,
+      "annualized_return": 0.8082903325439905,
+      "annualized_volatility": 0.22678468037339555,
+      "sharpe_zero_rate": 2.7376509873319796,
+      "annualized_excess_return_arithmetic": 0.08135596181307803,
+      "information_ratio": 0.9284441318625478,
+      "maximum_drawdown": -0.14294962652411503,
+      "mean_turnover": 0.4698673370679832,
+      "mean_realized_weight_fraction": 1.0
+    },
+    {
+      "scenario": "constrained",
+      "year": 2026,
+      "periods": 36,
+      "annualized_return": 0.10619568414703151,
+      "annualized_volatility": 0.29075695188621437,
+      "sharpe_zero_rate": 0.4901380362206677,
+      "annualized_excess_return_arithmetic": 0.2301669224564696,
+      "information_ratio": 1.68912845696671,
+      "maximum_drawdown": -0.20831722031024957,
+      "mean_turnover": 0.4952114811202892,
+      "mean_realized_weight_fraction": 1.0
+    }
+  ],
+  "rf_oos_execution_diagnostics__v1": [
+    {
+      "periods": 293,
+      "mean_blocked_buy_weight": 0.0057747537681784936,
+      "maximum_blocked_buy_weight": 0.075,
+      "mean_blocked_sell_weight": 0.03548440033474591,
+      "mean_target_tracking_l1": 0.07256816776437619,
+      "return_gap_correlation_with_blocked_buy": 0.3256385162531177,
+      "annualized_arithmetic_ideal_minus_constrained": 0.03344011557327379,
+      "supplemented_execution_flag_rows": 0,
+      "historical_oos_used_for_selection": false
+    }
+  ],
+  "rf_oos_execution_fit_audit__v1": [
+    {
+      "test_year": 2021,
+      "fit_seconds": 71.12032009999999,
+      "fit_observations": 229800
+    },
+    {
+      "test_year": 2022,
+      "fit_seconds": 79.033781,
+      "fit_observations": 245700
+    },
+    {
+      "test_year": 2023,
+      "fit_seconds": 86.1921907,
+      "fit_observations": 260700
+    },
+    {
+      "test_year": 2024,
+      "fit_seconds": 90.489147,
+      "fit_observations": 275700
+    },
+    {
+      "test_year": 2025,
+      "fit_seconds": 106.56439369999998,
+      "fit_observations": 291000
+    },
+    {
+      "test_year": 2026,
+      "fit_seconds": 109.76407759999995,
+      "fit_observations": 306900
+    }
+  ]
+}
