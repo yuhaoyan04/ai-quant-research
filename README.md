@@ -25,8 +25,8 @@
 
 完整结果见 [研究报告](docs/research_report.md)、[离线交互面板](reports/research_dashboard.html) 和 [自动审计报告](reports/research_audit.md)。新一轮研究包括 [因子预处理消融实验](docs/factor_preprocessing_ablation.md)、[标签期限实验](docs/label_horizon.md)、[PIT 规模中性化实验](docs/size_neutralization.md)、[统一模型基准](docs/model_benchmark.md)、[RF 超参数局部稳健性](docs/rf_hyperparameter_stability.md) 与 [RF 非重叠日频成交取证](docs/rf_return_forensics.md)，机构级实验缺口与实施顺序见 [研究升级路线](docs/institutional_upgrade_plan.md)。机器可读结果位于 [public_results.json](reports/public_results.json) 与 [结果表](reports/tables/)。
 
-跨机器接力请直接使用 GitHub Release 中的完整冻结数据湖，或从 BaoStock/AKShare 重新构建；
-环境安装、分卷下载、SHA-256 校验、恢复及全流水线命令见[跨机器复现指南](docs/reproduction.md)。
+完整数据湖不上传 GitHub；跨机器接力时从 BaoStock 下载主数据，并用 AKShare 做独立抽样核对。
+环境安装、断点续传、数据血缘、验收门禁和一键全流水线见[跨机器复现指南](docs/reproduction.md)。
 
 ## 研究流程
 
@@ -69,8 +69,8 @@ flowchart LR
 
 ## 快速验证已提交结果
 
-普通 Git 不提交体积很大的原始/中间 Parquet；完整数据湖通过 GitHub Release `data-v1`
-发布。按[跨机器复现指南](docs/reproduction.md)恢复后，可直接执行：
+普通 Git 不提交体积很大的原始/中间 Parquet。仓库保存可审计的代码、配置、测试、冻结实验快照
+和展示结果；新机器按[跨机器复现指南](docs/reproduction.md)从免费源重建数据湖后，可执行：
 
 ```powershell
 conda create -n ai-quant python=3.11 -y
@@ -102,39 +102,20 @@ quant-experiment verify challenger_hgb_blend_v1
 
 ## 从原始数据复现
 
-先运行一个小样本，验证网络、schema、Parquet 和断点续传：
+先在**单独的临时 checkout** 运行小样本，验证网络、schema、Parquet 和断点续传；不要把
+`--limit 5` 生成的短历史文件留在随后用于全量重建的正式目录：
 
 ```powershell
 quant-free-lake bootstrap --start 2024-01-01 --limit 5
 quant-free-lake crosscheck --start 2024-01-01
 ```
 
-再构建完整数据并依次运行研究层。完整下载耗时较长，每只证券独立落盘并写 manifest，可中断后续跑。
+再构建完整数据并依次运行研究层。完整下载耗时较长，每只证券独立落盘并写 manifest，可在相同
+日期范围内中断续跑。推荐使用脚本，它还包含本文未展开的全部后续实验：
 
 ```powershell
-quant-free-lake bootstrap --start 2006-01-01
-quant-materialize --missing
-quant-research factor-research
-quant-preprocess --stage
-quant-preprocess --all
-quant-feature-analysis
-quant-model-baseline
-quant-portfolio
-quant-liquidity-stress
-quant-turnover-buffer
-quant-capacity build-exposures
-quant-capacity analyze
-quant-capacity-execution
-quant-model-challenger
-quant-challenger-portfolio
-quant-model-interpretation
-quant-size-stress build-exposures
-quant-size-stress analyze
-quant-execution-constraints build-flags
-quant-execution-constraints analyze
-quant-robustness
-quant-research-dashboard
-quant-audit
+powershell -ExecutionPolicy Bypass -File scripts/rebuild_all.ps1 `
+  -StartDate 2006-01-01 -EndDate 2026-09-30 -IsolateBars
 ```
 
 更细的字段、公式和逐步解释见 [端到端教程](docs/end_to_end_tutorial.md)、[因子目录](docs/factor_catalog.md) 和 [数据手册](docs/data_handbook.md)。

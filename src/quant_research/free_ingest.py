@@ -175,9 +175,85 @@ def crosscheck(lake: Lake, start: str, end: str, sample_size: int) -> None:
                    source="baostock+akshare", request={"start": start, "end": end})
 
 
+def verify_download(lake: Lake, start: str, end: str) -> dict[str, int]:
+    """Fail closed unless the requested free-source download is complete.
+
+    File existence alone is insufficient: a pilot file downloaded for a shorter
+    range must not be mistaken for a complete history during a resumed full run.
+    The append-only ingestion manifest supplies the request-range evidence.
+    """
+    union = lake.read("historical_security_union", "all")
+    calendar = lake.read("calendar", "SSE")
+    if union.empty or "instrument_id" not in union.columns:
+        raise RuntimeError("historical_security_union is missing or empty")
+    if calendar.empty:
+        raise RuntimeError("SSE calendar is missing or empty")
+
+    expected_codes = {
+        code for code in union["instrument_id"].dropna().astype(str)
+        if instrument_type(code) == "a_share"
+    }
+    expected_snapshots = set(weekly_dates(calendar))
+    missing_snapshots = sorted(
+        day for day in expected_snapshots
+        if not lake.table_path("security_snapshot", day).exists()
+    )
+    missing_bar_files = sorted(
+        code for code in expected_codes
+        if not lake.table_path("daily_bars_baostock", code).exists()
+    )
+
+    latest_bar_request: dict[str, tuple[str | None, str | None, str | None]] = {}
+    manifest_path = lake.manifests / "ingestion.jsonl"
+    if manifest_path.exists():
+        with manifest_path.open(encoding="utf-8") as handle:
+            for line_number, line in enumerate(handle, start=1):
+                try:
+                    item = json.loads(line)
+                except json.JSONDecodeError as exc:
+                    raise RuntimeError(
+                        f"invalid ingestion manifest JSON at line {line_number}: {exc}"
+                    ) from exc
+                if item.get("table") == "daily_bars_baostock":
+                    request = item.get("request", {})
+                    latest_bar_request[str(item.get("key"))] = (
+                        item.get("status"), request.get("start"), request.get("end")
+                    )
+    covered_codes = {
+        code for code, request_state in latest_bar_request.items()
+        if request_state == ("ok", start, end)
+    }
+    uncovered_ranges = sorted(expected_codes - covered_codes)
+
+    problems = []
+    if missing_snapshots:
+        problems.append(
+            f"missing weekly snapshots={len(missing_snapshots)} sample={missing_snapshots[:5]}"
+        )
+    if missing_bar_files:
+        problems.append(
+            f"missing bar files={len(missing_bar_files)} sample={missing_bar_files[:5]}"
+        )
+    if uncovered_ranges:
+        problems.append(
+            f"bars without matching {start}..{end} manifest={len(uncovered_ranges)} "
+            f"sample={uncovered_ranges[:5]}"
+        )
+    if problems:
+        raise RuntimeError("download verification failed: " + "; ".join(problems))
+
+    summary = {
+        "a_share_codes": len(expected_codes),
+        "weekly_snapshots": len(expected_snapshots),
+        "covered_bar_requests": len(covered_codes & expected_codes),
+    }
+    print(f"download verification passed: {summary}", flush=True)
+    return summary
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Build free-source A-share research inputs")
-    parser.add_argument("command", choices=["snapshots", "bars", "bootstrap", "crosscheck"])
+    parser.add_argument("command", choices=["snapshots", "bars", "bootstrap", "crosscheck", "verify"])
     parser.add_argument("--start", default=None)
     parser.add_argument("--end", default=date.today().isoformat())
     parser.add_argument("--limit", type=int, help="pilot mode: cap snapshot dates or securities")
@@ -201,6 +277,8 @@ def main() -> None:
                            request_timeout_seconds=args.request_timeout)
     if args.command == "crosscheck":
         crosscheck(lake, start, args.end, int(cfg["crosscheck"]["sample_size"]))
+    if args.command == "verify":
+        verify_download(lake, start, args.end)
 
 
 if __name__ == "__main__":

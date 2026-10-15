@@ -1,12 +1,23 @@
-# 跨机器复现与接力运行
+# 跨机器从零复现指南
 
-## 1. 推荐路径：恢复冻结数据快照
+## 1. 复现边界
 
-仓库代码、配置、文档、小型结果和冻结实验快照直接保存在 Git 中。约 11.12 GiB 的完整
-Parquet 数据湖保存在 GitHub Release `data-v1`，以小于 2 GiB 的 tar 分卷发布；每个分卷均有
-SHA-256 和字节数记录。Parquet 已使用 Zstandard 压缩，因此归档不再二次压缩。
+GitHub 仓库保存代码、配置、测试、文档、图表、结果表和 13 个冻结实验快照，**不保存完整
+`data/` 数据湖**。新机器从 BaoStock 下载主数据，AKShare 只做独立抽样核对，不参与拼接或
+静默覆盖。
 
-在新机器安装 Git、GitHub CLI、Python 3.11 和 Conda，然后执行：
+这提供的是“研究流程可复现”，不是“供应商字节级快照可复现”。免费数据源可能修订历史记录、
+改变接口或停止提供退市证券，因此重新下载后的行数、哈希和末位指标可能与 2026-09-30 冻结
+结果不同。仓库中的旧实验目录始终保留原始配置、指标和输入哈希，不能用新运行覆盖。
+
+## 2. 机器和环境
+
+建议准备：
+
+- Windows 10/11、Git、64 位 Python 3.11；Conda 可选；
+- 至少 16 GB 内存，完整模型 benchmark 建议 32 GB；
+- 至少 30 GB 可用磁盘空间；当前已构建数据湖约 11.1 GiB，中间表和日志还会继续增长；
+- 可稳定访问 BaoStock 与 AKShare 上游站点的网络。
 
 ```powershell
 git clone https://github.com/yuhaoyan04/ai-quant-research.git
@@ -16,93 +27,127 @@ conda create -n ai-quant python=3.11 -y
 conda activate ai-quant
 python -m pip install --upgrade pip
 pip install -e ".[dev]"
-
-gh auth login
-powershell -ExecutionPolicy Bypass -File scripts/download_data_release.ps1
+python -m pytest -q
 ```
 
-下载脚本会完成四件事：下载 `data-v1` 全部分卷、核对文件大小、逐文件计算 SHA-256、流式恢复
-到 `data/lake`。恢复过程不会在本地生成第二份 11 GiB 的完整 tar 文件。
+也可以使用 `python -m venv .venv`。项目不需要 Tushare Token；主流程仅依赖 BaoStock 与
+AKShare。GitHub Actions 会在无数据环境运行单元/回归测试。
 
-恢复后运行：
+## 3. 先做隔离的小样本连通性测试
+
+`--limit 5` 会故意生成不完整行情，**不要在准备完整重建的正式 checkout 中运行**，否则这些
+已存在的小样本文件会被断点续传逻辑视为已完成。请在单独的临时 clone 中执行：
+
+```powershell
+git clone https://github.com/yuhaoyan04/ai-quant-research.git ai-quant-smoke
+cd ai-quant-smoke
+pip install -e ".[dev]"
+quant-free-lake bootstrap --start 2024-01-01 --limit 5
+quant-free-lake crosscheck --start 2024-01-01
+```
+
+验收：`data/lake/curated/` 下生成 calendar、security snapshot 和 5 个证券的 Parquet；
+`data/lake/manifests/ingestion.jsonl` 记录请求、行数、字段和内容哈希；交叉核对目录非空。
+
+## 4. 正式全量下载
+
+在干净的正式 checkout 中，若希望尽可能贴近本项目冻结样本，固定结束日：
+
+```powershell
+quant-free-lake bootstrap --start 2006-01-01 --end 2026-09-30 --isolate-bars
+quant-free-lake verify --start 2006-01-01 --end 2026-09-30
+quant-free-lake crosscheck --start 2006-01-01 --end 2026-09-30
+```
+
+若要接力研究并下载运行当天可获得的最新历史数据，省略 `--end`：
+
+```powershell
+quant-free-lake bootstrap --start 2006-01-01 --isolate-bars
+quant-free-lake verify --start 2006-01-01
+quant-free-lake crosscheck --start 2006-01-01
+```
+
+下载器按周保存 PIT 股票快照、按证券原子写入日线 Parquet，并在
+`data/lake/checkpoints/free_ingest.json` 记录最近完成项。网络中断后重复同一条命令即可跳过
+已经完整落盘的证券。`--isolate-bars` 会把单只证券请求放入可终止子进程，速度略慢，但更适合
+无人值守长任务。`verify` 会检查预期 A 股、周度快照、行情文件以及每只证券 manifest 中的请求
+日期范围；有下载失败或混入短历史 smoke 文件时会返回非零状态，阻止下游研究在残缺数据上运行。
+
+重要限制：现有下载器适合“同一开始日/结束日范围内的中断续跑”，不负责把一个较短的既有行情
+文件自动延长到更早或更晚日期。变更日期范围时应使用新的干净 checkout/数据目录，避免混合
+覆盖范围。
+
+## 5. 从数据湖重建研究结果
+
+推荐使用带失败即停、日志和正确依赖顺序的一键脚本：
+
+```powershell
+# 冻结日期口径：下载 + 全部研究实验
+powershell -ExecutionPolicy Bypass -File scripts/rebuild_all.ps1 `
+  -StartDate 2006-01-01 -EndDate 2026-09-30 -IsolateBars
+
+# 如果 data/lake 已完整下载，只重跑处理与研究
+powershell -ExecutionPolicy Bypass -File scripts/rebuild_all.ps1 -SkipDownload
+
+# 只跑基础数据、Ridge/HGB、组合与常规压力测试
+powershell -ExecutionPolicy Bypass -File scripts/rebuild_all.ps1 -SkipDownload -CoreOnly
+```
+
+日志写入 `run_logs/rebuild_*.log`。完整脚本依次完成：
+
+1. 数据质量、因子、可执行标签与 PIT 股票池；
+2. 无泄漏截面预处理，训练/验证/OOS 切分和 Ridge 基线；
+3. 组合、成本、流动性、容量、缓冲、规模与涨跌停压力测试；
+4. HGB challenger、解释与 robustness；
+5. 预处理消融、IC decay、LOFO、5/10/20 日标签实验；
+6. PIT 规模暴露和规模中性化；
+7. 统一模型 benchmark、RF 参数稳定性、收益取证和日频成交重试；
+8. 离线 dashboard 与 publication audit。
+
+如果需要手工定位失败步骤，可打开 [rebuild_all.ps1](../scripts/rebuild_all.ps1) 查看完全展开、
+可逐条复制的命令序列。脚本默认不删除、不覆盖 `data/`；多数上游阶段通过 `--missing` 或文件
+存在检查支持断点续跑。
+
+## 6. 关键目录与数据血缘
+
+| 目录 | 内容 | 是否进 Git |
+|---|---|---:|
+| `data/lake/curated/daily_bars_baostock/` | 按证券分区的未复权日线与估值字段 | 否 |
+| `data/lake/curated/security_snapshot/` | 周频历史可交易证券快照 | 否 |
+| `data/lake/curated/` 其他表 | 质量表、因子、标签、模型特征、预测、持仓、成交 | 否 |
+| `data/lake/manifests/` | 请求、schema、行数、内容哈希 | 否 |
+| `config/` | 数据、因子、模型、组合和实验配置 | 是 |
+| `reports/experiments/` | 13 个不可变实验快照与输入哈希 | 是 |
+| `reports/tables/`、`reports/figures/` | 求职展示所需结果 | 是 |
+| `reports/research_dashboard.html` | 离线交互面板 | 是 |
+
+## 7. 验收与结果解释
 
 ```powershell
 python -m pytest -q
+quant-experiment list
 quant-experiment verify rf_daily_retry_execution_v1
 quant-audit
 quant-research-dashboard
 ```
 
-预期门禁是 73 个测试通过、冻结输入哈希一致、研究审计 0 FAIL。历史 OOS 已经被查看过，不应
-重新称为 pristine lockbox。
+原冻结版本的验收记录为 73 tests passed、研究审计 173 PASS / 6 WARN / 0 FAIL。新下载数据应至少
+满足：测试通过、schema/唯一键/日期门禁无 FAIL、模型比较使用共同日期、持仓权重和收益恒等式
+通过。
 
-## 2. 从免费数据源完全重建
+`quant-experiment verify` 同时检查“冻结快照自身”与“当前数据湖输入”。前者应通过；后者在供应商
+修订后出现哈希不一致是预期的数据版本漂移，不应通过修改旧快照来消除。正确做法是保留旧版本，
+为新数据生成新的 experiment ID，并在报告中并列说明差异。
 
-如不恢复 Release，可从 BaoStock 主源重新下载。AKShare 只用于交叉核对，不会静默覆盖主源。
-首次先做小样本 smoke test：
+## 8. 常见故障
 
-```powershell
-quant-free-lake bootstrap --start 2024-01-01 --limit 5
-quant-free-lake crosscheck --start 2024-01-01
-```
+- BaoStock 单只证券长时间无响应：加 `--isolate-bars --request-timeout 180`，然后原命令续跑。
+- AKShare 抽样失败：先确认版本和网络；它是独立质量核对，不能拿它静默替换 BaoStock 主表。
+- 内存不足：先用 `-CoreOnly`；关闭其他进程，再单独运行模型 benchmark 与 RF 系列。
+- 命令不存在：确认已激活正确环境，并重新执行 `pip install -e ".[dev]"`。
+- 审计哈希 FAIL：先区分 frozen artifact 自身损坏与 live input 漂移；不要覆盖冻结实验目录。
+- 需要更新到最新日期：使用新的数据目录从 2006-01-01 完整拉取，再以新实验版本接力；当前工具
+  不是增量行情维护器。
 
-确认网络、字段和 Parquet 正常后执行全量流水线：
-
-```powershell
-quant-free-lake bootstrap --start 2006-01-01
-quant-materialize --missing
-quant-research factor-research
-quant-preprocess --stage
-quant-preprocess --all
-quant-feature-analysis
-quant-model-baseline
-quant-portfolio
-quant-liquidity-stress
-quant-turnover-buffer
-quant-capacity build-exposures
-quant-capacity analyze
-quant-capacity-execution
-quant-model-challenger
-quant-challenger-portfolio
-quant-model-interpretation
-quant-size-stress build-exposures
-quant-size-stress analyze
-quant-execution-constraints build-flags
-quant-execution-constraints analyze
-quant-robustness
-quant-label-panel build
-quant-label-horizon
-quant-risk-exposure build
-quant-size-neutralization
-quant-model-benchmark
-quant-rf-hyperparameter-stability
-quant-rf-target-holdings
-quant-rf-daily-retry all --split both
-quant-research-dashboard
-quant-audit
-```
-
-下载器按证券独立落盘并维护 manifest，可中断后继续。由于供应商修订、退市证券可访问性和
-下载日期不同，从源站重建不保证逐字节等同于 `data-v1`；需要复核结论时优先使用冻结快照。
-
-## 3. 数据和结果目录
-
-- `data/lake/curated/`：行情、标签、因子、模型预测、持仓与执行结果。
-- `data/lake/manifests/`：采集请求、行数、字段和内容哈希。
-- `reports/experiments/`：13 个不可变实验快照及输入哈希。
-- `reports/research_audit.md`：全项目自动审计。
-- `reports/public_results.json`：适合程序读取的最终结论。
-- `reports/research_dashboard.html`：离线可视化面板。
-
-## 4. 数据发布维护
-
-维护者生成某一分组的分卷：
-
-```powershell
-python scripts/data_release.py pack --group factors_raw --output release_staging
-```
-
-可用分组为 `factors_raw`、`eligible_panel`、`multi_horizon_panel`、`validated_bars`、
-`model_features`、`baostock_bars`、`labels_raw`、`multi_horizon_labels` 和 `remaining`。
-`data_release_manifest.json` 会在每组完成后更新。上传确认后即可删除该组本地分卷，再生成下一组，
-避免额外占用一整份数据湖空间。
+全量下载通常是最长阶段，免费源响应速度会显著波动；普通笔记本应按数十小时到数天规划，而不应
+依赖固定完成时间。每个证券独立落盘，因此中断不会让已经完成的大部分工作失效。
