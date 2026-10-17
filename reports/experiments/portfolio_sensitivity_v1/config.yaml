@@ -1,0 +1,128 @@
+experiment_id: portfolio_sensitivity_v1
+registry_version: 1
+selection_policy: validation_only
+historical_oos_disclosure: The 2021-2026 block has already been inspected during project
+  development. It is historical out-of-sample evidence, not a pristine production
+  lockbox.
+experiment:
+  title: Common-date Top-N, inverse-volatility, and executable cost sensitivity
+  stage: portfolio_robustness
+  model_version: locked_ridge_weighting_and_fixed_fill_cost_stress_v1
+  dataset_version_method: sha256_of_registered_inputs_and_ingestion_manifest
+  historical_oos_used_for_selection: false
+  config_files:
+  - portfolio_sensitivity.yaml
+  - portfolio.yaml
+  - constrained_portfolio_daily_execution.yaml
+  input_tables:
+  - table: model_validation_predictions
+    key: ridge_v1
+  - table: model_oos_predictions
+    key: ridge_v1
+  - table: constrained_daily_execution_daily
+    key: v1
+  - table: multi_horizon_factor_panel
+    key: '2016'
+  - table: multi_horizon_factor_panel
+    key: '2017'
+  - table: multi_horizon_factor_panel
+    key: '2018'
+  - table: multi_horizon_factor_panel
+    key: '2019'
+  - table: multi_horizon_factor_panel
+    key: '2020'
+  - table: multi_horizon_factor_panel
+    key: '2021'
+  - table: multi_horizon_factor_panel
+    key: '2022'
+  - table: multi_horizon_factor_panel
+    key: '2023'
+  - table: multi_horizon_factor_panel
+    key: '2024'
+  - table: multi_horizon_factor_panel
+    key: '2025'
+  - table: multi_horizon_factor_panel
+    key: '2026'
+  metric_tables:
+  - table: portfolio_sensitivity_protocol
+    key: v1
+  - table: portfolio_sensitivity_summary
+    key: v1
+  - table: execution_cost_stress
+    key: v1
+  figures: []
+resolved_configs:
+  portfolio_sensitivity.yaml:
+    experiment_id: portfolio_sensitivity_v1
+    research_status: retrospective_diagnostic_not_a_new_oos_selection
+    model: ridge_v1
+    target: fwd_return_5d_lag1
+    top_n:
+    - 50
+    - 100
+    - 200
+    - 500
+    weighting:
+    - equal_weight
+    - inverse_volatility
+    inverse_volatility_field: volatility_20d
+    inverse_volatility_clip_quantiles:
+    - 0.05
+    - 0.95
+    base_round_trip_cost_bps: 20.0
+    execution_cost_stress_bps:
+    - 0.0
+    - 20.0
+    - 50.0
+    - 100.0
+    minimum_realized_weight_fraction: 0.98
+    weekly_annualization_periods: 52
+    daily_annualization_periods: 252
+    historical_oos_used_for_selection: false
+    scope_note: All variants are reported on common dates. This retrospective diagnostic
+      does not replace the validation-locked Top-200 equal-weight policy. Daily cost
+      stress reprices the realized fill path and does not re-simulate fee-dependent
+      share rounding or broker market impact.
+  portfolio.yaml:
+    candidate_top_n:
+    - 50
+    - 100
+    - 200
+    selection_round_trip_cost_bps: 20
+    report_round_trip_cost_bps:
+    - 0
+    - 10
+    - 20
+    - 40
+    minimum_realized_weight_fraction: 0.98
+    annualization_periods: 52
+    weighting: equal_weight
+    benchmark: eligible_universe_equal_weight
+    turnover: drift_adjusted_one_way
+    cost_definition: round-trip bps multiplied by one-way turnover; full replacement
+      has turnover 1
+    constraint_status: no_industry_size_or_capacity_constraints_yet
+  constrained_portfolio_daily_execution.yaml:
+    experiment_id: constrained_portfolio_daily_execution_v1
+    historical_oos_used_for_selection: false
+    source_experiment: constrained_portfolio_neutralization_v1
+    source_holdings:
+      table: constrained_portfolio_oos_holdings
+      key: v1
+    target_construction: risk_constrained
+    round_trip_cost_bps: 20.0
+    annualization_periods: 252
+    label_horizon_trading_days: 5
+    limit_detection_tolerance_percentage_points: 0.2
+    bootstrap:
+      block_length_trading_days: 20
+      samples: 2000
+      random_seed: 20261017
+    rules:
+      st_limit_pct: 5.0
+      main_board_limit_pct: 10.0
+      star_limit_pct: 20.0
+      chinext_limit_pct_before_2020_08_24: 10.0
+      chinext_limit_pct_after_2020_08_24: 20.0
+    execution_convention: returns_accrue_before_close_trade_blocked_orders_retry_daily
+    scope_note: conservative_close_limit_rule_intraday_queue_and_ipo_no_limit_windows_not_modeled

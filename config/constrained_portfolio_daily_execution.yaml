@@ -1,0 +1,21 @@
+experiment_id: constrained_portfolio_daily_execution_v1
+historical_oos_used_for_selection: false
+source_experiment: constrained_portfolio_neutralization_v1
+source_holdings: {table: constrained_portfolio_oos_holdings, key: v1}
+target_construction: risk_constrained
+round_trip_cost_bps: 20.0
+annualization_periods: 252
+label_horizon_trading_days: 5
+limit_detection_tolerance_percentage_points: 0.20
+bootstrap:
+  block_length_trading_days: 20
+  samples: 2000
+  random_seed: 20261017
+rules:
+  st_limit_pct: 5.0
+  main_board_limit_pct: 10.0
+  star_limit_pct: 20.0
+  chinext_limit_pct_before_2020_08_24: 10.0
+  chinext_limit_pct_after_2020_08_24: 20.0
+execution_convention: returns_accrue_before_close_trade_blocked_orders_retry_daily
+scope_note: conservative_close_limit_rule_intraday_queue_and_ipo_no_limit_windows_not_modeled

@@ -1,0 +1,44 @@
+experiment_id: risk_aware_portfolio_optimization_v2
+artifact_key: v2
+historical_oos_used_for_selection: false
+source_experiment: multi_factor_risk_attribution_v1
+source_portfolio_experiment: constrained_portfolio_neutralization_v1
+target: fwd_return_5d_lag1
+risk_model: {start_year: 2008, end_year: 2026}
+historical_oos: {start_year: 2021, end_year: 2026}
+candidate_source_constructions: [top200_equal, risk_constrained]
+carry_previous_holdings: true
+carry_minimum_weight: 0.0001
+styles: [size, beta, volatility, liquidity, value, momentum]
+annualization_periods: 52
+portfolio:
+  round_trip_cost_bps: 20.0
+  minimum_realized_weight_fraction: 0.95
+optimizer:
+  method: conditional_gradient_with_highs_linear_oracle
+  objective: minimize_lagged_ex_ante_active_variance
+  alpha_utility_retention_fraction: 0.98
+  maximum_stock_weight: 0.005
+  industry_active_weight_bound: 0.03
+  absolute_size_z_bound: 0.10
+  weekly_turnover_limit: 0.30
+  turnover_feasibility_relaxation: [0.30, 0.40, 0.50, 0.75, 1.00]
+  maximum_iterations: 8
+  duality_gap_tolerance: 1.0e-8
+  minimum_reported_weight: 1.0e-8
+target_volatility:
+  annualized_target: 0.20
+  minimum_risky_weight: 0.50
+  maximum_risky_weight: 1.00
+  allow_leverage: false
+bootstrap:
+  block_length_weeks: 13
+  samples: 2000
+  random_seed: 20261018
+interpretation: >-
+  Prespecified policy experiment. The optimizer uses only factor covariance and
+  stock-specific variance estimates available before each signal date. It
+  carries prior holdings with zero current alpha utility, and minimizes ex-ante
+  active variance while retaining 98% of the maximum feasible current-candidate
+  score utility. The 20% target-volatility overlay holds residual
+  capital in zero-return cash and never leverages.

@@ -1,5 +1,7 @@
 # Factor catalogue v1
 
+> 机器可读的权威定义位于 `config/factor_registry.yaml`，包含版本、单位、原始字段、窗口、缺失机制、理论方向与训练期锁定方向；本页保留便于阅读的经济解释。
+
 Every factor is calculated from data available by the close of `asof_date` and
 is assigned `available_date = next trading day`. The final row of an observed
 history has no next-trading-day mapping and is not tradable.

@@ -1,0 +1,97 @@
+{
+  "experiment_id": "constrained_portfolio_daily_execution_v1",
+  "title": "Daily price-limit and suspension execution of constrained portfolios",
+  "stage": "constrained_portfolio_daily_execution",
+  "model_version": "frozen_constrained_targets_share_order_retry_v1",
+  "registered_at_utc": "2026-10-17T04:50:16.948577+00:00",
+  "immutable": true,
+  "selection_policy": "validation_only",
+  "historical_oos_used_for_selection": false,
+  "historical_oos_disclosure": "The 2021-2026 block has already been inspected during project development. It is historical out-of-sample evidence, not a pristine production lockbox.",
+  "dataset_version": "9d40a1c659c17dfa487a51aeae595cc5c3d6d67df89afe0620a6601f8bf2bab2",
+  "dataset_manifest": {
+    "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/manifests/ingestion.jsonl",
+    "size_bytes": 18765251,
+    "sha256": "1cfa5ba891e1a0a82bc0b06c541fd0e6f67c5e17a25e2efdb2133f975f2652cd"
+  },
+  "input_artifacts": [
+    {
+      "table": "constrained_portfolio_oos_holdings",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/constrained_portfolio_oos_holdings/key=v1/data.parquet",
+      "size_bytes": 11189391,
+      "sha256": "8c02ef9c472368dc7b7c750f72ef396ac336796c1b269800012badf5b8744dfd"
+    },
+    {
+      "table": "constrained_execution_targets",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/constrained_execution_targets/key=v1/data.parquet",
+      "size_bytes": 1283200,
+      "sha256": "bb88888f8d5b83433429bf85953c967f82eb2acf597f1ec08874617b7b30e362"
+    },
+    {
+      "table": "constrained_daily_execution_market",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/constrained_daily_execution_market/key=v1/data.parquet",
+      "size_bytes": 27849803,
+      "sha256": "c5b937742a943fcabdc82440003d363f7652644bc1ffef75b87acc9436ccb9b6"
+    }
+  ],
+  "metric_artifacts": [
+    {
+      "table": "constrained_daily_execution_protocol",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/constrained_daily_execution_protocol/key=v1/data.parquet",
+      "size_bytes": 4080,
+      "sha256": "c080607c3419ecd3b9e3dccb7e2dd7bc6d56800117be55b0ae29d903812f5ddf"
+    },
+    {
+      "table": "constrained_daily_execution_daily",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/constrained_daily_execution_daily/key=v1/data.parquet",
+      "size_bytes": 775172,
+      "sha256": "ea04c7d4b7777899dc0bf3ec9834c29130dcae72b10746c126653bdfe322760f"
+    },
+    {
+      "table": "constrained_daily_execution_summary",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/constrained_daily_execution_summary/key=v1/data.parquet",
+      "size_bytes": 11030,
+      "sha256": "336fab9efcf869ab2b9ef701c6fbd41e2e1d327f8c7cf98fc7e388f8cb31b945"
+    },
+    {
+      "table": "constrained_daily_execution_annual",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/constrained_daily_execution_annual/key=v1/data.parquet",
+      "size_bytes": 14868,
+      "sha256": "6b25f89c6e0fb9c635c6e22e168ec77d655f0e58e90b9eaa026465f09b3abb3f"
+    },
+    {
+      "table": "constrained_daily_execution_bootstrap",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/constrained_daily_execution_bootstrap/key=v1/data.parquet",
+      "size_bytes": 6574,
+      "sha256": "d8bb98a0cf40309a07c5df7ae37161fb47a917b86fde3f97993070caa97d5a94"
+    }
+  ],
+  "figures": [],
+  "source_tree_sha256": "ebadf4513aa26bda46be2deb5eba7dde968d7d13cbbaef198e4c1ad1860263f5",
+  "git": {
+    "commit": null,
+    "dirty": null,
+    "status_sha256": null
+  },
+  "environment": {
+    "python": "3.11.16",
+    "implementation": "CPython",
+    "platform": "Linux-5.15.0-92-generic-x86_64-with-glibc2.35",
+    "packages": {
+      "pandas": "3.0.6",
+      "pyarrow": "25.0.1",
+      "PyYAML": "6.0.3",
+      "scikit-learn": "1.9.1",
+      "numpy": "2.4.6",
+      "scipy": "1.17.1"
+    }
+  }
+}

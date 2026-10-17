@@ -1,0 +1,26 @@
+experiment_id: hgb_hyperparameter_stability_v1
+purpose: validation_only_two_dimensional_surface_not_model_reselection
+historical_oos_used_for_selection: false
+train: {start_year: 2006, end_year: 2015}
+validation: {start_year: 2016, end_year: 2020}
+target: fwd_return_5d_lag1
+label_horizon_trading_days: 5
+minimum_cross_section_size: 100
+annualization_periods: 52
+sample_per_training_date: 300
+random_state: 20261016
+quantile_limits: [0.01, 0.99]
+mad_multiplier: 5.0
+include_missing_indicators: true
+portfolio:
+  top_n: 200
+  round_trip_cost_bps: 20.0
+  minimum_realized_weight_fraction: 0.95
+fixed_parameters:
+  learning_rate: 0.05
+  max_iter: 120
+  min_samples_leaf: 100
+surface:
+  max_leaf_nodes: [7, 15, 31]
+  l2_regularization: [0.1, 1.0, 10.0]
+baseline: {max_leaf_nodes: 15, l2_regularization: 1.0}

@@ -1,0 +1,260 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="765" height="790" viewBox="0 0 765 790">
+<rect width="100%" height="100%" fill="white"/>
+<text x="20" y="32" font-family="sans-serif" font-size="20" font-weight="bold">Validation mean cross-sectional factor correlation</text>
+<text x="207" y="233" text-anchor="end" font-family="sans-serif" font-size="10">momentum_20d</text>
+<text x="232" y="202" transform="rotate(-55 232 202)" text-anchor="start" font-family="sans-serif" font-size="10">momentum_20d</text>
+<text x="207" y="267" text-anchor="end" font-family="sans-serif" font-size="10">momentum_60d</text>
+<text x="266" y="202" transform="rotate(-55 266 202)" text-anchor="start" font-family="sans-serif" font-size="10">momentum_60d</text>
+<text x="207" y="301" text-anchor="end" font-family="sans-serif" font-size="10">momentum_120d</text>
+<text x="300" y="202" transform="rotate(-55 300 202)" text-anchor="start" font-family="sans-serif" font-size="10">momentum_120d</text>
+<text x="207" y="335" text-anchor="end" font-family="sans-serif" font-size="10">momentum_20d_skip_5d</text>
+<text x="334" y="202" transform="rotate(-55 334 202)" text-anchor="start" font-family="sans-serif" font-size="10">momentum_20d_skip_5d</text>
+<text x="207" y="369" text-anchor="end" font-family="sans-serif" font-size="10">reversal_5d</text>
+<text x="368" y="202" transform="rotate(-55 368 202)" text-anchor="start" font-family="sans-serif" font-size="10">reversal_5d</text>
+<text x="207" y="403" text-anchor="end" font-family="sans-serif" font-size="10">volatility_20d</text>
+<text x="402" y="202" transform="rotate(-55 402 202)" text-anchor="start" font-family="sans-serif" font-size="10">volatility_20d</text>
+<text x="207" y="437" text-anchor="end" font-family="sans-serif" font-size="10">amihud_20d</text>
+<text x="436" y="202" transform="rotate(-55 436 202)" text-anchor="start" font-family="sans-serif" font-size="10">amihud_20d</text>
+<text x="207" y="471" text-anchor="end" font-family="sans-serif" font-size="10">turnover_20d</text>
+<text x="470" y="202" transform="rotate(-55 470 202)" text-anchor="start" font-family="sans-serif" font-size="10">turnover_20d</text>
+<text x="207" y="505" text-anchor="end" font-family="sans-serif" font-size="10">turnover_surprise_20d</text>
+<text x="504" y="202" transform="rotate(-55 504 202)" text-anchor="start" font-family="sans-serif" font-size="10">turnover_surprise_20d</text>
+<text x="207" y="539" text-anchor="end" font-family="sans-serif" font-size="10">volume_surprise_20d</text>
+<text x="538" y="202" transform="rotate(-55 538 202)" text-anchor="start" font-family="sans-serif" font-size="10">volume_surprise_20d</text>
+<text x="207" y="573" text-anchor="end" font-family="sans-serif" font-size="10">amplitude_20d</text>
+<text x="572" y="202" transform="rotate(-55 572 202)" text-anchor="start" font-family="sans-serif" font-size="10">amplitude_20d</text>
+<text x="207" y="607" text-anchor="end" font-family="sans-serif" font-size="10">return_volume_corr_20d</text>
+<text x="606" y="202" transform="rotate(-55 606 202)" text-anchor="start" font-family="sans-serif" font-size="10">return_volume_corr_20d</text>
+<text x="207" y="641" text-anchor="end" font-family="sans-serif" font-size="10">max_return_20d</text>
+<text x="640" y="202" transform="rotate(-55 640 202)" text-anchor="start" font-family="sans-serif" font-size="10">max_return_20d</text>
+<text x="207" y="675" text-anchor="end" font-family="sans-serif" font-size="10">earnings_yield</text>
+<text x="674" y="202" transform="rotate(-55 674 202)" text-anchor="start" font-family="sans-serif" font-size="10">earnings_yield</text>
+<text x="207" y="709" text-anchor="end" font-family="sans-serif" font-size="10">book_to_price</text>
+<text x="708" y="202" transform="rotate(-55 708 202)" text-anchor="start" font-family="sans-serif" font-size="10">book_to_price</text>
+<rect x="215" y="210" width="34" height="34" fill="rgb(205,95,95)" stroke="white" stroke-width="1"><title>momentum_20d vs momentum_20d: 1.000</title></rect>
+<rect x="249" y="210" width="34" height="34" fill="rgb(205,170,170)" stroke="white" stroke-width="1"><title>momentum_20d vs momentum_60d: 0.499</title></rect>
+<rect x="283" y="210" width="34" height="34" fill="rgb(205,194,194)" stroke="white" stroke-width="1"><title>momentum_20d vs momentum_120d: 0.337</title></rect>
+<rect x="317" y="210" width="34" height="34" fill="rgb(205,140,140)" stroke="white" stroke-width="1"><title>momentum_20d vs momentum_20d_skip_5d: 0.700</title></rect>
+<rect x="351" y="210" width="34" height="34" fill="rgb(186,186,205)" stroke="white" stroke-width="1"><title>momentum_20d vs reversal_5d: -0.387</title></rect>
+<rect x="385" y="210" width="34" height="34" fill="rgb(205,195,195)" stroke="white" stroke-width="1"><title>momentum_20d vs volatility_20d: 0.333</title></rect>
+<rect x="419" y="210" width="34" height="34" fill="rgb(205,237,237)" stroke="white" stroke-width="1"><title>momentum_20d vs amihud_20d: 0.051</title></rect>
+<rect x="453" y="210" width="34" height="34" fill="rgb(205,218,218)" stroke="white" stroke-width="1"><title>momentum_20d vs turnover_20d: 0.176</title></rect>
+<rect x="487" y="210" width="34" height="34" fill="rgb(205,202,202)" stroke="white" stroke-width="1"><title>momentum_20d vs turnover_surprise_20d: 0.283</title></rect>
+<rect x="521" y="210" width="34" height="34" fill="rgb(205,196,196)" stroke="white" stroke-width="1"><title>momentum_20d vs volume_surprise_20d: 0.320</title></rect>
+<rect x="555" y="210" width="34" height="34" fill="rgb(205,191,191)" stroke="white" stroke-width="1"><title>momentum_20d vs amplitude_20d: 0.354</title></rect>
+<rect x="589" y="210" width="34" height="34" fill="rgb(205,190,190)" stroke="white" stroke-width="1"><title>momentum_20d vs return_volume_corr_20d: 0.365</title></rect>
+<rect x="623" y="210" width="34" height="34" fill="rgb(205,170,170)" stroke="white" stroke-width="1"><title>momentum_20d vs max_return_20d: 0.497</title></rect>
+<rect x="657" y="210" width="34" height="34" fill="rgb(243,243,205)" stroke="white" stroke-width="1"><title>momentum_20d vs earnings_yield: -0.009</title></rect>
+<rect x="691" y="210" width="34" height="34" fill="rgb(236,236,205)" stroke="white" stroke-width="1"><title>momentum_20d vs book_to_price: -0.059</title></rect>
+<rect x="215" y="244" width="34" height="34" fill="rgb(205,170,170)" stroke="white" stroke-width="1"><title>momentum_60d vs momentum_20d: 0.499</title></rect>
+<rect x="249" y="244" width="34" height="34" fill="rgb(205,95,95)" stroke="white" stroke-width="1"><title>momentum_60d vs momentum_60d: 1.000</title></rect>
+<rect x="283" y="244" width="34" height="34" fill="rgb(205,146,146)" stroke="white" stroke-width="1"><title>momentum_60d vs momentum_120d: 0.656</title></rect>
+<rect x="317" y="244" width="34" height="34" fill="rgb(205,170,170)" stroke="white" stroke-width="1"><title>momentum_60d vs momentum_20d_skip_5d: 0.499</title></rect>
+<rect x="351" y="244" width="34" height="34" fill="rgb(216,216,205)" stroke="white" stroke-width="1"><title>momentum_60d vs reversal_5d: -0.192</title></rect>
+<rect x="385" y="244" width="34" height="34" fill="rgb(205,205,205)" stroke="white" stroke-width="1"><title>momentum_60d vs volatility_20d: 0.265</title></rect>
+<rect x="419" y="244" width="34" height="34" fill="rgb(234,234,205)" stroke="white" stroke-width="1"><title>momentum_60d vs amihud_20d: -0.069</title></rect>
+<rect x="453" y="244" width="34" height="34" fill="rgb(205,227,227)" stroke="white" stroke-width="1"><title>momentum_60d vs turnover_20d: 0.117</title></rect>
+<rect x="487" y="244" width="34" height="34" fill="rgb(205,225,225)" stroke="white" stroke-width="1"><title>momentum_60d vs turnover_surprise_20d: 0.130</title></rect>
+<rect x="521" y="244" width="34" height="34" fill="rgb(205,220,220)" stroke="white" stroke-width="1"><title>momentum_60d vs volume_surprise_20d: 0.165</title></rect>
+<rect x="555" y="244" width="34" height="34" fill="rgb(205,191,191)" stroke="white" stroke-width="1"><title>momentum_60d vs amplitude_20d: 0.353</title></rect>
+<rect x="589" y="244" width="34" height="34" fill="rgb(205,217,217)" stroke="white" stroke-width="1"><title>momentum_60d vs return_volume_corr_20d: 0.186</title></rect>
+<rect x="623" y="244" width="34" height="34" fill="rgb(205,195,195)" stroke="white" stroke-width="1"><title>momentum_60d vs max_return_20d: 0.328</title></rect>
+<rect x="657" y="244" width="34" height="34" fill="rgb(244,244,205)" stroke="white" stroke-width="1"><title>momentum_60d vs earnings_yield: -0.006</title></rect>
+<rect x="691" y="244" width="34" height="34" fill="rgb(236,236,205)" stroke="white" stroke-width="1"><title>momentum_60d vs book_to_price: -0.059</title></rect>
+<rect x="215" y="278" width="34" height="34" fill="rgb(205,194,194)" stroke="white" stroke-width="1"><title>momentum_120d vs momentum_20d: 0.337</title></rect>
+<rect x="249" y="278" width="34" height="34" fill="rgb(205,146,146)" stroke="white" stroke-width="1"><title>momentum_120d vs momentum_60d: 0.656</title></rect>
+<rect x="283" y="278" width="34" height="34" fill="rgb(205,95,95)" stroke="white" stroke-width="1"><title>momentum_120d vs momentum_120d: 1.000</title></rect>
+<rect x="317" y="278" width="34" height="34" fill="rgb(205,193,193)" stroke="white" stroke-width="1"><title>momentum_120d vs momentum_20d_skip_5d: 0.342</title></rect>
+<rect x="351" y="278" width="34" height="34" fill="rgb(227,227,205)" stroke="white" stroke-width="1"><title>momentum_120d vs reversal_5d: -0.118</title></rect>
+<rect x="385" y="278" width="34" height="34" fill="rgb(205,219,219)" stroke="white" stroke-width="1"><title>momentum_120d vs volatility_20d: 0.170</title></rect>
+<rect x="419" y="278" width="34" height="34" fill="rgb(232,232,205)" stroke="white" stroke-width="1"><title>momentum_120d vs amihud_20d: -0.083</title></rect>
+<rect x="453" y="278" width="34" height="34" fill="rgb(244,244,205)" stroke="white" stroke-width="1"><title>momentum_120d vs turnover_20d: -0.004</title></rect>
+<rect x="487" y="278" width="34" height="34" fill="rgb(205,230,230)" stroke="white" stroke-width="1"><title>momentum_120d vs turnover_surprise_20d: 0.096</title></rect>
+<rect x="521" y="278" width="34" height="34" fill="rgb(205,225,225)" stroke="white" stroke-width="1"><title>momentum_120d vs volume_surprise_20d: 0.130</title></rect>
+<rect x="555" y="278" width="34" height="34" fill="rgb(205,207,207)" stroke="white" stroke-width="1"><title>momentum_120d vs amplitude_20d: 0.249</title></rect>
+<rect x="589" y="278" width="34" height="34" fill="rgb(205,228,228)" stroke="white" stroke-width="1"><title>momentum_120d vs return_volume_corr_20d: 0.109</title></rect>
+<rect x="623" y="278" width="34" height="34" fill="rgb(205,211,211)" stroke="white" stroke-width="1"><title>momentum_120d vs max_return_20d: 0.225</title></rect>
+<rect x="657" y="278" width="34" height="34" fill="rgb(205,244,244)" stroke="white" stroke-width="1"><title>momentum_120d vs earnings_yield: 0.006</title></rect>
+<rect x="691" y="278" width="34" height="34" fill="rgb(236,236,205)" stroke="white" stroke-width="1"><title>momentum_120d vs book_to_price: -0.059</title></rect>
+<rect x="215" y="312" width="34" height="34" fill="rgb(205,140,140)" stroke="white" stroke-width="1"><title>momentum_20d_skip_5d vs momentum_20d: 0.700</title></rect>
+<rect x="249" y="312" width="34" height="34" fill="rgb(205,170,170)" stroke="white" stroke-width="1"><title>momentum_20d_skip_5d vs momentum_60d: 0.499</title></rect>
+<rect x="283" y="312" width="34" height="34" fill="rgb(205,193,193)" stroke="white" stroke-width="1"><title>momentum_20d_skip_5d vs momentum_120d: 0.342</title></rect>
+<rect x="317" y="312" width="34" height="34" fill="rgb(205,95,95)" stroke="white" stroke-width="1"><title>momentum_20d_skip_5d vs momentum_20d_skip_5d: 1.000</title></rect>
+<rect x="351" y="312" width="34" height="34" fill="rgb(205,231,231)" stroke="white" stroke-width="1"><title>momentum_20d_skip_5d vs reversal_5d: 0.090</title></rect>
+<rect x="385" y="312" width="34" height="34" fill="rgb(205,193,193)" stroke="white" stroke-width="1"><title>momentum_20d_skip_5d vs volatility_20d: 0.345</title></rect>
+<rect x="419" y="312" width="34" height="34" fill="rgb(242,242,205)" stroke="white" stroke-width="1"><title>momentum_20d_skip_5d vs amihud_20d: -0.018</title></rect>
+<rect x="453" y="312" width="34" height="34" fill="rgb(205,215,215)" stroke="white" stroke-width="1"><title>momentum_20d_skip_5d vs turnover_20d: 0.195</title></rect>
+<rect x="487" y="312" width="34" height="34" fill="rgb(205,236,236)" stroke="white" stroke-width="1"><title>momentum_20d_skip_5d vs turnover_surprise_20d: 0.056</title></rect>
+<rect x="521" y="312" width="34" height="34" fill="rgb(205,233,233)" stroke="white" stroke-width="1"><title>momentum_20d_skip_5d vs volume_surprise_20d: 0.079</title></rect>
+<rect x="555" y="312" width="34" height="34" fill="rgb(205,184,184)" stroke="white" stroke-width="1"><title>momentum_20d_skip_5d vs amplitude_20d: 0.406</title></rect>
+<rect x="589" y="312" width="34" height="34" fill="rgb(205,200,200)" stroke="white" stroke-width="1"><title>momentum_20d_skip_5d vs return_volume_corr_20d: 0.298</title></rect>
+<rect x="623" y="312" width="34" height="34" fill="rgb(205,180,180)" stroke="white" stroke-width="1"><title>momentum_20d_skip_5d vs max_return_20d: 0.429</title></rect>
+<rect x="657" y="312" width="34" height="34" fill="rgb(243,243,205)" stroke="white" stroke-width="1"><title>momentum_20d_skip_5d vs earnings_yield: -0.007</title></rect>
+<rect x="691" y="312" width="34" height="34" fill="rgb(237,237,205)" stroke="white" stroke-width="1"><title>momentum_20d_skip_5d vs book_to_price: -0.049</title></rect>
+<rect x="215" y="346" width="34" height="34" fill="rgb(186,186,205)" stroke="white" stroke-width="1"><title>reversal_5d vs momentum_20d: -0.387</title></rect>
+<rect x="249" y="346" width="34" height="34" fill="rgb(216,216,205)" stroke="white" stroke-width="1"><title>reversal_5d vs momentum_60d: -0.192</title></rect>
+<rect x="283" y="346" width="34" height="34" fill="rgb(227,227,205)" stroke="white" stroke-width="1"><title>reversal_5d vs momentum_120d: -0.118</title></rect>
+<rect x="317" y="346" width="34" height="34" fill="rgb(205,231,231)" stroke="white" stroke-width="1"><title>reversal_5d vs momentum_20d_skip_5d: 0.090</title></rect>
+<rect x="351" y="346" width="34" height="34" fill="rgb(205,95,95)" stroke="white" stroke-width="1"><title>reversal_5d vs reversal_5d: 1.000</title></rect>
+<rect x="385" y="346" width="34" height="34" fill="rgb(205,244,244)" stroke="white" stroke-width="1"><title>reversal_5d vs volatility_20d: 0.004</title></rect>
+<rect x="419" y="346" width="34" height="34" fill="rgb(205,243,243)" stroke="white" stroke-width="1"><title>reversal_5d vs amihud_20d: 0.012</title></rect>
+<rect x="453" y="346" width="34" height="34" fill="rgb(205,242,242)" stroke="white" stroke-width="1"><title>reversal_5d vs turnover_20d: 0.019</title></rect>
+<rect x="487" y="346" width="34" height="34" fill="rgb(193,193,205)" stroke="white" stroke-width="1"><title>reversal_5d vs turnover_surprise_20d: -0.341</title></rect>
+<rect x="521" y="346" width="34" height="34" fill="rgb(190,190,205)" stroke="white" stroke-width="1"><title>reversal_5d vs volume_surprise_20d: -0.366</title></rect>
+<rect x="555" y="346" width="34" height="34" fill="rgb(244,244,205)" stroke="white" stroke-width="1"><title>reversal_5d vs amplitude_20d: -0.002</title></rect>
+<rect x="589" y="346" width="34" height="34" fill="rgb(229,229,205)" stroke="white" stroke-width="1"><title>reversal_5d vs return_volume_corr_20d: -0.104</title></rect>
+<rect x="623" y="346" width="34" height="34" fill="rgb(227,227,205)" stroke="white" stroke-width="1"><title>reversal_5d vs max_return_20d: -0.115</title></rect>
+<rect x="657" y="346" width="34" height="34" fill="rgb(205,244,244)" stroke="white" stroke-width="1"><title>reversal_5d vs earnings_yield: 0.004</title></rect>
+<rect x="691" y="346" width="34" height="34" fill="rgb(205,237,237)" stroke="white" stroke-width="1"><title>reversal_5d vs book_to_price: 0.051</title></rect>
+<rect x="215" y="380" width="34" height="34" fill="rgb(205,195,195)" stroke="white" stroke-width="1"><title>volatility_20d vs momentum_20d: 0.333</title></rect>
+<rect x="249" y="380" width="34" height="34" fill="rgb(205,205,205)" stroke="white" stroke-width="1"><title>volatility_20d vs momentum_60d: 0.265</title></rect>
+<rect x="283" y="380" width="34" height="34" fill="rgb(205,219,219)" stroke="white" stroke-width="1"><title>volatility_20d vs momentum_120d: 0.170</title></rect>
+<rect x="317" y="380" width="34" height="34" fill="rgb(205,193,193)" stroke="white" stroke-width="1"><title>volatility_20d vs momentum_20d_skip_5d: 0.345</title></rect>
+<rect x="351" y="380" width="34" height="34" fill="rgb(205,244,244)" stroke="white" stroke-width="1"><title>volatility_20d vs reversal_5d: 0.004</title></rect>
+<rect x="385" y="380" width="34" height="34" fill="rgb(205,95,95)" stroke="white" stroke-width="1"><title>volatility_20d vs volatility_20d: 1.000</title></rect>
+<rect x="419" y="380" width="34" height="34" fill="rgb(244,244,205)" stroke="white" stroke-width="1"><title>volatility_20d vs amihud_20d: -0.004</title></rect>
+<rect x="453" y="380" width="34" height="34" fill="rgb(205,158,158)" stroke="white" stroke-width="1"><title>volatility_20d vs turnover_20d: 0.579</title></rect>
+<rect x="487" y="380" width="34" height="34" fill="rgb(205,239,239)" stroke="white" stroke-width="1"><title>volatility_20d vs turnover_surprise_20d: 0.037</title></rect>
+<rect x="521" y="380" width="34" height="34" fill="rgb(205,227,227)" stroke="white" stroke-width="1"><title>volatility_20d vs volume_surprise_20d: 0.116</title></rect>
+<rect x="555" y="380" width="34" height="34" fill="rgb(205,114,114)" stroke="white" stroke-width="1"><title>volatility_20d vs amplitude_20d: 0.870</title></rect>
+<rect x="589" y="380" width="34" height="34" fill="rgb(205,221,221)" stroke="white" stroke-width="1"><title>volatility_20d vs return_volume_corr_20d: 0.155</title></rect>
+<rect x="623" y="380" width="34" height="34" fill="rgb(205,119,119)" stroke="white" stroke-width="1"><title>volatility_20d vs max_return_20d: 0.840</title></rect>
+<rect x="657" y="380" width="34" height="34" fill="rgb(209,209,205)" stroke="white" stroke-width="1"><title>volatility_20d vs earnings_yield: -0.233</title></rect>
+<rect x="691" y="380" width="34" height="34" fill="rgb(196,196,205)" stroke="white" stroke-width="1"><title>volatility_20d vs book_to_price: -0.320</title></rect>
+<rect x="215" y="414" width="34" height="34" fill="rgb(205,237,237)" stroke="white" stroke-width="1"><title>amihud_20d vs momentum_20d: 0.051</title></rect>
+<rect x="249" y="414" width="34" height="34" fill="rgb(234,234,205)" stroke="white" stroke-width="1"><title>amihud_20d vs momentum_60d: -0.069</title></rect>
+<rect x="283" y="414" width="34" height="34" fill="rgb(232,232,205)" stroke="white" stroke-width="1"><title>amihud_20d vs momentum_120d: -0.083</title></rect>
+<rect x="317" y="414" width="34" height="34" fill="rgb(242,242,205)" stroke="white" stroke-width="1"><title>amihud_20d vs momentum_20d_skip_5d: -0.018</title></rect>
+<rect x="351" y="414" width="34" height="34" fill="rgb(205,243,243)" stroke="white" stroke-width="1"><title>amihud_20d vs reversal_5d: 0.012</title></rect>
+<rect x="385" y="414" width="34" height="34" fill="rgb(244,244,205)" stroke="white" stroke-width="1"><title>amihud_20d vs volatility_20d: -0.004</title></rect>
+<rect x="419" y="414" width="34" height="34" fill="rgb(205,95,95)" stroke="white" stroke-width="1"><title>amihud_20d vs amihud_20d: 1.000</title></rect>
+<rect x="453" y="414" width="34" height="34" fill="rgb(205,215,215)" stroke="white" stroke-width="1"><title>amihud_20d vs turnover_20d: 0.199</title></rect>
+<rect x="487" y="414" width="34" height="34" fill="rgb(205,190,190)" stroke="white" stroke-width="1"><title>amihud_20d vs turnover_surprise_20d: 0.364</title></rect>
+<rect x="521" y="414" width="34" height="34" fill="rgb(205,237,237)" stroke="white" stroke-width="1"><title>amihud_20d vs volume_surprise_20d: 0.052</title></rect>
+<rect x="555" y="414" width="34" height="34" fill="rgb(205,239,239)" stroke="white" stroke-width="1"><title>amihud_20d vs amplitude_20d: 0.037</title></rect>
+<rect x="589" y="414" width="34" height="34" fill="rgb(205,193,193)" stroke="white" stroke-width="1"><title>amihud_20d vs return_volume_corr_20d: 0.345</title></rect>
+<rect x="623" y="414" width="34" height="34" fill="rgb(243,243,205)" stroke="white" stroke-width="1"><title>amihud_20d vs max_return_20d: -0.009</title></rect>
+<rect x="657" y="414" width="34" height="34" fill="rgb(225,225,205)" stroke="white" stroke-width="1"><title>amihud_20d vs earnings_yield: -0.129</title></rect>
+<rect x="691" y="414" width="34" height="34" fill="rgb(205,243,243)" stroke="white" stroke-width="1"><title>amihud_20d vs book_to_price: 0.007</title></rect>
+<rect x="215" y="448" width="34" height="34" fill="rgb(205,218,218)" stroke="white" stroke-width="1"><title>turnover_20d vs momentum_20d: 0.176</title></rect>
+<rect x="249" y="448" width="34" height="34" fill="rgb(205,227,227)" stroke="white" stroke-width="1"><title>turnover_20d vs momentum_60d: 0.117</title></rect>
+<rect x="283" y="448" width="34" height="34" fill="rgb(244,244,205)" stroke="white" stroke-width="1"><title>turnover_20d vs momentum_120d: -0.004</title></rect>
+<rect x="317" y="448" width="34" height="34" fill="rgb(205,215,215)" stroke="white" stroke-width="1"><title>turnover_20d vs momentum_20d_skip_5d: 0.195</title></rect>
+<rect x="351" y="448" width="34" height="34" fill="rgb(205,242,242)" stroke="white" stroke-width="1"><title>turnover_20d vs reversal_5d: 0.019</title></rect>
+<rect x="385" y="448" width="34" height="34" fill="rgb(205,158,158)" stroke="white" stroke-width="1"><title>turnover_20d vs volatility_20d: 0.579</title></rect>
+<rect x="419" y="448" width="34" height="34" fill="rgb(205,215,215)" stroke="white" stroke-width="1"><title>turnover_20d vs amihud_20d: 0.199</title></rect>
+<rect x="453" y="448" width="34" height="34" fill="rgb(205,95,95)" stroke="white" stroke-width="1"><title>turnover_20d vs turnover_20d: 1.000</title></rect>
+<rect x="487" y="448" width="34" height="34" fill="rgb(205,209,209)" stroke="white" stroke-width="1"><title>turnover_20d vs turnover_surprise_20d: 0.236</title></rect>
+<rect x="521" y="448" width="34" height="34" fill="rgb(240,240,205)" stroke="white" stroke-width="1"><title>turnover_20d vs volume_surprise_20d: -0.030</title></rect>
+<rect x="555" y="448" width="34" height="34" fill="rgb(205,146,146)" stroke="white" stroke-width="1"><title>turnover_20d vs amplitude_20d: 0.659</title></rect>
+<rect x="589" y="448" width="34" height="34" fill="rgb(205,178,178)" stroke="white" stroke-width="1"><title>turnover_20d vs return_volume_corr_20d: 0.443</title></rect>
+<rect x="623" y="448" width="34" height="34" fill="rgb(205,177,177)" stroke="white" stroke-width="1"><title>turnover_20d vs max_return_20d: 0.452</title></rect>
+<rect x="657" y="448" width="34" height="34" fill="rgb(224,224,205)" stroke="white" stroke-width="1"><title>turnover_20d vs earnings_yield: -0.135</title></rect>
+<rect x="691" y="448" width="34" height="34" fill="rgb(202,202,205)" stroke="white" stroke-width="1"><title>turnover_20d vs book_to_price: -0.282</title></rect>
+<rect x="215" y="482" width="34" height="34" fill="rgb(205,202,202)" stroke="white" stroke-width="1"><title>turnover_surprise_20d vs momentum_20d: 0.283</title></rect>
+<rect x="249" y="482" width="34" height="34" fill="rgb(205,225,225)" stroke="white" stroke-width="1"><title>turnover_surprise_20d vs momentum_60d: 0.130</title></rect>
+<rect x="283" y="482" width="34" height="34" fill="rgb(205,230,230)" stroke="white" stroke-width="1"><title>turnover_surprise_20d vs momentum_120d: 0.096</title></rect>
+<rect x="317" y="482" width="34" height="34" fill="rgb(205,236,236)" stroke="white" stroke-width="1"><title>turnover_surprise_20d vs momentum_20d_skip_5d: 0.056</title></rect>
+<rect x="351" y="482" width="34" height="34" fill="rgb(193,193,205)" stroke="white" stroke-width="1"><title>turnover_surprise_20d vs reversal_5d: -0.341</title></rect>
+<rect x="385" y="482" width="34" height="34" fill="rgb(205,239,239)" stroke="white" stroke-width="1"><title>turnover_surprise_20d vs volatility_20d: 0.037</title></rect>
+<rect x="419" y="482" width="34" height="34" fill="rgb(205,190,190)" stroke="white" stroke-width="1"><title>turnover_surprise_20d vs amihud_20d: 0.364</title></rect>
+<rect x="453" y="482" width="34" height="34" fill="rgb(205,209,209)" stroke="white" stroke-width="1"><title>turnover_surprise_20d vs turnover_20d: 0.236</title></rect>
+<rect x="487" y="482" width="34" height="34" fill="rgb(205,95,95)" stroke="white" stroke-width="1"><title>turnover_surprise_20d vs turnover_surprise_20d: 1.000</title></rect>
+<rect x="521" y="482" width="34" height="34" fill="rgb(205,129,129)" stroke="white" stroke-width="1"><title>turnover_surprise_20d vs volume_surprise_20d: 0.772</title></rect>
+<rect x="555" y="482" width="34" height="34" fill="rgb(205,230,230)" stroke="white" stroke-width="1"><title>turnover_surprise_20d vs amplitude_20d: 0.094</title></rect>
+<rect x="589" y="482" width="34" height="34" fill="rgb(205,180,180)" stroke="white" stroke-width="1"><title>turnover_surprise_20d vs return_volume_corr_20d: 0.427</title></rect>
+<rect x="623" y="482" width="34" height="34" fill="rgb(205,228,228)" stroke="white" stroke-width="1"><title>turnover_surprise_20d vs max_return_20d: 0.111</title></rect>
+<rect x="657" y="482" width="34" height="34" fill="rgb(205,243,243)" stroke="white" stroke-width="1"><title>turnover_surprise_20d vs earnings_yield: 0.013</title></rect>
+<rect x="691" y="482" width="34" height="34" fill="rgb(205,240,240)" stroke="white" stroke-width="1"><title>turnover_surprise_20d vs book_to_price: 0.032</title></rect>
+<rect x="215" y="516" width="34" height="34" fill="rgb(205,196,196)" stroke="white" stroke-width="1"><title>volume_surprise_20d vs momentum_20d: 0.320</title></rect>
+<rect x="249" y="516" width="34" height="34" fill="rgb(205,220,220)" stroke="white" stroke-width="1"><title>volume_surprise_20d vs momentum_60d: 0.165</title></rect>
+<rect x="283" y="516" width="34" height="34" fill="rgb(205,225,225)" stroke="white" stroke-width="1"><title>volume_surprise_20d vs momentum_120d: 0.130</title></rect>
+<rect x="317" y="516" width="34" height="34" fill="rgb(205,233,233)" stroke="white" stroke-width="1"><title>volume_surprise_20d vs momentum_20d_skip_5d: 0.079</title></rect>
+<rect x="351" y="516" width="34" height="34" fill="rgb(190,190,205)" stroke="white" stroke-width="1"><title>volume_surprise_20d vs reversal_5d: -0.366</title></rect>
+<rect x="385" y="516" width="34" height="34" fill="rgb(205,227,227)" stroke="white" stroke-width="1"><title>volume_surprise_20d vs volatility_20d: 0.116</title></rect>
+<rect x="419" y="516" width="34" height="34" fill="rgb(205,237,237)" stroke="white" stroke-width="1"><title>volume_surprise_20d vs amihud_20d: 0.052</title></rect>
+<rect x="453" y="516" width="34" height="34" fill="rgb(240,240,205)" stroke="white" stroke-width="1"><title>volume_surprise_20d vs turnover_20d: -0.030</title></rect>
+<rect x="487" y="516" width="34" height="34" fill="rgb(205,129,129)" stroke="white" stroke-width="1"><title>volume_surprise_20d vs turnover_surprise_20d: 0.772</title></rect>
+<rect x="521" y="516" width="34" height="34" fill="rgb(205,95,95)" stroke="white" stroke-width="1"><title>volume_surprise_20d vs volume_surprise_20d: 1.000</title></rect>
+<rect x="555" y="516" width="34" height="34" fill="rgb(205,236,236)" stroke="white" stroke-width="1"><title>volume_surprise_20d vs amplitude_20d: 0.055</title></rect>
+<rect x="589" y="516" width="34" height="34" fill="rgb(205,232,232)" stroke="white" stroke-width="1"><title>volume_surprise_20d vs return_volume_corr_20d: 0.084</title></rect>
+<rect x="623" y="516" width="34" height="34" fill="rgb(205,217,217)" stroke="white" stroke-width="1"><title>volume_surprise_20d vs max_return_20d: 0.182</title></rect>
+<rect x="657" y="516" width="34" height="34" fill="rgb(243,243,205)" stroke="white" stroke-width="1"><title>volume_surprise_20d vs earnings_yield: -0.012</title></rect>
+<rect x="691" y="516" width="34" height="34" fill="rgb(205,244,244)" stroke="white" stroke-width="1"><title>volume_surprise_20d vs book_to_price: 0.004</title></rect>
+<rect x="215" y="550" width="34" height="34" fill="rgb(205,191,191)" stroke="white" stroke-width="1"><title>amplitude_20d vs momentum_20d: 0.354</title></rect>
+<rect x="249" y="550" width="34" height="34" fill="rgb(205,191,191)" stroke="white" stroke-width="1"><title>amplitude_20d vs momentum_60d: 0.353</title></rect>
+<rect x="283" y="550" width="34" height="34" fill="rgb(205,207,207)" stroke="white" stroke-width="1"><title>amplitude_20d vs momentum_120d: 0.249</title></rect>
+<rect x="317" y="550" width="34" height="34" fill="rgb(205,184,184)" stroke="white" stroke-width="1"><title>amplitude_20d vs momentum_20d_skip_5d: 0.406</title></rect>
+<rect x="351" y="550" width="34" height="34" fill="rgb(244,244,205)" stroke="white" stroke-width="1"><title>amplitude_20d vs reversal_5d: -0.002</title></rect>
+<rect x="385" y="550" width="34" height="34" fill="rgb(205,114,114)" stroke="white" stroke-width="1"><title>amplitude_20d vs volatility_20d: 0.870</title></rect>
+<rect x="419" y="550" width="34" height="34" fill="rgb(205,239,239)" stroke="white" stroke-width="1"><title>amplitude_20d vs amihud_20d: 0.037</title></rect>
+<rect x="453" y="550" width="34" height="34" fill="rgb(205,146,146)" stroke="white" stroke-width="1"><title>amplitude_20d vs turnover_20d: 0.659</title></rect>
+<rect x="487" y="550" width="34" height="34" fill="rgb(205,230,230)" stroke="white" stroke-width="1"><title>amplitude_20d vs turnover_surprise_20d: 0.094</title></rect>
+<rect x="521" y="550" width="34" height="34" fill="rgb(205,236,236)" stroke="white" stroke-width="1"><title>amplitude_20d vs volume_surprise_20d: 0.055</title></rect>
+<rect x="555" y="550" width="34" height="34" fill="rgb(205,95,95)" stroke="white" stroke-width="1"><title>amplitude_20d vs amplitude_20d: 1.000</title></rect>
+<rect x="589" y="550" width="34" height="34" fill="rgb(205,204,204)" stroke="white" stroke-width="1"><title>amplitude_20d vs return_volume_corr_20d: 0.273</title></rect>
+<rect x="623" y="550" width="34" height="34" fill="rgb(205,134,134)" stroke="white" stroke-width="1"><title>amplitude_20d vs max_return_20d: 0.734</title></rect>
+<rect x="657" y="550" width="34" height="34" fill="rgb(205,205,205)" stroke="white" stroke-width="1"><title>amplitude_20d vs earnings_yield: -0.266</title></rect>
+<rect x="691" y="550" width="34" height="34" fill="rgb(189,189,205)" stroke="white" stroke-width="1"><title>amplitude_20d vs book_to_price: -0.373</title></rect>
+<rect x="215" y="584" width="34" height="34" fill="rgb(205,190,190)" stroke="white" stroke-width="1"><title>return_volume_corr_20d vs momentum_20d: 0.365</title></rect>
+<rect x="249" y="584" width="34" height="34" fill="rgb(205,217,217)" stroke="white" stroke-width="1"><title>return_volume_corr_20d vs momentum_60d: 0.186</title></rect>
+<rect x="283" y="584" width="34" height="34" fill="rgb(205,228,228)" stroke="white" stroke-width="1"><title>return_volume_corr_20d vs momentum_120d: 0.109</title></rect>
+<rect x="317" y="584" width="34" height="34" fill="rgb(205,200,200)" stroke="white" stroke-width="1"><title>return_volume_corr_20d vs momentum_20d_skip_5d: 0.298</title></rect>
+<rect x="351" y="584" width="34" height="34" fill="rgb(229,229,205)" stroke="white" stroke-width="1"><title>return_volume_corr_20d vs reversal_5d: -0.104</title></rect>
+<rect x="385" y="584" width="34" height="34" fill="rgb(205,221,221)" stroke="white" stroke-width="1"><title>return_volume_corr_20d vs volatility_20d: 0.155</title></rect>
+<rect x="419" y="584" width="34" height="34" fill="rgb(205,193,193)" stroke="white" stroke-width="1"><title>return_volume_corr_20d vs amihud_20d: 0.345</title></rect>
+<rect x="453" y="584" width="34" height="34" fill="rgb(205,178,178)" stroke="white" stroke-width="1"><title>return_volume_corr_20d vs turnover_20d: 0.443</title></rect>
+<rect x="487" y="584" width="34" height="34" fill="rgb(205,180,180)" stroke="white" stroke-width="1"><title>return_volume_corr_20d vs turnover_surprise_20d: 0.427</title></rect>
+<rect x="521" y="584" width="34" height="34" fill="rgb(205,232,232)" stroke="white" stroke-width="1"><title>return_volume_corr_20d vs volume_surprise_20d: 0.084</title></rect>
+<rect x="555" y="584" width="34" height="34" fill="rgb(205,204,204)" stroke="white" stroke-width="1"><title>return_volume_corr_20d vs amplitude_20d: 0.273</title></rect>
+<rect x="589" y="584" width="34" height="34" fill="rgb(205,95,95)" stroke="white" stroke-width="1"><title>return_volume_corr_20d vs return_volume_corr_20d: 1.000</title></rect>
+<rect x="623" y="584" width="34" height="34" fill="rgb(205,197,197)" stroke="white" stroke-width="1"><title>return_volume_corr_20d vs max_return_20d: 0.314</title></rect>
+<rect x="657" y="584" width="34" height="34" fill="rgb(242,242,205)" stroke="white" stroke-width="1"><title>return_volume_corr_20d vs earnings_yield: -0.016</title></rect>
+<rect x="691" y="584" width="34" height="34" fill="rgb(205,243,243)" stroke="white" stroke-width="1"><title>return_volume_corr_20d vs book_to_price: 0.009</title></rect>
+<rect x="215" y="618" width="34" height="34" fill="rgb(205,170,170)" stroke="white" stroke-width="1"><title>max_return_20d vs momentum_20d: 0.497</title></rect>
+<rect x="249" y="618" width="34" height="34" fill="rgb(205,195,195)" stroke="white" stroke-width="1"><title>max_return_20d vs momentum_60d: 0.328</title></rect>
+<rect x="283" y="618" width="34" height="34" fill="rgb(205,211,211)" stroke="white" stroke-width="1"><title>max_return_20d vs momentum_120d: 0.225</title></rect>
+<rect x="317" y="618" width="34" height="34" fill="rgb(205,180,180)" stroke="white" stroke-width="1"><title>max_return_20d vs momentum_20d_skip_5d: 0.429</title></rect>
+<rect x="351" y="618" width="34" height="34" fill="rgb(227,227,205)" stroke="white" stroke-width="1"><title>max_return_20d vs reversal_5d: -0.115</title></rect>
+<rect x="385" y="618" width="34" height="34" fill="rgb(205,119,119)" stroke="white" stroke-width="1"><title>max_return_20d vs volatility_20d: 0.840</title></rect>
+<rect x="419" y="618" width="34" height="34" fill="rgb(243,243,205)" stroke="white" stroke-width="1"><title>max_return_20d vs amihud_20d: -0.009</title></rect>
+<rect x="453" y="618" width="34" height="34" fill="rgb(205,177,177)" stroke="white" stroke-width="1"><title>max_return_20d vs turnover_20d: 0.452</title></rect>
+<rect x="487" y="618" width="34" height="34" fill="rgb(205,228,228)" stroke="white" stroke-width="1"><title>max_return_20d vs turnover_surprise_20d: 0.111</title></rect>
+<rect x="521" y="618" width="34" height="34" fill="rgb(205,217,217)" stroke="white" stroke-width="1"><title>max_return_20d vs volume_surprise_20d: 0.182</title></rect>
+<rect x="555" y="618" width="34" height="34" fill="rgb(205,134,134)" stroke="white" stroke-width="1"><title>max_return_20d vs amplitude_20d: 0.734</title></rect>
+<rect x="589" y="618" width="34" height="34" fill="rgb(205,197,197)" stroke="white" stroke-width="1"><title>max_return_20d vs return_volume_corr_20d: 0.314</title></rect>
+<rect x="623" y="618" width="34" height="34" fill="rgb(205,95,95)" stroke="white" stroke-width="1"><title>max_return_20d vs max_return_20d: 1.000</title></rect>
+<rect x="657" y="618" width="34" height="34" fill="rgb(218,218,205)" stroke="white" stroke-width="1"><title>max_return_20d vs earnings_yield: -0.176</title></rect>
+<rect x="691" y="618" width="34" height="34" fill="rgb(207,207,205)" stroke="white" stroke-width="1"><title>max_return_20d vs book_to_price: -0.247</title></rect>
+<rect x="215" y="652" width="34" height="34" fill="rgb(243,243,205)" stroke="white" stroke-width="1"><title>earnings_yield vs momentum_20d: -0.009</title></rect>
+<rect x="249" y="652" width="34" height="34" fill="rgb(244,244,205)" stroke="white" stroke-width="1"><title>earnings_yield vs momentum_60d: -0.006</title></rect>
+<rect x="283" y="652" width="34" height="34" fill="rgb(205,244,244)" stroke="white" stroke-width="1"><title>earnings_yield vs momentum_120d: 0.006</title></rect>
+<rect x="317" y="652" width="34" height="34" fill="rgb(243,243,205)" stroke="white" stroke-width="1"><title>earnings_yield vs momentum_20d_skip_5d: -0.007</title></rect>
+<rect x="351" y="652" width="34" height="34" fill="rgb(205,244,244)" stroke="white" stroke-width="1"><title>earnings_yield vs reversal_5d: 0.004</title></rect>
+<rect x="385" y="652" width="34" height="34" fill="rgb(209,209,205)" stroke="white" stroke-width="1"><title>earnings_yield vs volatility_20d: -0.233</title></rect>
+<rect x="419" y="652" width="34" height="34" fill="rgb(225,225,205)" stroke="white" stroke-width="1"><title>earnings_yield vs amihud_20d: -0.129</title></rect>
+<rect x="453" y="652" width="34" height="34" fill="rgb(224,224,205)" stroke="white" stroke-width="1"><title>earnings_yield vs turnover_20d: -0.135</title></rect>
+<rect x="487" y="652" width="34" height="34" fill="rgb(205,243,243)" stroke="white" stroke-width="1"><title>earnings_yield vs turnover_surprise_20d: 0.013</title></rect>
+<rect x="521" y="652" width="34" height="34" fill="rgb(243,243,205)" stroke="white" stroke-width="1"><title>earnings_yield vs volume_surprise_20d: -0.012</title></rect>
+<rect x="555" y="652" width="34" height="34" fill="rgb(205,205,205)" stroke="white" stroke-width="1"><title>earnings_yield vs amplitude_20d: -0.266</title></rect>
+<rect x="589" y="652" width="34" height="34" fill="rgb(242,242,205)" stroke="white" stroke-width="1"><title>earnings_yield vs return_volume_corr_20d: -0.016</title></rect>
+<rect x="623" y="652" width="34" height="34" fill="rgb(218,218,205)" stroke="white" stroke-width="1"><title>earnings_yield vs max_return_20d: -0.176</title></rect>
+<rect x="657" y="652" width="34" height="34" fill="rgb(205,95,95)" stroke="white" stroke-width="1"><title>earnings_yield vs earnings_yield: 1.000</title></rect>
+<rect x="691" y="652" width="34" height="34" fill="rgb(205,202,202)" stroke="white" stroke-width="1"><title>earnings_yield vs book_to_price: 0.286</title></rect>
+<rect x="215" y="686" width="34" height="34" fill="rgb(236,236,205)" stroke="white" stroke-width="1"><title>book_to_price vs momentum_20d: -0.059</title></rect>
+<rect x="249" y="686" width="34" height="34" fill="rgb(236,236,205)" stroke="white" stroke-width="1"><title>book_to_price vs momentum_60d: -0.059</title></rect>
+<rect x="283" y="686" width="34" height="34" fill="rgb(236,236,205)" stroke="white" stroke-width="1"><title>book_to_price vs momentum_120d: -0.059</title></rect>
+<rect x="317" y="686" width="34" height="34" fill="rgb(237,237,205)" stroke="white" stroke-width="1"><title>book_to_price vs momentum_20d_skip_5d: -0.049</title></rect>
+<rect x="351" y="686" width="34" height="34" fill="rgb(205,237,237)" stroke="white" stroke-width="1"><title>book_to_price vs reversal_5d: 0.051</title></rect>
+<rect x="385" y="686" width="34" height="34" fill="rgb(196,196,205)" stroke="white" stroke-width="1"><title>book_to_price vs volatility_20d: -0.320</title></rect>
+<rect x="419" y="686" width="34" height="34" fill="rgb(205,243,243)" stroke="white" stroke-width="1"><title>book_to_price vs amihud_20d: 0.007</title></rect>
+<rect x="453" y="686" width="34" height="34" fill="rgb(202,202,205)" stroke="white" stroke-width="1"><title>book_to_price vs turnover_20d: -0.282</title></rect>
+<rect x="487" y="686" width="34" height="34" fill="rgb(205,240,240)" stroke="white" stroke-width="1"><title>book_to_price vs turnover_surprise_20d: 0.032</title></rect>
+<rect x="521" y="686" width="34" height="34" fill="rgb(205,244,244)" stroke="white" stroke-width="1"><title>book_to_price vs volume_surprise_20d: 0.004</title></rect>
+<rect x="555" y="686" width="34" height="34" fill="rgb(189,189,205)" stroke="white" stroke-width="1"><title>book_to_price vs amplitude_20d: -0.373</title></rect>
+<rect x="589" y="686" width="34" height="34" fill="rgb(205,243,243)" stroke="white" stroke-width="1"><title>book_to_price vs return_volume_corr_20d: 0.009</title></rect>
+<rect x="623" y="686" width="34" height="34" fill="rgb(207,207,205)" stroke="white" stroke-width="1"><title>book_to_price vs max_return_20d: -0.247</title></rect>
+<rect x="657" y="686" width="34" height="34" fill="rgb(205,202,202)" stroke="white" stroke-width="1"><title>book_to_price vs earnings_yield: 0.286</title></rect>
+<rect x="691" y="686" width="34" height="34" fill="rgb(205,95,95)" stroke="white" stroke-width="1"><title>book_to_price vs book_to_price: 1.000</title></rect>
+<text x="20" y="65" font-family="sans-serif" font-size="11" fill="#555">Red = positive; blue = negative; hover a cell for the value.</text>
+</svg>

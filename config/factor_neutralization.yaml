@@ -1,0 +1,23 @@
+experiment_id: factor_neutralization_v2
+factor_source: multi_horizon_factor_panel
+industry_source: pit_industry_exposures_v1
+size_source: pit_size_exposures_v1
+target: fwd_return_5d_lag1
+train: {start_year: 2006, end_year: 2015}
+validation: {start_year: 2016, end_year: 2020}
+historical_oos: {start_year: 2021, end_year: 2026}
+pipelines: [raw, size_neutralized, industry_neutralized, industry_size_neutralized]
+industry_level: csrc_broad_section
+minimum_industry_group_size: 5
+minimum_cross_section_size: 100
+annualization_periods: 52
+quantile_limits: [0.01, 0.99]
+mad_multiplier: 5.0
+factor_top_quantile: 0.2
+bootstrap:
+  block_length_weeks: 13
+  samples: 2000
+  random_seed: 20261016
+interpretation: paired_factor_risk_residualization_without_model_reselection
+direction_rule: sign_of_raw_training_mean_rank_ic
+historical_oos_used_for_selection: false

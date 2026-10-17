@@ -1,0 +1,14 @@
+{
+  "experiment_id": "portfolio_sensitivity_v1",
+  "frozen_at_utc": "2026-10-17T11:58:48.238442+00:00",
+  "content_sha256": "a5348eff19ff9c5b0096c10bdd5227dff00d09a378e21b554adea80f26abbd67",
+  "files": {
+    "config.yaml": "1788eba39d2cb09b99346cfb61dc1bf1fd20eb989e0c7adc45db52570d0b152d",
+    "metadata.json": "8f8182da13f7298b3025ed6b05c28779a0c845ed9eabaa1349889853ffe2baaa",
+    "metrics.json": "0d58212f9bd3fe0e181c22621003476e75db21fef63411c6afc4b61bb1983f6f",
+    "notes.md": "1b868c1737fa17f418e05da95a7b341b145be16cbbdf5d888e10d375cc95aeef",
+    "tables/execution_cost_stress__v1.csv": "964b7b448a0e1592918d0c2c0c255d642e3bd36b1914d3f735fb442b22efffe7",
+    "tables/portfolio_sensitivity_protocol__v1.csv": "f3967e9b2a2b9b748d45a097551abcd57ff8116bc4bec2a41fcf86b7239d35aa",
+    "tables/portfolio_sensitivity_summary__v1.csv": "94ee8861f833463d80a8048703f06865ce172deb02d11404aba1cd11713bf0c5"
+  }
+}

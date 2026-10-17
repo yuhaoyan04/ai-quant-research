@@ -28,9 +28,26 @@ class BaoStockProvider:
         except ImportError as exc:
             raise RuntimeError("BaoStock is not installed. Create the Python 3.11 environment and run pip install -e .") from exc
         self._install_socket_timeout(bs)
-        result = bs.login()
-        if result.error_code != "0":
-            raise RuntimeError(f"BaoStock login failed: {result.error_msg}")
+        error: Exception | None = None
+        result: Any | None = None
+        for attempt in range(1, self.max_attempts + 1):
+            try:
+                result = bs.login()
+                if result.error_code == "0":
+                    break
+                error = RuntimeError(result.error_msg)
+                if result.error_code == "10001011":
+                    # Retrying a provider blacklist only extends noisy traffic;
+                    # fail fast and resume after the published release window.
+                    break
+            except Exception as exc:
+                error = exc
+            if attempt < self.max_attempts:
+                time.sleep(self.retry_backoff_seconds * attempt)
+        if result is None or result.error_code != "0":
+            raise RuntimeError(
+                f"BaoStock login failed after {self.max_attempts} attempts: {error}"
+            )
         self._bs = bs
         return self
 
@@ -40,10 +57,25 @@ class BaoStockProvider:
 
     def _frame(self, result: Any, operation: str) -> pd.DataFrame:
         if result.error_code != "0":
-            raise RuntimeError(f"BaoStock {operation} failed: {result.error_msg}")
+            raise RuntimeError(
+                f"BaoStock {operation} failed [{result.error_code}]: {result.error_msg}"
+            )
         rows: list[list[str]] = []
         while result.next():
             rows.append(result.get_row_data())
+        if result.error_code != "0":
+            raise RuntimeError(
+                f"BaoStock {operation} pagination failed "
+                f"[{result.error_code}]: {result.error_msg}"
+            )
+        # ResultData leaves the previous full page in ``data`` when fetching
+        # the next page fails.  A successful end-of-data response replaces it
+        # with an empty page, so this detects the otherwise silent 2,000-row
+        # truncation observed in historical industry downloads.
+        if len(result.data) == int(result.per_page_count):
+            raise RuntimeError(
+                f"BaoStock {operation} ended on a full page; response may be truncated"
+            )
         return pd.DataFrame(rows, columns=result.fields)
 
     def _install_socket_timeout(self, bs: Any) -> None:
@@ -73,6 +105,10 @@ class BaoStockProvider:
                 return call()
             except Exception as exc:
                 error = exc
+                if "10001011" in str(exc):
+                    # A blacklist is time-based; reconnecting cannot clear it
+                    # and only creates more prohibited traffic.
+                    break
                 if attempt == self.max_attempts:
                     break
                 # Reconnect after a timeout/broken connection before retrying.
@@ -98,6 +134,20 @@ class BaoStockProvider:
         frame = self._retry("query_all_stock", lambda: self._frame(
             self._bs.query_all_stock(day=asof_date), "query_all_stock"))
         return frame.rename(columns={"code": "instrument_id", "code_name": "name", "tradeStatus": "trade_status"})
+
+    def industry_asof(self, asof_date: str) -> pd.DataFrame:
+        """Return the historical CSRC industry snapshot available on ``asof_date``."""
+        assert self._bs is not None
+        frame = self._retry("query_stock_industry", lambda: self._frame(
+            self._bs.query_stock_industry(date=asof_date), "query_stock_industry"
+        ))
+        return frame.rename(columns={
+            "updateDate": "update_date",
+            "code": "instrument_id",
+            "code_name": "name",
+            "industry": "industry_raw",
+            "industryClassification": "industry_classification",
+        })
 
     def daily_bars(self, instrument_id: str, start: str, end: str) -> pd.DataFrame:
         assert self._bs is not None

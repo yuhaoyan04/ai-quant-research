@@ -8,22 +8,31 @@
 
 ## 结论先行
 
-| 历史样本外结果（2021–2026，共同 291 周） | Ridge | HGB + Ridge |
+| 最终日频可成交口径（2021–2026，20bp） | Ridge | HGB |
 |---|---:|---:|
-| 20bp 成本后年化收益 | **19.9%** | **22.9%** |
-| 最大回撤 | -36.2% | -37.9% |
-| 年化收益相对 Ridge 增量 | — | +3.2 pct |
-| 增量的 13 周块 bootstrap 95% 区间 | — | **[-0.9%, 7.4%]** |
+| raw 年化收益 | **17.80%** | **20.81%** |
+| raw Sharpe / 最大回撤 | 0.86 / -32.99% | 0.94 / -33.32% |
+| industry+size neutral 年化收益 | 15.87% | 20.26% |
+| CSI500 + 六风格后的残余 Alpha | -1.74% | +1.05% |
 
-- Ridge 在 2021–2026 每个自然年的 RankIC 都为正，且相对 CSI 500 的年化算术超额 bootstrap 95% 区间为 **[5.2%, 34.1%]**。这是当前最可靠的正向证据。
-- HGB + Ridge 的组合收益更高，但相对 Ridge 的增量置信区间跨 0；因此结论是“存在经济增量迹象”，而不是“机器学习显著胜出”。
+- 最终结果使用 1,387 个唯一日频净值日、股数订单、停牌/涨跌停逐日重试和 20bp 线性成本；它比早期周频标签组合更接近可执行口径。
+- 统一模型基准的 HGB historical OOS RankIC 为 0.0999、Ridge 为 0.0976；HGB 二维验证面仅为 0.0971–0.0998，但年度最优参数不稳定，不能泛化为“机器学习稳定胜出”。
+- PIT 行业+规模中性化后，15 个单因子中没有定向 RankIC 显著增强；四个动量因子显著减弱，其余 11 个差异不显著，说明部分动量预测力依赖行业/规模结构，但多数信号没有被完全解释。
+- 完整单因子 tear sheet 已覆盖十分位单调性、Top–Bottom、换手、年度与市场状态。行业+规模中性化后，14/15 个因子的 Top–Bottom 年化算术价差 95% 下界为正，仅 `earnings_yield` 未通过；但 `down_high` 状态下多个因子失效，且分位组合未建模借券和涨跌停，不能当作可交易多空业绩。
+- 修复两期被静默截断的证券快照后，锁定模型实验显示：行业+规模中性化使 Ridge RankIC 从 0.0986 降至 0.0900、年化收益从 21.24% 降至 15.54%；HGB RankIC 从 0.1006 降至 0.0941，收益差异区间跨零。两者的 Top-200 行业主动权重都没有自动下降，证明因子正交不等于组合行业中性。
+- 显式组合优化已完成：单股≤0.5%、行业主动权重逐行业≤±3%、|size-z|≤0.10、周换手目标≤30%。原始 HGB 组合约束后年化 24.68%、波动 28.13%、Sharpe 0.92、最大回撤 -32.90%，全部 293 周无换手约束放宽；收益仍是理想完整成交、20bp 研究口径。
+- 约束组合已接入非重叠日频成交引擎。原始 HGB 在同口径下从理想全成交年化 22.18% 降至停牌/涨跌停逐日重试后的 20.81%，Sharpe 0.94、最大回撤 -33.32%；年化算术成交折损 95% 区间为 [-1.66%, -0.68%]。
+- PIT 多因子归因显示行业主动贡献接近零，但 raw HGB 的年化算术风格贡献约 13.61%，主要来自流动性、波动和动量；特异选股贡献约 -0.43%，95% 区间 [-3.52%, 3.08%] 跨零。当前证据支持“受控风格溢价”，不支持“稳定纯个股 alpha”。
+- 第一版风险感知政策（有效冻结登记 `risk_aware_portfolio_optimization_v2`）将 raw HGB 的预测跟踪误差从 8.07% 降至 4.43%，但年化收益降至 18.69%，配对收益差 95% 区间完全低于零；20% 目标波动层也没有改善 Sharpe。该政策被明确登记为失败实验，不替换原约束组合。
+- 非重叠日频 CAPM 显示，四条可成交约束组合相对 CSI500 的年化算术 Jensen Alpha 为13.60%–17.92%，Newey–West 95%区间下界均高于0，Beta约0.74–0.78；但滚动窗口存在负 Alpha，且价格指数不含股息、无风险利率按0，不能把该截距解释为纯个股 Alpha。
+- 加入六个 PIT 自融资风格组合后，四条可成交组合的年化残余 Alpha 降至 -2.55%–+1.07%，95%区间全部跨零，R²约0.895。回归不存在明显多重共线性；CAPM 截距主要由小盘、非流动性和反转等风格吸收，当前不支持显著纯选股 Alpha。
 - 2021–2026 的结果已在研发过程中被检查过，应称为历史样本外证据，不是从未查看的生产 lockbox，也不是实盘业绩。
 
 ![历史样本外累计净值](reports/figures/oos_equity_curve.svg)
 
 ![年度 RankIC](reports/figures/annual_rank_ic.svg)
 
-完整结果见 [研究报告](docs/research_report.md)、[离线交互面板](reports/research_dashboard.html) 和 [自动审计报告](reports/research_audit.md)。新一轮研究包括 [因子预处理消融实验](docs/factor_preprocessing_ablation.md)、[标签期限实验](docs/label_horizon.md)、[PIT 规模中性化实验](docs/size_neutralization.md)、[统一模型基准](docs/model_benchmark.md)、[RF 超参数局部稳健性](docs/rf_hyperparameter_stability.md) 与 [RF 非重叠日频成交取证](docs/rf_return_forensics.md)，机构级实验缺口与实施顺序见 [研究升级路线](docs/institutional_upgrade_plan.md)。机器可读结果位于 [public_results.json](reports/public_results.json) 与 [结果表](reports/tables/)。
+求职版交付见 [最终研究报告](reports/final_research_report.md)、[PDF](reports/final_report.pdf)、[一页摘要](reports/executive_summary.md)、[简历表述](docs/resume_bullets.md) 与 [面试讲稿](docs/interview_guide.md)。审计与复现入口为 [自动审计报告](reports/research_audit.md)、[离线交互面板](reports/research_dashboard.html) 和 [跨机器复现指南](docs/reproduction.md)。专项实验仍保留在 `docs/`、`reports/` 与不可变实验目录中。
 
 完整数据湖不上传 GitHub；跨机器接力时从 BaoStock 下载主数据，并用 AKShare 做独立抽样核对。
 环境安装、断点续传、数据血缘、验收门禁和一键全流水线见[跨机器复现指南](docs/reproduction.md)。
@@ -63,9 +72,10 @@ flowchart LR
 - 2006-01-04 至 2026-09-30；5,521 只历史 A 股。
 - 1,059 个周度点时证券快照，约 1,479 万行模型特征。
 - 15 个量价、流动性、估值与反转/动量因子。
+- 250 个历史证监会行业快照；PIT 周度行业暴露最低年度覆盖率 98.55%。
 - 训练、验证、年度扩展窗口样本外预测，以及持仓级结果。
 - 成本、换手、流动性、规模、ADV 容量、市场冲击和 t+1 涨跌停/停牌压力测试。
-- 40+ 个单元/回归测试，以及覆盖数据、时序、组合和冻结实验的自动产物审计。
+- 140 个单元/回归测试；当前自动产物审计为 303 PASS / 36 WARN / 0 FAIL。
 
 ## 快速验证已提交结果
 
@@ -81,13 +91,16 @@ python -m pytest -q
 quant-research-dashboard
 quant-audit
 quant-rf-hyperparameter-stability
+quant-hgb-hyperparameter-stability
+quant-portfolio-sensitivity
+quant-final-report
 ```
 
 `quant-audit` 会检查预测键唯一性、信息可用日期、验证集选参来源、组合收益恒等式、持仓权重、共同比较日期、年度 RankIC 和 bootstrap 结论；任何硬失败都会返回非零退出码。
 
 ### 冻结实验与可复现性
 
-当前 Ridge 基线和 HGB + Ridge challenger 已登记为不可覆盖的实验快照。每个快照包含解析后的配置、指标表、图表、环境版本、代码树哈希、输入数据 SHA-256 与历史样本外使用声明。后续因子、标签、模型和组合实验都沿用同一协议，避免结果文件被静默覆盖，也避免只保留“成功实验”。
+当前 31 个实验版本已登记为不可覆盖快照。每个快照包含解析后的配置、指标表、图表、环境版本、代码树哈希、输入数据 SHA-256 与 historical OOS 使用声明；失败与被替代实验同样保留。
 
 ```powershell
 # 查看已登记实验
@@ -122,7 +135,7 @@ powershell -ExecutionPolicy Bypass -File scripts/rebuild_all.ps1 `
 
 ## 不能忽略的边界
 
-1. 尚无可靠的点时行业分类，未完成行业中性化，收益可能包含行业暴露。
+1. 已完成月度历史证监会宽行业的 PIT 因子中性化、组合主动权重约束及六风格风险归因，但它不等同于申万细分行业或商业风险模型。
 2. 股票池是历史 A 股代理，不是官方 CSI 100/500/1000 历史成分。
 3. 指数收益未含股息；策略未建模税费、真实撮合队列和基金申赎。
 4. 平方根冲击模型尚未用券商订单校准，容量结果是情景分析而非资金承诺。

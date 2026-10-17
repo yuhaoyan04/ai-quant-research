@@ -474,3 +474,590 @@ experiments:
       - {table: rf_daily_timing_audit, key: validation_v1}
       - {table: rf_daily_timing_audit, key: historical_oos_v1}
     figures: []
+
+  factor_neutralization_v1:
+    title: PIT CSRC-industry and log-size neutralized factor diagnostics
+    stage: risk_exposure_and_factor_neutralization
+    model_version: csrc_broad_log_size_factor_residualization_v1
+    dataset_version_method: sha256_of_registered_inputs_and_ingestion_manifest
+    historical_oos_used_for_selection: false
+    config_files:
+      - preprocessing.yaml
+      - factor_preprocessing_selected.yaml
+      - risk_exposure.yaml
+      - factor_neutralization.yaml
+    input_tables: &pit_neutralization_inputs
+      - {table: pit_size_exposure_index, key: v1}
+      - {table: pit_industry_exposure_index, key: v1}
+      - {table: multi_horizon_factor_panel, key: "2006"}
+      - {table: multi_horizon_factor_panel, key: "2007"}
+      - {table: multi_horizon_factor_panel, key: "2008"}
+      - {table: multi_horizon_factor_panel, key: "2009"}
+      - {table: multi_horizon_factor_panel, key: "2010"}
+      - {table: multi_horizon_factor_panel, key: "2011"}
+      - {table: multi_horizon_factor_panel, key: "2012"}
+      - {table: multi_horizon_factor_panel, key: "2013"}
+      - {table: multi_horizon_factor_panel, key: "2014"}
+      - {table: multi_horizon_factor_panel, key: "2015"}
+      - {table: multi_horizon_factor_panel, key: "2016"}
+      - {table: multi_horizon_factor_panel, key: "2017"}
+      - {table: multi_horizon_factor_panel, key: "2018"}
+      - {table: multi_horizon_factor_panel, key: "2019"}
+      - {table: multi_horizon_factor_panel, key: "2020"}
+      - {table: multi_horizon_factor_panel, key: "2021"}
+      - {table: multi_horizon_factor_panel, key: "2022"}
+      - {table: multi_horizon_factor_panel, key: "2023"}
+      - {table: multi_horizon_factor_panel, key: "2024"}
+      - {table: multi_horizon_factor_panel, key: "2025"}
+      - {table: multi_horizon_factor_panel, key: "2026"}
+      - {table: pit_size_exposures, key: "2006"}
+      - {table: pit_size_exposures, key: "2007"}
+      - {table: pit_size_exposures, key: "2008"}
+      - {table: pit_size_exposures, key: "2009"}
+      - {table: pit_size_exposures, key: "2010"}
+      - {table: pit_size_exposures, key: "2011"}
+      - {table: pit_size_exposures, key: "2012"}
+      - {table: pit_size_exposures, key: "2013"}
+      - {table: pit_size_exposures, key: "2014"}
+      - {table: pit_size_exposures, key: "2015"}
+      - {table: pit_size_exposures, key: "2016"}
+      - {table: pit_size_exposures, key: "2017"}
+      - {table: pit_size_exposures, key: "2018"}
+      - {table: pit_size_exposures, key: "2019"}
+      - {table: pit_size_exposures, key: "2020"}
+      - {table: pit_size_exposures, key: "2021"}
+      - {table: pit_size_exposures, key: "2022"}
+      - {table: pit_size_exposures, key: "2023"}
+      - {table: pit_size_exposures, key: "2024"}
+      - {table: pit_size_exposures, key: "2025"}
+      - {table: pit_size_exposures, key: "2026"}
+      - {table: pit_industry_exposures, key: "2006"}
+      - {table: pit_industry_exposures, key: "2007"}
+      - {table: pit_industry_exposures, key: "2008"}
+      - {table: pit_industry_exposures, key: "2009"}
+      - {table: pit_industry_exposures, key: "2010"}
+      - {table: pit_industry_exposures, key: "2011"}
+      - {table: pit_industry_exposures, key: "2012"}
+      - {table: pit_industry_exposures, key: "2013"}
+      - {table: pit_industry_exposures, key: "2014"}
+      - {table: pit_industry_exposures, key: "2015"}
+      - {table: pit_industry_exposures, key: "2016"}
+      - {table: pit_industry_exposures, key: "2017"}
+      - {table: pit_industry_exposures, key: "2018"}
+      - {table: pit_industry_exposures, key: "2019"}
+      - {table: pit_industry_exposures, key: "2020"}
+      - {table: pit_industry_exposures, key: "2021"}
+      - {table: pit_industry_exposures, key: "2022"}
+      - {table: pit_industry_exposures, key: "2023"}
+      - {table: pit_industry_exposures, key: "2024"}
+      - {table: pit_industry_exposures, key: "2025"}
+      - {table: pit_industry_exposures, key: "2026"}
+    metric_tables:
+      - {table: factor_neutralization_directions, key: v1}
+      - {table: factor_neutralization_summary, key: v1}
+      - {table: factor_neutralization_annual, key: v1}
+      - {table: factor_neutralization_bootstrap, key: v1}
+      - {table: factor_neutralization_conclusions, key: v1}
+    figures: []
+
+  model_portfolio_neutralization_v1:
+    title: Locked Ridge/HGB model and portfolio PIT neutralization transmission
+    stage: model_and_portfolio_risk_neutralization
+    model_version: locked_ridge_hgb_csrc_broad_log_size_v1
+    dataset_version_method: sha256_of_registered_inputs_and_ingestion_manifest
+    historical_oos_used_for_selection: false
+    config_files:
+      - preprocessing.yaml
+      - factor_preprocessing_selected.yaml
+      - risk_exposure.yaml
+      - factor_neutralization.yaml
+      - model_portfolio_neutralization.yaml
+    input_tables: *pit_neutralization_inputs
+    metric_tables:
+      - {table: model_neutralization_protocol, key: v1}
+      - {table: model_neutralization_validation_summary, key: v1}
+      - {table: model_neutralization_oos_summary, key: v1}
+      - {table: model_neutralization_oos_annual, key: v1}
+      - {table: model_neutralization_oos_bootstrap, key: v1}
+      - {table: model_neutralization_conclusions, key: v1}
+      - {table: model_neutralization_fit_audit, key: v1}
+    figures: []
+
+  factor_neutralization_v2:
+    title: Repaired PIT CSRC-industry and log-size neutralized factor diagnostics
+    stage: risk_exposure_and_factor_neutralization
+    model_version: csrc_broad_log_size_factor_residualization_v2
+    dataset_version_method: sha256_of_registered_inputs_and_ingestion_manifest
+    historical_oos_used_for_selection: false
+    config_files:
+      - preprocessing.yaml
+      - factor_preprocessing_selected.yaml
+      - risk_exposure.yaml
+      - factor_neutralization.yaml
+    input_tables: *pit_neutralization_inputs
+    metric_tables:
+      - {table: factor_neutralization_directions, key: v1}
+      - {table: factor_neutralization_summary, key: v1}
+      - {table: factor_neutralization_annual, key: v1}
+      - {table: factor_neutralization_bootstrap, key: v1}
+      - {table: factor_neutralization_conclusions, key: v1}
+    figures: []
+
+  factor_tear_sheet_v1:
+    title: PIT historical-OOS single-factor decile and regime tear sheet
+    stage: single_factor_diagnostics
+    model_version: locked_direction_raw_and_industry_size_neutralized_v1
+    dataset_version_method: sha256_of_registered_inputs_and_ingestion_manifest
+    historical_oos_used_for_selection: false
+    config_files:
+      - preprocessing.yaml
+      - factor_preprocessing_selected.yaml
+      - factor_neutralization.yaml
+      - factor_tear_sheet.yaml
+    input_tables:
+      - {table: factor_neutralization_directions, key: v1}
+      - {table: daily_bars_validated, key: sh_000905}
+      - {table: multi_horizon_factor_panel, key: "2021"}
+      - {table: multi_horizon_factor_panel, key: "2022"}
+      - {table: multi_horizon_factor_panel, key: "2023"}
+      - {table: multi_horizon_factor_panel, key: "2024"}
+      - {table: multi_horizon_factor_panel, key: "2025"}
+      - {table: multi_horizon_factor_panel, key: "2026"}
+      - {table: pit_size_exposures, key: "2021"}
+      - {table: pit_size_exposures, key: "2022"}
+      - {table: pit_size_exposures, key: "2023"}
+      - {table: pit_size_exposures, key: "2024"}
+      - {table: pit_size_exposures, key: "2025"}
+      - {table: pit_size_exposures, key: "2026"}
+      - {table: pit_industry_exposures, key: "2021"}
+      - {table: pit_industry_exposures, key: "2022"}
+      - {table: pit_industry_exposures, key: "2023"}
+      - {table: pit_industry_exposures, key: "2024"}
+      - {table: pit_industry_exposures, key: "2025"}
+      - {table: pit_industry_exposures, key: "2026"}
+    metric_tables:
+      - {table: factor_tear_sheet_protocol, key: v1}
+      - {table: factor_tear_sheet_summary, key: v1}
+      - {table: factor_tear_sheet_annual, key: v1}
+      - {table: factor_tear_sheet_regime, key: v1}
+      - {table: factor_tear_sheet_bootstrap, key: v1}
+    figures: []
+
+  capm_attribution_v1:
+    title: Daily executable-portfolio CAPM alpha and rolling beta
+    stage: time_series_return_attribution
+    model_version: daily_net_return_three_csi_benchmarks_hac_v1
+    dataset_version_method: sha256_of_registered_inputs_and_ingestion_manifest
+    historical_oos_used_for_selection: false
+    config_files:
+      - constrained_portfolio_daily_execution.yaml
+      - capm_attribution.yaml
+    input_tables:
+      - {table: constrained_daily_execution_daily, key: v1}
+      - {table: daily_bars_validated, key: sh_000300}
+      - {table: daily_bars_validated, key: sh_000905}
+      - {table: daily_bars_validated, key: sh_000852}
+    metric_tables:
+      - {table: capm_protocol, key: v1}
+      - {table: capm_summary, key: v1}
+      - {table: capm_annual, key: v1}
+      - {table: capm_rolling, key: v1}
+    figures: []
+
+  style_factor_attribution_v1:
+    title: PIT self-financing style factors and daily multi-factor attribution
+    stage: time_series_multifactor_return_attribution
+    model_version: csrc_industry_residual_six_style_hac_v1
+    dataset_version_method: sha256_of_registered_inputs_and_ingestion_manifest
+    historical_oos_used_for_selection: false
+    config_files:
+      - multi_factor_risk_attribution.yaml
+      - capm_attribution.yaml
+      - style_factor_attribution.yaml
+    input_tables:
+      - {table: capm_aligned_daily, key: v1}
+      - {table: style_factor_targets, key: v1}
+      - {table: style_factor_daily_market, key: v1}
+      - {table: multi_horizon_factor_panel, key: "2021"}
+      - {table: multi_horizon_factor_panel, key: "2022"}
+      - {table: multi_horizon_factor_panel, key: "2023"}
+      - {table: multi_horizon_factor_panel, key: "2024"}
+      - {table: multi_horizon_factor_panel, key: "2025"}
+      - {table: multi_horizon_factor_panel, key: "2026"}
+      - {table: pit_size_exposures, key: "2021"}
+      - {table: pit_size_exposures, key: "2022"}
+      - {table: pit_size_exposures, key: "2023"}
+      - {table: pit_size_exposures, key: "2024"}
+      - {table: pit_size_exposures, key: "2025"}
+      - {table: pit_size_exposures, key: "2026"}
+      - {table: pit_industry_exposures, key: "2021"}
+      - {table: pit_industry_exposures, key: "2022"}
+      - {table: pit_industry_exposures, key: "2023"}
+      - {table: pit_industry_exposures, key: "2024"}
+      - {table: pit_industry_exposures, key: "2025"}
+      - {table: pit_industry_exposures, key: "2026"}
+      - {table: pit_beta_exposures, key: "2021"}
+      - {table: pit_beta_exposures, key: "2022"}
+      - {table: pit_beta_exposures, key: "2023"}
+      - {table: pit_beta_exposures, key: "2024"}
+      - {table: pit_beta_exposures, key: "2025"}
+      - {table: pit_beta_exposures, key: "2026"}
+    metric_tables:
+      - {table: style_factor_protocol, key: v1}
+      - {table: style_factor_exposure_audit, key: v1}
+      - {table: style_factor_daily_returns, key: v1}
+      - {table: style_factor_diagnostics, key: v1}
+      - {table: style_factor_multicollinearity, key: v1}
+      - {table: style_factor_correlation, key: v1}
+      - {table: style_factor_regression_summary, key: v1}
+      - {table: style_factor_regression_annual, key: v1}
+    figures: []
+
+  model_portfolio_neutralization_v2:
+    title: Repaired locked Ridge/HGB model and portfolio PIT neutralization transmission
+    stage: model_and_portfolio_risk_neutralization
+    model_version: locked_ridge_hgb_csrc_broad_log_size_v2
+    dataset_version_method: sha256_of_registered_inputs_and_ingestion_manifest
+    historical_oos_used_for_selection: false
+    config_files:
+      - preprocessing.yaml
+      - factor_preprocessing_selected.yaml
+      - risk_exposure.yaml
+      - factor_neutralization.yaml
+      - model_portfolio_neutralization.yaml
+    input_tables: *pit_neutralization_inputs
+    metric_tables:
+      - {table: model_neutralization_protocol, key: v1}
+      - {table: model_neutralization_validation_summary, key: v1}
+      - {table: model_neutralization_oos_summary, key: v1}
+      - {table: model_neutralization_oos_annual, key: v1}
+      - {table: model_neutralization_oos_bootstrap, key: v1}
+      - {table: model_neutralization_conclusions, key: v1}
+      - {table: model_neutralization_fit_audit, key: v1}
+    figures: []
+
+  constrained_portfolio_neutralization_v1:
+    title: PIT industry, size, stock-weight, and turnover constrained portfolios
+    stage: constrained_portfolio_risk_neutralization
+    model_version: locked_ridge_hgb_scipy_highs_risk_constraints_v1
+    dataset_version_method: sha256_of_registered_inputs_and_ingestion_manifest
+    historical_oos_used_for_selection: false
+    config_files:
+      - preprocessing.yaml
+      - factor_preprocessing_selected.yaml
+      - risk_exposure.yaml
+      - factor_neutralization.yaml
+      - model_portfolio_neutralization.yaml
+      - constrained_portfolio_neutralization.yaml
+    input_tables: *pit_neutralization_inputs
+    metric_tables:
+      - {table: constrained_portfolio_protocol, key: v1}
+      - {table: constrained_portfolio_oos_summary, key: v1}
+      - {table: constrained_portfolio_oos_annual, key: v1}
+      - {table: constrained_portfolio_oos_bootstrap, key: v1}
+      - {table: constrained_portfolio_fit_audit, key: v1}
+    figures: []
+
+  constrained_portfolio_daily_execution_v1:
+    title: Daily price-limit and suspension execution of constrained portfolios
+    stage: constrained_portfolio_daily_execution
+    model_version: frozen_constrained_targets_share_order_retry_v1
+    dataset_version_method: sha256_of_registered_inputs_and_ingestion_manifest
+    historical_oos_used_for_selection: false
+    config_files:
+      - constrained_portfolio_neutralization.yaml
+      - constrained_portfolio_daily_execution.yaml
+    input_tables:
+      - {table: constrained_portfolio_oos_holdings, key: v1}
+      - {table: constrained_execution_targets, key: v1}
+      - {table: constrained_daily_execution_market, key: v1}
+    metric_tables:
+      - {table: constrained_daily_execution_protocol, key: v1}
+      - {table: constrained_daily_execution_daily, key: v1}
+      - {table: constrained_daily_execution_summary, key: v1}
+      - {table: constrained_daily_execution_annual, key: v1}
+      - {table: constrained_daily_execution_bootstrap, key: v1}
+    figures: []
+
+  multi_factor_risk_attribution_v1:
+    title: PIT multi-factor risk model and constrained-portfolio attribution
+    stage: multi_factor_risk_and_return_attribution
+    model_version: csrc_industry_six_style_ewma_covariance_v1
+    dataset_version_method: sha256_of_registered_inputs_and_ingestion_manifest
+    historical_oos_used_for_selection: false
+    config_files:
+      - constrained_portfolio_neutralization.yaml
+      - multi_factor_risk_attribution.yaml
+    input_tables: &multi_factor_risk_inputs
+      - {table: constrained_portfolio_oos_holdings, key: v1}
+      - {table: constrained_portfolio_oos_weekly, key: v1}
+      - {table: pit_beta_exposure_index, key: v1}
+      - {table: pit_beta_exposures, key: "2008"}
+      - {table: pit_beta_exposures, key: "2009"}
+      - {table: pit_beta_exposures, key: "2010"}
+      - {table: pit_beta_exposures, key: "2011"}
+      - {table: pit_beta_exposures, key: "2012"}
+      - {table: pit_beta_exposures, key: "2013"}
+      - {table: pit_beta_exposures, key: "2014"}
+      - {table: pit_beta_exposures, key: "2015"}
+      - {table: pit_beta_exposures, key: "2016"}
+      - {table: pit_beta_exposures, key: "2017"}
+      - {table: pit_beta_exposures, key: "2018"}
+      - {table: pit_beta_exposures, key: "2019"}
+      - {table: pit_beta_exposures, key: "2020"}
+      - {table: pit_beta_exposures, key: "2021"}
+      - {table: pit_beta_exposures, key: "2022"}
+      - {table: pit_beta_exposures, key: "2023"}
+      - {table: pit_beta_exposures, key: "2024"}
+      - {table: pit_beta_exposures, key: "2025"}
+      - {table: pit_beta_exposures, key: "2026"}
+      - {table: multi_horizon_factor_panel, key: "2008"}
+      - {table: multi_horizon_factor_panel, key: "2009"}
+      - {table: multi_horizon_factor_panel, key: "2010"}
+      - {table: multi_horizon_factor_panel, key: "2011"}
+      - {table: multi_horizon_factor_panel, key: "2012"}
+      - {table: multi_horizon_factor_panel, key: "2013"}
+      - {table: multi_horizon_factor_panel, key: "2014"}
+      - {table: multi_horizon_factor_panel, key: "2015"}
+      - {table: multi_horizon_factor_panel, key: "2016"}
+      - {table: multi_horizon_factor_panel, key: "2017"}
+      - {table: multi_horizon_factor_panel, key: "2018"}
+      - {table: multi_horizon_factor_panel, key: "2019"}
+      - {table: multi_horizon_factor_panel, key: "2020"}
+      - {table: multi_horizon_factor_panel, key: "2021"}
+      - {table: multi_horizon_factor_panel, key: "2022"}
+      - {table: multi_horizon_factor_panel, key: "2023"}
+      - {table: multi_horizon_factor_panel, key: "2024"}
+      - {table: multi_horizon_factor_panel, key: "2025"}
+      - {table: multi_horizon_factor_panel, key: "2026"}
+      - {table: pit_size_exposures, key: "2008"}
+      - {table: pit_size_exposures, key: "2009"}
+      - {table: pit_size_exposures, key: "2010"}
+      - {table: pit_size_exposures, key: "2011"}
+      - {table: pit_size_exposures, key: "2012"}
+      - {table: pit_size_exposures, key: "2013"}
+      - {table: pit_size_exposures, key: "2014"}
+      - {table: pit_size_exposures, key: "2015"}
+      - {table: pit_size_exposures, key: "2016"}
+      - {table: pit_size_exposures, key: "2017"}
+      - {table: pit_size_exposures, key: "2018"}
+      - {table: pit_size_exposures, key: "2019"}
+      - {table: pit_size_exposures, key: "2020"}
+      - {table: pit_size_exposures, key: "2021"}
+      - {table: pit_size_exposures, key: "2022"}
+      - {table: pit_size_exposures, key: "2023"}
+      - {table: pit_size_exposures, key: "2024"}
+      - {table: pit_size_exposures, key: "2025"}
+      - {table: pit_size_exposures, key: "2026"}
+      - {table: pit_industry_exposures, key: "2008"}
+      - {table: pit_industry_exposures, key: "2009"}
+      - {table: pit_industry_exposures, key: "2010"}
+      - {table: pit_industry_exposures, key: "2011"}
+      - {table: pit_industry_exposures, key: "2012"}
+      - {table: pit_industry_exposures, key: "2013"}
+      - {table: pit_industry_exposures, key: "2014"}
+      - {table: pit_industry_exposures, key: "2015"}
+      - {table: pit_industry_exposures, key: "2016"}
+      - {table: pit_industry_exposures, key: "2017"}
+      - {table: pit_industry_exposures, key: "2018"}
+      - {table: pit_industry_exposures, key: "2019"}
+      - {table: pit_industry_exposures, key: "2020"}
+      - {table: pit_industry_exposures, key: "2021"}
+      - {table: pit_industry_exposures, key: "2022"}
+      - {table: pit_industry_exposures, key: "2023"}
+      - {table: pit_industry_exposures, key: "2024"}
+      - {table: pit_industry_exposures, key: "2025"}
+      - {table: pit_industry_exposures, key: "2026"}
+    metric_tables:
+      - {table: risk_model_protocol, key: v1}
+      - {table: risk_model_factor_returns, key: v1}
+      - {table: risk_model_portfolio_attribution, key: v1}
+      - {table: risk_model_portfolio_exposures, key: v1}
+      - {table: risk_model_portfolio_forecasts, key: v1}
+      - {table: risk_model_attribution_summary, key: v1}
+      - {table: risk_model_attribution_bootstrap, key: v1}
+    figures: []
+
+  risk_aware_portfolio_optimization_v2:
+    title: Lagged multi-factor risk-aware portfolio and target-volatility overlay
+    stage: risk_aware_portfolio_optimization
+    model_version: conditional_gradient_lagged_factor_risk_v1
+    dataset_version_method: sha256_of_registered_inputs_and_ingestion_manifest
+    historical_oos_used_for_selection: false
+    config_files:
+      - constrained_portfolio_neutralization.yaml
+      - multi_factor_risk_attribution.yaml
+      - risk_aware_portfolio_optimization.yaml
+      - experiment_invalidations.yaml
+    input_tables: *multi_factor_risk_inputs
+    metric_tables:
+      - {table: risk_aware_portfolio_protocol, key: v2}
+      - {table: risk_aware_portfolio_weekly, key: v2}
+      - {table: risk_aware_portfolio_forecasts, key: v2}
+      - {table: risk_aware_portfolio_constraint_audit, key: v2}
+      - {table: risk_aware_portfolio_summary, key: v2}
+      - {table: risk_aware_portfolio_bootstrap, key: v2}
+    figures: []
+
+  factor_registry_v1:
+    title: Machine-readable factor definitions and locked training directions
+    stage: factor_governance
+    model_version: factor_registry_1_0_0
+    dataset_version_method: sha256_of_registered_inputs_and_ingestion_manifest
+    historical_oos_used_for_selection: false
+    config_files:
+      - factor_registry.yaml
+      - preprocessing.yaml
+    input_tables:
+      - {table: factor_neutralization_directions, key: v1}
+    metric_tables:
+      - {table: factor_registry, key: v1}
+    figures: []
+
+  portfolio_sensitivity_v1:
+    title: Common-date Top-N, inverse-volatility, and executable cost sensitivity
+    stage: portfolio_robustness
+    model_version: locked_ridge_weighting_and_fixed_fill_cost_stress_v1
+    dataset_version_method: sha256_of_registered_inputs_and_ingestion_manifest
+    historical_oos_used_for_selection: false
+    config_files:
+      - portfolio_sensitivity.yaml
+      - portfolio.yaml
+      - constrained_portfolio_daily_execution.yaml
+    input_tables:
+      - {table: model_validation_predictions, key: ridge_v1}
+      - {table: model_oos_predictions, key: ridge_v1}
+      - {table: constrained_daily_execution_daily, key: v1}
+      - {table: multi_horizon_factor_panel, key: "2016"}
+      - {table: multi_horizon_factor_panel, key: "2017"}
+      - {table: multi_horizon_factor_panel, key: "2018"}
+      - {table: multi_horizon_factor_panel, key: "2019"}
+      - {table: multi_horizon_factor_panel, key: "2020"}
+      - {table: multi_horizon_factor_panel, key: "2021"}
+      - {table: multi_horizon_factor_panel, key: "2022"}
+      - {table: multi_horizon_factor_panel, key: "2023"}
+      - {table: multi_horizon_factor_panel, key: "2024"}
+      - {table: multi_horizon_factor_panel, key: "2025"}
+      - {table: multi_horizon_factor_panel, key: "2026"}
+    metric_tables:
+      - {table: portfolio_sensitivity_protocol, key: v1}
+      - {table: portfolio_sensitivity_summary, key: v1}
+      - {table: execution_cost_stress, key: v1}
+    figures: []
+
+  hgb_hyperparameter_stability_v1:
+    title: Validation-only HGB leaf-count by L2 stability surface
+    stage: model_hyperparameter_robustness
+    model_version: hgb_two_dimensional_validation_surface_v1
+    dataset_version_method: sha256_of_registered_inputs_and_ingestion_manifest
+    historical_oos_used_for_selection: false
+    config_files:
+      - preprocessing.yaml
+      - model_benchmark.yaml
+      - hgb_hyperparameter_stability.yaml
+    input_tables:
+      - {table: calendar, key: SSE}
+      - {table: multi_horizon_factor_panel, key: "2006"}
+      - {table: multi_horizon_factor_panel, key: "2007"}
+      - {table: multi_horizon_factor_panel, key: "2008"}
+      - {table: multi_horizon_factor_panel, key: "2009"}
+      - {table: multi_horizon_factor_panel, key: "2010"}
+      - {table: multi_horizon_factor_panel, key: "2011"}
+      - {table: multi_horizon_factor_panel, key: "2012"}
+      - {table: multi_horizon_factor_panel, key: "2013"}
+      - {table: multi_horizon_factor_panel, key: "2014"}
+      - {table: multi_horizon_factor_panel, key: "2015"}
+      - {table: multi_horizon_factor_panel, key: "2016"}
+      - {table: multi_horizon_factor_panel, key: "2017"}
+      - {table: multi_horizon_factor_panel, key: "2018"}
+      - {table: multi_horizon_factor_panel, key: "2019"}
+      - {table: multi_horizon_factor_panel, key: "2020"}
+    metric_tables:
+      - {table: hgb_hyperparameter_protocol, key: v1}
+      - {table: hgb_hyperparameter_summary, key: v1}
+      - {table: hgb_hyperparameter_annual, key: v1}
+      - {table: hgb_hyperparameter_annual_winners, key: v1}
+    figures: []
+
+  factor_visual_diagnostics_v1:
+    title: OOS raw-factor distributions and rolling correlation stability
+    stage: factor_descriptive_diagnostics
+    model_version: raw_distribution_and_52_week_correlation_v1
+    dataset_version_method: sha256_of_registered_inputs_and_ingestion_manifest
+    historical_oos_used_for_selection: false
+    config_files:
+      - preprocessing.yaml
+      - feature_analysis.yaml
+      - factor_visual_diagnostics.yaml
+    input_tables:
+      - {table: factor_correlation, key: v1}
+      - {table: multi_horizon_factor_panel, key: "2021"}
+      - {table: multi_horizon_factor_panel, key: "2022"}
+      - {table: multi_horizon_factor_panel, key: "2023"}
+      - {table: multi_horizon_factor_panel, key: "2024"}
+      - {table: multi_horizon_factor_panel, key: "2025"}
+      - {table: multi_horizon_factor_panel, key: "2026"}
+    metric_tables:
+      - {table: factor_distribution_summary, key: v1}
+      - {table: factor_rolling_correlation_stability, key: v1}
+    figures:
+      - reports/figures/factor_correlation_heatmap.svg
+      - reports/figures/factor_distributions.svg
+
+  final_research_baseline_v1: &final_research_baseline
+    title: Final resume-ready PIT factor, executable portfolio, and attribution baseline
+    stage: final_publication_baseline
+    model_version: locked_ridge_hgb_constrained_daily_six_style_v1
+    dataset_version_method: sha256_of_registered_inputs_and_ingestion_manifest
+    historical_oos_used_for_selection: false
+    config_files:
+      - factor_registry.yaml
+      - preprocessing.yaml
+      - model_benchmark.yaml
+      - hgb_hyperparameter_stability.yaml
+      - factor_neutralization.yaml
+      - constrained_portfolio_neutralization.yaml
+      - constrained_portfolio_daily_execution.yaml
+      - multi_factor_risk_attribution.yaml
+      - risk_aware_portfolio_optimization.yaml
+      - capm_attribution.yaml
+      - style_factor_attribution.yaml
+      - portfolio_sensitivity.yaml
+      - experiment_invalidations.yaml
+    input_tables:
+      - {table: factor_registry, key: v1}
+      - {table: factor_tear_sheet_weekly, key: v1}
+      - {table: model_benchmark_oos_daily, key: v1}
+      - {table: constrained_daily_execution_daily, key: v1}
+      - {table: risk_model_factor_returns, key: v1}
+      - {table: style_factor_daily_returns, key: v1}
+    metric_tables:
+      - {table: factor_tear_sheet_summary, key: v1}
+      - {table: factor_tear_sheet_bootstrap, key: v1}
+      - {table: model_benchmark_selection, key: v1}
+      - {table: model_benchmark_oos_summary, key: v1}
+      - {table: hgb_hyperparameter_protocol, key: v1}
+      - {table: hgb_hyperparameter_summary, key: v1}
+      - {table: constrained_portfolio_oos_summary, key: v1}
+      - {table: constrained_daily_execution_summary, key: v1}
+      - {table: constrained_daily_execution_bootstrap, key: v1}
+      - {table: risk_model_attribution_summary, key: v1}
+      - {table: risk_model_attribution_bootstrap, key: v1}
+      - {table: risk_aware_portfolio_summary, key: v2}
+      - {table: risk_aware_portfolio_bootstrap, key: v2}
+      - {table: capm_summary, key: v1}
+      - {table: style_factor_regression_summary, key: v1}
+      - {table: portfolio_sensitivity_summary, key: v1}
+      - {table: execution_cost_stress, key: v1}
+    figures:
+      - reports/figures/oos_equity_curve.svg
+      - reports/figures/oos_drawdown.svg
+      - reports/figures/annual_rank_ic.svg
+      - reports/figures/annual_returns.svg
+      - reports/figures/factor_correlation_heatmap.svg
+      - reports/figures/factor_distributions.svg
+
+  final_research_baseline_v2:
+    <<: *final_research_baseline
+    title: Final audited resume-ready PIT factor, executable portfolio, and attribution baseline
+    model_version: locked_ridge_hgb_constrained_daily_six_style_audited_v2

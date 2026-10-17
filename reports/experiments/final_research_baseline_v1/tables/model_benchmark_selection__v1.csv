@@ -1,0 +1,2 @@
+experiment_id,selected_candidate,selected_family,validation_mean_rank_ic,selection_period,historical_oos_used_for_selection
+model_benchmark_v1,hgb_shallow15,hgb,0.09908213409503032,validation_2016_2020_only,False

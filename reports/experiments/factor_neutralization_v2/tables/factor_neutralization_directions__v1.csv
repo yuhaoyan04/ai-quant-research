@@ -1,0 +1,16 @@
+factor,training_raw_mean_rank_ic,direction,direction_rule
+amihud_20d,0.045517601144251754,1,sign_of_raw_training_mean_rank_ic
+amplitude_20d,-0.03830548153244663,-1,sign_of_raw_training_mean_rank_ic
+book_to_price,0.030871811040716773,1,sign_of_raw_training_mean_rank_ic
+earnings_yield,0.014843107263624906,1,sign_of_raw_training_mean_rank_ic
+max_return_20d,-0.04737038331594176,-1,sign_of_raw_training_mean_rank_ic
+momentum_120d,-0.04769126346404578,-1,sign_of_raw_training_mean_rank_ic
+momentum_20d,-0.06436146488040827,-1,sign_of_raw_training_mean_rank_ic
+momentum_20d_skip_5d,-0.03347966750995704,-1,sign_of_raw_training_mean_rank_ic
+momentum_60d,-0.05822169682455133,-1,sign_of_raw_training_mean_rank_ic
+return_volume_corr_20d,-0.0466007338327945,-1,sign_of_raw_training_mean_rank_ic
+reversal_5d,0.07561832228929351,1,sign_of_raw_training_mean_rank_ic
+turnover_20d,-0.0333640569701479,-1,sign_of_raw_training_mean_rank_ic
+turnover_surprise_20d,-0.036424175927699955,-1,sign_of_raw_training_mean_rank_ic
+volatility_20d,-0.03212166086186823,-1,sign_of_raw_training_mean_rank_ic
+volume_surprise_20d,-0.045234618662919765,-1,sign_of_raw_training_mean_rank_ic

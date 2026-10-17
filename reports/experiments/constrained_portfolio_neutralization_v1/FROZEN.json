@@ -1,0 +1,16 @@
+{
+  "experiment_id": "constrained_portfolio_neutralization_v1",
+  "frozen_at_utc": "2026-10-17T04:30:25.364907+00:00",
+  "content_sha256": "bd3e0d682b67aca128855a48baa278e82b1a860d00b5b791f31c2c30eb78b1b3",
+  "files": {
+    "config.yaml": "27b6a2fd789f9722ae2e0e40bb920a2337f5feb6128b6bc56cb8ce66b969d81c",
+    "metadata.json": "e87b5871f9434360072e70cbd318d5da1db90989c23330722897a5e5845ad304",
+    "metrics.json": "9a9a99cf46c5535f6127d19486c8639562fff5085fd95fd01cd7d0f44e20ca68",
+    "notes.md": "4232b847b7c8626e77fbc384b40778a76cd3f01e3ce52564b55ba7203898c5e3",
+    "tables/constrained_portfolio_fit_audit__v1.csv": "39544703d456f9e226793b9b921d091520a1b727649e55011a6fab860d9c35c0",
+    "tables/constrained_portfolio_oos_annual__v1.csv": "7554cb8cf4b1813cb9d3fb4501cb717fd6baeb8947ad5d1475e471d748a8351e",
+    "tables/constrained_portfolio_oos_bootstrap__v1.csv": "ba4ce89ddf5ee50c89ed9fecdfa28c7077beb28fadafe5fc790602b0c06a6dca",
+    "tables/constrained_portfolio_oos_summary__v1.csv": "c686208e92052ff0b7aa299d65a9b6a9bff3d18461bffd1738631a20f6efba4f",
+    "tables/constrained_portfolio_protocol__v1.csv": "f1cfcec1646b7f8442d58900b94978a7d9d33e5a827f9bba567ed8b92b337d13"
+  }
+}

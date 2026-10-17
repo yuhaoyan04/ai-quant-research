@@ -1,0 +1,61 @@
+# 事前多因子风险约束与目标波动实验
+
+## 方法
+
+- 候选股票为冻结的 Top-200 与约束组合持仓并集，并携带上期持仓；旧持仓若无当期分数则 alpha 效用为零。
+- 使用信号日前的 104 周 EWMA 收缩因子协方差和滞后个股特异方差。
+- 在保留最大可行 alpha score utility 98% 的前提下最小化主动风险。
+- 另设 20% 年化目标波动、只降仓不加杠杆的现金覆盖层。
+
+## 2021–2026 historical OOS 汇总
+
+| model                | alpha_pipeline            | scenario                |   periods |   annualized_return |   annualized_volatility |   sharpe_zero_rate |   annualized_excess_return_arithmetic |   information_ratio |   maximum_drawdown |   mean_turnover |   mean_realized_weight_fraction |   mean_forecast_annualized_volatility |   mean_forecast_annualized_tracking_error |   mean_risky_weight |   mean_alpha_utility_retention |   turnover_relaxation_fraction |
+|:---------------------|:--------------------------|:------------------------|----------:|--------------------:|------------------------:|-------------------:|--------------------------------------:|--------------------:|-------------------:|----------------:|--------------------------------:|--------------------------------------:|------------------------------------------:|--------------------:|-------------------------------:|-------------------------------:|
+| ridge_locked         | raw                       | source_risk_constrained |       293 |            0.213586 |                0.274857 |           0.840348 |                              0.076952 |            0.823654 |          -0.327426 |        0.302389 |                        0.998890 |                              0.260521 |                                  0.093017 |            1.000000 |                       1.000000 |                       0.000000 |
+| hgb_shallow15_locked | raw                       | source_risk_constrained |       293 |            0.246798 |                0.281291 |           0.924207 |                              0.105946 |            1.244708 |          -0.328971 |        0.302389 |                        0.999182 |                              0.260811 |                                  0.080721 |            1.000000 |                       1.000000 |                       0.000000 |
+| ridge_locked         | industry_size_neutralized | source_risk_constrained |       293 |            0.188355 |                0.269309 |           0.773480 |                              0.054281 |            0.575072 |          -0.314225 |        0.302389 |                        0.999186 |                              0.259320 |                                  0.092486 |            1.000000 |                       1.000000 |                       0.000000 |
+| hgb_shallow15_locked | industry_size_neutralized | source_risk_constrained |       293 |            0.229308 |                0.265393 |           0.911207 |                              0.087803 |            1.028693 |          -0.312818 |        0.302389 |                        0.999429 |                              0.257600 |                                  0.082229 |            1.000000 |                       1.000000 |                       0.000000 |
+| ridge_locked         | raw                       | risk_aware_full         |       293 |            0.181583 |                0.281606 |           0.731546 |                              0.052003 |            0.796809 |          -0.329146 |        0.302386 |                        1.000000 |                              0.267466 |                                  0.058620 |            1.000000 |                       0.980000 |                       0.000000 |
+| ridge_locked         | raw                       | risk_aware_target_vol   |       293 |            0.099903 |                0.212619 |           0.554745 |                             -0.036056 |           -0.334667 |          -0.305521 |        0.249631 |                        1.000000 |                              0.199453 |                                  0.100317 |            0.792405 |                       0.980000 |                       0.000000 |
+| hgb_shallow15_locked | raw                       | risk_aware_full         |       293 |            0.186884 |                0.289248 |           0.736035 |                              0.058892 |            1.045098 |          -0.339149 |        0.302385 |                        1.000000 |                              0.269996 |                                  0.044336 |            1.000000 |                       0.980001 |                       0.000000 |
+| hgb_shallow15_locked | raw                       | risk_aware_target_vol   |       293 |            0.100463 |                0.218590 |           0.548307 |                             -0.034150 |           -0.337729 |          -0.313577 |        0.247218 |                        1.000000 |                              0.199758 |                                  0.091802 |            0.785077 |                       0.980001 |                       0.000000 |
+| ridge_locked         | industry_size_neutralized | risk_aware_full         |       293 |            0.155008 |                0.278579 |           0.654610 |                              0.028356 |            0.435049 |          -0.321766 |        0.302387 |                        1.000000 |                              0.266924 |                                  0.059203 |            1.000000 |                       0.980002 |                       0.000000 |
+| ridge_locked         | industry_size_neutralized | risk_aware_target_vol   |       293 |            0.079363 |                0.211300 |           0.467670 |                             -0.055187 |           -0.510051 |          -0.299915 |        0.251003 |                        1.000000 |                              0.199881 |                                  0.100661 |            0.794999 |                       0.980002 |                       0.000000 |
+| hgb_shallow15_locked | industry_size_neutralized | risk_aware_full         |       293 |            0.191849 |                0.280910 |           0.764543 |                              0.060763 |            0.996917 |          -0.342623 |        0.302379 |                        1.000000 |                              0.266654 |                                  0.050663 |            1.000000 |                       0.980001 |                       0.000000 |
+| hgb_shallow15_locked | industry_size_neutralized | risk_aware_target_vol   |       293 |            0.108651 |                0.213699 |           0.590606 |                             -0.027793 |           -0.264450 |          -0.320706 |        0.249319 |                        1.000000 |                              0.199395 |                                  0.095030 |            0.793587 |                       0.980001 |                       0.000000 |
+
+## 相对原约束组合的配对块区间
+
+| model                | alpha_pipeline            | scenario              | reference               | metric                           |   observations |   point_estimate |   ci_2_5pct |   ci_97_5pct |
+|:---------------------|:--------------------------|:----------------------|:------------------------|:---------------------------------|---------------:|-----------------:|------------:|-------------:|
+| hgb_shallow15_locked | industry_size_neutralized | risk_aware_full       | source_risk_constrained | net_return_annualized_arithmetic |            293 |        -0.027060 |   -0.058880 |     0.005211 |
+| hgb_shallow15_locked | industry_size_neutralized | risk_aware_full       | source_risk_constrained | forecast_tracking_error          |            293 |        -0.031567 |   -0.035381 |    -0.028060 |
+| hgb_shallow15_locked | industry_size_neutralized | risk_aware_full       | source_risk_constrained | forecast_volatility              |            293 |         0.009054 |    0.006467 |     0.011935 |
+| hgb_shallow15_locked | industry_size_neutralized | risk_aware_target_vol | source_risk_constrained | net_return_annualized_arithmetic |            293 |        -0.115616 |   -0.170131 |    -0.066292 |
+| hgb_shallow15_locked | industry_size_neutralized | risk_aware_target_vol | source_risk_constrained | forecast_tracking_error          |            293 |         0.012801 |   -0.005395 |     0.035389 |
+| hgb_shallow15_locked | industry_size_neutralized | risk_aware_target_vol | source_risk_constrained | forecast_volatility              |            293 |        -0.058205 |   -0.085388 |    -0.035826 |
+| hgb_shallow15_locked | raw                       | risk_aware_full       | source_risk_constrained | net_return_annualized_arithmetic |            293 |        -0.047074 |   -0.082419 |    -0.008044 |
+| hgb_shallow15_locked | raw                       | risk_aware_full       | source_risk_constrained | forecast_tracking_error          |            293 |        -0.036386 |   -0.041630 |    -0.031515 |
+| hgb_shallow15_locked | raw                       | risk_aware_full       | source_risk_constrained | forecast_volatility              |            293 |         0.009186 |    0.006019 |     0.012519 |
+| hgb_shallow15_locked | raw                       | risk_aware_target_vol | source_risk_constrained | net_return_annualized_arithmetic |            293 |        -0.140116 |   -0.207751 |    -0.075977 |
+| hgb_shallow15_locked | raw                       | risk_aware_target_vol | source_risk_constrained | forecast_tracking_error          |            293 |         0.011081 |   -0.007810 |     0.034750 |
+| hgb_shallow15_locked | raw                       | risk_aware_target_vol | source_risk_constrained | forecast_volatility              |            293 |        -0.061052 |   -0.089254 |    -0.037617 |
+| ridge_locked         | industry_size_neutralized | risk_aware_full       | source_risk_constrained | net_return_annualized_arithmetic |            293 |        -0.025944 |   -0.059948 |     0.008248 |
+| ridge_locked         | industry_size_neutralized | risk_aware_full       | source_risk_constrained | forecast_tracking_error          |            293 |        -0.033283 |   -0.036969 |    -0.029966 |
+| ridge_locked         | industry_size_neutralized | risk_aware_full       | source_risk_constrained | forecast_volatility              |            293 |         0.007604 |    0.004824 |     0.010711 |
+| ridge_locked         | industry_size_neutralized | risk_aware_target_vol | source_risk_constrained | net_return_annualized_arithmetic |            293 |        -0.109487 |   -0.176044 |    -0.049551 |
+| ridge_locked         | industry_size_neutralized | risk_aware_target_vol | source_risk_constrained | forecast_tracking_error          |            293 |         0.008175 |   -0.010247 |     0.030980 |
+| ridge_locked         | industry_size_neutralized | risk_aware_target_vol | source_risk_constrained | forecast_volatility              |            293 |        -0.059439 |   -0.087085 |    -0.036657 |
+| ridge_locked         | raw                       | risk_aware_full       | source_risk_constrained | net_return_annualized_arithmetic |            293 |        -0.024968 |   -0.059351 |     0.011827 |
+| ridge_locked         | raw                       | risk_aware_full       | source_risk_constrained | forecast_tracking_error          |            293 |        -0.034396 |   -0.038712 |    -0.030379 |
+| ridge_locked         | raw                       | risk_aware_full       | source_risk_constrained | forecast_volatility              |            293 |         0.006945 |    0.003939 |     0.010139 |
+| ridge_locked         | raw                       | risk_aware_target_vol | source_risk_constrained | net_return_annualized_arithmetic |            293 |        -0.113026 |   -0.182778 |    -0.050635 |
+| ridge_locked         | raw                       | risk_aware_target_vol | source_risk_constrained | forecast_tracking_error          |            293 |         0.007300 |   -0.010906 |     0.029794 |
+| ridge_locked         | raw                       | risk_aware_target_vol | source_risk_constrained | forecast_volatility              |            293 |        -0.061068 |   -0.089078 |    -0.038349 |
+
+## 决策
+
+- **拒绝第一版风险政策（有效冻结登记 v2），不替换原约束组合。** raw HGB 的预测跟踪误差从 8.07% 降至 4.43%，但年化收益从 24.68% 降至 18.69%；年化算术收益差 95% 区间 [-8.24%, -0.80%] 完全低于零。
+- 20% target-vol 覆盖层实现了预测波动目标，但没有改善 Sharpe；后续风险预算必须在独立验证期预设。
+
+> 周频 5 日标签口径；目标权重仍需通过日频涨跌停/停牌执行器复验。

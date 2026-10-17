@@ -1,0 +1,104 @@
+{
+  "experiment_id": "risk_aware_portfolio_optimization_v1",
+  "title": "Lagged multi-factor risk-aware portfolio and target-volatility overlay",
+  "stage": "risk_aware_portfolio_optimization",
+  "model_version": "conditional_gradient_lagged_factor_risk_v1",
+  "registered_at_utc": "2026-10-17T06:01:31.852003+00:00",
+  "immutable": true,
+  "selection_policy": "validation_only",
+  "historical_oos_used_for_selection": false,
+  "historical_oos_disclosure": "The 2021-2026 block has already been inspected during project development. It is historical out-of-sample evidence, not a pristine production lockbox.",
+  "dataset_version": "a7b63caeb7ab91365c85b0a0016eb8485b17a129804fc03c1c6db2da8b5334d2",
+  "dataset_manifest": {
+    "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/manifests/ingestion.jsonl",
+    "size_bytes": 18840672,
+    "sha256": "bb9d0342480b9ac392bc6c0aa64f4dc7d536288b4d1a72ed6b6e7afeabf28f56"
+  },
+  "input_artifacts": [
+    {
+      "table": "constrained_portfolio_oos_holdings",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/constrained_portfolio_oos_holdings/key=v1/data.parquet",
+      "size_bytes": 11189391,
+      "sha256": "8c02ef9c472368dc7b7c750f72ef396ac336796c1b269800012badf5b8744dfd"
+    },
+    {
+      "table": "constrained_execution_targets",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/constrained_execution_targets/key=v1/data.parquet",
+      "size_bytes": 1283200,
+      "sha256": "bb88888f8d5b83433429bf85953c967f82eb2acf597f1ec08874617b7b30e362"
+    },
+    {
+      "table": "constrained_daily_execution_market",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/constrained_daily_execution_market/key=v1/data.parquet",
+      "size_bytes": 27849803,
+      "sha256": "c5b937742a943fcabdc82440003d363f7652644bc1ffef75b87acc9436ccb9b6"
+    }
+  ],
+  "metric_artifacts": [
+    {
+      "table": "risk_aware_portfolio_protocol",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/risk_aware_portfolio_protocol/key=v1/data.parquet",
+      "size_bytes": 5717,
+      "sha256": "89c8ca7c94c6a0783f1bfed32f6b8448fb1bef70e0c3e7c0cac8c988bfb383cc"
+    },
+    {
+      "table": "risk_aware_portfolio_weekly",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/risk_aware_portfolio_weekly/key=v1/data.parquet",
+      "size_bytes": 411828,
+      "sha256": "f787a32175fc58b5a2990c229f40c907638b02f05479a4e4842420d1a85fa855"
+    },
+    {
+      "table": "risk_aware_portfolio_forecasts",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/risk_aware_portfolio_forecasts/key=v1/data.parquet",
+      "size_bytes": 127993,
+      "sha256": "b40da330715cbb74dd2c3b5dfdf9f75fccdbc1246f482ef34a41754ec5fee6bd"
+    },
+    {
+      "table": "risk_aware_portfolio_constraint_audit",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/risk_aware_portfolio_constraint_audit/key=v1/data.parquet",
+      "size_bytes": 27391,
+      "sha256": "e7f1969e759d45e04731c32df9aca450e20990957323ad8097a56518e3fed266"
+    },
+    {
+      "table": "risk_aware_portfolio_summary",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/risk_aware_portfolio_summary/key=v1/data.parquet",
+      "size_bytes": 13254,
+      "sha256": "6f5e6a23bff7c4669aa0cf4d769ca449b180a0771f582272a1368481aebc5154"
+    },
+    {
+      "table": "risk_aware_portfolio_bootstrap",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/risk_aware_portfolio_bootstrap/key=v1/data.parquet",
+      "size_bytes": 6968,
+      "sha256": "7e38d1cfca39052545b3c223eed22b625928557c0b7660df3e73376b3699e80d"
+    }
+  ],
+  "figures": [],
+  "source_tree_sha256": "bebd955897649ba99eba06f465781ab8cd57213caddacf0475c0ef9a91d4b283",
+  "git": {
+    "commit": null,
+    "dirty": null,
+    "status_sha256": null
+  },
+  "environment": {
+    "python": "3.11.16",
+    "implementation": "CPython",
+    "platform": "Linux-5.15.0-92-generic-x86_64-with-glibc2.35",
+    "packages": {
+      "pandas": "3.0.6",
+      "pyarrow": "25.0.1",
+      "PyYAML": "6.0.3",
+      "scikit-learn": "1.9.1",
+      "numpy": "2.4.6",
+      "scipy": "1.17.1"
+    }
+  }
+}

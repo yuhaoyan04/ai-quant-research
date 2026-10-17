@@ -1,0 +1,97 @@
+{
+  "experiment_id": "capm_attribution_v1",
+  "title": "Daily executable-portfolio CAPM alpha and rolling beta",
+  "stage": "time_series_return_attribution",
+  "model_version": "daily_net_return_three_csi_benchmarks_hac_v1",
+  "registered_at_utc": "2026-10-17T06:37:21.626445+00:00",
+  "immutable": true,
+  "selection_policy": "validation_only",
+  "historical_oos_used_for_selection": false,
+  "historical_oos_disclosure": "The 2021-2026 block has already been inspected during project development. It is historical out-of-sample evidence, not a pristine production lockbox.",
+  "dataset_version": "14d3c0240d5d3ecfc22b08ad6272863e5a0011476ac91f2feb0b6b86eb1e2400",
+  "dataset_manifest": {
+    "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/manifests/ingestion.jsonl",
+    "size_bytes": 18878138,
+    "sha256": "274b6c5af779267482bf8987897cfaff3fc8a180c09e0aca7f0b5830e9c5206e"
+  },
+  "input_artifacts": [
+    {
+      "table": "constrained_daily_execution_daily",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/constrained_daily_execution_daily/key=v1/data.parquet",
+      "size_bytes": 775172,
+      "sha256": "ea04c7d4b7777899dc0bf3ec9834c29130dcae72b10746c126653bdfe322760f"
+    },
+    {
+      "table": "daily_bars_validated",
+      "key": "sh_000300",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/daily_bars_validated/key=sh_000300/data.parquet",
+      "size_bytes": 370911,
+      "sha256": "63c60a52deb65c4c924026362b4fd9a9cf60ef41a52df5d38a0abe467fd3aa2f"
+    },
+    {
+      "table": "daily_bars_validated",
+      "key": "sh_000905",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/daily_bars_validated/key=sh_000905/data.parquet",
+      "size_bytes": 364133,
+      "sha256": "d5f2ab6118f1b486fa4b8f8edcc6ba9f6ff174b9c1e31edeeca81c1541bfb55f"
+    },
+    {
+      "table": "daily_bars_validated",
+      "key": "sh_000852",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/daily_bars_validated/key=sh_000852/data.parquet",
+      "size_bytes": 347193,
+      "sha256": "43b4e7b8642624f19993c55f8411707f97512274121f06d5faf5285429ff839b"
+    }
+  ],
+  "metric_artifacts": [
+    {
+      "table": "capm_protocol",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/capm_protocol/key=v1/data.parquet",
+      "size_bytes": 9267,
+      "sha256": "4ed307585f7057f41cebc9556456f9ca8242713bbbe712adba6042b9edc0f206"
+    },
+    {
+      "table": "capm_summary",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/capm_summary/key=v1/data.parquet",
+      "size_bytes": 17746,
+      "sha256": "b3aba0784e853d369517636085dee044b3ab8ef189970070e785ab8df456a507"
+    },
+    {
+      "table": "capm_annual",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/capm_annual/key=v1/data.parquet",
+      "size_bytes": 33084,
+      "sha256": "c01bd7d0a3194a2a0cdf64fa62558840cad1cd1666d22f082c189d89381feb3d"
+    },
+    {
+      "table": "capm_rolling",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/capm_rolling/key=v1/data.parquet",
+      "size_bytes": 71971,
+      "sha256": "e845489867692d6ae8116ac73da8ef09e9acb488c4a7eb731537193c7059842a"
+    }
+  ],
+  "figures": [],
+  "source_tree_sha256": "438dd44134a84f77e66ae74d5132037ae640598d30062a9cc4b6276ff5533214",
+  "git": {
+    "commit": null,
+    "dirty": null,
+    "status_sha256": null
+  },
+  "environment": {
+    "python": "3.11.16",
+    "implementation": "CPython",
+    "platform": "Linux-5.15.0-92-generic-x86_64-with-glibc2.35",
+    "packages": {
+      "pandas": "3.0.6",
+      "pyarrow": "25.0.1",
+      "PyYAML": "6.0.3",
+      "scikit-learn": "1.9.1",
+      "numpy": "2.4.6",
+      "scipy": "1.17.1"
+    }
+  }
+}

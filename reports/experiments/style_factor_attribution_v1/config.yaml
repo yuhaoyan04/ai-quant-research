@@ -1,0 +1,197 @@
+experiment_id: style_factor_attribution_v1
+registry_version: 1
+selection_policy: validation_only
+historical_oos_disclosure: The 2021-2026 block has already been inspected during project
+  development. It is historical out-of-sample evidence, not a pristine production
+  lockbox.
+experiment:
+  title: PIT self-financing style factors and daily multi-factor attribution
+  stage: time_series_multifactor_return_attribution
+  model_version: csrc_industry_residual_six_style_hac_v1
+  dataset_version_method: sha256_of_registered_inputs_and_ingestion_manifest
+  historical_oos_used_for_selection: false
+  config_files:
+  - multi_factor_risk_attribution.yaml
+  - capm_attribution.yaml
+  - style_factor_attribution.yaml
+  input_tables:
+  - table: capm_aligned_daily
+    key: v1
+  - table: style_factor_targets
+    key: v1
+  - table: style_factor_daily_market
+    key: v1
+  - table: multi_horizon_factor_panel
+    key: '2021'
+  - table: multi_horizon_factor_panel
+    key: '2022'
+  - table: multi_horizon_factor_panel
+    key: '2023'
+  - table: multi_horizon_factor_panel
+    key: '2024'
+  - table: multi_horizon_factor_panel
+    key: '2025'
+  - table: multi_horizon_factor_panel
+    key: '2026'
+  - table: pit_size_exposures
+    key: '2021'
+  - table: pit_size_exposures
+    key: '2022'
+  - table: pit_size_exposures
+    key: '2023'
+  - table: pit_size_exposures
+    key: '2024'
+  - table: pit_size_exposures
+    key: '2025'
+  - table: pit_size_exposures
+    key: '2026'
+  - table: pit_industry_exposures
+    key: '2021'
+  - table: pit_industry_exposures
+    key: '2022'
+  - table: pit_industry_exposures
+    key: '2023'
+  - table: pit_industry_exposures
+    key: '2024'
+  - table: pit_industry_exposures
+    key: '2025'
+  - table: pit_industry_exposures
+    key: '2026'
+  - table: pit_beta_exposures
+    key: '2021'
+  - table: pit_beta_exposures
+    key: '2022'
+  - table: pit_beta_exposures
+    key: '2023'
+  - table: pit_beta_exposures
+    key: '2024'
+  - table: pit_beta_exposures
+    key: '2025'
+  - table: pit_beta_exposures
+    key: '2026'
+  metric_tables:
+  - table: style_factor_protocol
+    key: v1
+  - table: style_factor_exposure_audit
+    key: v1
+  - table: style_factor_daily_returns
+    key: v1
+  - table: style_factor_diagnostics
+    key: v1
+  - table: style_factor_multicollinearity
+    key: v1
+  - table: style_factor_correlation
+    key: v1
+  - table: style_factor_regression_summary
+    key: v1
+  - table: style_factor_regression_annual
+    key: v1
+  figures: []
+resolved_configs:
+  multi_factor_risk_attribution.yaml:
+    experiment_id: multi_factor_risk_attribution_v1
+    historical_oos_used_for_selection: false
+    source_experiment: constrained_portfolio_neutralization_v1
+    target: fwd_return_5d_lag1
+    risk_model:
+      start_year: 2008
+      end_year: 2026
+    attribution:
+      start_year: 2021
+      end_year: 2026
+    portfolio_construction: risk_constrained
+    benchmark: equal_weight_pit_exposure_complete_universe
+    regression: equal_weight_cross_sectional_ols
+    industry_level: csrc_broad_section
+    styles:
+    - size
+    - beta
+    - volatility
+    - liquidity
+    - value
+    - momentum
+    beta:
+      benchmark_instrument: sh.000905
+      lookback_trading_days: 252
+      minimum_observations: 120
+    style_winsor_quantiles:
+    - 0.01
+    - 0.99
+    covariance:
+      trailing_weeks: 104
+      minimum_weeks: 52
+      ewma_half_life_weeks: 26
+      diagonal_shrinkage: 0.2
+    specific_risk:
+      ewma_half_life_weeks: 26
+      minimum_observations: 26
+    annualization_periods: 52
+    bootstrap:
+      block_length_weeks: 13
+      samples: 2000
+      random_seed: 20261017
+    scope_note: weekly_five_day_label_attribution_not_daily_execution_attribution
+  capm_attribution.yaml:
+    experiment_id: capm_attribution_v1
+    source_experiment: constrained_portfolio_daily_execution_v1
+    period: historical_oos_2021_2026
+    historical_oos_used_for_selection: false
+    strategy_return: daily_net_return
+    risk_free_rate_convention: zero_daily_rate
+    annualization_days: 252
+    newey_west_lags: 5
+    confidence_level: 0.95
+    benchmarks:
+    - name: CSI300
+      instrument_id: sh.000300
+    - name: CSI500
+      instrument_id: sh.000905
+    - name: CSI1000
+      instrument_id: sh.000852
+    primary_benchmark: CSI500
+    primary_scenario: daily_retry_limit_and_suspension_constrained
+    rolling:
+      window_trading_days: 252
+      step_trading_days: 21
+    subperiod: calendar_year
+    interpretation: descriptive_historical_oos_jensen_alpha_without_model_reselection
+    scope_note: benchmark_price_returns_exclude_dividends_and_risk_free_rate_is_zero
+  style_factor_attribution.yaml:
+    experiment_id: style_factor_attribution_v1
+    source_experiment: capm_attribution_v1
+    period: historical_oos_2021_2026
+    historical_oos_used_for_selection: false
+    primary_scenario: daily_retry_limit_and_suspension_constrained
+    market_factor: CSI500
+    risk_free_rate_convention: zero_daily_rate
+    annualization_days: 252
+    newey_west_lags: 5
+    confidence_level: 0.95
+    styles:
+    - size
+    - beta
+    - volatility
+    - liquidity
+    - value
+    - momentum
+    factor_orientation:
+      size: large_minus_small
+      beta: high_minus_low
+      volatility: high_minus_low
+      liquidity: liquid_minus_illiquid
+      value: cheap_minus_expensive
+      momentum: winner_minus_loser
+    factor_portfolio:
+      construction: residual_proportional_self_financing
+      controls: full_csrc_broad_industry_and_other_five_styles
+      long_gross_exposure: 1.0
+      short_gross_exposure: 1.0
+      transaction_cost_bps: 0.0
+      execution: signal_next_trading_day_close
+    style_winsor_quantiles:
+    - 0.01
+    - 0.99
+    rolling:
+      window_trading_days: 252
+      step_trading_days: 21
+    scope_note: explanatory_style_factors_are_gross_of_cost_and_not_directly_tradable

@@ -1,0 +1,16 @@
+{
+  "experiment_id": "factor_tear_sheet_v1",
+  "frozen_at_utc": "2026-10-17T06:24:40.078845+00:00",
+  "content_sha256": "1a17117635c04690f05641e0ce837c22d4bf78ced2a3dec7c474b180317c2396",
+  "files": {
+    "config.yaml": "f3aee16708ffa89246a76a7438bc42fb63cd189488cffca9df4e89ad7e88558a",
+    "metadata.json": "0c476bdcbf619ca8e1bab1ede7a2675aa588bf472af2daa82712e913b5887e30",
+    "metrics.json": "3e478541ddc27093bd35e53420122260e67d80058f56c6cba74c2a89cc403819",
+    "notes.md": "ecd09702fa2110301bc8e707fd655507c0d71e207c94934acce0990eaa3e9f53",
+    "tables/factor_tear_sheet_annual__v1.csv": "b38b39177350d65b7d14e45bc123087736189535ed4f507de7507a238af0c103",
+    "tables/factor_tear_sheet_bootstrap__v1.csv": "3caacc99f8831dcfc8afb77c9950222b11835d43cc667adc8613cf06ed7dc2ee",
+    "tables/factor_tear_sheet_protocol__v1.csv": "22b28e45d1ae7e1798841ed3f7883d98b4b6da41f4999c69af7fedbbbf9e24af",
+    "tables/factor_tear_sheet_regime__v1.csv": "b8619e468aee36bf9180774fbb5bf5e54fff9a3f1a35fa458ce8818ddd7fee33",
+    "tables/factor_tear_sheet_summary__v1.csv": "61286f1e6c24f891a4a80fa91927744b9b000b38e14f96c38a63a60dd5e09ea4"
+  }
+}

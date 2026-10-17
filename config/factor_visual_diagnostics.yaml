@@ -1,0 +1,8 @@
+experiment_id: factor_visual_diagnostics_v1
+historical_oos_used_for_selection: false
+display_split: validation
+distribution_period: {start_year: 2021, end_year: 2026}
+rolling_correlation_period: {start_year: 2021, end_year: 2026}
+rolling_window_weeks: 52
+minimum_pair_observations: 100
+scope_note: descriptive_visualization_only_no_factor_or_model_reselection

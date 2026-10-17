@@ -14,6 +14,9 @@ dependencies = [
   "baostock>=0.8.9",
   "akshare>=1.18",
   "scikit-learn>=1.5",
+  "scipy>=1.13",
+  "tabulate>=0.9",
+  "reportlab>=4.2",
 ]
 
 [project.optional-dependencies]
@@ -53,6 +56,20 @@ quant-label-panel = "quant_research.label_panel:main"
 quant-label-horizon = "quant_research.label_horizon:run"
 quant-risk-exposure = "quant_research.risk_exposure:main"
 quant-size-neutralization = "quant_research.size_neutralization:run"
+quant-factor-neutralization = "quant_research.factor_neutralization:main"
+quant-model-portfolio-neutralization = "quant_research.model_portfolio_neutralization:run"
+quant-constrained-portfolio-neutralization = "quant_research.constrained_portfolio_neutralization:run"
+quant-constrained-daily-execution = "quant_research.constrained_portfolio_daily_execution:main"
+quant-risk-attribution = "quant_research.multi_factor_risk_attribution:main"
+quant-risk-aware-portfolio = "quant_research.risk_aware_portfolio_optimization:main"
+quant-factor-tear-sheet = "quant_research.factor_tear_sheet:main"
+quant-capm-attribution = "quant_research.capm_attribution:main"
+quant-style-factor-attribution = "quant_research.style_factor_attribution:main"
+quant-factor-registry = "quant_research.factor_registry:main"
+quant-portfolio-sensitivity = "quant_research.portfolio_sensitivity:run"
+quant-hgb-hyperparameter-stability = "quant_research.hgb_hyperparameter_stability:run"
+quant-factor-visual-diagnostics = "quant_research.factor_visual_diagnostics:run"
+quant-final-report = "quant_research.report_pdf:main"
 quant-model-benchmark = "quant_research.model_benchmark:run"
 quant-rf-hyperparameter-stability = "quant_research.rf_hyperparameter_stability:run"
 quant-rf-return-forensics = "quant_research.rf_return_forensics:run"

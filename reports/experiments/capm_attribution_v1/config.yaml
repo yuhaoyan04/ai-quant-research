@@ -1,0 +1,84 @@
+experiment_id: capm_attribution_v1
+registry_version: 1
+selection_policy: validation_only
+historical_oos_disclosure: The 2021-2026 block has already been inspected during project
+  development. It is historical out-of-sample evidence, not a pristine production
+  lockbox.
+experiment:
+  title: Daily executable-portfolio CAPM alpha and rolling beta
+  stage: time_series_return_attribution
+  model_version: daily_net_return_three_csi_benchmarks_hac_v1
+  dataset_version_method: sha256_of_registered_inputs_and_ingestion_manifest
+  historical_oos_used_for_selection: false
+  config_files:
+  - constrained_portfolio_daily_execution.yaml
+  - capm_attribution.yaml
+  input_tables:
+  - table: constrained_daily_execution_daily
+    key: v1
+  - table: daily_bars_validated
+    key: sh_000300
+  - table: daily_bars_validated
+    key: sh_000905
+  - table: daily_bars_validated
+    key: sh_000852
+  metric_tables:
+  - table: capm_protocol
+    key: v1
+  - table: capm_summary
+    key: v1
+  - table: capm_annual
+    key: v1
+  - table: capm_rolling
+    key: v1
+  figures: []
+resolved_configs:
+  constrained_portfolio_daily_execution.yaml:
+    experiment_id: constrained_portfolio_daily_execution_v1
+    historical_oos_used_for_selection: false
+    source_experiment: constrained_portfolio_neutralization_v1
+    source_holdings:
+      table: constrained_portfolio_oos_holdings
+      key: v1
+    target_construction: risk_constrained
+    round_trip_cost_bps: 20.0
+    annualization_periods: 252
+    label_horizon_trading_days: 5
+    limit_detection_tolerance_percentage_points: 0.2
+    bootstrap:
+      block_length_trading_days: 20
+      samples: 2000
+      random_seed: 20261017
+    rules:
+      st_limit_pct: 5.0
+      main_board_limit_pct: 10.0
+      star_limit_pct: 20.0
+      chinext_limit_pct_before_2020_08_24: 10.0
+      chinext_limit_pct_after_2020_08_24: 20.0
+    execution_convention: returns_accrue_before_close_trade_blocked_orders_retry_daily
+    scope_note: conservative_close_limit_rule_intraday_queue_and_ipo_no_limit_windows_not_modeled
+  capm_attribution.yaml:
+    experiment_id: capm_attribution_v1
+    source_experiment: constrained_portfolio_daily_execution_v1
+    period: historical_oos_2021_2026
+    historical_oos_used_for_selection: false
+    strategy_return: daily_net_return
+    risk_free_rate_convention: zero_daily_rate
+    annualization_days: 252
+    newey_west_lags: 5
+    confidence_level: 0.95
+    benchmarks:
+    - name: CSI300
+      instrument_id: sh.000300
+    - name: CSI500
+      instrument_id: sh.000905
+    - name: CSI1000
+      instrument_id: sh.000852
+    primary_benchmark: CSI500
+    primary_scenario: daily_retry_limit_and_suspension_constrained
+    rolling:
+      window_trading_days: 252
+      step_trading_days: 21
+    subperiod: calendar_year
+    interpretation: descriptive_historical_oos_jensen_alpha_without_model_reselection
+    scope_note: benchmark_price_returns_exclude_dividends_and_risk_free_rate_is_zero

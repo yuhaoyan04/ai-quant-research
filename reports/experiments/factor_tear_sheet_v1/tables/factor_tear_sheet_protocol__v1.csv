@@ -1,0 +1,2 @@
+experiment_id,source_experiment,period,historical_oos_used_for_selection,direction_rule,pipelines,bucket_count,benchmark_instrument,regime_uses_trailing_information_only,weekly_dates,factors
+factor_tear_sheet_v1,factor_neutralization_v2,historical_oos_2021_2026,False,sign_of_raw_training_mean_rank_ic,"raw,industry_size_neutralized",10,sh.000905,True,293,15

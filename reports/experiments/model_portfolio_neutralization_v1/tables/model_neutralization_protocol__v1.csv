@@ -1,0 +1,2 @@
+experiment_id,historical_oos_used_for_selection,models_locked_before_historical_oos,common_exposure_complete_sample,factor_and_missingness_features_residualized,portfolio_industry_constraint_applied,interpretation
+model_portfolio_neutralization_v1,False,True,True,True,False,Locked-model attribution experiment. It changes factor residualization only; it does not reselect models or impose portfolio-level industry constraints.

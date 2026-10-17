@@ -1,0 +1,200 @@
+experiment_id: factor_tear_sheet_v1
+registry_version: 1
+selection_policy: validation_only
+historical_oos_disclosure: The 2021-2026 block has already been inspected during project
+  development. It is historical out-of-sample evidence, not a pristine production
+  lockbox.
+experiment:
+  title: PIT historical-OOS single-factor decile and regime tear sheet
+  stage: single_factor_diagnostics
+  model_version: locked_direction_raw_and_industry_size_neutralized_v1
+  dataset_version_method: sha256_of_registered_inputs_and_ingestion_manifest
+  historical_oos_used_for_selection: false
+  config_files:
+  - preprocessing.yaml
+  - factor_preprocessing_selected.yaml
+  - factor_neutralization.yaml
+  - factor_tear_sheet.yaml
+  input_tables:
+  - table: factor_neutralization_directions
+    key: v1
+  - table: daily_bars_validated
+    key: sh_000905
+  - table: multi_horizon_factor_panel
+    key: '2021'
+  - table: multi_horizon_factor_panel
+    key: '2022'
+  - table: multi_horizon_factor_panel
+    key: '2023'
+  - table: multi_horizon_factor_panel
+    key: '2024'
+  - table: multi_horizon_factor_panel
+    key: '2025'
+  - table: multi_horizon_factor_panel
+    key: '2026'
+  - table: pit_size_exposures
+    key: '2021'
+  - table: pit_size_exposures
+    key: '2022'
+  - table: pit_size_exposures
+    key: '2023'
+  - table: pit_size_exposures
+    key: '2024'
+  - table: pit_size_exposures
+    key: '2025'
+  - table: pit_size_exposures
+    key: '2026'
+  - table: pit_industry_exposures
+    key: '2021'
+  - table: pit_industry_exposures
+    key: '2022'
+  - table: pit_industry_exposures
+    key: '2023'
+  - table: pit_industry_exposures
+    key: '2024'
+  - table: pit_industry_exposures
+    key: '2025'
+  - table: pit_industry_exposures
+    key: '2026'
+  metric_tables:
+  - table: factor_tear_sheet_protocol
+    key: v1
+  - table: factor_tear_sheet_summary
+    key: v1
+  - table: factor_tear_sheet_annual
+    key: v1
+  - table: factor_tear_sheet_regime
+    key: v1
+  - table: factor_tear_sheet_bootstrap
+    key: v1
+  figures: []
+resolved_configs:
+  preprocessing.yaml:
+    factor_columns:
+    - momentum_20d
+    - momentum_60d
+    - momentum_120d
+    - momentum_20d_skip_5d
+    - reversal_5d
+    - volatility_20d
+    - amihud_20d
+    - turnover_20d
+    - turnover_surprise_20d
+    - volume_surprise_20d
+    - amplitude_20d
+    - return_volume_corr_20d
+    - max_return_20d
+    - earnings_yield
+    - book_to_price
+    target: fwd_return_5d_lag1
+    winsorization:
+      method: cross_sectional_median_mad
+      mad_multiplier: 5.0
+    normalization: cross_sectional_zscore
+    missing_strategy: cross_sectional_median_plus_indicator
+    minimum_cross_section_size: 100
+    neutralization: none_pit_exposures_unavailable
+  factor_preprocessing_selected.yaml:
+    decision_id: factor_preprocessing_selection_v1
+    locked_at_utc: '2026-10-14T12:30:00Z'
+    selected_on: validation_2016_2020_only
+    historical_oos_used_for_selection: false
+    historical_oos_disclosure: The preprocessing decision was produced without querying
+      2021+ observations in this ablation. However, the project's older baseline OOS
+      results had already been inspected, so subsequent 2021+ evaluation remains historical
+      OOS rather than a pristine lockbox.
+    pipeline:
+      winsor_method: quantile
+      quantile_limits:
+      - 0.01
+      - 0.99
+      normalization_method: cross_sectional_zscore
+      missing_strategy: cross_sectional_median_plus_indicator
+      ridge_penalty_per_observation: 1.0
+      feature_set: full_15_factors
+    selection_rule:
+      primary: mean_rank_ic
+      tiebreakers:
+      - portfolio_sharpe_zero_rate
+      - portfolio_annualized_return
+      validation_mean_rank_ic: 0.088893
+      validation_annualized_icir: 4.638006
+    oos_evaluation_protocol:
+      years:
+      - 2021
+      - 2022
+      - 2023
+      - 2024
+      - 2025
+      - 2026
+      refit: expanding_window_at_start_of_each_year
+      purge_latest_label_horizon: true
+      top_n: 200
+      round_trip_cost_bps: 20.0
+      no_reselection: true
+  factor_neutralization.yaml:
+    experiment_id: factor_neutralization_v2
+    factor_source: multi_horizon_factor_panel
+    industry_source: pit_industry_exposures_v1
+    size_source: pit_size_exposures_v1
+    target: fwd_return_5d_lag1
+    train:
+      start_year: 2006
+      end_year: 2015
+    validation:
+      start_year: 2016
+      end_year: 2020
+    historical_oos:
+      start_year: 2021
+      end_year: 2026
+    pipelines:
+    - raw
+    - size_neutralized
+    - industry_neutralized
+    - industry_size_neutralized
+    industry_level: csrc_broad_section
+    minimum_industry_group_size: 5
+    minimum_cross_section_size: 100
+    annualization_periods: 52
+    quantile_limits:
+    - 0.01
+    - 0.99
+    mad_multiplier: 5.0
+    factor_top_quantile: 0.2
+    bootstrap:
+      block_length_weeks: 13
+      samples: 2000
+      random_seed: 20261016
+    interpretation: paired_factor_risk_residualization_without_model_reselection
+    direction_rule: sign_of_raw_training_mean_rank_ic
+    historical_oos_used_for_selection: false
+  factor_tear_sheet.yaml:
+    experiment_id: factor_tear_sheet_v1
+    source_experiment: factor_neutralization_v2
+    period: historical_oos_2021_2026
+    historical_oos_used_for_selection: false
+    target: fwd_return_5d_lag1
+    pipelines:
+    - raw
+    - industry_size_neutralized
+    bucket_count: 10
+    minimum_cross_section_size: 100
+    minimum_industry_group_size: 5
+    annualization_periods: 52
+    newey_west_lags: 4
+    quantile_limits:
+    - 0.01
+    - 0.99
+    mad_multiplier: 5.0
+    assumed_cost_bps_per_leg_turnover: 20.0
+    benchmark_instrument: sh.000905
+    regime:
+      lookback_trading_days: 60
+      annualization_days: 252
+      expanding_median_min_periods: 252
+    bootstrap:
+      block_length_weeks: 13
+      samples: 2000
+      random_seed: 20261017
+    direction_rule: sign_of_raw_training_mean_rank_ic
+    interpretation: descriptive_oos_factor_tear_sheet_without_reselection

@@ -1,0 +1,208 @@
+experiment_id: risk_aware_portfolio_optimization_v1
+registry_version: 1
+selection_policy: validation_only
+historical_oos_disclosure: The 2021-2026 block has already been inspected during project
+  development. It is historical out-of-sample evidence, not a pristine production
+  lockbox.
+experiment:
+  title: Lagged multi-factor risk-aware portfolio and target-volatility overlay
+  stage: risk_aware_portfolio_optimization
+  model_version: conditional_gradient_lagged_factor_risk_v1
+  dataset_version_method: sha256_of_registered_inputs_and_ingestion_manifest
+  historical_oos_used_for_selection: false
+  config_files:
+  - constrained_portfolio_neutralization.yaml
+  - multi_factor_risk_attribution.yaml
+  - risk_aware_portfolio_optimization.yaml
+  input_tables:
+  - table: constrained_portfolio_oos_holdings
+    key: v1
+  - table: constrained_execution_targets
+    key: v1
+  - table: constrained_daily_execution_market
+    key: v1
+  metric_tables:
+  - table: risk_aware_portfolio_protocol
+    key: v1
+  - table: risk_aware_portfolio_weekly
+    key: v1
+  - table: risk_aware_portfolio_forecasts
+    key: v1
+  - table: risk_aware_portfolio_constraint_audit
+    key: v1
+  - table: risk_aware_portfolio_summary
+    key: v1
+  - table: risk_aware_portfolio_bootstrap
+    key: v1
+  figures: []
+resolved_configs:
+  constrained_portfolio_neutralization.yaml:
+    experiment_id: constrained_portfolio_neutralization_v1
+    historical_oos_used_for_selection: false
+    source_experiment: model_portfolio_neutralization_v2
+    target: fwd_return_5d_lag1
+    label_horizon_trading_days: 5
+    train:
+      start_year: 2006
+      end_year: 2015
+    historical_oos:
+      start_year: 2021
+      end_year: 2026
+    alpha_pipelines:
+    - raw
+    - industry_size_neutralized
+    models:
+      ridge_locked:
+        kind: ridge
+        penalty_per_observation: 1.0
+      hgb_shallow15_locked:
+        kind: hgb
+        learning_rate: 0.05
+        max_iter: 120
+        max_leaf_nodes: 15
+        min_samples_leaf: 100
+        l2_regularization: 1.0
+    minimum_industry_group_size: 5
+    minimum_cross_section_size: 100
+    sample_per_training_date: 300
+    random_state: 20261016
+    annualization_periods: 52
+    quantile_limits:
+    - 0.01
+    - 0.99
+    mad_multiplier: 5.0
+    include_missing_indicators: true
+    portfolio:
+      constructions:
+      - top200_equal
+      - risk_constrained
+      baseline_top_n: 200
+      round_trip_cost_bps: 20.0
+      minimum_realized_weight_fraction: 0.95
+    optimizer:
+      method: scipy_highs_linear_program
+      objective: maximize_cross_sectional_score_rank
+      maximum_stock_weight: 0.005
+      industry_active_weight_bound: 0.03
+      absolute_size_z_bound: 0.1
+      weekly_turnover_limit: 0.3
+      turnover_feasibility_relaxation:
+      - 0.3
+      - 0.4
+      - 0.5
+      - 0.75
+      - 1.0
+      candidate_top_n: 800
+      industry_capacity_buffer_names: 10
+      size_tail_candidates_each_side: 100
+      minimum_reported_weight: 1.0e-08
+    bootstrap:
+      block_length_weeks: 13
+      samples: 2000
+      random_seed: 20261017
+    interpretation: Prespecified policy experiment. Constraint values are not selected
+      on the 2021-2026 historical OOS. Turnover is relaxed only when required for
+      LP feasibility and every relaxation is reported.
+  multi_factor_risk_attribution.yaml:
+    experiment_id: multi_factor_risk_attribution_v1
+    historical_oos_used_for_selection: false
+    source_experiment: constrained_portfolio_neutralization_v1
+    target: fwd_return_5d_lag1
+    risk_model:
+      start_year: 2008
+      end_year: 2026
+    attribution:
+      start_year: 2021
+      end_year: 2026
+    portfolio_construction: risk_constrained
+    benchmark: equal_weight_pit_exposure_complete_universe
+    regression: equal_weight_cross_sectional_ols
+    industry_level: csrc_broad_section
+    styles:
+    - size
+    - beta
+    - volatility
+    - liquidity
+    - value
+    - momentum
+    beta:
+      benchmark_instrument: sh.000905
+      lookback_trading_days: 252
+      minimum_observations: 120
+    style_winsor_quantiles:
+    - 0.01
+    - 0.99
+    covariance:
+      trailing_weeks: 104
+      minimum_weeks: 52
+      ewma_half_life_weeks: 26
+      diagonal_shrinkage: 0.2
+    specific_risk:
+      ewma_half_life_weeks: 26
+      minimum_observations: 26
+    annualization_periods: 52
+    bootstrap:
+      block_length_weeks: 13
+      samples: 2000
+      random_seed: 20261017
+    scope_note: weekly_five_day_label_attribution_not_daily_execution_attribution
+  risk_aware_portfolio_optimization.yaml:
+    experiment_id: risk_aware_portfolio_optimization_v1
+    historical_oos_used_for_selection: false
+    source_experiment: multi_factor_risk_attribution_v1
+    source_portfolio_experiment: constrained_portfolio_neutralization_v1
+    target: fwd_return_5d_lag1
+    risk_model:
+      start_year: 2008
+      end_year: 2026
+    historical_oos:
+      start_year: 2021
+      end_year: 2026
+    candidate_source_constructions:
+    - top200_equal
+    - risk_constrained
+    carry_previous_holdings: true
+    carry_minimum_weight: 0.0001
+    styles:
+    - size
+    - beta
+    - volatility
+    - liquidity
+    - value
+    - momentum
+    annualization_periods: 52
+    portfolio:
+      round_trip_cost_bps: 20.0
+      minimum_realized_weight_fraction: 0.95
+    optimizer:
+      method: conditional_gradient_with_highs_linear_oracle
+      objective: minimize_lagged_ex_ante_active_variance
+      alpha_utility_retention_fraction: 0.98
+      maximum_stock_weight: 0.005
+      industry_active_weight_bound: 0.03
+      absolute_size_z_bound: 0.1
+      weekly_turnover_limit: 0.3
+      turnover_feasibility_relaxation:
+      - 0.3
+      - 0.4
+      - 0.5
+      - 0.75
+      - 1.0
+      maximum_iterations: 8
+      duality_gap_tolerance: 1.0e-08
+      minimum_reported_weight: 1.0e-08
+    target_volatility:
+      annualized_target: 0.2
+      minimum_risky_weight: 0.5
+      maximum_risky_weight: 1.0
+      allow_leverage: false
+    bootstrap:
+      block_length_weeks: 13
+      samples: 2000
+      random_seed: 20261018
+    interpretation: Prespecified policy experiment. The optimizer uses only factor
+      covariance and stock-specific variance estimates available before each signal
+      date. It carries prior holdings with zero current alpha utility, and minimizes
+      ex-ante active variance while retaining 98% of the maximum feasible current-candidate
+      score utility. The 20% target-volatility overlay holds residual capital in zero-return
+      cash and never leverages.

@@ -1,0 +1,52 @@
+experiment_id: constrained_portfolio_neutralization_v1
+historical_oos_used_for_selection: false
+source_experiment: model_portfolio_neutralization_v2
+target: fwd_return_5d_lag1
+label_horizon_trading_days: 5
+train: {start_year: 2006, end_year: 2015}
+historical_oos: {start_year: 2021, end_year: 2026}
+alpha_pipelines: [raw, industry_size_neutralized]
+models:
+  ridge_locked:
+    kind: ridge
+    penalty_per_observation: 1.0
+  hgb_shallow15_locked:
+    kind: hgb
+    learning_rate: 0.05
+    max_iter: 120
+    max_leaf_nodes: 15
+    min_samples_leaf: 100
+    l2_regularization: 1.0
+minimum_industry_group_size: 5
+minimum_cross_section_size: 100
+sample_per_training_date: 300
+random_state: 20261016
+annualization_periods: 52
+quantile_limits: [0.01, 0.99]
+mad_multiplier: 5.0
+include_missing_indicators: true
+portfolio:
+  constructions: [top200_equal, risk_constrained]
+  baseline_top_n: 200
+  round_trip_cost_bps: 20.0
+  minimum_realized_weight_fraction: 0.95
+optimizer:
+  method: scipy_highs_linear_program
+  objective: maximize_cross_sectional_score_rank
+  maximum_stock_weight: 0.005
+  industry_active_weight_bound: 0.03
+  absolute_size_z_bound: 0.10
+  weekly_turnover_limit: 0.30
+  turnover_feasibility_relaxation: [0.30, 0.40, 0.50, 0.75, 1.00]
+  candidate_top_n: 800
+  industry_capacity_buffer_names: 10
+  size_tail_candidates_each_side: 100
+  minimum_reported_weight: 0.00000001
+bootstrap:
+  block_length_weeks: 13
+  samples: 2000
+  random_seed: 20261017
+interpretation: >-
+  Prespecified policy experiment. Constraint values are not selected on the
+  2021-2026 historical OOS. Turnover is relaxed only when required for LP
+  feasibility and every relaxation is reported.

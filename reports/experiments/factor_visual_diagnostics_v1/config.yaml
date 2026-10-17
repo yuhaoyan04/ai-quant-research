@@ -1,0 +1,90 @@
+experiment_id: factor_visual_diagnostics_v1
+registry_version: 1
+selection_policy: validation_only
+historical_oos_disclosure: The 2021-2026 block has already been inspected during project
+  development. It is historical out-of-sample evidence, not a pristine production
+  lockbox.
+experiment:
+  title: OOS raw-factor distributions and rolling correlation stability
+  stage: factor_descriptive_diagnostics
+  model_version: raw_distribution_and_52_week_correlation_v1
+  dataset_version_method: sha256_of_registered_inputs_and_ingestion_manifest
+  historical_oos_used_for_selection: false
+  config_files:
+  - preprocessing.yaml
+  - feature_analysis.yaml
+  - factor_visual_diagnostics.yaml
+  input_tables:
+  - table: factor_correlation
+    key: v1
+  - table: multi_horizon_factor_panel
+    key: '2021'
+  - table: multi_horizon_factor_panel
+    key: '2022'
+  - table: multi_horizon_factor_panel
+    key: '2023'
+  - table: multi_horizon_factor_panel
+    key: '2024'
+  - table: multi_horizon_factor_panel
+    key: '2025'
+  - table: multi_horizon_factor_panel
+    key: '2026'
+  metric_tables:
+  - table: factor_distribution_summary
+    key: v1
+  - table: factor_rolling_correlation_stability
+    key: v1
+  figures:
+  - reports/figures/factor_correlation_heatmap.svg
+  - reports/figures/factor_distributions.svg
+resolved_configs:
+  preprocessing.yaml:
+    factor_columns:
+    - momentum_20d
+    - momentum_60d
+    - momentum_120d
+    - momentum_20d_skip_5d
+    - reversal_5d
+    - volatility_20d
+    - amihud_20d
+    - turnover_20d
+    - turnover_surprise_20d
+    - volume_surprise_20d
+    - amplitude_20d
+    - return_volume_corr_20d
+    - max_return_20d
+    - earnings_yield
+    - book_to_price
+    target: fwd_return_5d_lag1
+    winsorization:
+      method: cross_sectional_median_mad
+      mad_multiplier: 5.0
+    normalization: cross_sectional_zscore
+    missing_strategy: cross_sectional_median_plus_indicator
+    minimum_cross_section_size: 100
+    neutralization: none_pit_exposures_unavailable
+  feature_analysis.yaml:
+    selection_splits:
+    - name: train
+      start_year: 2006
+      end_year: 2015
+    - name: validation
+      start_year: 2016
+      end_year: 2020
+    correlation_cluster_threshold: 0.75
+    ridge_penalty_per_observation: 0.001
+    minimum_daily_observations: 100
+    target_transform: cross_sectional_rank_zscore
+  factor_visual_diagnostics.yaml:
+    experiment_id: factor_visual_diagnostics_v1
+    historical_oos_used_for_selection: false
+    display_split: validation
+    distribution_period:
+      start_year: 2021
+      end_year: 2026
+    rolling_correlation_period:
+      start_year: 2021
+      end_year: 2026
+    rolling_window_weeks: 52
+    minimum_pair_observations: 100
+    scope_note: descriptive_visualization_only_no_factor_or_model_reselection

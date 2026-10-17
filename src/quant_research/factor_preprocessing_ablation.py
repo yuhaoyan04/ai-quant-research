@@ -125,7 +125,14 @@ def transform_cross_section(
 
 
 def _rank_ic(score: np.ndarray, target: pd.Series) -> float:
-    return float(pd.Series(score).rank(method="average").corr(target.reset_index(drop=True).rank(method="average")))
+    score_rank = pd.Series(score).rank(method="average")
+    target_rank = target.reset_index(drop=True).rank(method="average")
+    usable = score_rank.notna() & target_rank.notna()
+    if usable.sum() < 3:
+        return np.nan
+    if score_rank.loc[usable].nunique() < 2 or target_rank.loc[usable].nunique() < 2:
+        return np.nan
+    return float(score_rank.loc[usable].corr(target_rank.loc[usable]))
 
 
 def _update_portfolio(

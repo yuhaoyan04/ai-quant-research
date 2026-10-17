@@ -1,0 +1,2 @@
+experiment_id,research_status,historical_oos_used_for_selection,base_cost_bps,common_date_comparison,daily_cost_stress_method
+portfolio_sensitivity_v1,retrospective_diagnostic_not_a_new_oos_selection,False,20.0,True,fixed_realized_fill_path_reprice

@@ -57,6 +57,16 @@ try {
         Invoke-QuantStep "BaoStock PIT snapshots and daily bars" "quant-free-lake" $downloadArgs
         Invoke-QuantStep "Download completeness gate" "quant-free-lake" $verifyArgs
         Invoke-QuantStep "AKShare deterministic cross-check" "quant-free-lake" $crosscheckArgs
+        if (-not $CoreOnly) {
+            $industryArgs = @("industries", "--start", $StartDate)
+            $industryVerifyArgs = @("verify-industries", "--start", $StartDate)
+            if ($EndDate) {
+                $industryArgs += @("--end", $EndDate)
+                $industryVerifyArgs += @("--end", $EndDate)
+            }
+            Invoke-QuantStep "Historical CSRC industry snapshots" "quant-free-lake" $industryArgs
+            Invoke-QuantStep "Industry snapshot PIT gate" "quant-free-lake" $industryVerifyArgs
+        }
     }
 
     $coreSteps = @(
@@ -95,12 +105,26 @@ try {
             @{ Name = "Label horizon study"; Program = "quant-label-horizon"; Args = @() },
             @{ Name = "PIT size exposure"; Program = "quant-risk-exposure"; Args = @("build-size") },
             @{ Name = "Size neutralization"; Program = "quant-size-neutralization"; Args = @() },
+            @{ Name = "PIT industry exposure"; Program = "quant-risk-exposure"; Args = @("build-industry") },
+            @{ Name = "Factor industry and size neutralization"; Program = "quant-factor-neutralization"; Args = @() },
+            @{ Name = "Machine-readable factor registry"; Program = "quant-factor-registry"; Args = @() },
+            @{ Name = "Single-factor decile and regime tear sheet"; Program = "quant-factor-tear-sheet"; Args = @() },
+            @{ Name = "Factor distribution and rolling correlation diagnostics"; Program = "quant-factor-visual-diagnostics"; Args = @() },
+            @{ Name = "Locked model and portfolio factor neutralization"; Program = "quant-model-portfolio-neutralization"; Args = @() },
+            @{ Name = "Constrained portfolio industry and size neutralization"; Program = "quant-constrained-portfolio-neutralization"; Args = @() },
+            @{ Name = "Constrained portfolio daily execution"; Program = "quant-constrained-daily-execution"; Args = @("all") },
+            @{ Name = "Executable portfolio CAPM attribution"; Program = "quant-capm-attribution"; Args = @() },
+            @{ Name = "Self-financing style factor attribution"; Program = "quant-style-factor-attribution"; Args = @() },
+            @{ Name = "Multi-factor risk model and attribution"; Program = "quant-risk-attribution"; Args = @("all") },
+            @{ Name = "Risk-aware portfolio optimization"; Program = "quant-risk-aware-portfolio"; Args = @() },
             @{ Name = "Unified model benchmark"; Program = "quant-model-benchmark"; Args = @() },
+            @{ Name = "HGB two-dimensional hyperparameter stability"; Program = "quant-hgb-hyperparameter-stability"; Args = @() },
             @{ Name = "RF hyperparameter stability"; Program = "quant-rf-hyperparameter-stability"; Args = @() },
             @{ Name = "RF return forensics"; Program = "quant-rf-return-forensics"; Args = @() },
             @{ Name = "RF next-day execution audit"; Program = "quant-rf-oos-execution-audit"; Args = @() },
             @{ Name = "RF target holdings"; Program = "quant-rf-target-holdings"; Args = @() },
-            @{ Name = "RF daily retry execution"; Program = "quant-rf-daily-retry"; Args = @("all", "--split", "both") }
+            @{ Name = "RF daily retry execution"; Program = "quant-rf-daily-retry"; Args = @("all", "--split", "both") },
+            @{ Name = "Top-N, inverse-volatility, and cost sensitivity"; Program = "quant-portfolio-sensitivity"; Args = @() }
         )
         foreach ($step in $extendedSteps) {
             Invoke-QuantStep $step.Name $step.Program $step.Args
@@ -109,6 +133,7 @@ try {
 
     Invoke-QuantStep "Research dashboard" "quant-research-dashboard" @()
     Invoke-QuantStep "Publication audit" "quant-audit" @()
+    Invoke-QuantStep "Final PDF report" "quant-final-report" @()
     Write-Host "`nRebuild completed. Log: $logPath" -ForegroundColor Green
 }
 finally {

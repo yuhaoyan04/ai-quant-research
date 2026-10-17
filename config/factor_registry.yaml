@@ -1,0 +1,142 @@
+registry_version: "1.0.0"
+effective_date: "2026-10-17"
+frequency: daily
+availability: next_exchange_trading_day_after_asof_close
+price_convention: baostock_forward_adjusted_history_for_signal_construction
+direction_policy: sign_of_raw_training_mean_rank_ic_2006_2015
+factors:
+  - name: momentum_20d
+    family: momentum
+    formula: product(1 + pct_chg / 100, trailing 20 observations) - 1
+    unit: decimal_return
+    lookback_observations: 20
+    raw_fields: [pct_chg]
+    missingness: fewer_than_20_valid_returns_or_missing_return
+    theoretical_direction: 1
+    hypothesis: medium-term price continuation
+  - name: momentum_60d
+    family: momentum
+    formula: product(1 + pct_chg / 100, trailing 60 observations) - 1
+    unit: decimal_return
+    lookback_observations: 60
+    raw_fields: [pct_chg]
+    missingness: fewer_than_60_valid_returns_or_missing_return
+    theoretical_direction: 1
+    hypothesis: medium-term price continuation
+  - name: momentum_120d
+    family: momentum
+    formula: product(1 + pct_chg / 100, trailing 120 observations) - 1
+    unit: decimal_return
+    lookback_observations: 120
+    raw_fields: [pct_chg]
+    missingness: fewer_than_120_valid_returns_or_missing_return
+    theoretical_direction: 1
+    hypothesis: medium-term price continuation
+  - name: momentum_20d_skip_5d
+    family: momentum
+    formula: product(1 + lag(pct_chg / 100, 5), trailing 20 observations) - 1
+    unit: decimal_return
+    lookback_observations: 25
+    raw_fields: [pct_chg]
+    missingness: fewer_than_25_valid_returns_or_missing_return
+    theoretical_direction: 1
+    hypothesis: continuation excluding the latest reversal window
+  - name: reversal_5d
+    family: reversal
+    formula: -(product(1 + pct_chg / 100, trailing 5 observations) - 1)
+    unit: decimal_return
+    lookback_observations: 5
+    raw_fields: [pct_chg]
+    missingness: fewer_than_5_valid_returns_or_missing_return
+    theoretical_direction: 1
+    hypothesis: short-term overreaction reverses
+  - name: volatility_20d
+    family: risk
+    formula: sample_std(pct_chg / 100, trailing 20 observations)
+    unit: daily_decimal_volatility
+    lookback_observations: 20
+    raw_fields: [pct_chg]
+    missingness: fewer_than_20_valid_returns_or_missing_return
+    theoretical_direction: -1
+    hypothesis: low-volatility stocks outperform on a risk-adjusted basis
+  - name: amihud_20d
+    family: liquidity
+    formula: mean(abs(pct_chg / 100) / amount, trailing 20 observations)
+    unit: inverse_baostock_amount
+    lookback_observations: 20
+    raw_fields: [pct_chg, amount]
+    missingness: nonpositive_amount_or_fewer_than_20_valid_observations
+    theoretical_direction: 1
+    hypothesis: illiquidity commands a return premium
+  - name: turnover_20d
+    family: liquidity_attention
+    formula: mean(turn, trailing 20 observations)
+    unit: baostock_turnover_percentage_points
+    lookback_observations: 20
+    raw_fields: [turn]
+    missingness: fewer_than_20_valid_turnover_observations
+    theoretical_direction: -1
+    hypothesis: excessive trading and attention predict lower returns
+  - name: turnover_surprise_20d
+    family: liquidity_attention
+    formula: turn / mean(lag(turn, 1), prior 20 observations) - 1
+    unit: ratio_minus_one
+    lookback_observations: 21
+    raw_fields: [turn]
+    missingness: missing_current_turnover_or_nonpositive_or_incomplete_prior_mean
+    theoretical_direction: -1
+    hypothesis: abnormal speculative turnover predicts reversal
+  - name: volume_surprise_20d
+    family: liquidity_attention
+    formula: volume / mean(lag(volume, 1), prior 20 observations) - 1
+    unit: ratio_minus_one
+    lookback_observations: 21
+    raw_fields: [volume]
+    missingness: missing_current_volume_or_nonpositive_or_incomplete_prior_mean
+    theoretical_direction: -1
+    hypothesis: abnormal volume proxies short-lived attention
+  - name: amplitude_20d
+    family: risk
+    formula: mean((high - low) / pre_close, trailing 20 observations)
+    unit: decimal_price_range
+    lookback_observations: 20
+    raw_fields: [high, low, pre_close]
+    missingness: nonpositive_pre_close_or_fewer_than_20_valid_ranges
+    theoretical_direction: -1
+    hypothesis: high intraday disagreement predicts lower subsequent returns
+  - name: return_volume_corr_20d
+    family: price_volume
+    formula: corr(pct_chg / 100, diff(log(volume)), trailing 20 observations)
+    unit: correlation
+    lookback_observations: 21
+    raw_fields: [pct_chg, volume]
+    missingness: nonpositive_volume_or_fewer_than_20_paired_observations
+    theoretical_direction: null
+    hypothesis: price-volume confirmation may distinguish persistent from transient moves
+  - name: max_return_20d
+    family: lottery_attention
+    formula: max(pct_chg / 100, trailing 20 observations)
+    unit: decimal_return
+    lookback_observations: 20
+    raw_fields: [pct_chg]
+    missingness: fewer_than_20_valid_returns_or_missing_return
+    theoretical_direction: -1
+    hypothesis: lottery-like recent payoffs attract overpricing
+  - name: earnings_yield
+    family: value
+    formula: 1 / pe_ttm when pe_ttm > 0
+    unit: inverse_pe
+    lookback_observations: 1
+    raw_fields: [pe_ttm]
+    missingness: nonpositive_or_missing_pe_ttm_including_loss_making_firms
+    theoretical_direction: 1
+    hypothesis: cheaper profitable firms earn a value premium
+  - name: book_to_price
+    family: value
+    formula: 1 / pb_mrq when pb_mrq > 0
+    unit: inverse_pb
+    lookback_observations: 1
+    raw_fields: [pb_mrq]
+    missingness: nonpositive_or_missing_pb_mrq
+    theoretical_direction: 1
+    hypothesis: high book-to-price stocks earn a value premium

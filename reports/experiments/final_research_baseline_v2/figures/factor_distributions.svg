@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="590" viewBox="0 0 980 590">
+<rect width="100%" height="100%" fill="white"/>
+<text x="20" y="30" font-family="sans-serif" font-size="20" font-weight="bold">OOS raw-factor distributions</text>
+<text x="20" y="52" font-family="sans-serif" font-size="11" fill="#555">Each row is scaled independently from p1 to p99; box = p25–p75, line = median.</text>
+<text x="210" y="90" text-anchor="end" font-family="sans-serif" font-size="11">momentum_20d</text>
+<line x1="220" y1="86" x2="930" y2="86" stroke="#b8c2cc" stroke-width="2"/>
+<rect x="411.59" y="79" width="128.71" height="14" fill="#9ecae1" stroke="#3182bd"/>
+<line x1="473.08" y1="77" x2="473.08" y2="95" stroke="#08306b" stroke-width="2"/>
+<text x="938" y="90" font-family="sans-serif" font-size="10" fill="#555">missing 0.7%</text>
+<text x="210" y="124" text-anchor="end" font-family="sans-serif" font-size="11">momentum_60d</text>
+<line x1="220" y1="120" x2="930" y2="120" stroke="#b8c2cc" stroke-width="2"/>
+<rect x="364.69" y="113" width="124.71" height="14" fill="#9ecae1" stroke="#3182bd"/>
+<line x1="421.83" y1="111" x2="421.83" y2="129" stroke="#08306b" stroke-width="2"/>
+<text x="938" y="124" font-family="sans-serif" font-size="10" fill="#555">missing 2.2%</text>
+<text x="210" y="158" text-anchor="end" font-family="sans-serif" font-size="11">momentum_120d</text>
+<line x1="220" y1="154" x2="930" y2="154" stroke="#b8c2cc" stroke-width="2"/>
+<rect x="337.40" y="147" width="122.40" height="14" fill="#9ecae1" stroke="#3182bd"/>
+<line x1="391.83" y1="145" x2="391.83" y2="163" stroke="#08306b" stroke-width="2"/>
+<text x="938" y="158" font-family="sans-serif" font-size="10" fill="#555">missing 4.4%</text>
+<text x="210" y="192" text-anchor="end" font-family="sans-serif" font-size="11">momentum_20d_skip_5d</text>
+<line x1="220" y1="188" x2="930" y2="188" stroke="#b8c2cc" stroke-width="2"/>
+<rect x="411.76" y="181" width="129.06" height="14" fill="#9ecae1" stroke="#3182bd"/>
+<line x1="473.86" y1="179" x2="473.86" y2="197" stroke="#08306b" stroke-width="2"/>
+<text x="938" y="192" font-family="sans-serif" font-size="10" fill="#555">missing 0.9%</text>
+<text x="210" y="226" text-anchor="end" font-family="sans-serif" font-size="11">reversal_5d</text>
+<line x1="220" y1="222" x2="930" y2="222" stroke="#b8c2cc" stroke-width="2"/>
+<rect x="595.43" y="215" width="114.06" height="14" fill="#9ecae1" stroke="#3182bd"/>
+<line x1="654.14" y1="213" x2="654.14" y2="231" stroke="#08306b" stroke-width="2"/>
+<text x="938" y="226" font-family="sans-serif" font-size="10" fill="#555">missing 0.2%</text>
+<text x="210" y="260" text-anchor="end" font-family="sans-serif" font-size="11">volatility_20d</text>
+<line x1="220" y1="256" x2="930" y2="256" stroke="#b8c2cc" stroke-width="2"/>
+<rect x="325.71" y="249" width="187.00" height="14" fill="#9ecae1" stroke="#3182bd"/>
+<line x1="403.90" y1="247" x2="403.90" y2="265" stroke="#08306b" stroke-width="2"/>
+<text x="938" y="260" font-family="sans-serif" font-size="10" fill="#555">missing 0.7%</text>
+<text x="210" y="294" text-anchor="end" font-family="sans-serif" font-size="11">amihud_20d</text>
+<line x1="220" y1="290" x2="930" y2="290" stroke="#b8c2cc" stroke-width="2"/>
+<rect x="254.49" y="283" width="126.99" height="14" fill="#9ecae1" stroke="#3182bd"/>
+<line x1="299.29" y1="281" x2="299.29" y2="299" stroke="#08306b" stroke-width="2"/>
+<text x="938" y="294" font-family="sans-serif" font-size="10" fill="#555">missing 0.8%</text>
+<text x="210" y="328" text-anchor="end" font-family="sans-serif" font-size="11">turnover_20d</text>
+<line x1="220" y1="324" x2="930" y2="324" stroke="#b8c2cc" stroke-width="2"/>
+<rect x="252.11" y="317" width="110.05" height="14" fill="#9ecae1" stroke="#3182bd"/>
+<line x1="288.62" y1="315" x2="288.62" y2="333" stroke="#08306b" stroke-width="2"/>
+<text x="938" y="328" font-family="sans-serif" font-size="10" fill="#555">missing 0.8%</text>
+<text x="210" y="362" text-anchor="end" font-family="sans-serif" font-size="11">turnover_surprise_20d</text>
+<line x1="220" y1="358" x2="930" y2="358" stroke="#b8c2cc" stroke-width="2"/>
+<rect x="279.17" y="351" width="98.01" height="14" fill="#9ecae1" stroke="#3182bd"/>
+<line x1="317.46" y1="349" x2="317.46" y2="367" stroke="#08306b" stroke-width="2"/>
+<text x="938" y="362" font-family="sans-serif" font-size="10" fill="#555">missing 0.9%</text>
+<text x="210" y="396" text-anchor="end" font-family="sans-serif" font-size="11">volume_surprise_20d</text>
+<line x1="220" y1="392" x2="930" y2="392" stroke="#b8c2cc" stroke-width="2"/>
+<rect x="278.25" y="385" width="97.96" height="14" fill="#9ecae1" stroke="#3182bd"/>
+<line x1="316.46" y1="383" x2="316.46" y2="401" stroke="#08306b" stroke-width="2"/>
+<text x="938" y="396" font-family="sans-serif" font-size="10" fill="#555">missing 0.8%</text>
+<text x="210" y="430" text-anchor="end" font-family="sans-serif" font-size="11">amplitude_20d</text>
+<line x1="220" y1="426" x2="930" y2="426" stroke="#b8c2cc" stroke-width="2"/>
+<rect x="346.35" y="419" width="189.45" height="14" fill="#9ecae1" stroke="#3182bd"/>
+<line x1="428.13" y1="417" x2="428.13" y2="435" stroke="#08306b" stroke-width="2"/>
+<text x="938" y="430" font-family="sans-serif" font-size="10" fill="#555">missing 0.4%</text>
+<text x="210" y="464" text-anchor="end" font-family="sans-serif" font-size="11">return_volume_corr_20d</text>
+<line x1="220" y1="460" x2="930" y2="460" stroke="#b8c2cc" stroke-width="2"/>
+<rect x="529.89" y="453" width="253.98" height="14" fill="#9ecae1" stroke="#3182bd"/>
+<line x1="671.31" y1="451" x2="671.31" y2="469" stroke="#08306b" stroke-width="2"/>
+<text x="938" y="464" font-family="sans-serif" font-size="10" fill="#555">missing 0.9%</text>
+<text x="210" y="498" text-anchor="end" font-family="sans-serif" font-size="11">max_return_20d</text>
+<line x1="220" y1="494" x2="930" y2="494" stroke="#b8c2cc" stroke-width="2"/>
+<rect x="295.66" y="487" width="191.16" height="14" fill="#9ecae1" stroke="#3182bd"/>
+<line x1="361.86" y1="485" x2="361.86" y2="503" stroke="#08306b" stroke-width="2"/>
+<text x="938" y="498" font-family="sans-serif" font-size="10" fill="#555">missing 0.7%</text>
+<text x="210" y="532" text-anchor="end" font-family="sans-serif" font-size="11">earnings_yield</text>
+<line x1="220" y1="528" x2="930" y2="528" stroke="#b8c2cc" stroke-width="2"/>
+<rect x="272.11" y="521" width="127.43" height="14" fill="#9ecae1" stroke="#3182bd"/>
+<line x1="322.88" y1="519" x2="322.88" y2="537" stroke="#08306b" stroke-width="2"/>
+<text x="938" y="532" font-family="sans-serif" font-size="10" fill="#555">missing 21.1%</text>
+<text x="210" y="566" text-anchor="end" font-family="sans-serif" font-size="11">book_to_price</text>
+<line x1="220" y1="562" x2="930" y2="562" stroke="#b8c2cc" stroke-width="2"/>
+<rect x="301.52" y="555" width="146.92" height="14" fill="#9ecae1" stroke="#3182bd"/>
+<line x1="361.25" y1="553" x2="361.25" y2="571" stroke="#08306b" stroke-width="2"/>
+<text x="938" y="566" font-family="sans-serif" font-size="10" fill="#555">missing 0.2%</text>
+</svg>

@@ -1,0 +1,19 @@
+experiment_id: portfolio_sensitivity_v1
+research_status: retrospective_diagnostic_not_a_new_oos_selection
+model: ridge_v1
+target: fwd_return_5d_lag1
+top_n: [50, 100, 200, 500]
+weighting: [equal_weight, inverse_volatility]
+inverse_volatility_field: volatility_20d
+inverse_volatility_clip_quantiles: [0.05, 0.95]
+base_round_trip_cost_bps: 20.0
+execution_cost_stress_bps: [0.0, 20.0, 50.0, 100.0]
+minimum_realized_weight_fraction: 0.98
+weekly_annualization_periods: 52
+daily_annualization_periods: 252
+historical_oos_used_for_selection: false
+scope_note: >-
+  All variants are reported on common dates. This retrospective diagnostic does
+  not replace the validation-locked Top-200 equal-weight policy. Daily cost
+  stress reprices the realized fill path and does not re-simulate fee-dependent
+  share rounding or broker market impact.

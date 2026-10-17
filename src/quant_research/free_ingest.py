@@ -24,8 +24,6 @@ from quant_research.panel import instrument_type
 
 
 CONFIG_PATH = ROOT / "config" / "free_sources.yaml"
-
-
 def config() -> dict:
     with CONFIG_PATH.open(encoding="utf-8") as fh:
         return yaml.safe_load(fh)
@@ -39,6 +37,20 @@ def weekly_dates(calendar: pd.DataFrame) -> list[str]:
     return dates.groupby(dates.dt.to_period("W-FRI")).max().dt.strftime("%Y-%m-%d").tolist()
 
 
+def industry_snapshot_dates(calendar: pd.DataFrame) -> list[str]:
+    """Return a PIT-safe, rate-limit-friendly historical industry schedule."""
+    strategy_dates = pd.Series(pd.to_datetime(weekly_dates(calendar)))
+    if strategy_dates.empty:
+        return []
+    # Sample the last strategy signal date of each month, not a later calendar
+    # month-end that the weekly strategy never uses.
+    month_ends = strategy_dates.groupby(strategy_dates.dt.to_period("M")).max()
+    first_week = strategy_dates.min()
+    return sorted(
+        set(month_ends.dt.strftime("%Y-%m-%d")) | {first_week.strftime("%Y-%m-%d")}
+    )
+
+
 def record_state(lake: Lake, stage: str, *, completed: str | None = None,
                  failure: str | None = None) -> None:
     """Persist a human-readable checkpoint after every successful unit of work."""
@@ -47,7 +59,7 @@ def record_state(lake: Lake, stage: str, *, completed: str | None = None,
     path = root / "free_ingest.json"
     prior = json.loads(path.read_text(encoding="utf-8")) if path.exists() else {}
     prior[stage] = {"last_completed": completed, "last_failure": failure,
-                    "updated_at": pd.Timestamp.utcnow().isoformat()}
+                    "updated_at": pd.Timestamp.now(tz="UTC").isoformat()}
     temporary = path.with_suffix(".tmp")
     temporary.write_text(json.dumps(prior, ensure_ascii=False, indent=2), encoding="utf-8")
     temporary.replace(path)
@@ -87,19 +99,76 @@ def build_snapshots(provider: BaoStockProvider, lake: Lake, start: str, end: str
     return codes
 
 
+def build_industry_snapshots(
+    provider: BaoStockProvider, lake: Lake, start: str, end: str,
+    *, limit: int | None = None, workers: int = 1,
+) -> None:
+    """Download historical CSRC-industry snapshots on the research week-ends."""
+    if workers < 1:
+        raise ValueError("industry workers must be at least 1")
+    if workers != 1:
+        raise ValueError(
+            "BaoStock prohibits concurrent connections; industry workers must equal 1"
+        )
+    calendar = lake.read("calendar", "SSE")
+    if calendar.empty:
+        calendar = provider.trade_calendar(start, end)
+    bounded = calendar.loc[
+        calendar["cal_date"].astype(str).between(start, end)
+    ].copy()
+    dates = industry_snapshot_dates(bounded)
+    if limit:
+        dates = dates[:limit]
+    pending = [
+        (number, asof) for number, asof in enumerate(dates, start=1)
+        if not lake.table_path("industry_snapshot_baostock", asof).exists()
+    ]
+    for number, asof in pending:
+        try:
+            frame = provider.industry_asof(asof)
+            frame["asof_date"] = asof
+            lake.write(
+                "industry_snapshot_baostock", frame, key=asof,
+                source="baostock.query_stock_industry", request={"date": asof},
+            )
+            record_state(lake, "industries", completed=asof)
+            print(f"[industry {number}/{len(dates)}] {asof}", flush=True)
+        except Exception as exc:
+            record_state(lake, "industries", failure=f"{asof}: {exc}")
+            print(f"[industry failed] {asof}: {exc}", flush=True)
+            # Stop immediately instead of hammering the vendor after a broken
+            # connection or renewed rate-limit event.  Successful atomic files
+            # remain resumable on the next invocation.
+            raise
+
+
 def build_bars(provider: BaoStockProvider, lake: Lake, codes: list[str], start: str, end: str,
                *, limit: int | None = None, isolate_requests: bool = False,
-               request_timeout_seconds: int = 180) -> None:
-    # Index and other-security data are useful benchmarks, but are separate
-    # products. Prioritize the A-share cross section needed by this project.
-    codes = [code for code in codes if instrument_type(code) == "a_share"]
+               request_timeout_seconds: int = 180, workers: int = 1,
+               extra_codes: list[str] | None = None) -> None:
+    # Keep the research cross section restricted to A shares, while allowing
+    # explicitly configured benchmark indices required by downstream audits.
+    codes = sorted({
+        code for code in codes if instrument_type(code) == "a_share"
+    } | set(extra_codes or []))
     if limit:
         codes = codes[:limit]
-    for number, code in enumerate(codes, start=1):
+    if workers < 1:
+        raise ValueError("bar workers must be at least 1")
+    if workers != 1:
+        raise ValueError(
+            "BaoStock prohibits concurrent connections; bar workers must equal 1"
+        )
+    if isolate_requests and workers != 1:
+        raise ValueError("isolated bar requests cannot be combined with multiple workers")
+
+    pending = [
+        (number, code) for number, code in enumerate(codes, start=1)
+        if not lake.table_path("daily_bars_baostock", code).exists()
+    ]
+    for number, code in pending:
         # Atomic parquet writes guarantee that file existence means completion;
         # loading every prior 20-year history here would make resume unusably slow.
-        if lake.table_path("daily_bars_baostock", code).exists():
-            continue
         try:
             incoming = (isolated_daily_bars(code, start, end, provider.socket_timeout_seconds,
                                             provider.max_attempts, provider.retry_backoff_seconds,
@@ -175,7 +244,8 @@ def crosscheck(lake: Lake, start: str, end: str, sample_size: int) -> None:
                    source="baostock+akshare", request={"start": start, "end": end})
 
 
-def verify_download(lake: Lake, start: str, end: str) -> dict[str, int]:
+def verify_download(lake: Lake, start: str, end: str,
+                    required_benchmarks: list[str] | None = None) -> dict[str, int]:
     """Fail closed unless the requested free-source download is complete.
 
     File existence alone is insufficient: a pilot file downloaded for a shorter
@@ -189,15 +259,44 @@ def verify_download(lake: Lake, start: str, end: str) -> dict[str, int]:
     if calendar.empty:
         raise RuntimeError("SSE calendar is missing or empty")
 
-    expected_codes = {
+    expected_a_shares = {
         code for code in union["instrument_id"].dropna().astype(str)
         if instrument_type(code) == "a_share"
     }
+    benchmark_codes = set(required_benchmarks or [])
+    expected_codes = expected_a_shares | benchmark_codes
     expected_snapshots = set(weekly_dates(calendar))
     missing_snapshots = sorted(
         day for day in expected_snapshots
         if not lake.table_path("security_snapshot", day).exists()
     )
+    # A silent vendor pagination failure can leave a readable, full-page
+    # snapshot (for example 2,000 or 4,000 rows). File existence alone would
+    # accept it. Weekly A-share membership changes gradually, so compare each
+    # snapshot with its immediate neighbors and fail closed on a sudden drop.
+    snapshot_counts: dict[str, int] = {}
+    for day in sorted(expected_snapshots - set(missing_snapshots)):
+        identifiers = pd.read_parquet(
+            lake.table_path("security_snapshot", day), columns=["instrument_id"]
+        )["instrument_id"].dropna().astype(str)
+        snapshot_counts[day] = int(sum(
+            instrument_type(code) == "a_share" for code in identifiers
+        ))
+    minimum_adjacent_coverage = float(
+        config()["universe"].get("minimum_adjacent_snapshot_coverage", 0.95)
+    )
+    ordered_snapshot_days = sorted(snapshot_counts)
+    truncated_snapshots = []
+    for index, day in enumerate(ordered_snapshot_days):
+        neighbors = []
+        if index:
+            neighbors.append(snapshot_counts[ordered_snapshot_days[index - 1]])
+        if index + 1 < len(ordered_snapshot_days):
+            neighbors.append(snapshot_counts[ordered_snapshot_days[index + 1]])
+        reference = max(neighbors, default=snapshot_counts[day])
+        coverage = snapshot_counts[day] / reference if reference else 0.0
+        if coverage < minimum_adjacent_coverage:
+            truncated_snapshots.append((day, snapshot_counts[day], reference, coverage))
     missing_bar_files = sorted(
         code for code in expected_codes
         if not lake.table_path("daily_bars_baostock", code).exists()
@@ -230,6 +329,11 @@ def verify_download(lake: Lake, start: str, end: str) -> dict[str, int]:
         problems.append(
             f"missing weekly snapshots={len(missing_snapshots)} sample={missing_snapshots[:5]}"
         )
+    if truncated_snapshots:
+        problems.append(
+            "truncated weekly snapshots="
+            f"{len(truncated_snapshots)} sample={truncated_snapshots[:5]}"
+        )
     if missing_bar_files:
         problems.append(
             f"missing bar files={len(missing_bar_files)} sample={missing_bar_files[:5]}"
@@ -243,7 +347,8 @@ def verify_download(lake: Lake, start: str, end: str) -> dict[str, int]:
         raise RuntimeError("download verification failed: " + "; ".join(problems))
 
     summary = {
-        "a_share_codes": len(expected_codes),
+        "a_share_codes": len(expected_a_shares),
+        "benchmark_codes": len(benchmark_codes),
         "weekly_snapshots": len(expected_snapshots),
         "covered_bar_requests": len(covered_codes & expected_codes),
     }
@@ -251,9 +356,80 @@ def verify_download(lake: Lake, start: str, end: str) -> dict[str, int]:
     return summary
 
 
+def verify_industry_download(lake: Lake, start: str, end: str) -> dict[str, int]:
+    """Fail closed unless every scheduled industry snapshot is PIT-safe and readable."""
+    calendar = lake.read("calendar", "SSE")
+    if calendar.empty:
+        raise RuntimeError("SSE calendar is missing or empty")
+    bounded = calendar.loc[
+        calendar["cal_date"].astype(str).between(start, end)
+    ].copy()
+    expected = industry_snapshot_dates(bounded)
+    missing, invalid, rows, classified = [], [], 0, 0
+    minimum_coverage = float(
+        config()["industry"].get("minimum_security_snapshot_coverage", 0.95)
+    )
+    for asof in expected:
+        frame = lake.read("industry_snapshot_baostock", asof)
+        if frame.empty:
+            missing.append(asof)
+            continue
+        required = {
+            "instrument_id", "update_date", "industry_raw",
+            "industry_classification", "asof_date",
+        }
+        absent = sorted(required - set(frame.columns))
+        if absent:
+            invalid.append(f"{asof}: missing_columns={absent}")
+            continue
+        update_dates = pd.to_datetime(frame["update_date"], errors="coerce")
+        future_rows = int((update_dates > pd.Timestamp(asof)).sum())
+        duplicate_rows = int(frame.duplicated("instrument_id").sum())
+        wrong_asof = int(frame["asof_date"].astype(str).ne(asof).sum())
+        securities = lake.read("security_snapshot", asof)
+        expected_ids = {
+            code for code in securities.get("instrument_id", pd.Series(dtype=str))
+            .dropna().astype(str)
+            if instrument_type(code) == "a_share"
+        }
+        received_ids = set(frame["instrument_id"].dropna().astype(str))
+        security_coverage = (
+            len(expected_ids & received_ids) / len(expected_ids)
+            if expected_ids else 0.0
+        )
+        if (absent or future_rows or duplicate_rows or wrong_asof
+                or security_coverage < minimum_coverage):
+            invalid.append(
+                f"{asof}: missing_columns={absent}, future={future_rows}, "
+                f"duplicates={duplicate_rows}, wrong_asof={wrong_asof}, "
+                f"security_coverage={security_coverage:.4%}"
+            )
+        rows += len(frame)
+        classified += int(frame["industry_raw"].fillna("").astype(str).str.strip().ne("").sum())
+    if missing or invalid:
+        raise RuntimeError(
+            "industry download verification failed: "
+            f"missing={len(missing)} sample={missing[:5]}; "
+            f"invalid={len(invalid)} sample={invalid[:3]}"
+        )
+    summary = {
+        "industry_snapshots": len(expected),
+        "industry_rows": rows,
+        "classified_rows": classified,
+    }
+    print(f"industry download verification passed: {summary}", flush=True)
+    return summary
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Build free-source A-share research inputs")
-    parser.add_argument("command", choices=["snapshots", "bars", "bootstrap", "crosscheck", "verify"])
+    parser.add_argument(
+        "command",
+        choices=[
+            "snapshots", "bars", "bootstrap", "industries",
+            "crosscheck", "verify", "verify-industries",
+        ],
+    )
     parser.add_argument("--start", default=None)
     parser.add_argument("--end", default=date.today().isoformat())
     parser.add_argument("--limit", type=int, help="pilot mode: cap snapshot dates or securities")
@@ -261,24 +437,43 @@ def main() -> None:
                         help="fetch each bar request in a killable worker (recovery mode)")
     parser.add_argument("--request-timeout", type=int, default=180,
                         help="hard timeout per isolated bar request, in seconds")
+    parser.add_argument("--bar-workers", type=int, default=1,
+                        help="must be 1: BaoStock prohibits concurrent connections")
+    parser.add_argument("--industry-workers", type=int, default=None,
+                        help="must be 1: BaoStock prohibits concurrent connections")
     args = parser.parse_args()
+    if args.isolate_bars and args.bar_workers != 1:
+        parser.error("--isolate-bars and --bar-workers > 1 are mutually exclusive")
     cfg = config()
     start = args.start or cfg["research_start"]
     lake = Lake()
     network = cfg["network"]
-    if args.command in {"snapshots", "bootstrap", "bars"}:
+    if args.command in {"snapshots", "bootstrap", "bars", "industries"}:
         with BaoStockProvider(socket_timeout_seconds=int(network["socket_timeout_seconds"]),
                               max_attempts=int(network["max_attempts"]),
                               retry_backoff_seconds=int(network["retry_backoff_seconds"])) as provider:
-            codes = build_snapshots(provider, lake, start, args.end, limit=args.limit)
+            if args.command in {"snapshots", "bootstrap", "bars"}:
+                codes = build_snapshots(provider, lake, start, args.end, limit=args.limit)
             if args.command in {"bars", "bootstrap"}:
                 build_bars(provider, lake, codes, start, args.end, limit=args.limit,
                            isolate_requests=args.isolate_bars,
-                           request_timeout_seconds=args.request_timeout)
+                           request_timeout_seconds=args.request_timeout,
+                           workers=args.bar_workers,
+                           extra_codes=(list(cfg.get("benchmark_indices", []))
+                                        if args.limit is None else []))
+            if args.command == "industries":
+                build_industry_snapshots(
+                    provider, lake, start, args.end, limit=args.limit,
+                    workers=(args.industry_workers
+                             or int(cfg["industry"]["default_workers"])),
+                )
     if args.command == "crosscheck":
         crosscheck(lake, start, args.end, int(cfg["crosscheck"]["sample_size"]))
     if args.command == "verify":
-        verify_download(lake, start, args.end)
+        verify_download(lake, start, args.end,
+                        required_benchmarks=list(cfg.get("benchmark_indices", [])))
+    if args.command == "verify-industries":
+        verify_industry_download(lake, start, args.end)
 
 
 if __name__ == "__main__":

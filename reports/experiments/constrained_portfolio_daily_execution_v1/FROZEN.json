@@ -1,0 +1,16 @@
+{
+  "experiment_id": "constrained_portfolio_daily_execution_v1",
+  "frozen_at_utc": "2026-10-17T04:50:16.948577+00:00",
+  "content_sha256": "6e4923bdd610bab323ff03b2e5bbc4536da5322c1d16913755c0415df74a2367",
+  "files": {
+    "config.yaml": "f859078b2db9f65ed6a3ff3aeada938c5b8684189e934e1646f452c70b4141b9",
+    "metadata.json": "39701c8c0c1245acae0cc8e6e4577e9deb6ae14473aeec7c15d0728f053008dd",
+    "metrics.json": "142fcb85c0ad53dc0dfd94f0919b421ba792a96f6aba6406ed81742945d73c41",
+    "notes.md": "914e8b925b6cced2a5c75fef94d3c778a96a88a7269ea47948afbad3d026d252",
+    "tables/constrained_daily_execution_annual__v1.csv": "26cd609be6aef7a56db0bac535e17382430c0bdcc8c6f0327ef1b26c4381cc14",
+    "tables/constrained_daily_execution_bootstrap__v1.csv": "11fb38cabe17602253d4dfca0abc41ad029375d5b7d5ab395e6b7684eefef51e",
+    "tables/constrained_daily_execution_daily__v1.csv": "a923ed1ac744df0a07f2bbab27a1f16d3c48ed232138af7d6ba7a9cafeec4a71",
+    "tables/constrained_daily_execution_protocol__v1.csv": "ba2defca17b8e6f02934761c0174c91a561aff5e0c6fe15fd95ac1efa7586567",
+    "tables/constrained_daily_execution_summary__v1.csv": "ab206c199e5600bf4ca32a151f82cc5b74ef65642413a0e2e20aef4d146a2efa"
+  }
+}

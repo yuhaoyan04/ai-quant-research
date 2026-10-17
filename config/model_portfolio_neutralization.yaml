@@ -1,0 +1,45 @@
+experiment_id: model_portfolio_neutralization_v2
+historical_oos_used_for_selection: false
+factor_source: multi_horizon_factor_panel
+industry_source: pit_industry_exposures_v1
+size_source: pit_size_exposures_v1
+target: fwd_return_5d_lag1
+label_horizon_trading_days: 5
+train: {start_year: 2006, end_year: 2015}
+validation: {start_year: 2016, end_year: 2020}
+historical_oos: {start_year: 2021, end_year: 2026}
+pipelines: [raw, size_neutralized, industry_neutralized, industry_size_neutralized]
+models:
+  ridge_locked:
+    kind: ridge
+    penalty_per_observation: 1.0
+  hgb_shallow15_locked:
+    kind: hgb
+    learning_rate: 0.05
+    max_iter: 120
+    max_leaf_nodes: 15
+    min_samples_leaf: 100
+    l2_regularization: 1.0
+industry_level: csrc_broad_section
+minimum_industry_group_size: 5
+minimum_cross_section_size: 100
+sample_per_training_date: 300
+random_state: 20261016
+annualization_periods: 52
+portfolio_buckets: 10
+quantile_limits: [0.01, 0.99]
+mad_multiplier: 5.0
+include_missing_indicators: true
+portfolio:
+  construction: equal_weight_top_n
+  top_n: 200
+  round_trip_cost_bps: 20.0
+  minimum_realized_weight_fraction: 0.95
+  explicit_industry_constraint: false
+bootstrap:
+  block_length_weeks: 13
+  samples: 2000
+  random_seed: 20261017
+interpretation: >-
+  Locked-model attribution experiment. It changes factor residualization only;
+  it does not reselect models or impose portfolio-level industry constraints.

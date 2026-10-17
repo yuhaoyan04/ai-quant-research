@@ -1,0 +1,16 @@
+{
+  "experiment_id": "factor_neutralization_v2",
+  "frozen_at_utc": "2026-10-17T04:30:12.165902+00:00",
+  "content_sha256": "bda5cc56471503fa662004547f245c12804c4812f8881f50903d1d46ac78df44",
+  "files": {
+    "config.yaml": "55e88d4dd6b5ed31e713e03c61191b0f530cd599f5e24b1d9fe8e552333073a8",
+    "metadata.json": "064c9c175f882a82209fd5962eff31f8b6cc3a0ccd28fad226f43b4af4f6d138",
+    "metrics.json": "a588789a45f3cc2144b3f2761ca7ffecd502a7e1537001055e76c26812f65634",
+    "notes.md": "4ad661ca8a73f85b00402c9a0ea9772476d4b74a1a3ebaae0285bb45aec3f690",
+    "tables/factor_neutralization_annual__v1.csv": "d79e309c45207ded2548382565e138c6e39076471a5d1865da3b94ecff653b03",
+    "tables/factor_neutralization_bootstrap__v1.csv": "5c5e863e4343a8122a83a239d7d48cb1d8d0711646b9a28d596715d8b4e60a97",
+    "tables/factor_neutralization_conclusions__v1.csv": "7b83c5532ff0a1ba9defd8cbbfcc68c6d41f07d29dec0553331e7ec0b599632e",
+    "tables/factor_neutralization_directions__v1.csv": "32cd55ffa136f1bc41d986a24492e51b3263015b6590a32def47f134eb6cf818",
+    "tables/factor_neutralization_summary__v1.csv": "0ca952b54c07a7c445d594c3caafb734c41236792e62ecb36f1462c0c0426da2"
+  }
+}

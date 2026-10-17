@@ -14,7 +14,7 @@
 
 ## 证据缺口先说明
 
-当前研究有三项重要缺口：没有可靠的历史行业点时分类，因此尚未完成行业中性化；历史股票池是 BaoStock A 股点时代理，而不是官方中证历史成分；平方根冲击模型没有真实订单数据校准。后文所有结论都受这些边界约束。
+当前研究已用月度历史证监会宽行业快照完成 PIT 因子中性化、组合层主动权重约束和本地六风格风险模型，但仍没有带生效日期的申万细分行业或商业风险模型交叉验证；历史股票池是 BaoStock A 股点时代理，而不是官方中证历史成分；平方根冲击模型也没有真实订单数据校准。后文所有结论都受这些边界约束。
 
 ---
 
@@ -799,7 +799,7 @@ $$
 4. **收益不完全来自极端小盘**：剔除最小 20% 后仍保留大部分收益。
 5. **收益不是纯粹无法成交**：流动性筛选和 t+1 涨跌停审计后仍存在。
 6. **容量有限**：策略更像千万至数千万元规模，而不是数亿元容量产品。
-7. **仍有暴露风险**：缺少历史行业中性化，不能把全部收益归因给选股模型。
+7. **暴露可控但不能等同归因完成**：PIT 宽行业/规模约束显著降低了主动暴露与回撤，但尚不能把全部收益归因给纯选股 alpha。
 
 这正是专业研究和 toy case 的区别：不是证明自己模型永远正确，而是不断尝试解释、削弱或推翻最初的好结果，看它最后还剩多少。
 
@@ -826,6 +826,14 @@ quant-model-interpretation
 quant-size-stress analyze
 quant-execution-constraints analyze
 quant-robustness
+quant-risk-exposure build-size
+quant-risk-exposure build-industry
+quant-factor-neutralization
+quant-model-portfolio-neutralization
+quant-constrained-portfolio-neutralization
+quant-constrained-daily-execution all
+quant-risk-attribution all
+quant-risk-aware-portfolio
 quant-research-dashboard
 quant-audit
 python -m pytest -q

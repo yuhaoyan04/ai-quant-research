@@ -1,64 +1,112 @@
 # Research artifact audit
 
-Generated at `2026-10-15T08:29:17.446019+00:00`.
+Generated at `2026-10-17T12:11:16.693125+00:00`.
 
-Summary: **173 PASS / 6 WARN / 0 FAIL**
+Summary: **303 PASS / 36 WARN / 0 FAIL**
 
 | Status | Check | Detail |
 |---|---|---|
 | PASS | `chronological_split_order` | train={'start_year': 2006, 'end_year': 2015}, validation={'start_year': 2016, 'end_year': 2020}, historical_oos={'start_year': 2021, 'end_year': 2026} |
 | WARN | `historical_oos_is_not_pristine` | The 2021-2026 block has already been inspected during project development. It is historical out-of-sample evidence, not a never-seen production lockbox. |
 | PASS | `frozen_snapshot_integrity:baseline_ridge_v1` | all frozen files match FROZEN.json |
-| PASS | `frozen_live_inputs:baseline_ridge_v1` | all registered inputs match their SHA-256 hashes |
+| WARN | `frozen_live_inputs:baseline_ridge_v1` | mismatches=['model_features/2020', 'model_validation_predictions/ridge_v1', 'model_oos_predictions/ridge_v1', 'turnover_buffer_oos_holdings/v1', 'model_selection/ridge_v1', 'model_oos_annual/ridge_v1', 'turnover_buffer_oos_summary/v1', 'robustness_cost_grid/v1', 'robustness_block_bootstrap/v1'] |
 | PASS | `frozen_snapshot_integrity:challenger_hgb_blend_v1` | all frozen files match FROZEN.json |
-| PASS | `frozen_live_inputs:challenger_hgb_blend_v1` | all registered inputs match their SHA-256 hashes |
+| WARN | `frozen_live_inputs:challenger_hgb_blend_v1` | mismatches=['model_features/2020', 'model_challenger_validation_predictions/hgb_v1', 'model_challenger_oos_predictions/hgb_v1', 'challenger_portfolio_oos_holdings/v1', 'model_challenger_selection/hgb_v1', 'model_challenger_oos_annual/hgb_v1', 'challenger_portfolio_validation_summary/v1', 'challenger_portfolio_oos_summary/v1', 'robustness_cost_grid/v1', 'robustness_block_bootstrap/v1'] |
 | PASS | `frozen_snapshot_integrity:factor_preprocessing_ablation_v1` | all frozen files match FROZEN.json |
-| PASS | `frozen_live_inputs:factor_preprocessing_ablation_v1` | all registered inputs match their SHA-256 hashes |
+| WARN | `frozen_live_inputs:factor_preprocessing_ablation_v1` | mismatches=['eligible_factor_panel_staging/2006', 'eligible_factor_panel_staging/2007', 'eligible_factor_panel_staging/2008', 'eligible_factor_panel_staging/2009', 'eligible_factor_panel_staging/2010', 'eligible_factor_panel_staging/2011', 'eligible_factor_panel_staging/2012', 'eligible_factor_panel_staging/2013', 'eligible_factor_panel_staging/2014', 'eligible_factor_panel_staging/2015', 'eligible_factor_panel_staging/2016', 'eligible_factor_panel_staging/2017', 'eligible_factor_panel_staging/2018', 'eligible_factor_panel_staging/2019', 'eligible_factor_panel_staging/2020', 'factor_preprocessing_ablation_selection/v1', 'factor_preprocessing_ablation_grid/v1', 'factor_preprocessing_ablation_annual/v1', 'factor_preprocessing_ablation_factor_summary/v1'] |
 | PASS | `frozen_snapshot_integrity:factor_preprocessing_ablation_v2` | all frozen files match FROZEN.json |
-| PASS | `frozen_live_inputs:factor_preprocessing_ablation_v2` | all registered inputs match their SHA-256 hashes |
+| WARN | `frozen_live_inputs:factor_preprocessing_ablation_v2` | mismatches=['eligible_factor_panel_staging/2006', 'eligible_factor_panel_staging/2007', 'eligible_factor_panel_staging/2008', 'eligible_factor_panel_staging/2009', 'eligible_factor_panel_staging/2010', 'eligible_factor_panel_staging/2011', 'eligible_factor_panel_staging/2012', 'eligible_factor_panel_staging/2013', 'eligible_factor_panel_staging/2014', 'eligible_factor_panel_staging/2015', 'eligible_factor_panel_staging/2016', 'eligible_factor_panel_staging/2017', 'eligible_factor_panel_staging/2018', 'eligible_factor_panel_staging/2019', 'eligible_factor_panel_staging/2020', 'factor_preprocessing_ablation_selection/v2', 'factor_preprocessing_ablation_grid/v2', 'factor_preprocessing_ablation_annual/v2', 'factor_preprocessing_ablation_factor_summary/v2'] |
 | PASS | `frozen_snapshot_integrity:factor_preprocessing_oos_v1` | all frozen files match FROZEN.json |
-| PASS | `frozen_live_inputs:factor_preprocessing_oos_v1` | all registered inputs match their SHA-256 hashes |
+| WARN | `frozen_live_inputs:factor_preprocessing_oos_v1` | mismatches=['eligible_factor_panel_staging/2006', 'eligible_factor_panel_staging/2007', 'eligible_factor_panel_staging/2008', 'eligible_factor_panel_staging/2009', 'eligible_factor_panel_staging/2010', 'eligible_factor_panel_staging/2011', 'eligible_factor_panel_staging/2012', 'eligible_factor_panel_staging/2013', 'eligible_factor_panel_staging/2014', 'eligible_factor_panel_staging/2015', 'eligible_factor_panel_staging/2016', 'eligible_factor_panel_staging/2017', 'eligible_factor_panel_staging/2018', 'eligible_factor_panel_staging/2019', 'eligible_factor_panel_staging/2020', 'eligible_factor_panel_staging/2021', 'eligible_factor_panel_staging/2022', 'eligible_factor_panel_staging/2023', 'eligible_factor_panel_staging/2024', 'eligible_factor_panel_staging/2025', 'eligible_factor_panel_staging/2026', 'factor_preprocessing_oos_summary/v1', 'factor_preprocessing_oos_annual/v1', 'factor_preprocessing_oos_bootstrap/v1'] |
 | PASS | `frozen_snapshot_integrity:ic_decay_v1` | all frozen files match FROZEN.json |
-| PASS | `frozen_live_inputs:ic_decay_v1` | all registered inputs match their SHA-256 hashes |
+| WARN | `frozen_live_inputs:ic_decay_v1` | mismatches=['factor_preprocessing_oos_predictions/v1', 'ic_decay_panel/v1', 'ic_decay_summary/v1', 'ic_decay_annual/v1'] |
 | PASS | `frozen_snapshot_integrity:leave_one_factor_out_v1` | all frozen files match FROZEN.json |
-| PASS | `frozen_live_inputs:leave_one_factor_out_v1` | all registered inputs match their SHA-256 hashes |
+| WARN | `frozen_live_inputs:leave_one_factor_out_v1` | mismatches=['eligible_factor_panel_staging/2006', 'eligible_factor_panel_staging/2007', 'eligible_factor_panel_staging/2008', 'eligible_factor_panel_staging/2009', 'eligible_factor_panel_staging/2010', 'eligible_factor_panel_staging/2011', 'eligible_factor_panel_staging/2012', 'eligible_factor_panel_staging/2013', 'eligible_factor_panel_staging/2014', 'eligible_factor_panel_staging/2015', 'eligible_factor_panel_staging/2016', 'eligible_factor_panel_staging/2017', 'eligible_factor_panel_staging/2018', 'eligible_factor_panel_staging/2019', 'eligible_factor_panel_staging/2020', 'eligible_factor_panel_staging/2021', 'eligible_factor_panel_staging/2022', 'eligible_factor_panel_staging/2023', 'eligible_factor_panel_staging/2024', 'eligible_factor_panel_staging/2025', 'eligible_factor_panel_staging/2026', 'lofo_summary/v1', 'lofo_paired_bootstrap/v1', 'lofo_comparison/v1'] |
 | PASS | `frozen_snapshot_integrity:label_horizon_v1` | all frozen files match FROZEN.json |
-| PASS | `frozen_live_inputs:label_horizon_v1` | all registered inputs match their SHA-256 hashes |
+| WARN | `frozen_live_inputs:label_horizon_v1` | mismatches=['multi_horizon_factor_panel/2006', 'multi_horizon_factor_panel/2007', 'multi_horizon_factor_panel/2008', 'multi_horizon_factor_panel/2009', 'multi_horizon_factor_panel/2010', 'multi_horizon_factor_panel/2011', 'multi_horizon_factor_panel/2012', 'multi_horizon_factor_panel/2013', 'multi_horizon_factor_panel/2014', 'multi_horizon_factor_panel/2015', 'multi_horizon_factor_panel/2016', 'multi_horizon_factor_panel/2017', 'multi_horizon_factor_panel/2018', 'multi_horizon_factor_panel/2019', 'multi_horizon_factor_panel/2020', 'multi_horizon_factor_panel/2021', 'multi_horizon_factor_panel/2022', 'multi_horizon_factor_panel/2023', 'multi_horizon_factor_panel/2024', 'multi_horizon_factor_panel/2025', 'multi_horizon_factor_panel/2026', 'label_horizon_panel_audit/v1', 'label_horizon_validation_grid/v1', 'label_horizon_validation_candidates/v1', 'label_horizon_selection/v1', 'label_horizon_oos_summary/v1', 'label_horizon_oos_annual/v1', 'label_horizon_oos_bootstrap/v1'] |
 | PASS | `frozen_snapshot_integrity:size_neutralization_v1` | all frozen files match FROZEN.json |
-| PASS | `frozen_live_inputs:size_neutralization_v1` | all registered inputs match their SHA-256 hashes |
+| WARN | `frozen_live_inputs:size_neutralization_v1` | mismatches=['pit_size_exposure_index/v1', 'multi_horizon_factor_panel/2006', 'multi_horizon_factor_panel/2007', 'multi_horizon_factor_panel/2008', 'multi_horizon_factor_panel/2009', 'multi_horizon_factor_panel/2010', 'multi_horizon_factor_panel/2011', 'multi_horizon_factor_panel/2012', 'multi_horizon_factor_panel/2013', 'multi_horizon_factor_panel/2014', 'multi_horizon_factor_panel/2015', 'multi_horizon_factor_panel/2016', 'multi_horizon_factor_panel/2017', 'multi_horizon_factor_panel/2018', 'multi_horizon_factor_panel/2019', 'multi_horizon_factor_panel/2020', 'multi_horizon_factor_panel/2021', 'multi_horizon_factor_panel/2022', 'multi_horizon_factor_panel/2023', 'multi_horizon_factor_panel/2024', 'multi_horizon_factor_panel/2025', 'multi_horizon_factor_panel/2026', 'pit_size_exposures/2006', 'pit_size_exposures/2007', 'pit_size_exposures/2008', 'pit_size_exposures/2009', 'pit_size_exposures/2010', 'pit_size_exposures/2011', 'pit_size_exposures/2012', 'pit_size_exposures/2013', 'pit_size_exposures/2014', 'pit_size_exposures/2015', 'pit_size_exposures/2016', 'pit_size_exposures/2017', 'pit_size_exposures/2018', 'pit_size_exposures/2019', 'pit_size_exposures/2020', 'pit_size_exposures/2021', 'pit_size_exposures/2022', 'pit_size_exposures/2023', 'pit_size_exposures/2024', 'pit_size_exposures/2025', 'pit_size_exposures/2026', 'size_neutralization_validation_summary/v1', 'size_neutralization_oos_summary/v1', 'size_neutralization_oos_annual/v1', 'size_neutralization_oos_bootstrap/v1', 'size_neutralization_oos_exposures/v1'] |
 | PASS | `frozen_snapshot_integrity:model_benchmark_v1` | all frozen files match FROZEN.json |
-| PASS | `frozen_live_inputs:model_benchmark_v1` | all registered inputs match their SHA-256 hashes |
+| WARN | `frozen_live_inputs:model_benchmark_v1` | mismatches=['multi_horizon_factor_panel/2006', 'multi_horizon_factor_panel/2007', 'multi_horizon_factor_panel/2008', 'multi_horizon_factor_panel/2009', 'multi_horizon_factor_panel/2010', 'multi_horizon_factor_panel/2011', 'multi_horizon_factor_panel/2012', 'multi_horizon_factor_panel/2013', 'multi_horizon_factor_panel/2014', 'multi_horizon_factor_panel/2015', 'multi_horizon_factor_panel/2016', 'multi_horizon_factor_panel/2017', 'multi_horizon_factor_panel/2018', 'multi_horizon_factor_panel/2019', 'multi_horizon_factor_panel/2020', 'multi_horizon_factor_panel/2021', 'multi_horizon_factor_panel/2022', 'multi_horizon_factor_panel/2023', 'multi_horizon_factor_panel/2024', 'multi_horizon_factor_panel/2025', 'multi_horizon_factor_panel/2026', 'model_benchmark_validation_grid/v1', 'model_benchmark_family_selection/v1', 'model_benchmark_selection/v1', 'model_benchmark_oos_summary/v1', 'model_benchmark_oos_annual/v1', 'model_benchmark_oos_bootstrap/v1', 'model_benchmark_winner_pairwise/v1', 'model_benchmark_fit_audit/v1', 'model_benchmark_availability/v1'] |
 | PASS | `frozen_snapshot_integrity:rf_hyperparameter_stability_v1` | all frozen files match FROZEN.json |
-| PASS | `frozen_live_inputs:rf_hyperparameter_stability_v1` | all registered inputs match their SHA-256 hashes |
+| WARN | `frozen_live_inputs:rf_hyperparameter_stability_v1` | mismatches=['multi_horizon_factor_panel/2006', 'multi_horizon_factor_panel/2007', 'multi_horizon_factor_panel/2008', 'multi_horizon_factor_panel/2009', 'multi_horizon_factor_panel/2010', 'multi_horizon_factor_panel/2011', 'multi_horizon_factor_panel/2012', 'multi_horizon_factor_panel/2013', 'multi_horizon_factor_panel/2014', 'multi_horizon_factor_panel/2015', 'multi_horizon_factor_panel/2016', 'multi_horizon_factor_panel/2017', 'multi_horizon_factor_panel/2018', 'multi_horizon_factor_panel/2019', 'multi_horizon_factor_panel/2020', 'rf_hyperparameter_validation_summary/v1', 'rf_hyperparameter_axis_summary/v1', 'rf_hyperparameter_protocol/v1'] |
 | PASS | `frozen_snapshot_integrity:rf_execution_forensics_v1` | all frozen files match FROZEN.json |
-| PASS | `frozen_live_inputs:rf_execution_forensics_v1` | all registered inputs match their SHA-256 hashes |
+| WARN | `frozen_live_inputs:rf_execution_forensics_v1` | mismatches=['model_benchmark_validation_portfolio/v1', 'model_benchmark_oos_portfolio/v1', 'execution_flag_index/v1', 'pit_size_exposure_index/v1', 'rf_forensic_summary/v1', 'rf_forensic_yearly/v1', 'rf_forensic_concentration/v1', 'rf_forensic_holdings_summary/v1', 'rf_forensic_missingness/v1', 'rf_forensic_label_audit/v1', 'rf_oos_execution_summary/v1', 'rf_oos_execution_yearly/v1', 'rf_oos_execution_diagnostics/v1', 'rf_oos_execution_fit_audit/v1'] |
 | PASS | `frozen_snapshot_integrity:rf_daily_retry_execution_v1` | all frozen files match FROZEN.json |
-| PASS | `frozen_live_inputs:rf_daily_retry_execution_v1` | all registered inputs match their SHA-256 hashes |
+| WARN | `frozen_live_inputs:rf_daily_retry_execution_v1` | mismatches=['rf_target_holdings/validation_v1', 'rf_target_holdings/historical_oos_v1', 'rf_daily_execution_market/validation_v1', 'rf_daily_execution_market/historical_oos_v1', 'rf_daily_retry_daily/validation_v1', 'rf_daily_retry_daily/historical_oos_v1', 'rf_daily_retry_summary/validation_v1', 'rf_daily_retry_summary/historical_oos_v1', 'rf_daily_retry_annual/validation_v1', 'rf_daily_retry_annual/historical_oos_v1', 'rf_daily_ideal_daily/validation_v1', 'rf_daily_ideal_daily/historical_oos_v1', 'rf_daily_ideal_summary/validation_v1', 'rf_daily_ideal_summary/historical_oos_v1', 'rf_daily_ideal_annual/validation_v1', 'rf_daily_ideal_annual/historical_oos_v1', 'rf_daily_timing_audit/validation_v1', 'rf_daily_timing_audit/historical_oos_v1'] |
+| PASS | `frozen_snapshot_integrity:factor_neutralization_v1` | all frozen files match FROZEN.json |
+| WARN | `frozen_live_inputs:factor_neutralization_v1` | mismatches=['pit_industry_exposure_index/v1', 'multi_horizon_factor_panel/2023', 'multi_horizon_factor_panel/2025', 'pit_industry_exposures/2023', 'pit_industry_exposures/2025', 'factor_neutralization_summary/v1', 'factor_neutralization_annual/v1', 'factor_neutralization_bootstrap/v1', 'factor_neutralization_conclusions/v1'] |
+| PASS | `frozen_snapshot_integrity:model_portfolio_neutralization_v1` | all frozen files match FROZEN.json |
+| WARN | `frozen_live_inputs:model_portfolio_neutralization_v1` | mismatches=['pit_industry_exposure_index/v1', 'multi_horizon_factor_panel/2023', 'multi_horizon_factor_panel/2025', 'pit_industry_exposures/2023', 'pit_industry_exposures/2025', 'model_neutralization_protocol/v1', 'model_neutralization_validation_summary/v1', 'model_neutralization_oos_summary/v1', 'model_neutralization_oos_annual/v1', 'model_neutralization_oos_bootstrap/v1', 'model_neutralization_conclusions/v1', 'model_neutralization_fit_audit/v1'] |
+| PASS | `frozen_snapshot_integrity:factor_neutralization_v2` | all frozen files match FROZEN.json |
+| PASS | `frozen_live_inputs:factor_neutralization_v2` | all registered inputs match their SHA-256 hashes |
+| PASS | `frozen_snapshot_integrity:factor_tear_sheet_v1` | all frozen files match FROZEN.json |
+| PASS | `frozen_live_inputs:factor_tear_sheet_v1` | all registered inputs match their SHA-256 hashes |
+| PASS | `frozen_snapshot_integrity:capm_attribution_v1` | all frozen files match FROZEN.json |
+| PASS | `frozen_live_inputs:capm_attribution_v1` | all registered inputs match their SHA-256 hashes |
+| PASS | `frozen_snapshot_integrity:style_factor_attribution_v1` | all frozen files match FROZEN.json |
+| PASS | `frozen_live_inputs:style_factor_attribution_v1` | all registered inputs match their SHA-256 hashes |
+| PASS | `frozen_snapshot_integrity:model_portfolio_neutralization_v2` | all frozen files match FROZEN.json |
+| PASS | `frozen_live_inputs:model_portfolio_neutralization_v2` | all registered inputs match their SHA-256 hashes |
+| PASS | `frozen_snapshot_integrity:constrained_portfolio_neutralization_v1` | all frozen files match FROZEN.json |
+| PASS | `frozen_live_inputs:constrained_portfolio_neutralization_v1` | all registered inputs match their SHA-256 hashes |
+| PASS | `frozen_snapshot_integrity:constrained_portfolio_daily_execution_v1` | all frozen files match FROZEN.json |
+| PASS | `frozen_live_inputs:constrained_portfolio_daily_execution_v1` | all registered inputs match their SHA-256 hashes |
+| PASS | `frozen_snapshot_integrity:multi_factor_risk_attribution_v1` | all frozen files match FROZEN.json |
+| PASS | `frozen_live_inputs:multi_factor_risk_attribution_v1` | all registered inputs match their SHA-256 hashes |
+| PASS | `frozen_snapshot_integrity:risk_aware_portfolio_optimization_v2` | all frozen files match FROZEN.json |
+| PASS | `frozen_live_inputs:risk_aware_portfolio_optimization_v2` | all registered inputs match their SHA-256 hashes |
+| PASS | `frozen_snapshot_integrity:factor_registry_v1` | all frozen files match FROZEN.json |
+| PASS | `frozen_live_inputs:factor_registry_v1` | all registered inputs match their SHA-256 hashes |
+| PASS | `frozen_snapshot_integrity:portfolio_sensitivity_v1` | all frozen files match FROZEN.json |
+| PASS | `frozen_live_inputs:portfolio_sensitivity_v1` | all registered inputs match their SHA-256 hashes |
+| PASS | `frozen_snapshot_integrity:hgb_hyperparameter_stability_v1` | all frozen files match FROZEN.json |
+| PASS | `frozen_live_inputs:hgb_hyperparameter_stability_v1` | all registered inputs match their SHA-256 hashes |
+| PASS | `frozen_snapshot_integrity:factor_visual_diagnostics_v1` | all frozen files match FROZEN.json |
+| PASS | `frozen_live_inputs:factor_visual_diagnostics_v1` | all registered inputs match their SHA-256 hashes |
+| PASS | `frozen_snapshot_integrity:final_research_baseline_v1` | all frozen files match FROZEN.json |
+| PASS | `frozen_live_inputs:final_research_baseline_v1` | all registered inputs match their SHA-256 hashes |
+| PASS | `frozen_snapshot_integrity:final_research_baseline_v2` | all frozen files match FROZEN.json |
+| PASS | `frozen_live_inputs:final_research_baseline_v2` | all registered inputs match their SHA-256 hashes |
 | WARN | `invalidated_experiment:factor_preprocessing_ablation_v1` | severity=portfolio_metrics_invalid; superseded_by=factor_preprocessing_ablation_v2; reason=Validation portfolios were formed after filtering rows with non-null future returns. RankIC and model-selection metrics used the correct realized subset, but Top-200 portfolio metrics had outcome-availability leakage. |
 | WARN | `invalidated_experiment:model_benchmark_v1` | severity=portfolio_metrics_execution_idealized; superseded_by=rf_daily_retry_execution_v1; reason=Model ranking and RankIC are valid, but the benchmark Top-200 portfolio assumes every next-day rebalance is filled. RandomForest disproportionately selected stocks blocked by next-day price limits or suspensions, materially inflating validation returns and modestly inflating historical-OOS returns. |
 | WARN | `invalidated_experiment:rf_execution_forensics_v1` | severity=execution_timing_incomplete; superseded_by=rf_daily_retry_execution_v1; reason=The weekly constrained simulator applied a blocked next-day order only at the following weekly rebalance. It also evaluated every signal with a full five-day label even when holiday-week signal dates were fewer than five trading days apart, creating overlapping portfolio return intervals. The price-limit diagnosis remains valid, but its 19.09% validation and 24.19% historical-OOS returns are not the final executable estimates. |
+| WARN | `invalidated_experiment:factor_neutralization_v1` | severity=upstream_snapshot_truncation; superseded_by=factor_neutralization_v2; reason=BaoStock security snapshots for 2023-06-16 and 2025-10-10 were silently truncated at pagination boundaries. The affected PIT universe, factor panel, and industry exposure partitions were repaired and the experiment was rerun. |
+| WARN | `invalidated_experiment:model_portfolio_neutralization_v1` | severity=upstream_snapshot_truncation; superseded_by=model_portfolio_neutralization_v2; reason=BaoStock security snapshots for 2023-06-16 and 2025-10-10 were silently truncated at pagination boundaries. The affected PIT universe, feature, and industry exposure partitions were repaired and the locked models were rerun. |
+| WARN | `invalidated_experiment:risk_aware_portfolio_optimization_v1` | severity=frozen_provenance_incomplete; superseded_by=risk_aware_portfolio_optimization_v2; reason=The first immutable registration accidentally reused the constrained daily execution input-list YAML anchor. Research tables and conclusions are valid, but the frozen metadata omitted the full PIT beta, panel, size, and industry dependency set consumed by the risk optimizer. |
+| WARN | `invalidated_experiment:baseline_ridge_v1` | severity=superseded_live_baseline; superseded_by=final_research_baseline_v2; reason=The immutable snapshot remains valid, but its registered live model and portfolio artifacts predate the final PIT lake repair and consolidated research rebuild. It is retained only as historical provenance. |
+| WARN | `invalidated_experiment:challenger_hgb_blend_v1` | severity=superseded_live_baseline; superseded_by=final_research_baseline_v2; reason=The original HGB/Ridge blend snapshot predates the repaired PIT lake and unified model benchmark. Its immutable result is historical, not current. |
+| WARN | `invalidated_experiment:factor_preprocessing_ablation_v2` | severity=superseded_live_artifacts; superseded_by=final_research_baseline_v2; reason=The leakage-corrected frozen snapshot is intact, but its live derived tables were regenerated during the consolidated rebuild. The final baseline records the current hashes while preserving this historical run. |
+| WARN | `invalidated_experiment:factor_preprocessing_oos_v1` | severity=superseded_live_artifacts; superseded_by=final_research_baseline_v2; reason=Current OOS preprocessing artifacts were rebuilt after upstream PIT data repairs. The old snapshot is immutable but no longer the live publication baseline. |
+| WARN | `invalidated_experiment:ic_decay_v1` | severity=superseded_live_artifacts; superseded_by=final_research_baseline_v2; reason=IC-decay live tables were regenerated after the PIT panel repair. The old frozen result remains auditable and is superseded for publication. |
+| WARN | `invalidated_experiment:leave_one_factor_out_v1` | severity=superseded_live_artifacts; superseded_by=final_research_baseline_v2; reason=LOFO live outputs were regenerated during the final PIT rebuild. The immutable run is retained as history but is not the current baseline. |
+| WARN | `invalidated_experiment:label_horizon_v1` | severity=superseded_live_artifacts; superseded_by=final_research_baseline_v2; reason=Label-horizon artifacts were regenerated from the repaired panel. The historical frozen snapshot remains intact and its selection caveat remains valid. |
+| WARN | `invalidated_experiment:size_neutralization_v1` | severity=superseded_live_artifacts; superseded_by=factor_neutralization_v2; reason=Size-neutralization outputs were rebuilt after upstream security snapshot repair and are now incorporated into the full industry-plus-size chain. |
+| WARN | `invalidated_experiment:rf_hyperparameter_stability_v1` | severity=superseded_model_family; superseded_by=hgb_hyperparameter_stability_v1; reason=The RF local grid is preserved, but the repaired unified benchmark selects HGB and the final robustness work uses a validation-only HGB two-dimensional surface. |
+| WARN | `invalidated_experiment:rf_daily_retry_execution_v1` | severity=superseded_execution_baseline; superseded_by=constrained_portfolio_daily_execution_v1; reason=The RF execution audit remains useful forensic evidence, but the final execution baseline uses locked Ridge/HGB constrained portfolios on the repaired lake. |
+| WARN | `invalidated_experiment:final_research_baseline_v1` | severity=superseded_publication_baseline; superseded_by=final_research_baseline_v2; reason=The first final aggregate was frozen before the dashboard and publication auditor gained explicit gates for the new factor registry, HGB surface, portfolio sensitivity, and cost stress. Its research metrics are unchanged; v2 records the final source tree and publication configuration. |
 | PASS | `artifact:research_coverage/a_share` | rows=4 |
 | PASS | `historical_universe_download_coverage` | coverage=100.00%, missing_files=0 |
-| PASS | `artifact:model_validation_predictions/ridge_v1` | rows=813,175 |
+| PASS | `artifact:model_validation_predictions/ridge_v1` | rows=818,333 |
 | PASS | `ridge_validation_prediction_keys_unique` | duplicate_rows=0 |
 | PASS | `ridge_validation_prediction_years` | observed=2016-2020, expected=2016-2020 |
 | PASS | `ridge_validation_availability_after_signal` | available_date must be strictly after asof_date |
-| PASS | `ridge_validation_scores_finite` | rows=813,175, dates=254 |
-| PASS | `artifact:model_oos_predictions/ridge_v1` | rows=1,400,025 |
+| PASS | `ridge_validation_scores_finite` | rows=818,333, dates=254 |
+| PASS | `artifact:model_oos_predictions/ridge_v1` | rows=1,394,487 |
 | PASS | `ridge_oos_prediction_keys_unique` | duplicate_rows=0 |
 | PASS | `ridge_oos_prediction_years` | observed=2021-2026, expected=2021-2026 |
 | PASS | `ridge_oos_availability_after_signal` | available_date must be strictly after asof_date |
-| PASS | `ridge_oos_scores_finite` | rows=1,400,025, dates=295 |
-| PASS | `artifact:model_challenger_oos_predictions/hgb_v1` | rows=1,400,025 |
+| PASS | `ridge_oos_scores_finite` | rows=1,394,487, dates=295 |
+| PASS | `artifact:model_challenger_oos_predictions/hgb_v1` | rows=1,394,487 |
 | PASS | `challenger_oos_prediction_keys_unique` | duplicate_rows=0 |
 | PASS | `challenger_oos_prediction_years` | observed=2021-2026, expected=2021-2026 |
 | PASS | `challenger_oos_availability_after_signal` | available_date must be strictly after asof_date |
-| PASS | `challenger_oos_scores_finite` | rows=1,400,025, dates=295 |
-| PASS | `artifact:factor_preprocessing_oos_predictions/v1` | rows=1,390,009 |
+| PASS | `challenger_oos_scores_finite` | rows=1,394,487, dates=295 |
+| PASS | `artifact:factor_preprocessing_oos_predictions/v1` | rows=1,384,470 |
 | PASS | `factor_preprocessing_oos_prediction_keys_unique` | duplicate_rows=0 |
 | PASS | `factor_preprocessing_oos_prediction_years` | observed=2021-2026, expected=2021-2026 |
 | PASS | `factor_preprocessing_oos_availability_after_signal` | available_date must be strictly after asof_date |
-| PASS | `factor_preprocessing_oos_scores_finite` | rows=1,390,009, dates=293 |
+| PASS | `factor_preprocessing_oos_scores_finite` | rows=1,384,470, dates=293 |
 | PASS | `artifact:model_selection/ridge_v1` | rows=1 |
 | PASS | `selection_provenance:model_selection` | selection_data_end=2020-12-31; expected=2020-12-31 |
 | PASS | `artifact:portfolio_selection/long_only_v1` | rows=1 |
@@ -87,22 +135,22 @@ Summary: **173 PASS / 6 WARN / 0 FAIL**
 | PASS | `artifact:robustness_cost_grid/v1` | rows=8 |
 | PASS | `artifact:robustness_block_bootstrap/v1` | rows=6 |
 | PASS | `artifact:model_oos_annual/ridge_v1` | rows=6 |
-| PASS | `ridge_rank_ic_positive_each_oos_year` | minimum_annual_rank_ic=0.0898 |
-| PASS | `ridge_excess_bootstrap_interval_above_zero` | 95% CI=[5.17%, 34.13%] |
-| PASS | `challenger_increment_not_overstated` | 95% CI=[-0.87%, 7.45%]; report as an economic signal, not proven superiority |
+| PASS | `ridge_rank_ic_positive_each_oos_year` | minimum_annual_rank_ic=0.0897 |
+| PASS | `ridge_excess_bootstrap_interval_above_zero` | 95% CI=[5.32%, 34.24%] |
+| PASS | `challenger_increment_interval_valid` | 95% CI=[1.19%, 9.19%]; inference=positive; historical OOS is not pristine |
 | PASS | `artifact:lofo_summary/v1` | rows=32 |
 | PASS | `artifact:factor_preprocessing_oos_summary/v1` | rows=2 |
-| PASS | `lofo_full_reproduces_preprocessing:mean_rank_ic` | lofo=0.0977156414, preprocessing_oos=0.0977156414 |
-| PASS | `lofo_full_reproduces_preprocessing:annualized_icir` | lofo=4.5327174107, preprocessing_oos=4.5327174107 |
-| PASS | `lofo_full_reproduces_preprocessing:portfolio_annualized_return` | lofo=0.2121601595, preprocessing_oos=0.2121601595 |
-| PASS | `artifact:label_horizon_oos_predictions/v1` | rows=1,400,025 |
+| PASS | `lofo_full_reproduces_preprocessing:mean_rank_ic` | lofo=0.0976365971, preprocessing_oos=0.0976365971 |
+| PASS | `lofo_full_reproduces_preprocessing:annualized_icir` | lofo=4.5261332009, preprocessing_oos=4.5261332009 |
+| PASS | `lofo_full_reproduces_preprocessing:portfolio_annualized_return` | lofo=0.2116277973, preprocessing_oos=0.2116277973 |
+| PASS | `artifact:label_horizon_oos_predictions/v1` | rows=1,394,487 |
 | PASS | `label_horizon_oos_prediction_keys_unique` | duplicate_rows=0 |
 | PASS | `label_horizon_oos_prediction_years` | observed=2021-2026, expected=2021-2026 |
 | PASS | `label_horizon_oos_availability_after_signal` | available_date must be strictly after asof_date |
-| PASS | `label_horizon_oos_scores_finite` | rows=1,400,025, dates=295 |
+| PASS | `label_horizon_oos_scores_finite` | rows=1,394,487, dates=295 |
 | PASS | `artifact:label_horizon_oos_portfolio/v1` | rows=1,770 |
 | PASS | `label_horizon_selected_net_return_identity` | max_abs_error=0.000e+00 |
-| PASS | `label_horizon_selected_returns_finite_and_above_minus_one` | dates=289 |
+| PASS | `label_horizon_selected_returns_finite_and_above_minus_one` | dates=290 |
 | PASS | `artifact:label_horizon_panel_audit/v1` | rows=21 |
 | PASS | `artifact:label_horizon_selection/v1` | rows=1 |
 | PASS | `artifact:label_horizon_oos_summary/v1` | rows=6 |
@@ -112,9 +160,9 @@ Summary: **173 PASS / 6 WARN / 0 FAIL**
 | PASS | `label_coverage_monotone_by_horizon` | coverage(5d) >= coverage(10d) >= coverage(20d) for every year |
 | PASS | `label_selection_excludes_historical_oos` | selected=h20_raw_return |
 | PASS | `artifact:factor_preprocessing_oos_summary/v1` | rows=2 |
-| PASS | `label_h5_rank_reproduces_preprocessing:mean_rank_ic` | label_study=0.0977156414, preprocessing_oos=0.0977156414 |
-| PASS | `label_h5_rank_reproduces_preprocessing:portfolio_annualized_return` | label_study=0.2121601595, preprocessing_oos=0.2121601595 |
-| PASS | `label_selected_increment_not_overstated` | selected=h20_raw_return; 95% CI=[-5.09%, 5.03%] |
+| PASS | `label_h5_rank_reproduces_preprocessing:mean_rank_ic` | label_study=0.0976365971, preprocessing_oos=0.0976365971 |
+| PASS | `label_h5_rank_reproduces_preprocessing:portfolio_annualized_return` | label_study=0.2116277973, preprocessing_oos=0.2116277973 |
+| PASS | `label_selected_increment_not_overstated` | selected=h20_raw_return; 95% CI=[-4.71%, 5.88%] |
 | PASS | `artifact:size_neutralization_oos_portfolio/v1` | rows=586 |
 | PASS | `size_neutralization_raw_net_return_identity` | max_abs_error=0.000e+00 |
 | PASS | `size_neutralization_raw_returns_finite_and_above_minus_one` | dates=293 |
@@ -126,34 +174,133 @@ Summary: **173 PASS / 6 WARN / 0 FAIL**
 | PASS | `artifact:size_neutralization_oos_bootstrap/v1` | rows=2 |
 | PASS | `pit_size_coverage` | minimum_eligible_weekly_coverage=99.998965% |
 | PASS | `pit_size_keys_unique` | duplicate_rows=0 |
-| PASS | `size_neutral_score_orthogonality` | abs_mean_score_log_size_correlation=8.420e-18 |
+| PASS | `size_neutral_score_orthogonality` | abs_mean_score_log_size_correlation=9.557e-19 |
 | PASS | `artifact:factor_preprocessing_oos_summary/v1` | rows=2 |
-| PASS | `size_raw_reproduces_preprocessing:mean_rank_ic` | size_study=0.0977156414, preprocessing_oos=0.0977156414 |
-| PASS | `size_raw_reproduces_preprocessing:portfolio_annualized_return` | size_study=0.2121601595, preprocessing_oos=0.2121601595 |
-| PASS | `small_size_return_dependence_detected` | neutral-minus-raw 95% CI=[-8.76%, -0.54%] |
+| PASS | `size_raw_reproduces_preprocessing:mean_rank_ic` | size_study=0.0976365971, preprocessing_oos=0.0976365971 |
+| PASS | `size_raw_reproduces_preprocessing:portfolio_annualized_return` | size_study=0.2116277973, preprocessing_oos=0.2116277973 |
+| PASS | `small_size_return_dependence_detected` | neutral-minus-raw 95% CI=[-8.61%, -0.67%] |
+| PASS | `artifact:pit_industry_exposure_index/v1` | rows=21 |
+| PASS | `artifact:factor_neutralization_summary/v1` | rows=180 |
+| PASS | `artifact:factor_neutralization_bootstrap/v1` | rows=180 |
+| PASS | `pit_industry_coverage` | minimum_eligible_weekly_coverage=98.5487% |
+| PASS | `pit_industry_keys_unique` | duplicate_rows=0 |
+| PASS | `pit_industry_no_future_information` | future_or_invalid_timing_rows=0 |
+| PASS | `industry_neutral_factor_orthogonality` | maximum_mean_abs_industry_group_mean=1.294e-14 |
+| PASS | `industry_size_neutral_factor_orthogonality` | industry=1.177e-14, size=2.135e-15 |
+| PASS | `artifact:factor_tear_sheet_protocol/v1` | rows=1 |
+| PASS | `artifact:factor_tear_sheet_weekly/v1` | rows=8,790 |
+| PASS | `artifact:factor_tear_sheet_buckets/v1` | rows=87,900 |
+| PASS | `artifact:factor_tear_sheet_summary/v1` | rows=30 |
+| PASS | `artifact:factor_tear_sheet_annual/v1` | rows=180 |
+| PASS | `artifact:factor_tear_sheet_regime/v1` | rows=120 |
+| PASS | `artifact:factor_tear_sheet_bootstrap/v1` | rows=90 |
+| PASS | `factor_tear_sheet_paired_oos_panel` | dates=293, pipelines=2, factors=15 |
+| PASS | `factor_tear_sheet_deciles_complete` | rows=87,900, expected=87,900 |
+| PASS | `factor_tear_sheet_regime_is_pit` | benchmark_trade_date<=signal_date and protocol declares trailing-only state |
+| PASS | `factor_tear_sheet_cost_identity` | cost_bps_per_leg_turnover=20.0 |
+| PASS | `factor_tear_sheet_no_oos_reselection` | direction_rule=sign_of_raw_training_mean_rank_ic |
+| PASS | `artifact:capm_protocol/v1` | rows=1 |
+| PASS | `artifact:capm_aligned_daily/v1` | rows=11,096 |
+| PASS | `artifact:capm_summary/v1` | rows=24 |
+| PASS | `artifact:capm_annual/v1` | rows=144 |
+| PASS | `artifact:capm_rolling/v1` | rows=448 |
+| PASS | `capm_protocol_uses_executable_nonoverlap_returns` | dates=1387, return=daily_net_return |
+| PASS | `capm_complete_paired_panel` | summary_rows=24, annual_rows=144, observations=1387-1387 |
+| PASS | `capm_hac_inference_complete` | newey_west_lags=[5] |
+| PASS | `capm_ols_intercept_identity` | maximum_abs_error=1.409e-18 |
+| PASS | `artifact:style_factor_protocol/v1` | rows=1 |
+| PASS | `artifact:style_factor_targets/v1` | rows=1,392,156 |
+| PASS | `artifact:style_factor_exposure_audit/v1` | rows=1,770 |
+| PASS | `artifact:style_factor_daily_returns/v1` | rows=8,322 |
+| PASS | `artifact:style_factor_diagnostics/v1` | rows=6 |
+| PASS | `artifact:style_factor_multicollinearity/v1` | rows=7 |
+| PASS | `artifact:style_factor_regression_summary/v1` | rows=8 |
+| PASS | `artifact:style_factor_regression_annual/v1` | rows=48 |
+| PASS | `style_factor_protocol_is_pit_and_locked` | construction=residual_proportional_self_financing; explanatory factors explicitly gross of costs |
+| PASS | `style_factor_self_financing_and_orthogonal` | maximum_neutrality_error=1.576e-14 |
+| PASS | `style_factor_complete_daily_panel` | dates=1387-1387, factors=6 |
+| PASS | `style_factor_regression_not_ill_conditioned` | maximum_vif=2.035, condition_number=2.741 |
+| PASS | `style_factor_multifactor_inference_complete` | summary_rows=8, annual_rows=48 |
+| PASS | `artifact:model_neutralization_protocol/v1` | rows=1 |
+| PASS | `artifact:model_neutralization_oos_summary/v1` | rows=8 |
+| PASS | `artifact:model_neutralization_oos_daily/v1` | rows=2,344 |
+| PASS | `artifact:model_neutralization_oos_bootstrap/v1` | rows=36 |
+| PASS | `model_neutralization_protocol_locked` | no historical-OOS selection; locked models; paired exposure-complete sample |
+| PASS | `model_neutralization_paired_dates` | minimum_dates=293, maximum_dates=293 |
+| PASS | `linear_model_neutral_score_residual_small` | industry=4.541e-16, size=5.263e-17 |
+| PASS | `model_neutralization_inference_complete` | metrics=abs_score_log_size_correlation,industry_active_weight_l1,net_return_annualized_arithmetic,portfolio_industry_hhi,rank_ic,score_industry_max_abs_mean |
+| PASS | `artifact:constrained_portfolio_protocol/v1` | rows=1 |
+| PASS | `artifact:constrained_portfolio_oos_weekly/v1` | rows=2,344 |
+| PASS | `artifact:constrained_portfolio_oos_summary/v1` | rows=8 |
+| PASS | `artifact:constrained_portfolio_oos_bootstrap/v1` | rows=40 |
+| PASS | `constrained_portfolio_protocol_locked` | no historical-OOS selection; prespecified constraints; repaired v2 source |
+| PASS | `constrained_portfolio_paired_dates` | minimum_dates=293, maximum_dates=293 |
+| PASS | `constrained_portfolio_risk_bounds` | stock=0.000e+00, size=2.498e-16, industry=4.718e-16 |
+| PASS | `constrained_portfolio_turnover_bound` | maximum_excess=4.998e-08, relaxation_fraction=0.000% |
+| PASS | `constrained_portfolio_inference_complete` | metrics=abs_portfolio_size_z,industry_active_weight_l1,net_return_annualized_arithmetic,rank_ic,turnover |
+| PASS | `artifact:constrained_daily_execution_protocol/v1` | rows=1 |
+| PASS | `artifact:constrained_daily_execution_daily/v1` | rows=11,096 |
+| PASS | `artifact:constrained_daily_execution_summary/v1` | rows=8 |
+| PASS | `artifact:constrained_daily_execution_bootstrap/v1` | rows=4 |
+| PASS | `artifact:constrained_execution_targets/v1` | rows=245,467 |
+| PASS | `constrained_daily_execution_protocol_locked` | frozen targets; unique daily clock; persistent blocked share orders |
+| PASS | `constrained_daily_execution_paired_targets` | minimum_dates=293, maximum_dates=293 |
+| PASS | `constrained_daily_execution_accounting_identity` | dates=1387-1387, accounting=8.327e-15, return=5.840e-15 |
+| PASS | `constrained_daily_execution_no_hidden_rebalance` | ideal_non_target_max_turnover=0.000e+00 |
+| PASS | `constrained_daily_execution_haircut_detected` | strategies_with_haircut=4/4, negative_upper_intervals=4/4 |
+| PASS | `artifact:risk_model_protocol/v1` | rows=1 |
+| PASS | `artifact:pit_beta_exposure_index/v1` | rows=19 |
+| PASS | `artifact:risk_model_factor_returns/v1` | rows=26,028 |
+| PASS | `artifact:risk_model_portfolio_attribution/v1` | rows=1,172 |
+| PASS | `artifact:risk_model_portfolio_forecasts/v1` | rows=1,172 |
+| PASS | `artifact:risk_model_attribution_summary/v1` | rows=4 |
+| PASS | `artifact:risk_model_attribution_bootstrap/v1` | rows=20 |
+| PASS | `risk_attribution_protocol_locked` | prespecified PIT factors; lagged covariance; exact identity required |
+| PASS | `pit_beta_coverage_and_keys` | minimum_coverage=91.42%, duplicates=0 |
+| PASS | `risk_attribution_exact_and_paired` | dates=293-293, max_error=2.220e-16 |
+| PASS | `risk_forecast_lagged_finite_positive` | minimum_prior_weeks=669, forecasts=1172 |
+| PASS | `risk_attribution_inference_complete` | metrics=active_gross_return,active_net_return,industry_active_contribution,specific_selection_contribution,style_contribution |
+| PASS | `artifact:risk_aware_portfolio_protocol/v2` | rows=1 |
+| PASS | `artifact:risk_aware_portfolio_weekly/v2` | rows=3,516 |
+| PASS | `artifact:risk_aware_portfolio_constraint_audit/v2` | rows=1,172 |
+| PASS | `artifact:risk_aware_portfolio_forecasts/v2` | rows=2,344 |
+| PASS | `artifact:risk_aware_portfolio_summary/v2` | rows=12 |
+| PASS | `artifact:risk_aware_portfolio_bootstrap/v2` | rows=32 |
+| PASS | `risk_aware_protocol_lagged_and_locked` | lagged covariance/specific risk; outcome-independent candidate set |
+| PASS | `risk_aware_paired_dates` | dates=293-293, strategies=12 |
+| PASS | `risk_aware_constraints_hold` | maximum_violation=4.515e-08, turnover_relaxation_fraction=0.00% |
+| PASS | `target_volatility_forecast_calibrated` | maximum_mean_target_error=0.060%, no_leverage=True |
+| PASS | `risk_aware_te_reduction_confirmed` | delta=-3.639%, 95%CI=[-4.163%,-3.152%] |
+| PASS | `risk_aware_return_cost_detected` | delta=-4.707%, 95%CI=[-8.242%,-0.804%] |
+| WARN | `risk_aware_policy_rejected` | The v2-registered minimum-active-variance policy reduces ex-ante tracking error but causes a statistically negative return delta; retain as a failed experiment. |
 | PASS | `artifact:model_benchmark_oos_portfolio/v1` | rows=1,758 |
 | PASS | `model_benchmark_winner_net_return_identity` | max_abs_error=0.000e+00 |
 | PASS | `model_benchmark_winner_returns_finite_and_above_minus_one` | dates=293 |
 | PASS | `artifact:model_benchmark_selection/v1` | rows=1 |
 | PASS | `artifact:model_benchmark_oos_summary/v1` | rows=6 |
 | PASS | `artifact:model_benchmark_oos_annual/v1` | rows=36 |
-| PASS | `artifact:model_benchmark_winner_pairwise/v1` | rows=4 |
+| PASS | `artifact:model_benchmark_winner_pairwise/v1` | rows=2 |
 | PASS | `artifact:model_benchmark_availability/v1` | rows=8 |
-| PASS | `model_benchmark_excludes_historical_oos_selection` | winner=random_forest_depth6 |
-| PASS | `model_winner_rank_ic_positive_each_oos_year` | minimum_annual_rank_ic=0.0910 |
+| PASS | `model_benchmark_excludes_historical_oos_selection` | winner=hgb_shallow15 |
+| PASS | `model_winner_has_annual_oos_results` | winner=hgb_shallow15, annual_rows=6 |
+| PASS | `model_winner_rank_ic_positive_each_oos_year` | minimum_annual_rank_ic=0.0930 |
 | PASS | `artifact:factor_preprocessing_oos_summary/v1` | rows=2 |
-| PASS | `benchmark_ridge_reproduces_preprocessing:mean_rank_ic` | benchmark=0.0977156414, preprocessing_oos=0.0977156414 |
-| PASS | `benchmark_ridge_reproduces_preprocessing:portfolio_annualized_return` | benchmark=0.2121601595, preprocessing_oos=0.2121601595 |
-| PASS | `model_winner_return_increment_vs_ridge` | 95% CI=[1.30%, 10.98%] |
-| PASS | `model_winner_rank_ic_increment_not_overstated` | 95% CI=[-0.0027, 0.0078] |
-| PASS | `random_forest_not_claimed_superior_to_hgb` | 95% CI=[-1.54%, 5.75%] |
+| PASS | `benchmark_ridge_reproduces_preprocessing:mean_rank_ic` | benchmark=0.0976365971, preprocessing_oos=0.0976365971 |
+| PASS | `benchmark_ridge_reproduces_preprocessing:portfolio_annualized_return` | benchmark=0.2116277973, preprocessing_oos=0.2116277973 |
+| PASS | `model_benchmark_has_ridge_reference` | ridge_candidates=['ridge_1'] |
+| PASS | `model_winner_return_pairwise_vs_ridge` | candidate=hgb_shallow15, reference=ridge_1, metric=net_return_annualized_arithmetic, rows=1 |
+| PASS | `model_winner_rank_ic_pairwise_vs_ridge` | candidate=hgb_shallow15, reference=ridge_1, metric=rank_ic, rows=1 |
+| PASS | `model_winner_return_interval_valid` | 95% CI=[-0.86%, 7.26%]; inference=inconclusive |
+| PASS | `model_winner_rank_ic_increment_not_overstated` | 95% CI=[-0.0023, 0.0071] |
+| PASS | `random_forest_not_claimed_superior_to_hgb` | validation-selected winner=hgb_shallow15 (hgb); random forest is not the selected winner |
 | WARN | `model_dependencies_unavailable` | not executed=['lightgbm', 'xgboost'] |
+| PASS | `model_winner_has_oos_summary` | winner=hgb_shallow15, summary_rows=1 |
 | PASS | `artifact:rf_hyperparameter_validation_summary/v1` | rows=11 |
 | PASS | `artifact:rf_hyperparameter_protocol/v1` | rows=1 |
 | PASS | `artifact:model_benchmark_validation_grid/v1` | rows=16 |
 | PASS | `rf_stability_excludes_historical_oos` | evaluation_period=validation_2016_2020_only |
 | PASS | `rf_stability_protocol_arithmetic` | neighbors=10, pass_fraction=70.0% |
-| PASS | `rf_stability_reproduces_frozen_validation_baseline` | RankIC=0.099082, annual_return=69.98% |
+| PASS | `rf_stability_reproduces_frozen_validation_baseline` | RankIC=0.098745, annual_return=66.20% |
 | PASS | `rf_stability_does_not_promote_posthoc_winner` | local_robustness_pass=False |
 | PASS | `artifact:rf_forensic_summary/v1` | rows=2 |
 | PASS | `artifact:rf_forensic_holdings_summary/v1` | rows=1 |
@@ -161,69 +308,123 @@ Summary: **173 PASS / 6 WARN / 0 FAIL**
 | PASS | `artifact:rf_oos_execution_summary/v1` | rows=2 |
 | PASS | `artifact:rf_oos_execution_diagnostics/v1` | rows=1 |
 | PASS | `rf_forensic_sampled_labels_rebuild_exactly` | rows=250, max_abs_error=0.000e+00 |
-| PASS | `rf_validation_execution_bias_detected` | ideal=69.98%, constrained=19.09% |
+| PASS | `rf_validation_execution_bias_detected` | ideal=66.20%, constrained=19.49% |
 | PASS | `rf_oos_execution_comparison_uses_common_periods` | ideal=293, constrained=293 |
-| PASS | `rf_oos_execution_bias_detected` | ideal=27.95%, constrained=24.19% |
+| PASS | `rf_oos_execution_bias_detected` | ideal=28.17%, constrained=24.74% |
 | PASS | `artifact:rf_daily_retry_daily/validation_v1` | rows=1,210 |
 | PASS | `artifact:rf_daily_ideal_daily/validation_v1` | rows=1,210 |
 | PASS | `artifact:rf_daily_retry_summary/validation_v1` | rows=1 |
 | PASS | `artifact:rf_daily_ideal_summary/validation_v1` | rows=1 |
 | PASS | `artifact:rf_daily_timing_audit/validation_v1` | rows=1 |
-| PASS | `rf_daily_validation_accounting_identity` | max_abs_error=9.770e-15 |
-| PASS | `rf_daily_validation_return_identity` | max_abs_error=7.184e-15 |
+| PASS | `rf_daily_validation_accounting_identity` | max_abs_error=1.033e-14 |
+| PASS | `rf_daily_validation_return_identity` | max_abs_error=7.565e-15 |
 | PASS | `rf_daily_validation_no_hidden_daily_rebalance` | ideal_non_rebalance_max_turnover=0.000e+00 |
-| PASS | `rf_daily_validation_execution_haircut_detected` | ideal=57.46%, constrained=10.77% |
+| PASS | `rf_daily_validation_execution_haircut_detected` | ideal=53.93%, constrained=10.83% |
 | PASS | `rf_daily_validation_overlap_removed` | duplicated_horizon_days=61 |
 | PASS | `artifact:rf_daily_retry_daily/historical_oos_v1` | rows=1,387 |
 | PASS | `artifact:rf_daily_ideal_daily/historical_oos_v1` | rows=1,387 |
 | PASS | `artifact:rf_daily_retry_summary/historical_oos_v1` | rows=1 |
 | PASS | `artifact:rf_daily_ideal_summary/historical_oos_v1` | rows=1 |
 | PASS | `artifact:rf_daily_timing_audit/historical_oos_v1` | rows=1 |
-| PASS | `rf_daily_historical_oos_accounting_identity` | max_abs_error=1.010e-14 |
-| PASS | `rf_daily_historical_oos_return_identity` | max_abs_error=6.610e-15 |
+| PASS | `rf_daily_historical_oos_accounting_identity` | max_abs_error=9.992e-15 |
+| PASS | `rf_daily_historical_oos_return_identity` | max_abs_error=6.502e-15 |
 | PASS | `rf_daily_historical_oos_no_hidden_daily_rebalance` | ideal_non_rebalance_max_turnover=0.000e+00 |
-| PASS | `rf_daily_historical_oos_execution_haircut_detected` | ideal=25.38%, constrained=21.62% |
+| PASS | `rf_daily_historical_oos_execution_haircut_detected` | ideal=25.74%, constrained=22.02% |
 | PASS | `rf_daily_historical_oos_overlap_removed` | duplicated_horizon_days=79 |
-| WARN | `known_scope_limitations` | No point-in-time industry neutralization, no official historical CSI membership, and no broker-calibrated market-impact model. |
+| PASS | `artifact:factor_registry/v1` | rows=15 |
+| PASS | `artifact:factor_distribution_summary/v1` | rows=15 |
+| PASS | `artifact:factor_rolling_correlation_stability/v1` | rows=105 |
+| PASS | `artifact:hgb_hyperparameter_protocol/v1` | rows=1 |
+| PASS | `artifact:hgb_hyperparameter_summary/v1` | rows=9 |
+| PASS | `artifact:portfolio_sensitivity_protocol/v1` | rows=1 |
+| PASS | `artifact:portfolio_sensitivity_summary/v1` | rows=16 |
+| PASS | `artifact:execution_cost_stress/v1` | rows=16 |
+| PASS | `factor_registry_complete_and_versioned` | factors=15, version=1.0.0 |
+| PASS | `factor_visual_diagnostics_complete` | distributions=15, rolling_pairs=105, expected_pairs=105 |
+| PASS | `hgb_surface_validation_only_and_complete` | surface_points=9, evaluation=2016_2020_validation_only |
+| PASS | `portfolio_sensitivity_common_date_and_no_reselection` | variants={'historical_oos': 8, 'validation': 8}, performance_period_counts={'historical_oos': 1, 'validation': 1} |
+| PASS | `execution_cost_stress_complete_and_monotone` | costs=[0.0, 20.0, 50.0, 100.0], monotone=True |
+| WARN | `known_scope_limitations` | Industry neutralization uses monthly-sampled historical CSRC broad sections rather than Shenwan membership; there is no official historical CSI membership and no broker-calibrated market-impact model. |
 
 ## Headline findings
 
-- `registered_frozen_experiments`: 13
-- `invalidated_experiments`: 3
+- `registered_frozen_experiments`: 30
+- `invalidated_experiments`: 17
 - `common_oos_weeks`: 291
-- `ridge_annualized_return_20bp`: 0.19908873296969398
-- `challenger_annualized_return_20bp`: 0.22898196710494045
-- `ridge_excess_vs_csi500_ci_low`: 0.05170363109106627
-- `ridge_excess_vs_csi500_ci_high`: 0.34129704589057785
-- `challenger_minus_ridge_ci_low`: -0.008666286294444084
-- `challenger_minus_ridge_ci_high`: 0.07447269715754343
+- `ridge_annualized_return_20bp`: 0.2005894880405501
+- `challenger_annualized_return_20bp`: 0.2507876712519381
+- `ridge_excess_vs_csi500_ci_low`: 0.05321262787587622
+- `ridge_excess_vs_csi500_ci_high`: 0.3423690925447747
+- `challenger_minus_ridge_ci_low`: 0.01190661886988064
+- `challenger_minus_ridge_ci_high`: 0.0919165453739704
 - `ridge_rank_ic_positive_every_oos_year`: True
 - `label_validation_selected_target`: h20_raw_return
-- `label_selected_oos_increment_ci_low`: -0.05092803225074174
-- `label_selected_oos_increment_ci_high`: 0.050271773638776183
-- `size_neutralized_oos_annualized_return`: 0.16300301209294266
-- `size_neutralized_oos_mean_rank_ic`: 0.0943606700512136
-- `size_neutralized_minus_raw_return_ci_low`: -0.08762867391696517
-- `size_neutralized_minus_raw_return_ci_high`: -0.005449060689559533
-- `model_benchmark_validation_winner`: random_forest_depth6
-- `model_winner_oos_mean_rank_ic`: 0.10015807551762398
-- `model_winner_oos_annualized_return`: 0.2794914760062783
-- `model_winner_minus_ridge_return_ci_low`: 0.013037015731000245
-- `model_winner_minus_ridge_return_ci_high`: 0.10982521927696937
+- `label_selected_oos_increment_ci_low`: -0.047140589968736234
+- `label_selected_oos_increment_ci_high`: 0.05875119904009788
+- `size_neutralized_oos_annualized_return`: 0.16231035204956568
+- `size_neutralized_oos_mean_rank_ic`: 0.0944149822519997
+- `size_neutralized_minus_raw_return_ci_low`: -0.08605184753945505
+- `size_neutralized_minus_raw_return_ci_high`: -0.006663469172683896
+- `pit_industry_minimum_coverage`: 0.9854873144982776
+- `factor_industry_size_neutral_significantly_strengthened`:
+- `factor_industry_size_neutral_significantly_weakened`: momentum_120d,momentum_20d,momentum_20d_skip_5d,momentum_60d
+- `factor_tear_sheet_oos_weeks`: 293
+- `factor_tear_sheet_significant_neutral_spreads`: momentum_20d,momentum_60d,momentum_120d,momentum_20d_skip_5d,reversal_5d,volatility_20d,amihud_20d,turnover_20d,turnover_surprise_20d,volume_surprise_20d,amplitude_20d,return_volume_corr_20d,max_return_20d,book_to_price
+- `factor_tear_sheet_down_high_nonpositive_ic`: volatility_20d,amplitude_20d,earnings_yield,book_to_price
+- `capm_csi500_significant_executable_strategies`: hgb_shallow15_locked/industry_size_neutralized,hgb_shallow15_locked/raw,ridge_locked/industry_size_neutralized,ridge_locked/raw
+- `capm_csi500_executable_alpha_min`: 0.13596796819067866
+- `capm_csi500_executable_alpha_max`: 0.17919035509947603
+- `capm_negative_rolling_alpha_windows`: 10
+- `style_factor_significant_residual_alpha_strategies`:
+- `style_factor_executable_alpha_min`: -0.025461077104721716
+- `style_factor_executable_alpha_max`: 0.010696115035796726
+- `style_factor_executable_r_squared_min`: 0.894457709698638
+- `style_factor_executable_r_squared_max`: 0.8976358104033699
+- `ridge_combined_neutral_oos_rank_ic`: 0.08995183218412618
+- `ridge_combined_neutral_oos_annualized_return`: 0.15539048523839227
+- `model_neutralization_combined_intervals`: ridge_locked/rank_ic=[-0.014296,-0.002910]; ridge_locked/net_return_annualized_arithmetic=[-0.095274,-0.010141]; ridge_locked/industry_active_weight_l1=[0.003849,0.030062]; ridge_locked/abs_score_log_size_correlation=[-0.129148,-0.083662]; ridge_locked/score_industry_max_abs_mean=[-0.113562,-0.095326]; ridge_locked/portfolio_industry_hhi=[-0.008638,0.114750]; hgb_shallow15_locked/rank_ic=[-0.011770,-0.001434]; hgb_shallow15_locked/net_return_annualized_arithmetic=[-0.042655,0.030413]; hgb_shallow15_locked/industry_active_weight_l1=[-0.000598,0.027242]; hgb_shallow15_locked/abs_score_log_size_correlation=[-0.045098,-0.001908]; hgb_shallow15_locked/score_industry_max_abs_mean=[-0.118173,-0.090128]; hgb_shallow15_locked/portfolio_industry_hhi=[0.004733,0.104182]
+- `constrained_hgb_raw_oos_annualized_return`: 0.24679778053823487
+- `constrained_hgb_raw_oos_sharpe`: 0.9242068728336268
+- `constrained_hgb_raw_oos_maximum_drawdown`: -0.328971034742949
+- `constrained_hgb_raw_mean_industry_active_weight_l1`: 0.0949679158474287
+- `constrained_portfolio_turnover_relaxation_fraction`: 0.0
+- `constrained_daily_hgb_raw_annualized_return`: 0.20811666153329655
+- `constrained_daily_hgb_raw_sharpe`: 0.9371647586448054
+- `constrained_daily_hgb_raw_maximum_drawdown`: -0.3332492493261945
+- `constrained_daily_hgb_raw_mean_blocked_buy_weight`: 0.004518262280589924
+- `pit_beta_minimum_coverage`: 0.914180582483791
+- `hgb_raw_annualized_style_contribution_arithmetic`: 0.13613172549903055
+- `hgb_raw_annualized_specific_selection_contribution_arithmetic`: -0.004344077537185444
+- `hgb_raw_specific_selection_ci_low`: -0.03518133583467788
+- `hgb_raw_specific_selection_ci_high`: 0.030758079727737763
+- `hgb_raw_mean_forecast_tracking_error`: 0.08072122788209943
+- `risk_aware_v1_policy_adopted`: False
+- `risk_aware_hgb_raw_te_before`: 0.08072122788209943
+- `risk_aware_hgb_raw_te_after`: 0.04433561121082952
+- `risk_aware_hgb_raw_annualized_return`: 0.1868838087174196
+- `risk_aware_hgb_raw_return_delta_ci_high`: -0.00804427238394979
+- `model_benchmark_validation_winner`: hgb_shallow15
+- `model_winner_oos_mean_rank_ic`: 0.09993460606343071
+- `model_winner_oos_annualized_return`: 0.2435850654086391
+- `model_winner_minus_ridge_return_ci_low`: -0.008577511954826257
+- `model_winner_minus_ridge_return_ci_high`: 0.07257600687652796
 - `rf_neighbor_pass_fraction`: 0.7
 - `rf_local_robustness_pass`: False
-- `rf_stability_minimum_neighbor_rank_ic`: 0.09254318713639618
-- `rf_stability_minimum_neighbor_sharpe`: 0.784310515723939
-- `rf_validation_idealized_annualized_return`: 0.6997555143830458
-- `rf_validation_execution_constrained_annualized_return`: 0.19087190628281858
-- `rf_oos_idealized_annualized_return`: 0.2794914760062783
-- `rf_oos_execution_constrained_annualized_return`: 0.24194049194086764
-- `rf_oos_execution_constrained_sharpe`: 0.8748900492302454
-- `rf_validation_mean_size_percentile`: 0.28788580033544275
-- `rf_validation_mean_blocked_buy_weight`: 0.02590663168490841
-- `rf_daily_validation_ideal_annualized_return`: 0.574591624186662
-- `rf_daily_validation_constrained_annualized_return`: 0.10767466373732937
-- `rf_daily_oos_ideal_annualized_return`: 0.2538294055667403
-- `rf_daily_oos_constrained_annualized_return`: 0.2162386898373556
-- `rf_daily_oos_constrained_sharpe`: 0.8738047854052745
-- `rf_daily_oos_constrained_maximum_drawdown`: -0.4327391378303085
+- `rf_stability_minimum_neighbor_rank_ic`: 0.0922194831499425
+- `rf_stability_minimum_neighbor_sharpe`: 0.7901006347612033
+- `rf_validation_idealized_annualized_return`: 0.6619536230943661
+- `rf_validation_execution_constrained_annualized_return`: 0.19491845920942996
+- `rf_oos_idealized_annualized_return`: 0.281734851058123
+- `rf_oos_execution_constrained_annualized_return`: 0.2473717128945987
+- `rf_oos_execution_constrained_sharpe`: 0.8883099540628371
+- `rf_validation_mean_size_percentile`: 0.28736277013002354
+- `rf_validation_mean_blocked_buy_weight`: 0.02451857583058863
+- `rf_daily_validation_ideal_annualized_return`: 0.5392643588460468
+- `rf_daily_validation_constrained_annualized_return`: 0.10830339578458403
+- `rf_daily_oos_ideal_annualized_return`: 0.25741190201164055
+- `rf_daily_oos_constrained_annualized_return`: 0.22019142129987523
+- `rf_daily_oos_constrained_sharpe`: 0.8848300774679845
+- `rf_daily_oos_constrained_maximum_drawdown`: -0.4298437083608838
+- `hgb_validation_surface_rank_ic_min`: 0.09713976299008095
+- `hgb_validation_surface_rank_ic_max`: 0.09980789470340727
+- `factor_registry_count`: 15

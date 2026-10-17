@@ -51,6 +51,11 @@ def bootstrap_record(name: str, values: pd.Series, scale: float, cfg: dict) -> d
 def index_forward_returns(instrument_id: str, lake: Lake) -> pd.DataFrame:
     key = instrument_id.replace(".", "_")
     bars = lake.read("daily_bars_validated", key)
+    if bars.empty or "trade_date" not in bars.columns:
+        raise RuntimeError(
+            f"validated benchmark bars are missing for {instrument_id}; "
+            "run quant-free-lake bootstrap and quant-materialize --missing"
+        )
     labels = build_labels(bars, [5], execution_lag=1)
     return labels[["asof_date", "fwd_return_5d_lag1"]].rename(
         columns={"fwd_return_5d_lag1": instrument_id})

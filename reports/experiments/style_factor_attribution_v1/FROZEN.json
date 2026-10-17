@@ -1,0 +1,19 @@
+{
+  "experiment_id": "style_factor_attribution_v1",
+  "frozen_at_utc": "2026-10-17T11:41:41.832416+00:00",
+  "content_sha256": "2a1631859db6bfddd6bcf1f407e8309b32bd206fb038e8a3c63a2d69adeec52e",
+  "files": {
+    "config.yaml": "d1d4a67cc3e8af1420eb0365cb197a957d044adc6251dba62df00e9107227113",
+    "metadata.json": "a35bba30a0855e688cc77c70d81499f988da1b41729592cf38629681f8344571",
+    "metrics.json": "1b137e6e783fbfb12dcdc6db8ab3d2847086085dd6e331de94a697acd7bf5296",
+    "notes.md": "99e8d3b5e31a8782698869de910a04151db2c6ec9e1e6c577aa077f570ff16ea",
+    "tables/style_factor_correlation__v1.csv": "2eef22faa0f710aafe092bd64998723d04c413de51cfe20678c0b64219220c90",
+    "tables/style_factor_daily_returns__v1.csv": "7e9ae73ef531c0c736c2258be74ba27c9d56cefcdba726281efe657bf3f36cff",
+    "tables/style_factor_diagnostics__v1.csv": "23d6e6a00798bd350b8916d0ea47286a36b253b8c5262b2c76cd03aef9c56e69",
+    "tables/style_factor_exposure_audit__v1.csv": "23ebc257a7d46ca0a3b28eb29c14bbbc334e5652cd0a25318abb2569724eeef7",
+    "tables/style_factor_multicollinearity__v1.csv": "13d050903a67ce4a82be4418071893524d59e5b779bb0eab0ea94e69e6961c77",
+    "tables/style_factor_protocol__v1.csv": "f2db2f19dbc40195d0e2cabd5f542d3e39dec05ea2974418eba557ec519f90ab",
+    "tables/style_factor_regression_annual__v1.csv": "e3060fb7afa64cf5d1a4fa593f8f20f5fee805493c741434ce328f02a9eff82a",
+    "tables/style_factor_regression_summary__v1.csv": "d64b1a4dcfd4cf24250c052bcb3e3edcbc99bffa470211c0436eeb4cc2f63df4"
+  }
+}

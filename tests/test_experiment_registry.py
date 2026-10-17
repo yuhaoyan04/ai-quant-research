@@ -1,10 +1,14 @@
 import json
+import shutil
 from pathlib import Path
 
 import pandas as pd
 import pytest
 
-from quant_research.experiment_registry import ExperimentRegistry
+from quant_research.experiment_registry import (
+    ExperimentRegistry,
+    publish_immutable_directory,
+)
 from quant_research.ingest import Lake
 
 
@@ -65,8 +69,55 @@ def test_verification_detects_snapshot_tampering(tmp_path: Path) -> None:
     assert not registry.verify("ridge_v1", verify_live_inputs=False)["snapshot_integrity"]
 
 
+def test_snapshot_verification_accepts_git_line_ending_normalization(tmp_path: Path) -> None:
+    registry, global_spec, spec = _setup(tmp_path)
+    path = registry.register("ridge_v1", global_spec, spec)
+    metrics = path / "metrics.json"
+    metrics.write_bytes(metrics.read_bytes().replace(b"\n", b"\r\n"))
+
+    verification = registry.verify("ridge_v1", verify_live_inputs=False)
+    assert verification["snapshot_integrity"]
+    assert verification["snapshot_mismatches"] == []
+
+
+def test_live_verification_resolves_tables_in_current_lake(tmp_path: Path) -> None:
+    registry, global_spec, spec = _setup(tmp_path)
+    registry.register("ridge_v1", global_spec, spec)
+
+    relocated_root = tmp_path / "relocated_lake"
+    shutil.copytree(registry.lake.root, relocated_root)
+    shutil.rmtree(registry.lake.root)
+    relocated = ExperimentRegistry(
+        registry.project_root, registry.registry_root, Lake(relocated_root),
+    )
+
+    verification = relocated.verify("ridge_v1")
+    assert verification["live_inputs_match"]
+    assert all(str(relocated_root.resolve()) in item["path"]
+               for item in verification["input_checks"])
+
+
 def test_unsafe_experiment_id_is_rejected(tmp_path: Path) -> None:
     registry, global_spec, spec = _setup(tmp_path)
     with pytest.raises(ValueError):
         registry.register("../escape", global_spec, spec)
 
+
+def test_publish_falls_back_when_directory_rename_is_denied(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    source = tmp_path / "source"
+    target = tmp_path / "target"
+    (source / "tables").mkdir(parents=True)
+    (source / "tables" / "metric.csv").write_text("value\n1\n", encoding="utf-8")
+    (source / "FROZEN.json").write_text("{}", encoding="utf-8")
+
+    def denied_replace(self: Path, destination: Path) -> Path:
+        raise PermissionError(f"rename denied: {self} -> {destination}")
+
+    monkeypatch.setattr(Path, "replace", denied_replace)
+    publish_immutable_directory(source, target)
+
+    assert not source.exists()
+    assert (target / "tables" / "metric.csv").is_file()
+    assert (target / "FROZEN.json").is_file()

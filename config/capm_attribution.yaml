@@ -1,0 +1,21 @@
+experiment_id: capm_attribution_v1
+source_experiment: constrained_portfolio_daily_execution_v1
+period: historical_oos_2021_2026
+historical_oos_used_for_selection: false
+strategy_return: daily_net_return
+risk_free_rate_convention: zero_daily_rate
+annualization_days: 252
+newey_west_lags: 5
+confidence_level: 0.95
+benchmarks:
+  - {name: CSI300, instrument_id: sh.000300}
+  - {name: CSI500, instrument_id: sh.000905}
+  - {name: CSI1000, instrument_id: sh.000852}
+primary_benchmark: CSI500
+primary_scenario: daily_retry_limit_and_suspension_constrained
+rolling:
+  window_trading_days: 252
+  step_trading_days: 21
+subperiod: calendar_year
+interpretation: descriptive_historical_oos_jensen_alpha_without_model_reselection
+scope_note: benchmark_price_returns_exclude_dividends_and_risk_free_rate_is_zero

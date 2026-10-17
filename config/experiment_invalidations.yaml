@@ -50,3 +50,141 @@ invalidations:
       - rf_forensic_summary/v1 constrained portfolio metrics
       - rf_oos_execution_summary/v1 constrained portfolio metrics
     superseded_by: rf_daily_retry_execution_v1
+  factor_neutralization_v1:
+    invalidated_at_utc: "2026-10-17T00:00:00Z"
+    severity: upstream_snapshot_truncation
+    reason: >-
+      BaoStock security snapshots for 2023-06-16 and 2025-10-10 were silently
+      truncated at pagination boundaries. The affected PIT universe, factor panel,
+      and industry exposure partitions were repaired and the experiment was rerun.
+    unaffected_outputs: []
+    invalid_outputs:
+      - all factor_neutralization_v1 conclusions and metrics
+    superseded_by: factor_neutralization_v2
+  model_portfolio_neutralization_v1:
+    invalidated_at_utc: "2026-10-17T00:00:00Z"
+    severity: upstream_snapshot_truncation
+    reason: >-
+      BaoStock security snapshots for 2023-06-16 and 2025-10-10 were silently
+      truncated at pagination boundaries. The affected PIT universe, feature, and
+      industry exposure partitions were repaired and the locked models were rerun.
+    unaffected_outputs: []
+    invalid_outputs:
+      - all model_portfolio_neutralization_v1 conclusions and metrics
+    superseded_by: model_portfolio_neutralization_v2
+  risk_aware_portfolio_optimization_v1:
+    invalidated_at_utc: "2026-10-17T06:00:00Z"
+    severity: frozen_provenance_incomplete
+    reason: >-
+      The first immutable registration accidentally reused the constrained daily
+      execution input-list YAML anchor. Research tables and conclusions are valid,
+      but the frozen metadata omitted the full PIT beta, panel, size, and industry
+      dependency set consumed by the risk optimizer.
+    unaffected_outputs:
+      - all risk_aware_portfolio v1 research metrics and conclusions
+    invalid_outputs:
+      - risk_aware_portfolio_optimization_v1 frozen input provenance
+    superseded_by: risk_aware_portfolio_optimization_v2
+  baseline_ridge_v1:
+    invalidated_at_utc: "2026-10-17T12:00:00Z"
+    severity: superseded_live_baseline
+    reason: >-
+      The immutable snapshot remains valid, but its registered live model and
+      portfolio artifacts predate the final PIT lake repair and consolidated
+      research rebuild. It is retained only as historical provenance.
+    unaffected_outputs: [all immutable snapshot files]
+    invalid_outputs: [claims that this snapshot is the current live baseline]
+    superseded_by: final_research_baseline_v2
+  challenger_hgb_blend_v1:
+    invalidated_at_utc: "2026-10-17T12:00:00Z"
+    severity: superseded_live_baseline
+    reason: >-
+      The original HGB/Ridge blend snapshot predates the repaired PIT lake and
+      unified model benchmark. Its immutable result is historical, not current.
+    unaffected_outputs: [all immutable snapshot files]
+    invalid_outputs: [claims that the blend is the current selected challenger]
+    superseded_by: final_research_baseline_v2
+  factor_preprocessing_ablation_v2:
+    invalidated_at_utc: "2026-10-17T12:00:00Z"
+    severity: superseded_live_artifacts
+    reason: >-
+      The leakage-corrected frozen snapshot is intact, but its live derived
+      tables were regenerated during the consolidated rebuild. The final
+      baseline records the current hashes while preserving this historical run.
+    unaffected_outputs: [all immutable snapshot files, qualitative preprocessing choice]
+    invalid_outputs: [claims that frozen hashes equal the current live tables]
+    superseded_by: final_research_baseline_v2
+  factor_preprocessing_oos_v1:
+    invalidated_at_utc: "2026-10-17T12:00:00Z"
+    severity: superseded_live_artifacts
+    reason: >-
+      Current OOS preprocessing artifacts were rebuilt after upstream PIT data
+      repairs. The old snapshot is immutable but no longer the live publication baseline.
+    unaffected_outputs: [all immutable snapshot files]
+    invalid_outputs: [claims that frozen hashes equal the current live tables]
+    superseded_by: final_research_baseline_v2
+  ic_decay_v1:
+    invalidated_at_utc: "2026-10-17T12:00:00Z"
+    severity: superseded_live_artifacts
+    reason: >-
+      IC-decay live tables were regenerated after the PIT panel repair. The old
+      frozen result remains auditable and is superseded for publication.
+    unaffected_outputs: [all immutable snapshot files]
+    invalid_outputs: [claims that frozen hashes equal the current live tables]
+    superseded_by: final_research_baseline_v2
+  leave_one_factor_out_v1:
+    invalidated_at_utc: "2026-10-17T12:00:00Z"
+    severity: superseded_live_artifacts
+    reason: >-
+      LOFO live outputs were regenerated during the final PIT rebuild. The
+      immutable run is retained as history but is not the current baseline.
+    unaffected_outputs: [all immutable snapshot files]
+    invalid_outputs: [claims that frozen hashes equal the current live tables]
+    superseded_by: final_research_baseline_v2
+  label_horizon_v1:
+    invalidated_at_utc: "2026-10-17T12:00:00Z"
+    severity: superseded_live_artifacts
+    reason: >-
+      Label-horizon artifacts were regenerated from the repaired panel. The
+      historical frozen snapshot remains intact and its selection caveat remains valid.
+    unaffected_outputs: [all immutable snapshot files, preregistered selection disclosure]
+    invalid_outputs: [claims that frozen hashes equal the current live tables]
+    superseded_by: final_research_baseline_v2
+  size_neutralization_v1:
+    invalidated_at_utc: "2026-10-17T12:00:00Z"
+    severity: superseded_live_artifacts
+    reason: >-
+      Size-neutralization outputs were rebuilt after upstream security snapshot
+      repair and are now incorporated into the full industry-plus-size chain.
+    unaffected_outputs: [all immutable snapshot files]
+    invalid_outputs: [claims that this is the current standalone baseline]
+    superseded_by: factor_neutralization_v2
+  rf_hyperparameter_stability_v1:
+    invalidated_at_utc: "2026-10-17T12:00:00Z"
+    severity: superseded_model_family
+    reason: >-
+      The RF local grid is preserved, but the repaired unified benchmark selects
+      HGB and the final robustness work uses a validation-only HGB two-dimensional surface.
+    unaffected_outputs: [all immutable snapshot files, RF local-instability finding]
+    invalid_outputs: [claims that RF is the current nonlinear baseline]
+    superseded_by: hgb_hyperparameter_stability_v1
+  rf_daily_retry_execution_v1:
+    invalidated_at_utc: "2026-10-17T12:00:00Z"
+    severity: superseded_execution_baseline
+    reason: >-
+      The RF execution audit remains useful forensic evidence, but the final
+      execution baseline uses locked Ridge/HGB constrained portfolios on the repaired lake.
+    unaffected_outputs: [all immutable snapshot files, execution-bias diagnosis]
+    invalid_outputs: [claims that RF is the current executable strategy baseline]
+    superseded_by: constrained_portfolio_daily_execution_v1
+  final_research_baseline_v1:
+    invalidated_at_utc: "2026-10-17T12:10:00Z"
+    severity: superseded_publication_baseline
+    reason: >-
+      The first final aggregate was frozen before the dashboard and publication
+      auditor gained explicit gates for the new factor registry, HGB surface,
+      portfolio sensitivity, and cost stress. Its research metrics are unchanged;
+      v2 records the final source tree and publication configuration.
+    unaffected_outputs: [all immutable snapshot files, all research metrics]
+    invalid_outputs: [claims that v1 represents the final publication source tree]
+    superseded_by: final_research_baseline_v2

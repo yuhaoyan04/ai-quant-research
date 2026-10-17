@@ -1,0 +1,17 @@
+{
+  "experiment_id": "risk_aware_portfolio_optimization_v2",
+  "frozen_at_utc": "2026-10-17T06:02:53.251649+00:00",
+  "content_sha256": "92e1a4324d120eec096dfba0d0972422fa9026beeea0f0721a6c3db846557f11",
+  "files": {
+    "config.yaml": "f63c6a3185d879d2ffc20e11349f1533b97e9205cbf2999416b4a6ee7d9ebc17",
+    "metadata.json": "cbe1afedd0c94978b0846d2f7447c595c168ea3c9be7a558900c24de53b5ef4e",
+    "metrics.json": "7d5a2f766f7b2b7afad0061f0a83cab2e81529dfaa46ee134e50f491a0a41b1d",
+    "notes.md": "325997f06ad7ea2b839620717140a73146f250b0f325c20934b47ed9efba6bfb",
+    "tables/risk_aware_portfolio_bootstrap__v2.csv": "84116249e70a7c16e4d5dcf480761c3fdce9fa89b85bb7ee3167f7eac8215d8a",
+    "tables/risk_aware_portfolio_constraint_audit__v2.csv": "f2869cb4ed13ab6350d4cb82b181a632f4df686474578aaa874199e38bd797da",
+    "tables/risk_aware_portfolio_forecasts__v2.csv": "19cb9ecb6fa70de369626727453bbf6196e53c6cf2d46c3926bf86c1e088cafe",
+    "tables/risk_aware_portfolio_protocol__v2.csv": "b8839f641b0746164718b87d856e58ff6dc782abd68598e08e516e6ed34756e1",
+    "tables/risk_aware_portfolio_summary__v2.csv": "59612a4bc023341b363a575fddd4d5a9bfa9cb075e405190297b9f6c3be21dce",
+    "tables/risk_aware_portfolio_weekly__v2.csv": "75d48c4698cd5bf9e58cc1b99e6c1c4ca9cbfeb277c90492cfa0744a0e5be6c7"
+  }
+}

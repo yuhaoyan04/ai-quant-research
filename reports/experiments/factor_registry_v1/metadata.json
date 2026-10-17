@@ -1,0 +1,55 @@
+{
+  "experiment_id": "factor_registry_v1",
+  "title": "Machine-readable factor definitions and locked training directions",
+  "stage": "factor_governance",
+  "model_version": "factor_registry_1_0_0",
+  "registered_at_utc": "2026-10-17T11:58:44.447160+00:00",
+  "immutable": true,
+  "selection_policy": "validation_only",
+  "historical_oos_used_for_selection": false,
+  "historical_oos_disclosure": "The 2021-2026 block has already been inspected during project development. It is historical out-of-sample evidence, not a pristine production lockbox.",
+  "dataset_version": "cf4e629a51c30505212833ab7cd6d12100135f0bdbc315f19349aff07471d535",
+  "dataset_manifest": {
+    "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/manifests/ingestion.jsonl",
+    "size_bytes": 18939340,
+    "sha256": "a5b8dc3afd573651689d5c6419add7c80da74d23eb0dc04b76754727517547a0"
+  },
+  "input_artifacts": [
+    {
+      "table": "factor_neutralization_directions",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/factor_neutralization_directions/key=v1/data.parquet",
+      "size_bytes": 3515,
+      "sha256": "0cb165470a69b5306699edfab213456001ead4fcd077c9bf3ca96a93d25e0df8"
+    }
+  ],
+  "metric_artifacts": [
+    {
+      "table": "factor_registry",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/factor_registry/key=v1/data.parquet",
+      "size_bytes": 12201,
+      "sha256": "74942adebb0d38069875e8eaa4d725d31c5e197e89d8a214483d3d50eb22f1e6"
+    }
+  ],
+  "figures": [],
+  "source_tree_sha256": "45b42829d27e0ab5e684206b8c5dd4209aa7f58b4564b46972aa5e9e10fafca5",
+  "git": {
+    "commit": null,
+    "dirty": null,
+    "status_sha256": null
+  },
+  "environment": {
+    "python": "3.11.16",
+    "implementation": "CPython",
+    "platform": "Linux-5.15.0-92-generic-x86_64-with-glibc2.35",
+    "packages": {
+      "pandas": "3.0.6",
+      "pyarrow": "25.0.1",
+      "PyYAML": "6.0.3",
+      "scikit-learn": "1.9.1",
+      "numpy": "2.4.6",
+      "scipy": "1.17.1"
+    }
+  }
+}

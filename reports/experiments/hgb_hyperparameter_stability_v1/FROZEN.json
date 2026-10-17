@@ -1,0 +1,15 @@
+{
+  "experiment_id": "hgb_hyperparameter_stability_v1",
+  "frozen_at_utc": "2026-10-17T11:58:52.009830+00:00",
+  "content_sha256": "69b8384da6511cca6a130d705c7fd3ad3adfcbde6ea8aab16a720e005bcc6500",
+  "files": {
+    "config.yaml": "997916ed0cd87ac0c6455fc6e1fd7200ba8e10e3cba1ec767f8df5bc51865057",
+    "metadata.json": "99da31c94e449e74a15aef2ee600d008ad44d639f4bca6dd0b866652644b6085",
+    "metrics.json": "f2282d6ede070f6f721f4c03cf36efc0c166b5a6b5063cbb8b85dc747a5d256e",
+    "notes.md": "a5d6844da89d2c6ce787a45cc75fa6dd9cf46647b0d9033902f0e9097ef0b203",
+    "tables/hgb_hyperparameter_annual__v1.csv": "bdbd9be6c0e87bfa51c4d59aeef0417269a857060702e2672cff932ad1e50e10",
+    "tables/hgb_hyperparameter_annual_winners__v1.csv": "47bcf682e55e5af7c32fe708a2d12c079caef8e9c9dee8e1c128b061d06cb8a4",
+    "tables/hgb_hyperparameter_protocol__v1.csv": "447f613c9dca84c694d84b2341d0be416afe4b12893fc194673cd2a91f2671e5",
+    "tables/hgb_hyperparameter_summary__v1.csv": "8e19d9499c49ba00093ae4a7da459e246e79ee692419f243688d2e0eefc57010"
+  }
+}

@@ -83,6 +83,11 @@ class ResearchAuditor:
         """Treat experiment immutability and input lineage as publication gates."""
         specs = load_specs()
         registry = ExperimentRegistry(lake=self.lake)
+        invalidation_path = ROOT / "config" / "experiment_invalidations.yaml"
+        invalidations: dict[str, dict] = {}
+        if invalidation_path.exists():
+            with invalidation_path.open(encoding="utf-8") as handle:
+                invalidations = yaml.safe_load(handle).get("invalidations", {})
         experiment_ids = list(specs["experiments"])
         self.findings["registered_frozen_experiments"] = len(experiment_ids)
         for experiment_id in experiment_ids:
@@ -108,11 +113,12 @@ class ResearchAuditor:
                 bool(result["live_inputs_match"]),
                 "all registered inputs match their SHA-256 hashes"
                 if not mismatches else f"mismatches={mismatches}",
+                # An explicitly invalidated/superseded experiment remains an
+                # immutable historical record. Its snapshot must still pass,
+                # while expected drift from the repaired live lake is a warning.
+                failure_status=("WARN" if experiment_id in invalidations else "FAIL"),
             )
-        invalidation_path = ROOT / "config" / "experiment_invalidations.yaml"
-        if invalidation_path.exists():
-            with invalidation_path.open(encoding="utf-8") as handle:
-                invalidations = yaml.safe_load(handle).get("invalidations", {})
+        if invalidations:
             for experiment_id, record in invalidations.items():
                 self.warn(
                     f"invalidated_experiment:{experiment_id}",
@@ -238,10 +244,20 @@ class ResearchAuditor:
                  float(ridge_excess["ci_2_5pct"]) > 0,
                  f"95% CI=[{ridge_excess['ci_2_5pct']:.2%}, {ridge_excess['ci_97_5pct']:.2%}]",
                  failure_status="WARN")
-        self.add("challenger_increment_not_overstated",
-                 float(model_increment["ci_2_5pct"]) <= 0 <= float(model_increment["ci_97_5pct"]),
-                 f"95% CI=[{model_increment['ci_2_5pct']:.2%}, {model_increment['ci_97_5pct']:.2%}]; "
-                 "report as an economic signal, not proven superiority")
+        increment_low = float(model_increment["ci_2_5pct"])
+        increment_high = float(model_increment["ci_97_5pct"])
+        increment_inference = (
+            "positive" if increment_low > 0
+            else "negative" if increment_high < 0
+            else "inconclusive"
+        )
+        self.add(
+            "challenger_increment_interval_valid",
+            np.isfinite([increment_low, increment_high]).all()
+            and increment_low <= increment_high,
+            f"95% CI=[{increment_low:.2%}, {increment_high:.2%}]; "
+            f"inference={increment_inference}; historical OOS is not pristine",
+        )
 
     def audit_lofo_consistency(self) -> None:
         lofo = self.require_table("lofo_summary", "v1")
@@ -367,6 +383,710 @@ class ResearchAuditor:
             "size_neutralized_minus_raw_return_ci_high": float(return_test["ci_97_5pct"]),
         })
 
+    def audit_factor_neutralization(self) -> None:
+        exposure_index = self.require_table("pit_industry_exposure_index", "v1")
+        summary = self.require_table("factor_neutralization_summary", "v1")
+        bootstrap = self.require_table("factor_neutralization_bootstrap", "v1")
+        if any(frame.empty for frame in (exposure_index, summary, bootstrap)):
+            return
+        minimum_coverage = float(exposure_index["eligible_industry_coverage"].min())
+        duplicate_rows = int(exposure_index["duplicate_instrument_date_keys"].sum())
+        future_rows = int(exposure_index[[
+            "future_dated_rows", "future_snapshot_rows", "update_after_snapshot_rows"
+        ]].to_numpy().sum())
+        self.add(
+            "pit_industry_coverage", minimum_coverage >= 0.95,
+            f"minimum_eligible_weekly_coverage={minimum_coverage:.4%}",
+        )
+        self.add("pit_industry_keys_unique", duplicate_rows == 0,
+                 f"duplicate_rows={duplicate_rows}")
+        self.add("pit_industry_no_future_information", future_rows == 0,
+                 f"future_or_invalid_timing_rows={future_rows}")
+        oos = summary.loc[summary["split"].eq("historical_oos")]
+        industry = oos.loc[oos["pipeline"].eq("industry_neutralized")]
+        combined = oos.loc[oos["pipeline"].eq("industry_size_neutralized")]
+        industry_residual = float(industry["mean_industry_max_abs_mean"].max())
+        combined_industry_residual = float(combined["mean_industry_max_abs_mean"].max())
+        combined_size_residual = float(combined["mean_size_correlation"].abs().max())
+        self.add(
+            "industry_neutral_factor_orthogonality", industry_residual < 1e-10,
+            f"maximum_mean_abs_industry_group_mean={industry_residual:.3e}",
+        )
+        self.add(
+            "industry_size_neutral_factor_orthogonality",
+            combined_industry_residual < 1e-10 and combined_size_residual < 1e-10,
+            f"industry={combined_industry_residual:.3e}, size={combined_size_residual:.3e}",
+        )
+        paired = bootstrap.loc[
+            bootstrap["pipeline"].eq("industry_size_neutralized")
+            & bootstrap["metric"].eq("oriented_rank_ic")
+        ]
+        strengthened = paired.loc[paired["ci_2_5pct"].gt(0), "factor"].tolist()
+        weakened = paired.loc[paired["ci_97_5pct"].lt(0), "factor"].tolist()
+        self.findings.update({
+            "pit_industry_minimum_coverage": minimum_coverage,
+            "factor_industry_size_neutral_significantly_strengthened": ",".join(strengthened),
+            "factor_industry_size_neutral_significantly_weakened": ",".join(weakened),
+        })
+
+    def audit_factor_tear_sheet(self) -> None:
+        protocol = self.require_table("factor_tear_sheet_protocol", "v1")
+        weekly = self.require_table("factor_tear_sheet_weekly", "v1")
+        buckets = self.require_table("factor_tear_sheet_buckets", "v1")
+        summary = self.require_table("factor_tear_sheet_summary", "v1")
+        annual = self.require_table("factor_tear_sheet_annual", "v1")
+        regime = self.require_table("factor_tear_sheet_regime", "v1")
+        bootstrap = self.require_table("factor_tear_sheet_bootstrap", "v1")
+        if any(frame.empty for frame in (
+            protocol, weekly, buckets, summary, annual, regime, bootstrap
+        )):
+            return
+        pipelines = {"raw", "industry_size_neutralized"}
+        factors = set(self.lake.read("factor_neutralization_directions", "v1")["factor"])
+        paired = (
+            weekly.groupby(["pipeline", "factor"])["asof_date"].nunique()
+            .eq(293).all()
+        )
+        self.add(
+            "factor_tear_sheet_paired_oos_panel",
+            paired and set(weekly["pipeline"]) == pipelines
+            and set(weekly["factor"]) == factors,
+            f"dates={weekly['asof_date'].nunique()}, pipelines={weekly['pipeline'].nunique()}, "
+            f"factors={weekly['factor'].nunique()}",
+        )
+        expected_buckets = set(range(1, 11))
+        bucket_complete = buckets.groupby(["asof_date", "pipeline", "factor"])[
+            "bucket"
+        ].apply(lambda values: set(values) == expected_buckets).all()
+        self.add(
+            "factor_tear_sheet_deciles_complete", bool(bucket_complete),
+            f"rows={len(buckets):,}, expected={293 * 2 * len(factors) * 10:,}",
+        )
+        benchmark_timing = pd.to_datetime(weekly["benchmark_trade_date"]).le(
+            pd.to_datetime(weekly["asof_date"])
+        ).all()
+        self.add(
+            "factor_tear_sheet_regime_is_pit", bool(benchmark_timing)
+            and bool(protocol.iloc[0]["regime_uses_trailing_information_only"]),
+            "benchmark_trade_date<=signal_date and protocol declares trailing-only state",
+        )
+        cfg = _load_yaml("factor_tear_sheet.yaml")
+        cost_rate = float(cfg["assumed_cost_bps_per_leg_turnover"]) / 10_000
+        cost_rows = weekly["transaction_cost"].notna()
+        identity = np.allclose(
+            weekly.loc[cost_rows, "net_top_minus_bottom"],
+            weekly.loc[cost_rows, "gross_top_minus_bottom"]
+            - weekly.loc[cost_rows, "long_short_turnover"] * cost_rate,
+            rtol=1e-12, atol=1e-12,
+        )
+        self.add(
+            "factor_tear_sheet_cost_identity", bool(identity),
+            f"cost_bps_per_leg_turnover={cost_rate * 10_000:.1f}",
+        )
+        self.add(
+            "factor_tear_sheet_no_oos_reselection",
+            not bool(protocol.iloc[0]["historical_oos_used_for_selection"])
+            and protocol.iloc[0]["direction_rule"] == "sign_of_raw_training_mean_rank_ic",
+            f"direction_rule={protocol.iloc[0]['direction_rule']}",
+        )
+        neutral_spread = bootstrap.loc[
+            bootstrap["pipeline"].eq("industry_size_neutralized")
+            & bootstrap["metric"].eq("gross_top_minus_bottom")
+        ]
+        significant = neutral_spread.loc[
+            neutral_spread["ci_2_5pct"].gt(0), "factor"
+        ].tolist()
+        down_high = regime.loc[
+            regime["pipeline"].eq("industry_size_neutralized")
+            & regime["market_regime"].eq("down_high")
+        ]
+        fragile = down_high.loc[
+            down_high["mean_oriented_rank_ic"].le(0), "factor"
+        ].tolist()
+        self.findings.update({
+            "factor_tear_sheet_oos_weeks": int(weekly["asof_date"].nunique()),
+            "factor_tear_sheet_significant_neutral_spreads": ",".join(significant),
+            "factor_tear_sheet_down_high_nonpositive_ic": ",".join(fragile),
+        })
+
+    def audit_capm_attribution(self) -> None:
+        protocol = self.require_table("capm_protocol", "v1")
+        daily = self.require_table("capm_aligned_daily", "v1")
+        summary = self.require_table("capm_summary", "v1")
+        annual = self.require_table("capm_annual", "v1")
+        rolling = self.require_table("capm_rolling", "v1")
+        if any(frame.empty for frame in (protocol, daily, summary, annual, rolling)):
+            return
+        self.add(
+            "capm_protocol_uses_executable_nonoverlap_returns",
+            bool(protocol.iloc[0]["unique_nonoverlap_daily_clock"])
+            and not bool(protocol.iloc[0]["historical_oos_used_for_selection"])
+            and protocol.iloc[0]["strategy_return"] == "daily_net_return",
+            f"dates={protocol.iloc[0]['daily_dates']}, return={protocol.iloc[0]['strategy_return']}",
+        )
+        counts = summary.groupby([
+            "model", "alpha_pipeline", "scenario", "benchmark"
+        ])["observations"].first()
+        self.add(
+            "capm_complete_paired_panel",
+            len(summary) == 24 and counts.eq(1387).all()
+            and len(annual) == 144,
+            f"summary_rows={len(summary)}, annual_rows={len(annual)}, "
+            f"observations={counts.min()}-{counts.max()}",
+        )
+        ci_valid = (
+            summary["annualized_alpha_ci_low"].le(summary["annualized_alpha_arithmetic"])
+            & summary["annualized_alpha_arithmetic"].le(
+                summary["annualized_alpha_ci_high"]
+            )
+            & summary["beta_ci_low"].le(summary["beta"])
+            & summary["beta"].le(summary["beta_ci_high"])
+        ).all()
+        self.add(
+            "capm_hac_inference_complete", bool(ci_valid)
+            and summary[["alpha_hac_t_stat", "beta", "r_squared"]].notna().all().all(),
+            f"newey_west_lags={summary['newey_west_lags'].unique().tolist()}",
+        )
+        identity_errors = []
+        keys = ["model", "alpha_pipeline", "strategy", "scenario"]
+        for values, group in daily.groupby(keys, sort=False):
+            for benchmark in ("CSI300", "CSI500", "CSI1000"):
+                row = summary.loc[
+                    summary["benchmark"].eq(benchmark)
+                    & np.logical_and.reduce([
+                        summary[column].eq(value)
+                        for column, value in zip(keys, values)
+                    ])
+                ].iloc[0]
+                implied = (
+                    group["net_return"].mean()
+                    - float(row["beta"]) * group[benchmark].mean()
+                )
+                identity_errors.append(abs(implied - float(row["daily_alpha"])))
+        maximum_identity_error = max(identity_errors)
+        self.add(
+            "capm_ols_intercept_identity", maximum_identity_error < 1e-12,
+            f"maximum_abs_error={maximum_identity_error:.3e}",
+        )
+        primary = summary.loc[
+            summary["benchmark"].eq("CSI500")
+            & summary["scenario"].eq("daily_retry_limit_and_suspension_constrained")
+        ]
+        significant = primary.loc[
+            primary["annualized_alpha_ci_low"].gt(0),
+            ["model", "alpha_pipeline"],
+        ].apply(lambda row: f"{row['model']}/{row['alpha_pipeline']}", axis=1).tolist()
+        unstable_windows = int((
+            rolling["scenario"].eq("daily_retry_limit_and_suspension_constrained")
+            & rolling["annualized_alpha_arithmetic"].lt(0)
+        ).sum())
+        self.findings.update({
+            "capm_csi500_significant_executable_strategies": ",".join(significant),
+            "capm_csi500_executable_alpha_min": float(
+                primary["annualized_alpha_arithmetic"].min()
+            ),
+            "capm_csi500_executable_alpha_max": float(
+                primary["annualized_alpha_arithmetic"].max()
+            ),
+            "capm_negative_rolling_alpha_windows": unstable_windows,
+        })
+
+    def audit_style_factor_attribution(self) -> None:
+        protocol = self.require_table("style_factor_protocol", "v1")
+        targets = self.require_table("style_factor_targets", "v1")
+        exposures = self.require_table("style_factor_exposure_audit", "v1")
+        factors = self.require_table("style_factor_daily_returns", "v1")
+        diagnostics = self.require_table("style_factor_diagnostics", "v1")
+        multicollinearity = self.require_table("style_factor_multicollinearity", "v1")
+        summary = self.require_table("style_factor_regression_summary", "v1")
+        annual = self.require_table("style_factor_regression_annual", "v1")
+        if any(frame.empty for frame in (
+            protocol, targets, exposures, factors, diagnostics,
+            multicollinearity, summary, annual,
+        )):
+            return
+        style_names = {"size", "beta", "volatility", "liquidity", "value", "momentum"}
+        self.add(
+            "style_factor_protocol_is_pit_and_locked",
+            not bool(protocol.iloc[0]["historical_oos_used_for_selection"])
+            and bool(protocol.iloc[0]["unique_nonoverlap_daily_clock"])
+            and float(protocol.iloc[0]["factor_transaction_cost_bps"]) == 0,
+            f"construction={protocol.iloc[0]['factor_construction']}; "
+            "explanatory factors explicitly gross of costs",
+        )
+        maximum_neutrality_error = float(exposures[[
+            "net_weight", "maximum_abs_industry_weight",
+            "maximum_abs_control_exposure",
+        ]].abs().to_numpy().max())
+        gross_valid = (
+            np.allclose(exposures["long_weight"], 1.0, atol=1e-10)
+            and np.allclose(exposures["short_weight"], 1.0, atol=1e-10)
+            and exposures["target_style_exposure"].gt(0).all()
+        )
+        self.add(
+            "style_factor_self_financing_and_orthogonal",
+            maximum_neutrality_error < 1e-10 and gross_valid,
+            f"maximum_neutrality_error={maximum_neutrality_error:.3e}",
+        )
+        factor_counts = factors.groupby("factor")["trade_date"].nunique()
+        self.add(
+            "style_factor_complete_daily_panel",
+            set(factor_counts.index) == style_names and factor_counts.eq(1387).all()
+            and factors["factor_return"].notna().all(),
+            f"dates={factor_counts.min()}-{factor_counts.max()}, factors={len(factor_counts)}",
+        )
+        maximum_vif = float(multicollinearity["variance_inflation_factor"].max())
+        condition_number = float(
+            multicollinearity["standardized_design_condition_number"].max()
+        )
+        self.add(
+            "style_factor_regression_not_ill_conditioned",
+            maximum_vif < 5.0 and condition_number < 10.0,
+            f"maximum_vif={maximum_vif:.3f}, condition_number={condition_number:.3f}",
+        )
+        inference_columns = [
+            "annualized_alpha_arithmetic", "annualized_alpha_ci_low",
+            "annualized_alpha_ci_high", "alpha_hac_t_stat", "r_squared",
+        ]
+        complete = (
+            len(summary) == 8 and len(annual) == 48
+            and summary[inference_columns].notna().all().all()
+            and summary["observations"].eq(1387).all()
+            and summary["annualized_alpha_ci_low"].le(
+                summary["annualized_alpha_arithmetic"]
+            ).all()
+            and summary["annualized_alpha_arithmetic"].le(
+                summary["annualized_alpha_ci_high"]
+            ).all()
+        )
+        self.add(
+            "style_factor_multifactor_inference_complete", bool(complete),
+            f"summary_rows={len(summary)}, annual_rows={len(annual)}",
+        )
+        primary = summary.loc[
+            summary["scenario"].eq("daily_retry_limit_and_suspension_constrained")
+        ]
+        significant = primary.loc[
+            primary["annualized_alpha_ci_low"].gt(0)
+            | primary["annualized_alpha_ci_high"].lt(0),
+            ["model", "alpha_pipeline"],
+        ].apply(lambda row: f"{row['model']}/{row['alpha_pipeline']}", axis=1).tolist()
+        self.findings.update({
+            "style_factor_significant_residual_alpha_strategies": ",".join(significant),
+            "style_factor_executable_alpha_min": float(
+                primary["annualized_alpha_arithmetic"].min()
+            ),
+            "style_factor_executable_alpha_max": float(
+                primary["annualized_alpha_arithmetic"].max()
+            ),
+            "style_factor_executable_r_squared_min": float(primary["r_squared"].min()),
+            "style_factor_executable_r_squared_max": float(primary["r_squared"].max()),
+        })
+
+    def audit_model_portfolio_neutralization(self) -> None:
+        protocol = self.require_table("model_neutralization_protocol", "v1")
+        summary = self.require_table("model_neutralization_oos_summary", "v1")
+        daily = self.require_table("model_neutralization_oos_daily", "v1")
+        bootstrap = self.require_table("model_neutralization_oos_bootstrap", "v1")
+        if any(frame.empty for frame in (protocol, summary, daily, bootstrap)):
+            return
+        row = protocol.iloc[0]
+        locked = (
+            not bool(row["historical_oos_used_for_selection"])
+            and bool(row["models_locked_before_historical_oos"])
+            and bool(row["common_exposure_complete_sample"])
+        )
+        self.add(
+            "model_neutralization_protocol_locked", locked,
+            "no historical-OOS selection; locked models; paired exposure-complete sample",
+        )
+        counts = daily.groupby(["pipeline", "model"])["asof_date"].nunique()
+        self.add(
+            "model_neutralization_paired_dates", counts.nunique() == 1,
+            f"minimum_dates={counts.min()}, maximum_dates={counts.max()}",
+        )
+        combined_ridge = summary.loc[
+            summary["pipeline"].eq("industry_size_neutralized")
+            & summary["model"].eq("ridge_locked")
+        ].iloc[0]
+        size_residual = abs(float(
+            combined_ridge["mean_score_log_size_correlation"]
+        ))
+        industry_residual = abs(float(
+            combined_ridge["mean_score_industry_max_abs_mean"]
+        ))
+        # The residualizer pools date-specific groups with fewer than five
+        # stocks into OTHER, while this reporting metric expands the original
+        # broad codes. Exact fit-group orthogonality is audited above; the
+        # expanded-code score residual should still remain economically tiny.
+        self.add(
+            "linear_model_neutral_score_residual_small",
+            size_residual < 1e-10 and industry_residual < 5e-4,
+            f"industry={industry_residual:.3e}, size={size_residual:.3e}",
+        )
+        expected_metrics = {
+            "rank_ic", "net_return_annualized_arithmetic",
+            "industry_active_weight_l1", "abs_score_log_size_correlation",
+            "score_industry_max_abs_mean", "portfolio_industry_hhi",
+        }
+        observed_metrics = set(bootstrap["metric"].astype(str))
+        self.add(
+            "model_neutralization_inference_complete",
+            expected_metrics.issubset(observed_metrics),
+            f"metrics={','.join(sorted(observed_metrics))}",
+        )
+        combined = bootstrap.loc[
+            bootstrap["pipeline"].eq("industry_size_neutralized")
+        ]
+        self.findings.update({
+            "ridge_combined_neutral_oos_rank_ic": float(
+                combined_ridge["mean_rank_ic"]
+            ),
+            "ridge_combined_neutral_oos_annualized_return": float(
+                combined_ridge["portfolio_annualized_return"]
+            ),
+            "model_neutralization_combined_intervals": "; ".join(
+                f"{item.model}/{item.metric}=[{item.ci_2_5pct:.6f},{item.ci_97_5pct:.6f}]"
+                for item in combined.itertuples()
+            ),
+        })
+
+    def audit_constrained_portfolio_neutralization(self) -> None:
+        """Gate the explicit portfolio-level industry, size, and turnover controls."""
+        protocol = self.require_table("constrained_portfolio_protocol", "v1")
+        weekly = self.require_table("constrained_portfolio_oos_weekly", "v1")
+        summary = self.require_table("constrained_portfolio_oos_summary", "v1")
+        bootstrap = self.require_table("constrained_portfolio_oos_bootstrap", "v1")
+        if any(frame.empty for frame in (protocol, weekly, summary, bootstrap)):
+            return
+        row = protocol.iloc[0]
+        self.add(
+            "constrained_portfolio_protocol_locked",
+            not bool(row["historical_oos_used_for_selection"])
+            and bool(row["constraint_policy_prespecified"])
+            and str(row["source_experiment"]) == "model_portfolio_neutralization_v2",
+            "no historical-OOS selection; prespecified constraints; repaired v2 source",
+        )
+        counts = weekly.groupby("strategy")["asof_date"].nunique()
+        self.add(
+            "constrained_portfolio_paired_dates", counts.nunique() == 1,
+            f"minimum_dates={counts.min()}, maximum_dates={counts.max()}",
+        )
+        constrained = weekly.loc[weekly["construction"].eq("risk_constrained")]
+        max_stock = float(constrained["stock_weight_violation"].max())
+        max_size = float(constrained["size_bound_violation"].max())
+        max_industry = float(constrained["industry_bound_violation"].max())
+        self.add(
+            "constrained_portfolio_risk_bounds",
+            bool(constrained["optimizer_success"].all())
+            and max(max_stock, max_size, max_industry) < 1e-10,
+            f"stock={max_stock:.3e}, size={max_size:.3e}, industry={max_industry:.3e}",
+        )
+        turnover_rows = constrained.loc[constrained["effective_turnover_limit"].notna()]
+        turnover_error = float(
+            (turnover_rows["turnover"] - turnover_rows["effective_turnover_limit"])
+            .clip(lower=0).max()
+        )
+        relaxation_fraction = float(constrained["turnover_limit_relaxed"].mean())
+        self.add(
+            "constrained_portfolio_turnover_bound",
+            turnover_error < 1e-7 and relaxation_fraction == 0.0,
+            f"maximum_excess={turnover_error:.3e}, relaxation_fraction={relaxation_fraction:.3%}",
+        )
+        expected_metrics = {
+            "rank_ic", "net_return_annualized_arithmetic",
+            "industry_active_weight_l1", "abs_portfolio_size_z", "turnover",
+        }
+        full_stack = bootstrap.loc[bootstrap["comparison"].eq("full_neutral_stack")]
+        self.add(
+            "constrained_portfolio_inference_complete",
+            expected_metrics.issubset(set(full_stack["metric"].astype(str))),
+            f"metrics={','.join(sorted(set(full_stack['metric'].astype(str))))}",
+        )
+        hgb_raw = summary.loc[
+            summary["model"].eq("hgb_shallow15_locked")
+            & summary["strategy"].eq("raw__risk_constrained")
+        ].iloc[0]
+        self.findings.update({
+            "constrained_hgb_raw_oos_annualized_return": float(hgb_raw["annualized_return"]),
+            "constrained_hgb_raw_oos_sharpe": float(hgb_raw["sharpe_zero_rate"]),
+            "constrained_hgb_raw_oos_maximum_drawdown": float(hgb_raw["maximum_drawdown"]),
+            "constrained_hgb_raw_mean_industry_active_weight_l1": float(
+                hgb_raw["mean_industry_active_weight_l1"]
+            ),
+            "constrained_portfolio_turnover_relaxation_fraction": relaxation_fraction,
+        })
+
+    def audit_constrained_portfolio_daily_execution(self) -> None:
+        """Gate the daily retry execution paths for constrained target holdings."""
+        protocol = self.require_table("constrained_daily_execution_protocol", "v1")
+        daily = self.require_table("constrained_daily_execution_daily", "v1")
+        summary = self.require_table("constrained_daily_execution_summary", "v1")
+        bootstrap = self.require_table("constrained_daily_execution_bootstrap", "v1")
+        targets = self.require_table("constrained_execution_targets", "v1")
+        if any(frame.empty for frame in (protocol, daily, summary, bootstrap, targets)):
+            return
+        row = protocol.iloc[0]
+        self.add(
+            "constrained_daily_execution_protocol_locked",
+            not bool(row["historical_oos_used_for_selection"])
+            and bool(row["unique_nonoverlap_daily_clock"])
+            and bool(row["persistent_blocked_share_orders"])
+            and str(row["source_experiment"]) == "constrained_portfolio_neutralization_v1",
+            "frozen targets; unique daily clock; persistent blocked share orders",
+        )
+        target_counts = targets.groupby(
+            ["model", "alpha_pipeline", "strategy"]
+        )["execution_date"].nunique()
+        self.add(
+            "constrained_daily_execution_paired_targets",
+            target_counts.nunique() == 1 and int(target_counts.min()) == 293,
+            f"minimum_dates={target_counts.min()}, maximum_dates={target_counts.max()}",
+        )
+        daily_counts = daily.groupby(
+            ["model", "alpha_pipeline", "strategy", "scenario"]
+        )["trade_date"].nunique()
+        accounting_error = float((daily["accounting_weight_sum"] - 1.0).abs().max())
+        return_error = float((
+            daily["net_return"] - daily["gross_return"] + daily["transaction_cost"]
+        ).abs().max())
+        self.add(
+            "constrained_daily_execution_accounting_identity",
+            daily_counts.nunique() == 1 and accounting_error < 1e-10 and return_error < 1e-10,
+            f"dates={daily_counts.min()}-{daily_counts.max()}, "
+            f"accounting={accounting_error:.3e}, return={return_error:.3e}",
+        )
+        ideal = daily.loc[daily["scenario"].eq("nonoverlap_all_fills_upper_bound")]
+        hidden_turnover = float(ideal.loc[~ideal["new_target"].astype(bool), "turnover"].max())
+        self.add(
+            "constrained_daily_execution_no_hidden_rebalance",
+            hidden_turnover < 1e-12,
+            f"ideal_non_target_max_turnover={hidden_turnover:.3e}",
+        )
+        summary_pivot = summary.pivot(
+            index=["model", "alpha_pipeline", "strategy"],
+            columns="scenario", values="annualized_return",
+        )
+        haircut = (
+            summary_pivot["daily_retry_limit_and_suspension_constrained"]
+            < summary_pivot["nonoverlap_all_fills_upper_bound"]
+        )
+        interval_mask = pd.to_numeric(
+            bootstrap["ci_97_5pct"], errors="coerce"
+        ).lt(0)
+        intervals_negative = bool(interval_mask.all())
+        self.add(
+            "constrained_daily_execution_haircut_detected",
+            bool(haircut.all()) and intervals_negative,
+            f"strategies_with_haircut={int(haircut.sum())}/{len(haircut)}, "
+            f"negative_upper_intervals={int(interval_mask.sum())}/{len(interval_mask)}",
+        )
+        hgb_raw = summary.loc[
+            summary["model"].eq("hgb_shallow15_locked")
+            & summary["alpha_pipeline"].eq("raw")
+            & summary["scenario"].eq("daily_retry_limit_and_suspension_constrained")
+        ].iloc[0]
+        self.findings.update({
+            "constrained_daily_hgb_raw_annualized_return": float(
+                hgb_raw["annualized_return"]
+            ),
+            "constrained_daily_hgb_raw_sharpe": float(hgb_raw["sharpe_zero_rate"]),
+            "constrained_daily_hgb_raw_maximum_drawdown": float(
+                hgb_raw["maximum_drawdown"]
+            ),
+            "constrained_daily_hgb_raw_mean_blocked_buy_weight": float(
+                hgb_raw["mean_blocked_buy_weight"]
+            ),
+        })
+
+    def audit_multi_factor_risk_attribution(self) -> None:
+        """Gate PIT style coverage, exact attribution, and lagged risk forecasts."""
+        protocol = self.require_table("risk_model_protocol", "v1")
+        beta_index = self.require_table("pit_beta_exposure_index", "v1")
+        factor_returns = self.require_table("risk_model_factor_returns", "v1")
+        attribution = self.require_table("risk_model_portfolio_attribution", "v1")
+        forecasts = self.require_table("risk_model_portfolio_forecasts", "v1")
+        summary = self.require_table("risk_model_attribution_summary", "v1")
+        bootstrap = self.require_table("risk_model_attribution_bootstrap", "v1")
+        if any(frame.empty for frame in (
+            protocol, beta_index, factor_returns, attribution,
+            forecasts, summary, bootstrap,
+        )):
+            return
+        row = protocol.iloc[0]
+        self.add(
+            "risk_attribution_protocol_locked",
+            not bool(row["historical_oos_used_for_selection"])
+            and not bool(row["factor_covariance_uses_current_or_future_return"])
+            and bool(row["attribution_identity_required"])
+            and str(row["source_experiment"]) == "constrained_portfolio_neutralization_v1",
+            "prespecified PIT factors; lagged covariance; exact identity required",
+        )
+        minimum_beta_coverage = float(beta_index["beta_coverage"].min())
+        beta_duplicates = int(beta_index["duplicate_instrument_date_keys"].sum())
+        self.add(
+            "pit_beta_coverage_and_keys",
+            minimum_beta_coverage >= 0.90 and beta_duplicates == 0,
+            f"minimum_coverage={minimum_beta_coverage:.2%}, duplicates={beta_duplicates}",
+        )
+        counts = attribution.groupby(
+            ["model", "alpha_pipeline", "strategy"]
+        )["asof_date"].nunique()
+        maximum_identity_error = max(
+            float(attribution["attribution_error"].abs().max()),
+            float(attribution["reported_net_error"].abs().max()),
+        )
+        self.add(
+            "risk_attribution_exact_and_paired",
+            counts.nunique() == 1 and int(counts.min()) == 293
+            and maximum_identity_error < 1e-10,
+            f"dates={counts.min()}-{counts.max()}, max_error={maximum_identity_error:.3e}",
+        )
+        forecast_values = forecasts[[
+            "forecast_annualized_volatility", "forecast_annualized_tracking_error",
+        ]].to_numpy(dtype="float64")
+        minimum_history = int(forecasts["factor_history_weeks"].min())
+        self.add(
+            "risk_forecast_lagged_finite_positive",
+            minimum_history >= 52 and np.isfinite(forecast_values).all()
+            and (forecast_values > 0).all(),
+            f"minimum_prior_weeks={minimum_history}, forecasts={len(forecasts)}",
+        )
+        expected = {
+            "industry_active_contribution", "style_contribution",
+            "specific_selection_contribution", "active_gross_return", "active_net_return",
+        }
+        self.add(
+            "risk_attribution_inference_complete",
+            expected.issubset(set(bootstrap["metric"].astype(str))),
+            f"metrics={','.join(sorted(set(bootstrap['metric'].astype(str))))}",
+        )
+        hgb_raw = summary.loc[
+            summary["model"].eq("hgb_shallow15_locked")
+            & summary["alpha_pipeline"].eq("raw")
+        ].iloc[0]
+        hgb_specific = bootstrap.loc[
+            bootstrap["model"].eq("hgb_shallow15_locked")
+            & bootstrap["alpha_pipeline"].eq("raw")
+            & bootstrap["metric"].eq("specific_selection_contribution")
+        ].iloc[0]
+        self.findings.update({
+            "pit_beta_minimum_coverage": minimum_beta_coverage,
+            "hgb_raw_annualized_style_contribution_arithmetic": float(
+                hgb_raw["annualized_style_contribution_arithmetic"]
+            ),
+            "hgb_raw_annualized_specific_selection_contribution_arithmetic": float(
+                hgb_raw["annualized_specific_selection_contribution_arithmetic"]
+            ),
+            "hgb_raw_specific_selection_ci_low": float(hgb_specific["ci_2_5pct"]),
+            "hgb_raw_specific_selection_ci_high": float(hgb_specific["ci_97_5pct"]),
+            "hgb_raw_mean_forecast_tracking_error": float(
+                hgb_raw["mean_forecast_annualized_tracking_error"]
+            ),
+        })
+
+    def audit_risk_aware_portfolio_optimization(self) -> None:
+        """Gate lagged inputs, hard constraints, and the risk/return decision."""
+        protocol = self.require_table("risk_aware_portfolio_protocol", "v2")
+        weekly = self.require_table("risk_aware_portfolio_weekly", "v2")
+        constraints = self.require_table("risk_aware_portfolio_constraint_audit", "v2")
+        forecasts = self.require_table("risk_aware_portfolio_forecasts", "v2")
+        summary = self.require_table("risk_aware_portfolio_summary", "v2")
+        bootstrap = self.require_table("risk_aware_portfolio_bootstrap", "v2")
+        if any(frame.empty for frame in (
+            protocol, weekly, constraints, forecasts, summary, bootstrap,
+        )):
+            return
+        row = protocol.iloc[0]
+        self.add(
+            "risk_aware_protocol_lagged_and_locked",
+            not bool(row["historical_oos_used_for_selection"])
+            and not bool(row["factor_covariance_uses_current_or_future_return"])
+            and not bool(row["specific_variance_uses_current_or_future_residual"])
+            and not bool(row["candidate_set_uses_future_return"])
+            and str(row["source_experiment"]) == "multi_factor_risk_attribution_v1",
+            "lagged covariance/specific risk; outcome-independent candidate set",
+        )
+        counts = weekly.groupby(
+            ["model", "alpha_pipeline", "scenario"]
+        )["asof_date"].nunique()
+        self.add(
+            "risk_aware_paired_dates",
+            counts.nunique() == 1 and int(counts.min()) == 293,
+            f"dates={counts.min()}-{counts.max()}, strategies={len(counts)}",
+        )
+        violation_columns = [
+            "stock_weight_violation", "size_bound_violation",
+            "industry_bound_violation", "turnover_bound_violation",
+            "alpha_utility_shortfall",
+        ]
+        maximum_violation = float(
+            constraints[violation_columns].to_numpy(dtype="float64").max()
+        )
+        relaxation = float(
+            weekly.loc[weekly["scenario"].eq("risk_aware_full"),
+                       "turnover_limit_relaxed"].astype(bool).mean()
+        )
+        self.add(
+            "risk_aware_constraints_hold",
+            maximum_violation < 1e-6 and relaxation == 0.0,
+            f"maximum_violation={maximum_violation:.3e}, "
+            f"turnover_relaxation_fraction={relaxation:.2%}",
+        )
+        target = summary.loc[summary["scenario"].eq("risk_aware_target_vol")]
+        target_error = float(
+            (target["mean_forecast_annualized_volatility"] - 0.20).abs().max()
+        )
+        self.add(
+            "target_volatility_forecast_calibrated",
+            target_error < 0.005 and float(target["mean_risky_weight"].max()) <= 1.0,
+            f"maximum_mean_target_error={target_error:.3%}, no_leverage=True",
+        )
+        hgb = bootstrap.loc[
+            bootstrap["model"].eq("hgb_shallow15_locked")
+            & bootstrap["alpha_pipeline"].eq("raw")
+            & bootstrap["scenario"].eq("risk_aware_full")
+        ]
+        te = hgb.loc[hgb["metric"].eq("forecast_tracking_error")].iloc[0]
+        returns = hgb.loc[
+            hgb["metric"].eq("net_return_annualized_arithmetic")
+        ].iloc[0]
+        self.add(
+            "risk_aware_te_reduction_confirmed",
+            float(te["ci_97_5pct"]) < 0.0,
+            f"delta={float(te['point_estimate']):.3%}, "
+            f"95%CI=[{float(te['ci_2_5pct']):.3%},{float(te['ci_97_5pct']):.3%}]",
+        )
+        self.add(
+            "risk_aware_return_cost_detected",
+            float(returns["ci_97_5pct"]) < 0.0,
+            f"delta={float(returns['point_estimate']):.3%}, "
+            f"95%CI=[{float(returns['ci_2_5pct']):.3%},"
+            f"{float(returns['ci_97_5pct']):.3%}]",
+        )
+        self.warn(
+            "risk_aware_policy_rejected",
+            "The v2-registered minimum-active-variance policy reduces ex-ante tracking error but "
+            "causes a statistically negative return delta; retain as a failed experiment.",
+        )
+        hgb_summary = summary.loc[
+            summary["model"].eq("hgb_shallow15_locked")
+            & summary["alpha_pipeline"].eq("raw")
+        ].set_index("scenario")
+        self.findings.update({
+            "risk_aware_v1_policy_adopted": False,
+            "risk_aware_hgb_raw_te_before": float(hgb_summary.loc[
+                "source_risk_constrained", "mean_forecast_annualized_tracking_error"
+            ]),
+            "risk_aware_hgb_raw_te_after": float(hgb_summary.loc[
+                "risk_aware_full", "mean_forecast_annualized_tracking_error"
+            ]),
+            "risk_aware_hgb_raw_annualized_return": float(hgb_summary.loc[
+                "risk_aware_full", "annualized_return"
+            ]),
+            "risk_aware_hgb_raw_return_delta_ci_high": float(returns["ci_97_5pct"]),
+        })
+
     def audit_model_benchmark(self) -> None:
         selection = self.require_table("model_benchmark_selection", "v1")
         summary = self.require_table("model_benchmark_oos_summary", "v1")
@@ -376,10 +1096,17 @@ class ResearchAuditor:
         if any(frame.empty for frame in (selection, summary, annual, pairwise, availability)):
             return
         winner = str(selection.iloc[0]["selected_candidate"])
+        winner_family = str(selection.iloc[0]["selected_family"])
         no_oos_selection = not bool(selection.iloc[0]["historical_oos_used_for_selection"])
         self.add("model_benchmark_excludes_historical_oos_selection", no_oos_selection,
                  f"winner={winner}")
         winner_annual = annual.loc[annual["candidate"].eq(winner)]
+        self.add(
+            "model_winner_has_annual_oos_results", not winner_annual.empty,
+            f"winner={winner}, annual_rows={len(winner_annual)}",
+        )
+        if winner_annual.empty:
+            return
         self.add("model_winner_rank_ic_positive_each_oos_year",
                  bool(winner_annual["mean_rank_ic"].gt(0).all()),
                  f"minimum_annual_rank_ic={winner_annual['mean_rank_ic'].min():.4f}")
@@ -396,39 +1123,103 @@ class ResearchAuditor:
                     _close(left, right, 1e-9),
                     f"benchmark={left:.10f}, preprocessing_oos={right:.10f}",
                 )
-        ridge_return = pairwise.loc[
-            pairwise["reference"].eq("ridge_1")
-            & pairwise["metric"].eq("net_return_annualized_arithmetic")
-        ].iloc[0]
-        ridge_ic = pairwise.loc[
-            pairwise["reference"].eq("ridge_1")
-            & pairwise["metric"].eq("rank_ic")
-        ].iloc[0]
-        hgb_return = pairwise.loc[
-            pairwise["reference"].str.startswith("hgb_")
-            & pairwise["metric"].eq("net_return_annualized_arithmetic")
-        ].iloc[0]
-        self.add("model_winner_return_increment_vs_ridge",
-                 float(ridge_return["ci_2_5pct"]) > 0,
-                 f"95% CI=[{ridge_return['ci_2_5pct']:.2%}, {ridge_return['ci_97_5pct']:.2%}]")
-        self.add("model_winner_rank_ic_increment_not_overstated",
-                 float(ridge_ic["ci_2_5pct"]) <= 0 <= float(ridge_ic["ci_97_5pct"]),
-                 f"95% CI=[{ridge_ic['ci_2_5pct']:.4f}, {ridge_ic['ci_97_5pct']:.4f}]")
-        self.add("random_forest_not_claimed_superior_to_hgb",
-                 float(hgb_return["ci_2_5pct"]) <= 0 <= float(hgb_return["ci_97_5pct"]),
-                 f"95% CI=[{hgb_return['ci_2_5pct']:.2%}, {hgb_return['ci_97_5pct']:.2%}]")
+        ridge_rows = summary.loc[summary["family"].eq("ridge")]
+        self.add(
+            "model_benchmark_has_ridge_reference", len(ridge_rows) == 1,
+            f"ridge_candidates={ridge_rows['candidate'].tolist()}",
+        )
+        ridge_return = ridge_ic = None
+        if len(ridge_rows) == 1:
+            ridge_reference = str(ridge_rows.iloc[0]["candidate"])
+            for metric, check_name in (
+                ("net_return_annualized_arithmetic", "model_winner_return_pairwise_vs_ridge"),
+                ("rank_ic", "model_winner_rank_ic_pairwise_vs_ridge"),
+            ):
+                matches = pairwise.loc[
+                    pairwise["candidate"].eq(winner)
+                    & pairwise["reference"].eq(ridge_reference)
+                    & pairwise["metric"].eq(metric)
+                ]
+                self.add(
+                    check_name, len(matches) == 1,
+                    f"candidate={winner}, reference={ridge_reference}, metric={metric}, "
+                    f"rows={len(matches)}",
+                )
+                if len(matches) == 1:
+                    if metric == "net_return_annualized_arithmetic":
+                        ridge_return = matches.iloc[0]
+                    else:
+                        ridge_ic = matches.iloc[0]
+        if ridge_return is not None:
+            return_low = float(ridge_return["ci_2_5pct"])
+            return_high = float(ridge_return["ci_97_5pct"])
+            return_inference = (
+                "positive" if return_low > 0
+                else "negative" if return_high < 0
+                else "inconclusive"
+            )
+            self.add(
+                "model_winner_return_interval_valid",
+                np.isfinite([return_low, return_high]).all()
+                and return_low <= return_high,
+                f"95% CI=[{return_low:.2%}, {return_high:.2%}]; "
+                f"inference={return_inference}",
+            )
+        if ridge_ic is not None:
+            self.add("model_winner_rank_ic_increment_not_overstated",
+                     float(ridge_ic["ci_2_5pct"]) <= 0 <= float(ridge_ic["ci_97_5pct"]),
+                     f"95% CI=[{ridge_ic['ci_2_5pct']:.4f}, "
+                     f"{ridge_ic['ci_97_5pct']:.4f}]")
+        if winner_family == "random_forest":
+            hgb_rows = summary.loc[summary["family"].eq("hgb")]
+            hgb_reference = (
+                str(hgb_rows.iloc[0]["candidate"]) if len(hgb_rows) == 1 else None
+            )
+            matches = pairwise.loc[
+                pairwise["candidate"].eq(winner)
+                & pairwise["reference"].eq(hgb_reference)
+                & pairwise["metric"].eq("net_return_annualized_arithmetic")
+            ]
+            self.add(
+                "model_winner_return_pairwise_vs_hgb", len(matches) == 1,
+                f"candidate={winner}, reference={hgb_reference}, rows={len(matches)}",
+            )
+            if len(matches) == 1:
+                hgb_return = matches.iloc[0]
+                self.add("random_forest_not_claimed_superior_to_hgb",
+                         float(hgb_return["ci_2_5pct"]) <= 0
+                         <= float(hgb_return["ci_97_5pct"]),
+                         f"95% CI=[{hgb_return['ci_2_5pct']:.2%}, "
+                         f"{hgb_return['ci_97_5pct']:.2%}]")
+        else:
+            self.add(
+                "random_forest_not_claimed_superior_to_hgb", True,
+                f"validation-selected winner={winner} ({winner_family}); "
+                "random forest is not the selected winner",
+            )
         unavailable = availability.loc[availability["status"].ne("executed"), "model"].tolist()
         if unavailable:
             self.warn("model_dependencies_unavailable", f"not executed={unavailable}")
-        winner_summary = summary.loc[summary["candidate"].eq(winner)].iloc[0]
+        winner_rows = summary.loc[summary["candidate"].eq(winner)]
+        self.add(
+            "model_winner_has_oos_summary", len(winner_rows) == 1,
+            f"winner={winner}, summary_rows={len(winner_rows)}",
+        )
+        if len(winner_rows) != 1:
+            return
+        winner_summary = winner_rows.iloc[0]
         self.findings.update({
             "model_benchmark_validation_winner": winner,
             "model_winner_oos_mean_rank_ic": float(winner_summary["mean_rank_ic"]),
             "model_winner_oos_annualized_return": float(
                 winner_summary["portfolio_annualized_return"]
             ),
-            "model_winner_minus_ridge_return_ci_low": float(ridge_return["ci_2_5pct"]),
-            "model_winner_minus_ridge_return_ci_high": float(ridge_return["ci_97_5pct"]),
+            "model_winner_minus_ridge_return_ci_low": (
+                float(ridge_return["ci_2_5pct"]) if ridge_return is not None else float("nan")
+            ),
+            "model_winner_minus_ridge_return_ci_high": (
+                float(ridge_return["ci_97_5pct"]) if ridge_return is not None else float("nan")
+            ),
         })
 
     def audit_rf_hyperparameter_stability(self) -> None:
@@ -630,6 +1421,80 @@ class ResearchAuditor:
                 ),
             })
 
+    def audit_final_research_extensions(self) -> None:
+        """Gate the final registry, descriptive, parameter, and cost diagnostics."""
+        registry = self.require_table("factor_registry", "v1")
+        distribution = self.require_table("factor_distribution_summary", "v1")
+        rolling = self.require_table("factor_rolling_correlation_stability", "v1")
+        hgb_protocol = self.require_table("hgb_hyperparameter_protocol", "v1")
+        hgb_surface = self.require_table("hgb_hyperparameter_summary", "v1")
+        sensitivity_protocol = self.require_table("portfolio_sensitivity_protocol", "v1")
+        sensitivity = self.require_table("portfolio_sensitivity_summary", "v1")
+        costs = self.require_table("execution_cost_stress", "v1")
+        if any(frame.empty for frame in (
+            registry, distribution, rolling, hgb_protocol, hgb_surface,
+            sensitivity_protocol, sensitivity, costs,
+        )):
+            return
+        expected_factors = set(_load_yaml("preprocessing.yaml")["factor_columns"])
+        registered = set(registry["factor"].astype(str))
+        directions_complete = registry["locked_training_direction"].isin([-1, 1]).all()
+        self.add(
+            "factor_registry_complete_and_versioned",
+            registered == expected_factors and len(registry) == 15
+            and registry["registry_version"].nunique() == 1 and directions_complete,
+            f"factors={len(registry)}, version={registry['registry_version'].iloc[0]}",
+        )
+        expected_pairs = len(expected_factors) * (len(expected_factors) - 1) // 2
+        self.add(
+            "factor_visual_diagnostics_complete",
+            set(distribution["factor"].astype(str)) == expected_factors
+            and len(rolling) == expected_pairs
+            and rolling["rolling_windows"].gt(0).all(),
+            f"distributions={len(distribution)}, rolling_pairs={len(rolling)}, "
+            f"expected_pairs={expected_pairs}",
+        )
+        hgb_row = hgb_protocol.iloc[0]
+        coordinates = hgb_surface[[
+            "max_leaf_nodes", "l2_regularization"
+        ]].drop_duplicates()
+        self.add(
+            "hgb_surface_validation_only_and_complete",
+            not bool(hgb_row["historical_oos_accessed"])
+            and bool(hgb_row["best_candidate_is_not_promoted"])
+            and int(hgb_row["surface_points"]) == 9
+            and len(coordinates) == 9,
+            f"surface_points={len(coordinates)}, evaluation={hgb_row['evaluation_period']}",
+        )
+        protocol_row = sensitivity_protocol.iloc[0]
+        counts = sensitivity.groupby("split")["periods"].nunique()
+        variants = sensitivity.groupby("split").size()
+        self.add(
+            "portfolio_sensitivity_common_date_and_no_reselection",
+            not bool(protocol_row["historical_oos_used_for_selection"])
+            and bool(protocol_row["common_date_comparison"])
+            and counts.eq(1).all() and variants.eq(8).all(),
+            f"variants={variants.to_dict()}, performance_period_counts={counts.to_dict()}",
+        )
+        expected_costs = {0.0, 20.0, 50.0, 100.0}
+        monotone = True
+        for _, group in costs.sort_values("cost_bps").groupby(
+            ["model", "alpha_pipeline"], sort=False
+        ):
+            monotone &= bool(group["annualized_return"].is_monotonic_decreasing)
+        self.add(
+            "execution_cost_stress_complete_and_monotone",
+            set(costs["cost_bps"].astype(float)) == expected_costs
+            and monotone
+            and costs["stress_method"].eq("fixed_realized_fill_path_reprice").all(),
+            f"costs={sorted(costs['cost_bps'].unique().tolist())}, monotone={monotone}",
+        )
+        self.findings.update({
+            "hgb_validation_surface_rank_ic_min": float(hgb_surface["mean_rank_ic"].min()),
+            "hgb_validation_surface_rank_ic_max": float(hgb_surface["mean_rank_ic"].max()),
+            "factor_registry_count": len(registry),
+        })
+
     def run(self) -> tuple[list[AuditCheck], dict]:
         self.audit_configs()
         self.audit_frozen_experiments()
@@ -682,6 +1547,15 @@ class ResearchAuditor:
             & frame["included_in_performance"].astype(bool),
         )
         self.audit_size_neutralization()
+        self.audit_factor_neutralization()
+        self.audit_factor_tear_sheet()
+        self.audit_capm_attribution()
+        self.audit_style_factor_attribution()
+        self.audit_model_portfolio_neutralization()
+        self.audit_constrained_portfolio_neutralization()
+        self.audit_constrained_portfolio_daily_execution()
+        self.audit_multi_factor_risk_attribution()
+        self.audit_risk_aware_portfolio_optimization()
         self.audit_weekly_identity(
             "model_benchmark_oos_portfolio", "v1", "model_benchmark_winner",
             lambda frame: (
@@ -696,10 +1570,12 @@ class ResearchAuditor:
         self.audit_rf_hyperparameter_stability()
         self.audit_rf_execution_forensics()
         self.audit_rf_daily_retry_execution()
+        self.audit_final_research_extensions()
         self.warn(
             "known_scope_limitations",
-            "No point-in-time industry neutralization, no official historical CSI membership, "
-            "and no broker-calibrated market-impact model.",
+            "Industry neutralization uses monthly-sampled historical CSRC broad sections rather "
+            "than Shenwan membership; there is no official historical CSI membership and no "
+            "broker-calibrated market-impact model.",
         )
         return self.checks, self.findings
 
@@ -732,7 +1608,7 @@ def write_reports(checks: list[AuditCheck], findings: dict,
         for check in checks
     )
     lines.extend(["", "## Headline findings", ""])
-    lines.extend(f"- `{name}`: {value}" for name, value in findings.items())
+    lines.extend(f"- `{name}`: {value}".rstrip() for name, value in findings.items())
     md_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 

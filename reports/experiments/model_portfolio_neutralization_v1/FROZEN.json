@@ -1,0 +1,18 @@
+{
+  "experiment_id": "model_portfolio_neutralization_v1",
+  "frozen_at_utc": "2026-10-17T03:11:10.435058+00:00",
+  "content_sha256": "9a0beb0a2afb4e5ad979013dbc3f5605703235eb1138ec59fcf210acc34213e1",
+  "files": {
+    "config.yaml": "c80f9220c9c730aa15da26c47b70f97c4944253bf0850b370f5245ced976d4b7",
+    "metadata.json": "07c171bc1ffc143283ae2e58e01e6911a70ab142155466456d1013410bc446e5",
+    "metrics.json": "835d0022e30a0e0ee3a419d0e159174233999dc71650d7ee8fbc0f434888e339",
+    "notes.md": "10bb5d7228437966e64222d10b0a86c659ec3fb2de9397fcb620ce6c80fc9d0f",
+    "tables/model_neutralization_conclusions__v1.csv": "184c054f7f4a8d17592187ce051dcda450de18997c039fc66a799884be8c40e5",
+    "tables/model_neutralization_fit_audit__v1.csv": "6945789929c6a8b2930dc246aa035ec765d64793c5db17b1d23d0cab1ad222a1",
+    "tables/model_neutralization_oos_annual__v1.csv": "d234dd3a1bff96f58943c170a99a29328ff9c89ce535274b57b74bdf4f39ed74",
+    "tables/model_neutralization_oos_bootstrap__v1.csv": "8cd354c1e37b9e7c3aabe439584fb56dc0aaa2ddb0ef51329ac7d843083fcb5b",
+    "tables/model_neutralization_oos_summary__v1.csv": "f8cd255cefc9bd5280154d465518f69285dd205ce865fa2644e2d02581d31456",
+    "tables/model_neutralization_protocol__v1.csv": "70ca4c1559a0ee3e7dd4ba2c823918a09c9d60089785ca65a445da02f8b03100",
+    "tables/model_neutralization_validation_summary__v1.csv": "5e35bee77febca9706ff144fc93c763002c423bac50def341dfddc0c6fc2f6d7"
+  }
+}

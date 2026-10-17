@@ -1,0 +1,25 @@
+experiment_id: factor_tear_sheet_v1
+source_experiment: factor_neutralization_v2
+period: historical_oos_2021_2026
+historical_oos_used_for_selection: false
+target: fwd_return_5d_lag1
+pipelines: [raw, industry_size_neutralized]
+bucket_count: 10
+minimum_cross_section_size: 100
+minimum_industry_group_size: 5
+annualization_periods: 52
+newey_west_lags: 4
+quantile_limits: [0.01, 0.99]
+mad_multiplier: 5.0
+assumed_cost_bps_per_leg_turnover: 20.0
+benchmark_instrument: sh.000905
+regime:
+  lookback_trading_days: 60
+  annualization_days: 252
+  expanding_median_min_periods: 252
+bootstrap:
+  block_length_weeks: 13
+  samples: 2000
+  random_seed: 20261017
+direction_rule: sign_of_raw_training_mean_rank_ic
+interpretation: descriptive_oos_factor_tear_sheet_without_reselection

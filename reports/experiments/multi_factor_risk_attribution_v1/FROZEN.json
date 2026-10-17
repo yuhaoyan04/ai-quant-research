@@ -1,0 +1,18 @@
+{
+  "experiment_id": "multi_factor_risk_attribution_v1",
+  "frozen_at_utc": "2026-10-17T05:13:21.115199+00:00",
+  "content_sha256": "3ec34bf1d157bfa7ad4d156eec1f49bc87717199b86225c51bbbe47b0b33ac0d",
+  "files": {
+    "config.yaml": "03b5d96f76168db175dd9b05141ad29a46a0a4ed60ef616d691ecada4c629f6b",
+    "metadata.json": "0080f10c2ee15e65bc6f7e172b3347866fa44d7d32b1f7c2c3b39cf0f1b9b391",
+    "metrics.json": "1bd4d160a7c1f44d3fb4a49962a23051fd2d0c844460dbe2366bd3c5b54efffe",
+    "notes.md": "298a3e6b89d5704c7e9df6f2fa4bc7553d5fd374e6577294b6985695dc05447b",
+    "tables/risk_model_attribution_bootstrap__v1.csv": "1eefc378ac14891a563a04ff01cf4b7e2d2c182297ef8a5eaaf75aa3b3f45257",
+    "tables/risk_model_attribution_summary__v1.csv": "65bc00270e44d9d85d7254debd568f1c42bfde5162e094acfe2aa139f5d205f9",
+    "tables/risk_model_factor_returns__v1.csv": "92adf9563984606450408238ee7bbec532d5096f429e5b8248cdfd71d379113d",
+    "tables/risk_model_portfolio_attribution__v1.csv": "b85bf92e1a76f174f3e63efb7fea2468d44db8fdf8e2d8971552d9ece5ee8ed3",
+    "tables/risk_model_portfolio_exposures__v1.csv": "fe5ec04227f46d152b27bbe185a701d112a6162dbe8a5c3e88866653658d90f4",
+    "tables/risk_model_portfolio_forecasts__v1.csv": "845d15ca3d49c6332143b4e4ba07615904f1bb1f92e4bb8f406249f83e7836bf",
+    "tables/risk_model_protocol__v1.csv": "1056c301f0fde33b83b381f623eb59c25b237b964a565b0570f9757b769da336"
+  }
+}

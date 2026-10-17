@@ -1,0 +1,15 @@
+{
+  "experiment_id": "factor_visual_diagnostics_v1",
+  "frozen_at_utc": "2026-10-17T11:58:55.949539+00:00",
+  "content_sha256": "80772eda4af221aed97029b38bb3ad86dbdfb6daaa433db799098656db52691a",
+  "files": {
+    "config.yaml": "bd015bd32b8fd0ea8276d784b3d20f831e93c957a2a912f259ed5894580137ba",
+    "figures/factor_correlation_heatmap.svg": "d48ca1f5c2f093e905940143c760dbe419358a77281e42265d9f9e20c641aa7e",
+    "figures/factor_distributions.svg": "15a570be6a97f0f3e70531d04f04b7a62694e46dca74ce6c0545fc6061313f59",
+    "metadata.json": "025ccb12c7b288a1ecab94d7fe305dc12af4468c61f5915d7935ab7a3b940d39",
+    "metrics.json": "3735ae525937b22bd9d34d613f48de070fd06a46c4ea395e87750aa10c66f767",
+    "notes.md": "9ba097bf9e9d69e8e1c951908063f46c6b869c006cf726e2ce797d0632433bf7",
+    "tables/factor_distribution_summary__v1.csv": "4b03f912a3afb2101928c40bbfa7563ec4fd644641602fab237e3c402b38596a",
+    "tables/factor_rolling_correlation_stability__v1.csv": "96a9f1dd866e5b252d8bed2a3db607305dd7b0708646022f88bf766c96032e3d"
+  }
+}

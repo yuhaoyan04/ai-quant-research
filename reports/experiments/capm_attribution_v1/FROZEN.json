@@ -1,0 +1,15 @@
+{
+  "experiment_id": "capm_attribution_v1",
+  "frozen_at_utc": "2026-10-17T06:37:21.626445+00:00",
+  "content_sha256": "aa48bf8999db66344e6ab7dd0fd17999bcd5616db0fb5846d08b444c93ae7d23",
+  "files": {
+    "config.yaml": "4720e6b185c1164e50c905f6d13eb31abba19d09065304180ff95453ca28f205",
+    "metadata.json": "8135d4c9c345a3662f3b993702aa011db0fcf9c9fbb9a5cddde8ccc745e750df",
+    "metrics.json": "b00cc93f3b33a715145e5c31de77386c27c201afa55a57171532cd495d53cfd1",
+    "notes.md": "57982e1cb968c32766a7b3f73f4c48d248de44a38cdc322f2cedf6f8b9830016",
+    "tables/capm_annual__v1.csv": "6139f98263dec739b6fe3cebf343cc170d906071c216e1c71ccf3c4815a8ee24",
+    "tables/capm_protocol__v1.csv": "6f830591fcc657cf691fe40f8f9a896536e07a1bd7f8b417c0121fe6d5064088",
+    "tables/capm_rolling__v1.csv": "9e2f4e7c59b3d1a19f0e6dd15a533f805195daa3c822c48450815eab6fd07d2e",
+    "tables/capm_summary__v1.csv": "8b886f200f5c80fc252cd7dd7c6c482c3539e4ad4da425c6e8998f44f73dd275"
+  }
+}

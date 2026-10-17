@@ -1,0 +1,30 @@
+experiment_id: multi_factor_risk_attribution_v1
+historical_oos_used_for_selection: false
+source_experiment: constrained_portfolio_neutralization_v1
+target: fwd_return_5d_lag1
+risk_model: {start_year: 2008, end_year: 2026}
+attribution: {start_year: 2021, end_year: 2026}
+portfolio_construction: risk_constrained
+benchmark: equal_weight_pit_exposure_complete_universe
+regression: equal_weight_cross_sectional_ols
+industry_level: csrc_broad_section
+styles: [size, beta, volatility, liquidity, value, momentum]
+beta:
+  benchmark_instrument: sh.000905
+  lookback_trading_days: 252
+  minimum_observations: 120
+style_winsor_quantiles: [0.01, 0.99]
+covariance:
+  trailing_weeks: 104
+  minimum_weeks: 52
+  ewma_half_life_weeks: 26
+  diagonal_shrinkage: 0.20
+specific_risk:
+  ewma_half_life_weeks: 26
+  minimum_observations: 26
+annualization_periods: 52
+bootstrap:
+  block_length_weeks: 13
+  samples: 2000
+  random_seed: 20261017
+scope_note: weekly_five_day_label_attribution_not_daily_execution_attribution

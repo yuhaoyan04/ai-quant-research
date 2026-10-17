@@ -9,12 +9,57 @@
     "immutable": true
   },
   {
+    "experiment_id": "capm_attribution_v1",
+    "title": "Daily executable-portfolio CAPM alpha and rolling beta",
+    "stage": "time_series_return_attribution",
+    "model_version": "daily_net_return_three_csi_benchmarks_hac_v1",
+    "registered_at_utc": "2026-10-17T06:37:21.626445+00:00",
+    "dataset_version": "14d3c0240d5d3ecfc22b08ad6272863e5a0011476ac91f2feb0b6b86eb1e2400",
+    "immutable": true
+  },
+  {
     "experiment_id": "challenger_hgb_blend_v1",
     "title": "Frozen HGB plus Ridge rank-blend challenger",
     "stage": "nonlinear_model_challenger",
     "model_version": "hgb_v1_blend_075",
     "registered_at_utc": "2026-10-14T11:21:24.799208+00:00",
     "dataset_version": "673bfaecacc39be3c7f5d7972ce69fa820f7a625aee4ade55216585f067241ab",
+    "immutable": true
+  },
+  {
+    "experiment_id": "constrained_portfolio_daily_execution_v1",
+    "title": "Daily price-limit and suspension execution of constrained portfolios",
+    "stage": "constrained_portfolio_daily_execution",
+    "model_version": "frozen_constrained_targets_share_order_retry_v1",
+    "registered_at_utc": "2026-10-17T04:50:16.948577+00:00",
+    "dataset_version": "9d40a1c659c17dfa487a51aeae595cc5c3d6d67df89afe0620a6601f8bf2bab2",
+    "immutable": true
+  },
+  {
+    "experiment_id": "constrained_portfolio_neutralization_v1",
+    "title": "PIT industry, size, stock-weight, and turnover constrained portfolios",
+    "stage": "constrained_portfolio_risk_neutralization",
+    "model_version": "locked_ridge_hgb_scipy_highs_risk_constraints_v1",
+    "registered_at_utc": "2026-10-17T04:30:25.364907+00:00",
+    "dataset_version": "ac055d93e53f44c7b48684720650bd8b42d19f6c7888f33d8b0db7b82069f002",
+    "immutable": true
+  },
+  {
+    "experiment_id": "factor_neutralization_v1",
+    "title": "PIT CSRC-industry and log-size neutralized factor diagnostics",
+    "stage": "risk_exposure_and_factor_neutralization",
+    "model_version": "csrc_broad_log_size_factor_residualization_v1",
+    "registered_at_utc": "2026-10-17T02:45:51.756623+00:00",
+    "dataset_version": "a257ad8ad508d508e584d4934bbe3410815f4a6bc5b43a107f93c15afc785b02",
+    "immutable": true
+  },
+  {
+    "experiment_id": "factor_neutralization_v2",
+    "title": "Repaired PIT CSRC-industry and log-size neutralized factor diagnostics",
+    "stage": "risk_exposure_and_factor_neutralization",
+    "model_version": "csrc_broad_log_size_factor_residualization_v2",
+    "registered_at_utc": "2026-10-17T04:30:12.165902+00:00",
+    "dataset_version": "ac055d93e53f44c7b48684720650bd8b42d19f6c7888f33d8b0db7b82069f002",
     "immutable": true
   },
   {
@@ -42,6 +87,60 @@
     "model_version": "ridge_full15_quantile_zscore_lambda_1",
     "registered_at_utc": "2026-10-14T15:11:46.097398+00:00",
     "dataset_version": "d1f3f09662f8ba440309e3410db7f02aca8a2ef7d230f5125c5be3e78667bce6",
+    "immutable": true
+  },
+  {
+    "experiment_id": "factor_registry_v1",
+    "title": "Machine-readable factor definitions and locked training directions",
+    "stage": "factor_governance",
+    "model_version": "factor_registry_1_0_0",
+    "registered_at_utc": "2026-10-17T11:58:44.447160+00:00",
+    "dataset_version": "cf4e629a51c30505212833ab7cd6d12100135f0bdbc315f19349aff07471d535",
+    "immutable": true
+  },
+  {
+    "experiment_id": "factor_tear_sheet_v1",
+    "title": "PIT historical-OOS single-factor decile and regime tear sheet",
+    "stage": "single_factor_diagnostics",
+    "model_version": "locked_direction_raw_and_industry_size_neutralized_v1",
+    "registered_at_utc": "2026-10-17T06:24:40.078845+00:00",
+    "dataset_version": "0fe7ae9a2d107acb4c5b906e3362c9385731bf1aaf103d88b9cddb3038b05163",
+    "immutable": true
+  },
+  {
+    "experiment_id": "factor_visual_diagnostics_v1",
+    "title": "OOS raw-factor distributions and rolling correlation stability",
+    "stage": "factor_descriptive_diagnostics",
+    "model_version": "raw_distribution_and_52_week_correlation_v1",
+    "registered_at_utc": "2026-10-17T11:58:55.949539+00:00",
+    "dataset_version": "584854ec4da6bf4cbfbc3c46550fbb7515c50ead73d0d67416003002af284736",
+    "immutable": true
+  },
+  {
+    "experiment_id": "final_research_baseline_v1",
+    "title": "Final resume-ready PIT factor, executable portfolio, and attribution baseline",
+    "stage": "final_publication_baseline",
+    "model_version": "locked_ridge_hgb_constrained_daily_six_style_v1",
+    "registered_at_utc": "2026-10-17T12:06:43.351628+00:00",
+    "dataset_version": "e01ab1bb0dc9f11528114087b1a02118e5e17898f496cad74aadb4855862aa30",
+    "immutable": true
+  },
+  {
+    "experiment_id": "final_research_baseline_v2",
+    "title": "Final audited resume-ready PIT factor, executable portfolio, and attribution baseline",
+    "stage": "final_publication_baseline",
+    "model_version": "locked_ridge_hgb_constrained_daily_six_style_audited_v2",
+    "registered_at_utc": "2026-10-17T12:10:05.200101+00:00",
+    "dataset_version": "e01ab1bb0dc9f11528114087b1a02118e5e17898f496cad74aadb4855862aa30",
+    "immutable": true
+  },
+  {
+    "experiment_id": "hgb_hyperparameter_stability_v1",
+    "title": "Validation-only HGB leaf-count by L2 stability surface",
+    "stage": "model_hyperparameter_robustness",
+    "model_version": "hgb_two_dimensional_validation_surface_v1",
+    "registered_at_utc": "2026-10-17T11:58:52.009830+00:00",
+    "dataset_version": "3c7b1504f0bf9606b8f870e98be260b3c14bed8235c906564f3747250db357d0",
     "immutable": true
   },
   {
@@ -81,6 +180,42 @@
     "immutable": true
   },
   {
+    "experiment_id": "model_portfolio_neutralization_v1",
+    "title": "Locked Ridge/HGB model and portfolio PIT neutralization transmission",
+    "stage": "model_and_portfolio_risk_neutralization",
+    "model_version": "locked_ridge_hgb_csrc_broad_log_size_v1",
+    "registered_at_utc": "2026-10-17T03:11:10.435058+00:00",
+    "dataset_version": "4e33bf8e5a99c4eb2b417f19a8b73deee07f1905f404f6e62433fb14db30af5b",
+    "immutable": true
+  },
+  {
+    "experiment_id": "model_portfolio_neutralization_v2",
+    "title": "Repaired locked Ridge/HGB model and portfolio PIT neutralization transmission",
+    "stage": "model_and_portfolio_risk_neutralization",
+    "model_version": "locked_ridge_hgb_csrc_broad_log_size_v2",
+    "registered_at_utc": "2026-10-17T04:30:19.428338+00:00",
+    "dataset_version": "ac055d93e53f44c7b48684720650bd8b42d19f6c7888f33d8b0db7b82069f002",
+    "immutable": true
+  },
+  {
+    "experiment_id": "multi_factor_risk_attribution_v1",
+    "title": "PIT multi-factor risk model and constrained-portfolio attribution",
+    "stage": "multi_factor_risk_and_return_attribution",
+    "model_version": "csrc_industry_six_style_ewma_covariance_v1",
+    "registered_at_utc": "2026-10-17T05:13:21.115199+00:00",
+    "dataset_version": "bcaa405bd082384040bc744a8416855a547be27aab4dc0e1153f24a70092fe55",
+    "immutable": true
+  },
+  {
+    "experiment_id": "portfolio_sensitivity_v1",
+    "title": "Common-date Top-N, inverse-volatility, and executable cost sensitivity",
+    "stage": "portfolio_robustness",
+    "model_version": "locked_ridge_weighting_and_fixed_fill_cost_stress_v1",
+    "registered_at_utc": "2026-10-17T11:58:48.238442+00:00",
+    "dataset_version": "92008c6d802a986602fec088baf88c83d2f253319357d0d20f96b5c6cb86dc75",
+    "immutable": true
+  },
+  {
     "experiment_id": "rf_daily_retry_execution_v1",
     "title": "Random-forest non-overlapping daily retry execution audit",
     "stage": "daily_execution_and_timing_forensics",
@@ -108,12 +243,39 @@
     "immutable": true
   },
   {
+    "experiment_id": "risk_aware_portfolio_optimization_v1",
+    "title": "Lagged multi-factor risk-aware portfolio and target-volatility overlay",
+    "stage": "risk_aware_portfolio_optimization",
+    "model_version": "conditional_gradient_lagged_factor_risk_v1",
+    "registered_at_utc": "2026-10-17T06:01:31.852003+00:00",
+    "dataset_version": "a7b63caeb7ab91365c85b0a0016eb8485b17a129804fc03c1c6db2da8b5334d2",
+    "immutable": true
+  },
+  {
+    "experiment_id": "risk_aware_portfolio_optimization_v2",
+    "title": "Lagged multi-factor risk-aware portfolio and target-volatility overlay",
+    "stage": "risk_aware_portfolio_optimization",
+    "model_version": "conditional_gradient_lagged_factor_risk_v1",
+    "registered_at_utc": "2026-10-17T06:02:53.251649+00:00",
+    "dataset_version": "b8eed4c8640149faaf39967a0a2d12e3b3117530ffa807711cd8d8be4ba63f69",
+    "immutable": true
+  },
+  {
     "experiment_id": "size_neutralization_v1",
     "title": "Point-in-time size-neutralized factor stress test",
     "stage": "risk_exposure_and_factor_neutralization",
     "model_version": "ridge_full15_quantile_zscore_lambda_1_size_residualized",
     "registered_at_utc": "2026-10-14T18:04:25.000622+00:00",
     "dataset_version": "abcfa10cb4fcb73aaa9d18d2e73d3316e2ab0a7c52b3632d05867e8f7b7487f6",
+    "immutable": true
+  },
+  {
+    "experiment_id": "style_factor_attribution_v1",
+    "title": "PIT self-financing style factors and daily multi-factor attribution",
+    "stage": "time_series_multifactor_return_attribution",
+    "model_version": "csrc_industry_residual_six_style_hac_v1",
+    "registered_at_utc": "2026-10-17T11:41:41.832416+00:00",
+    "dataset_version": "88a83b63809dd07522f5349246690b9421c8daa8b52a79cc75ae4a438092e39a",
     "immutable": true
   }
 ]

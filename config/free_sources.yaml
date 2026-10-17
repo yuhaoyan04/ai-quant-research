@@ -13,6 +13,25 @@ universe:
   name: "a_share_pit_proxy"
   snapshot_frequency: "weekly"
   exclude_bj_exchange: false
+  minimum_adjacent_snapshot_coverage: 0.95
+
+# Investable benchmarks required by the robustness suite and research dashboard.
+# They are not members of the stock-selection universe.
+benchmark_indices:
+  - "sh.000300"
+  - "sh.000905"
+  - "sh.000852"
+
+# BaoStock exposes historical CSRC-industry snapshots by query date.  Store the
+# raw scheduled snapshots first; the risk-exposure stage derives an auditable broad
+# industry code without pretending that this is historical Shenwan membership.
+industry:
+  source: "baostock.query_stock_industry"
+  classification: "CSRC"
+  snapshot_frequency: "month_end_plus_initial"
+  asof_join: "latest_snapshot_on_or_before_signal_date"
+  minimum_security_snapshot_coverage: 0.95
+  default_workers: 1
 
 # A fixed, deterministic sample is pulled from an independent source and
 # compared to BaoStock. It is a data-quality check, never a data merge rule.

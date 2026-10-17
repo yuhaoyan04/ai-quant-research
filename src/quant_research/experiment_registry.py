@@ -26,6 +26,9 @@ from quant_research.ingest import ROOT, Lake
 DEFAULT_SPEC = ROOT / "config" / "frozen_baselines.yaml"
 DEFAULT_REGISTRY = ROOT / "reports" / "experiments"
 SAFE_ID = re.compile(r"^[a-z0-9][a-z0-9_-]{2,79}$")
+TEXT_ARTIFACT_SUFFIXES = {
+    ".csv", ".html", ".json", ".md", ".py", ".svg", ".toml", ".txt", ".yaml", ".yml",
+}
 
 
 def sha256_file(path: Path, chunk_size: int = 1024 * 1024) -> str:
@@ -34,6 +37,26 @@ def sha256_file(path: Path, chunk_size: int = 1024 * 1024) -> str:
         while chunk := handle.read(chunk_size):
             digest.update(chunk)
     return digest.hexdigest()
+
+
+def artifact_hash_variants(path: Path) -> set[str]:
+    """Return byte-exact and cross-platform text-line-ending hashes.
+
+    Git may normalize a frozen text artifact from Windows CRLF to LF on
+    checkout.  That is not a content mutation, while any other byte change
+    must continue to fail the immutable-snapshot gate.
+    """
+    exact = sha256_file(path)
+    if path.suffix.lower() not in TEXT_ARTIFACT_SUFFIXES:
+        return {exact}
+    content = path.read_bytes()
+    lf = content.replace(b"\r\n", b"\n").replace(b"\r", b"\n")
+    crlf = lf.replace(b"\n", b"\r\n")
+    return {
+        exact,
+        hashlib.sha256(lf).hexdigest(),
+        hashlib.sha256(crlf).hexdigest(),
+    }
 
 
 def stable_json_hash(value: Any) -> str:
@@ -101,6 +124,35 @@ def environment_snapshot() -> dict[str, Any]:
         "platform": platform.platform(),
         "packages": packages,
     }
+
+
+def publish_immutable_directory(temp: Path, target: Path) -> None:
+    """Publish a complete snapshot without overwriting an existing target.
+
+    Some mounted workspaces permit file creation but reject directory-level
+    ``rename(2)``. Prefer atomic rename, then fall back to an exclusive target
+    and copy ``FROZEN.json`` last as the commit marker.
+    """
+    try:
+        temp.replace(target)
+        return
+    except PermissionError:
+        pass
+    target.mkdir(exist_ok=False)
+    try:
+        for source in sorted(temp.iterdir(), key=lambda path: path.name):
+            if source.name == "FROZEN.json":
+                continue
+            destination = target / source.name
+            if source.is_dir():
+                shutil.copytree(source, destination)
+            else:
+                shutil.copy2(source, destination)
+        shutil.copy2(temp / "FROZEN.json", target / "FROZEN.json")
+    except Exception:
+        shutil.rmtree(target, ignore_errors=True)
+        raise
+    shutil.rmtree(temp)
 
 
 def filter_frame(frame: pd.DataFrame, spec: dict[str, Any]) -> pd.DataFrame:
@@ -265,7 +317,7 @@ class ExperimentRegistry:
             }
             (temp / "FROZEN.json").write_text(
                 json.dumps(frozen, ensure_ascii=False, indent=2), encoding="utf-8")
-            temp.replace(target)
+            publish_immutable_directory(temp, target)
             self._update_index()
             return target
         except Exception:
@@ -280,22 +332,42 @@ class ExperimentRegistry:
         if not frozen_path.exists():
             raise FileNotFoundError(f"frozen experiment missing: {directory}")
         frozen = json.loads(frozen_path.read_text(encoding="utf-8"))
-        actual_files = self._directory_manifest(directory)
-        snapshot_ok = frozen["files"] == actual_files and frozen["content_sha256"] == stable_json_hash(actual_files)
+        expected_files = frozen["files"]
+        actual_paths = {
+            path.relative_to(directory).as_posix(): path
+            for path in sorted(directory.rglob("*"))
+            if path.is_file() and path.name != "FROZEN.json"
+        }
+        snapshot_mismatches = sorted(
+            relative for relative in set(expected_files) | set(actual_paths)
+            if relative not in expected_files
+            or relative not in actual_paths
+            or expected_files[relative] not in artifact_hash_variants(actual_paths[relative])
+        )
+        snapshot_ok = (
+            not snapshot_mismatches
+            and frozen["content_sha256"] == stable_json_hash(expected_files)
+        )
         input_checks = []
         if verify_live_inputs:
             metadata = json.loads((directory / "metadata.json").read_text(encoding="utf-8"))
             for item in metadata["input_artifacts"] + metadata["metric_artifacts"]:
-                path = Path(item["path"])
+                # The path captured at registration documents provenance on the
+                # originating machine.  Live verification must resolve the
+                # logical table/key against this registry's lake so a rebuilt
+                # dataset can be checked after moving to another machine.
+                path = self.lake.table_path(str(item["table"]), str(item["key"])).resolve()
                 actual = sha256_file(path) if path.exists() else None
                 input_checks.append({
                     "table": item["table"], "key": item["key"],
+                    "path": str(path),
                     "expected_sha256": item["sha256"], "actual_sha256": actual,
                     "matches": actual == item["sha256"],
                 })
         return {
             "experiment_id": experiment_id,
             "snapshot_integrity": snapshot_ok,
+            "snapshot_mismatches": snapshot_mismatches,
             "live_inputs_checked": verify_live_inputs,
             "live_inputs_match": all(item["matches"] for item in input_checks) if input_checks else None,
             "input_checks": input_checks,
@@ -364,4 +436,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

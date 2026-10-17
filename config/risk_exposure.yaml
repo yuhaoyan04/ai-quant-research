@@ -1,8 +1,15 @@
-asset_version: pit_size_exposures_v1
+asset_version: pit_risk_exposures_v2
 start_year: 2006
 end_year: 2026
 size_proxy: amount_cny_divided_by_turnover_fraction
 turnover_input_unit: percent
 weekly_date_rule: same_dates_as_multi_horizon_factor_panel
-industry_status: blocked_until_effective_dated_classification_is_available
+industry_status: historical_csrc_weekly_snapshots_available
 industry_safety_rule: never_backfill_current_industry_into_history
+industry_source: baostock.query_stock_industry(date)
+industry_classification: CSRC
+industry_grouping: broad_section_with_semantic_legacy_bridge
+industry_snapshot_rule: month_end_plus_initial
+industry_asof_join: latest_snapshot_on_or_before_signal_date
+industry_snapshot_table: industry_snapshot_baostock
+industry_minimum_coverage: 0.95

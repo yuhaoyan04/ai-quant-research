@@ -1,0 +1,30 @@
+experiment_id: style_factor_attribution_v1
+source_experiment: capm_attribution_v1
+period: historical_oos_2021_2026
+historical_oos_used_for_selection: false
+primary_scenario: daily_retry_limit_and_suspension_constrained
+market_factor: CSI500
+risk_free_rate_convention: zero_daily_rate
+annualization_days: 252
+newey_west_lags: 5
+confidence_level: 0.95
+styles: [size, beta, volatility, liquidity, value, momentum]
+factor_orientation:
+  size: large_minus_small
+  beta: high_minus_low
+  volatility: high_minus_low
+  liquidity: liquid_minus_illiquid
+  value: cheap_minus_expensive
+  momentum: winner_minus_loser
+factor_portfolio:
+  construction: residual_proportional_self_financing
+  controls: full_csrc_broad_industry_and_other_five_styles
+  long_gross_exposure: 1.0
+  short_gross_exposure: 1.0
+  transaction_cost_bps: 0.0
+  execution: signal_next_trading_day_close
+style_winsor_quantiles: [0.01, 0.99]
+rolling:
+  window_trading_days: 252
+  step_trading_days: 21
+scope_note: explanatory_style_factors_are_gross_of_cost_and_not_directly_tradable
