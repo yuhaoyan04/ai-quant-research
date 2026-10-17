@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-10-17T12:11:16.693125+00:00",
+  "generated_at_utc": "2026-10-17T12:31:21.168769+00:00",
   "checks": [
     {
       "name": "chronological_split_order",
@@ -242,6 +242,16 @@
       "detail": "all registered inputs match their SHA-256 hashes"
     },
     {
+      "name": "frozen_snapshot_integrity:risk_aware_portfolio_optimization_v1",
+      "status": "PASS",
+      "detail": "all frozen files match FROZEN.json"
+    },
+    {
+      "name": "frozen_live_inputs:risk_aware_portfolio_optimization_v1",
+      "status": "PASS",
+      "detail": "all registered inputs match their SHA-256 hashes"
+    },
+    {
       "name": "frozen_snapshot_integrity:risk_aware_portfolio_optimization_v2",
       "status": "PASS",
       "detail": "all frozen files match FROZEN.json"
@@ -258,8 +268,8 @@
     },
     {
       "name": "frozen_live_inputs:factor_registry_v1",
-      "status": "PASS",
-      "detail": "all registered inputs match their SHA-256 hashes"
+      "status": "WARN",
+      "detail": "mismatches=['factor_registry/v1']"
     },
     {
       "name": "frozen_snapshot_integrity:portfolio_sensitivity_v1",
@@ -298,8 +308,8 @@
     },
     {
       "name": "frozen_live_inputs:final_research_baseline_v1",
-      "status": "PASS",
-      "detail": "all registered inputs match their SHA-256 hashes"
+      "status": "WARN",
+      "detail": "mismatches=['factor_registry/v1']"
     },
     {
       "name": "frozen_snapshot_integrity:final_research_baseline_v2",
@@ -308,6 +318,36 @@
     },
     {
       "name": "frozen_live_inputs:final_research_baseline_v2",
+      "status": "WARN",
+      "detail": "mismatches=['factor_registry/v1']"
+    },
+    {
+      "name": "frozen_snapshot_integrity:factor_registry_v2",
+      "status": "PASS",
+      "detail": "all frozen files match FROZEN.json"
+    },
+    {
+      "name": "frozen_live_inputs:factor_registry_v2",
+      "status": "PASS",
+      "detail": "all registered inputs match their SHA-256 hashes"
+    },
+    {
+      "name": "frozen_snapshot_integrity:research_conclusion_audit_v1",
+      "status": "PASS",
+      "detail": "all frozen files match FROZEN.json"
+    },
+    {
+      "name": "frozen_live_inputs:research_conclusion_audit_v1",
+      "status": "PASS",
+      "detail": "all registered inputs match their SHA-256 hashes"
+    },
+    {
+      "name": "frozen_snapshot_integrity:final_research_baseline_v3",
+      "status": "PASS",
+      "detail": "all frozen files match FROZEN.json"
+    },
+    {
+      "name": "frozen_live_inputs:final_research_baseline_v3",
       "status": "PASS",
       "detail": "all registered inputs match their SHA-256 hashes"
     },
@@ -395,6 +435,16 @@
       "name": "invalidated_experiment:final_research_baseline_v1",
       "status": "WARN",
       "detail": "severity=superseded_publication_baseline; superseded_by=final_research_baseline_v2; reason=The first final aggregate was frozen before the dashboard and publication auditor gained explicit gates for the new factor registry, HGB surface, portfolio sensitivity, and cost stress. Its research metrics are unchanged; v2 records the final source tree and publication configuration."
+    },
+    {
+      "name": "invalidated_experiment:factor_registry_v1",
+      "status": "WARN",
+      "detail": "severity=corrected_metadata_convention; superseded_by=factor_registry_v2; reason=The v1 registry incorrectly described adjustflag=3 raw OHLC and ex-right-reference pct_chg as a forward-adjusted price history. Factor formulas and numerical outputs are unchanged; v2 corrects the metadata."
+    },
+    {
+      "name": "invalidated_experiment:final_research_baseline_v2",
+      "status": "WARN",
+      "detail": "severity=superseded_publication_baseline; superseded_by=final_research_baseline_v3; reason=V3 adds an explicit five-question decision hierarchy, BH-FDR control for the single-factor family, corrected price-return metadata, and a formal boundary between completed historical research and future paper/live work."
     },
     {
       "name": "artifact:research_coverage/a_share",
@@ -1669,7 +1719,7 @@
     {
       "name": "factor_registry_complete_and_versioned",
       "status": "PASS",
-      "detail": "factors=15, version=1.0.0"
+      "detail": "factors=15, version=1.1.0"
     },
     {
       "name": "factor_visual_diagnostics_complete",
@@ -1692,14 +1742,59 @@
       "detail": "costs=[0.0, 20.0, 50.0, 100.0], monotone=True"
     },
     {
+      "name": "artifact:research_conclusion_decisions/v1",
+      "status": "PASS",
+      "detail": "rows=5"
+    },
+    {
+      "name": "artifact:research_factor_multiplicity/v1",
+      "status": "PASS",
+      "detail": "rows=15"
+    },
+    {
+      "name": "artifact:research_lifecycle_audit/v1",
+      "status": "PASS",
+      "detail": "rows=16"
+    },
+    {
+      "name": "artifact:factor_registry/v1",
+      "status": "PASS",
+      "detail": "rows=15"
+    },
+    {
+      "name": "conclusion_decision_hierarchy_complete",
+      "status": "PASS",
+      "detail": "verdicts={'neutralized_factor_signal_exists': 'SUPPORTED_AS_DIAGNOSTIC_EVIDENCE', 'hgb_adds_stable_increment_over_ridge': 'NOT_ESTABLISHED', 'executable_backtest_survives_costs': 'SUPPORTED_HISTORICALLY', 'pure_stock_selection_alpha_is_significant': 'NOT_SUPPORTED', 'ready_for_live_capital': 'NO'}"
+    },
+    {
+      "name": "single_factor_multiple_testing_controlled",
+      "status": "PASS",
+      "detail": "factors=15, bh_fdr_5pct_pass=14, maximum_q_error=0.000e+00"
+    },
+    {
+      "name": "research_and_deployment_scope_separated",
+      "status": "PASS",
+      "detail": "historical research chain is complete; paper/live evidence remains a separate gate"
+    },
+    {
+      "name": "price_and_return_convention_explicit",
+      "status": "PASS",
+      "detail": "price_convention=baostock_unadjusted_ohlc_and_ex_right_reference_pct_chg"
+    },
+    {
+      "name": "final_report_states_decision_boundaries",
+      "status": "PASS",
+      "detail": "missing_phrases=[]"
+    },
+    {
       "name": "known_scope_limitations",
       "status": "WARN",
       "detail": "Industry neutralization uses monthly-sampled historical CSRC broad sections rather than Shenwan membership; there is no official historical CSI membership and no broker-calibrated market-impact model."
     }
   ],
   "findings": {
-    "registered_frozen_experiments": 30,
-    "invalidated_experiments": 17,
+    "registered_frozen_experiments": 34,
+    "invalidated_experiments": 19,
     "common_oos_weeks": 291,
     "ridge_annualized_return_20bp": 0.2005894880405501,
     "challenger_annualized_return_20bp": 0.2507876712519381,
@@ -1777,6 +1872,9 @@
     "rf_daily_oos_constrained_maximum_drawdown": -0.4298437083608838,
     "hgb_validation_surface_rank_ic_min": 0.09713976299008095,
     "hgb_validation_surface_rank_ic_max": 0.09980789470340727,
-    "factor_registry_count": 15
+    "factor_registry_count": 15,
+    "neutral_factor_spreads_surviving_bh_fdr_5pct": 14,
+    "research_backtest_chain_complete": true,
+    "ready_for_live_capital": false
   }
 }

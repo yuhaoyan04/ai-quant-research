@@ -1,0 +1,12 @@
+{
+  "experiment_id": "factor_registry_v2",
+  "frozen_at_utc": "2026-10-17T12:28:36.020645+00:00",
+  "content_sha256": "a14ae8cf7dc3caeb1affb156019e9f8fad39aa2d1f2a53c6f9223db012418c87",
+  "files": {
+    "config.yaml": "1d81ee8a292cf4ade7d45944803034e514642788f7871515ee10d9641aa06963",
+    "metadata.json": "95d7e0538ef96355564f21a0e35bc15760aac487021cf5f3329c5423f284583e",
+    "metrics.json": "e5317bfa4a763db1c3d3415245bbf4a04c3e68c2e6c50c33719f4329eedc55be",
+    "notes.md": "904b06c5916df034ea3d5a323812ba2e5c389b7e7ea90a8db1810139e83cf94b",
+    "tables/factor_registry__v1.csv": "46b0aebf347617037563ff4846b1265e20ffe9b3a28f820891d32b044f20811e"
+  }
+}

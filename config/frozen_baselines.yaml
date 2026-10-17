@@ -878,6 +878,29 @@ experiments:
       - {table: risk_model_attribution_bootstrap, key: v1}
     figures: []
 
+  risk_aware_portfolio_optimization_v1:
+    title: Lagged multi-factor risk-aware portfolio and target-volatility overlay
+    stage: risk_aware_portfolio_optimization
+    model_version: conditional_gradient_lagged_factor_risk_v1
+    dataset_version_method: sha256_of_registered_inputs_and_ingestion_manifest
+    historical_oos_used_for_selection: false
+    config_files:
+      - constrained_portfolio_neutralization.yaml
+      - multi_factor_risk_attribution.yaml
+      - risk_aware_portfolio_optimization.yaml
+    input_tables:
+      - {table: constrained_portfolio_oos_holdings, key: v1}
+      - {table: constrained_execution_targets, key: v1}
+      - {table: constrained_daily_execution_market, key: v1}
+    metric_tables:
+      - {table: risk_aware_portfolio_protocol, key: v1}
+      - {table: risk_aware_portfolio_weekly, key: v1}
+      - {table: risk_aware_portfolio_forecasts, key: v1}
+      - {table: risk_aware_portfolio_constraint_audit, key: v1}
+      - {table: risk_aware_portfolio_summary, key: v1}
+      - {table: risk_aware_portfolio_bootstrap, key: v1}
+    figures: []
+
   risk_aware_portfolio_optimization_v2:
     title: Lagged multi-factor risk-aware portfolio and target-volatility overlay
     stage: risk_aware_portfolio_optimization
@@ -1061,3 +1084,101 @@ experiments:
     <<: *final_research_baseline
     title: Final audited resume-ready PIT factor, executable portfolio, and attribution baseline
     model_version: locked_ridge_hgb_constrained_daily_six_style_audited_v2
+
+  factor_registry_v2:
+    title: Corrected machine-readable factor and price-return convention registry
+    stage: factor_governance
+    model_version: factor_registry_1_1_0
+    dataset_version_method: sha256_of_registered_inputs_and_ingestion_manifest
+    historical_oos_used_for_selection: false
+    config_files:
+      - factor_registry.yaml
+      - preprocessing.yaml
+    input_tables:
+      - {table: factor_neutralization_directions, key: v1}
+    metric_tables:
+      - {table: factor_registry, key: v1}
+    figures: []
+
+  research_conclusion_audit_v1:
+    title: Decision-oriented conclusion, multiplicity, and lifecycle audit
+    stage: conclusion_governance
+    model_version: evidence_hierarchy_bh_fdr_v1
+    dataset_version_method: sha256_of_registered_inputs_and_ingestion_manifest
+    historical_oos_used_for_selection: false
+    config_files:
+      - research_conclusion_audit.yaml
+      - factor_registry.yaml
+      - model_benchmark.yaml
+      - constrained_portfolio_daily_execution.yaml
+      - style_factor_attribution.yaml
+    input_tables:
+      - {table: factor_tear_sheet_bootstrap, key: v1}
+      - {table: model_benchmark_winner_pairwise, key: v1}
+      - {table: constrained_daily_execution_summary, key: v1}
+      - {table: execution_cost_stress, key: v1}
+      - {table: style_factor_regression_summary, key: v1}
+    metric_tables:
+      - {table: research_conclusion_decisions, key: v1}
+      - {table: research_factor_multiplicity, key: v1}
+      - {table: research_lifecycle_audit, key: v1}
+    figures: []
+
+  final_research_baseline_v3:
+    title: Final decision-audited PIT factor, executable portfolio, and attribution baseline
+    stage: final_publication_baseline
+    model_version: locked_ridge_hgb_constrained_daily_six_style_decision_audited_v3
+    dataset_version_method: sha256_of_registered_inputs_and_ingestion_manifest
+    historical_oos_used_for_selection: false
+    config_files:
+      - factor_registry.yaml
+      - preprocessing.yaml
+      - model_benchmark.yaml
+      - hgb_hyperparameter_stability.yaml
+      - factor_neutralization.yaml
+      - constrained_portfolio_neutralization.yaml
+      - constrained_portfolio_daily_execution.yaml
+      - multi_factor_risk_attribution.yaml
+      - risk_aware_portfolio_optimization.yaml
+      - capm_attribution.yaml
+      - style_factor_attribution.yaml
+      - portfolio_sensitivity.yaml
+      - research_conclusion_audit.yaml
+      - experiment_invalidations.yaml
+    input_tables:
+      - {table: factor_registry, key: v1}
+      - {table: factor_tear_sheet_weekly, key: v1}
+      - {table: model_benchmark_oos_daily, key: v1}
+      - {table: constrained_daily_execution_daily, key: v1}
+      - {table: risk_model_factor_returns, key: v1}
+      - {table: style_factor_daily_returns, key: v1}
+      - {table: research_conclusion_decisions, key: v1}
+    metric_tables:
+      - {table: factor_tear_sheet_summary, key: v1}
+      - {table: factor_tear_sheet_bootstrap, key: v1}
+      - {table: model_benchmark_selection, key: v1}
+      - {table: model_benchmark_oos_summary, key: v1}
+      - {table: model_benchmark_winner_pairwise, key: v1}
+      - {table: hgb_hyperparameter_protocol, key: v1}
+      - {table: hgb_hyperparameter_summary, key: v1}
+      - {table: constrained_portfolio_oos_summary, key: v1}
+      - {table: constrained_daily_execution_summary, key: v1}
+      - {table: constrained_daily_execution_bootstrap, key: v1}
+      - {table: risk_model_attribution_summary, key: v1}
+      - {table: risk_model_attribution_bootstrap, key: v1}
+      - {table: risk_aware_portfolio_summary, key: v2}
+      - {table: risk_aware_portfolio_bootstrap, key: v2}
+      - {table: capm_summary, key: v1}
+      - {table: style_factor_regression_summary, key: v1}
+      - {table: portfolio_sensitivity_summary, key: v1}
+      - {table: execution_cost_stress, key: v1}
+      - {table: research_conclusion_decisions, key: v1}
+      - {table: research_factor_multiplicity, key: v1}
+      - {table: research_lifecycle_audit, key: v1}
+    figures:
+      - reports/figures/oos_equity_curve.svg
+      - reports/figures/oos_drawdown.svg
+      - reports/figures/annual_rank_ic.svg
+      - reports/figures/annual_returns.svg
+      - reports/figures/factor_correlation_heatmap.svg
+      - reports/figures/factor_distributions.svg

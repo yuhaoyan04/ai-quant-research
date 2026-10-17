@@ -188,3 +188,23 @@ invalidations:
     unaffected_outputs: [all immutable snapshot files, all research metrics]
     invalid_outputs: [claims that v1 represents the final publication source tree]
     superseded_by: final_research_baseline_v2
+  factor_registry_v1:
+    invalidated_at_utc: "2026-10-17T13:00:00Z"
+    severity: corrected_metadata_convention
+    reason: >-
+      The v1 registry incorrectly described adjustflag=3 raw OHLC and
+      ex-right-reference pct_chg as a forward-adjusted price history. Factor
+      formulas and numerical outputs are unchanged; v2 corrects the metadata.
+    unaffected_outputs: [all factor values, all model and portfolio results]
+    invalid_outputs: [the v1 price_convention description]
+    superseded_by: factor_registry_v2
+  final_research_baseline_v2:
+    invalidated_at_utc: "2026-10-17T13:00:00Z"
+    severity: superseded_publication_baseline
+    reason: >-
+      V3 adds an explicit five-question decision hierarchy, BH-FDR control for
+      the single-factor family, corrected price-return metadata, and a formal
+      boundary between completed historical research and future paper/live work.
+    unaffected_outputs: [all frozen research metrics and figures]
+    invalid_outputs: [claims that v2 contains the final conclusion-governance layer]
+    superseded_by: final_research_baseline_v3

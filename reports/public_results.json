@@ -855,6 +855,43 @@
     "maximum_mean_rank_ic": 0.09980789470340727,
     "best_candidate_is_not_promoted": true
   },
+  "research_conclusion_audit": {
+    "decisions": [
+      {
+        "question": "neutralized_factor_signal_exists",
+        "verdict": "SUPPORTED_AS_DIAGNOSTIC_EVIDENCE",
+        "evidence": "14/15 neutralized gross factor spreads survive BH-FDR 5%",
+        "scope_limit": "diagnostic long-short portfolios omit borrow and full execution"
+      },
+      {
+        "question": "hgb_adds_stable_increment_over_ridge",
+        "verdict": "NOT_ESTABLISHED",
+        "evidence": "RankIC delta 95% CI [-0.0023, 0.0071]; annual return delta 95% CI [-0.86%, 7.26%]",
+        "scope_limit": "historical OOS has been inspected"
+      },
+      {
+        "question": "executable_backtest_survives_costs",
+        "verdict": "SUPPORTED_HISTORICALLY",
+        "evidence": "20bp annualized return 20.81%, Sharpe 0.94, max drawdown -33.32%; fixed-path 100bp annualized return 6.23%",
+        "scope_limit": "close execution, approximate limits, no broker-calibrated impact"
+      },
+      {
+        "question": "pure_stock_selection_alpha_is_significant",
+        "verdict": "NOT_SUPPORTED",
+        "evidence": "style-adjusted alpha range -2.55% to 1.07%; all_95pct_intervals_cross_zero=True; R2 range 0.894-0.898",
+        "scope_limit": "local factors are research proxies, not a commercial risk model"
+      },
+      {
+        "question": "ready_for_live_capital",
+        "verdict": "NO",
+        "evidence": "no unseen forward sample, paper track record, or broker fill calibration",
+        "scope_limit": "next gate is frozen-parameter paper trading on future data"
+      }
+    ],
+    "neutralized_factor_spreads_surviving_bh_fdr_5pct": 14,
+    "historical_research_chain_complete": true,
+    "ready_for_live_capital": false
+  },
   "interpretation": "Ridge shows positive historical OOS evidence after costs. The validation-selected nonlinear challenger has a positive return increment whose block-bootstrap confidence interval is above zero in this rerun; treat it as historical evidence, not a pristine production lockbox result.",
   "limitations": [
     "Historical OOS results have been inspected during development and are not a pristine live lockbox.",

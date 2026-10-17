@@ -1,0 +1,10 @@
+experiment_id: research_conclusion_audit_v1
+period: historical_oos_2021_2026
+false_discovery_rate: 0.05
+primary_model: hgb_shallow15_locked
+primary_alpha_pipeline: raw
+primary_execution_scenario: daily_retry_limit_and_suspension_constrained
+model_increment_candidate: hgb_shallow15
+model_increment_reference: ridge_1
+deployment_requires_paper_or_live_evidence: true
+interpretation: evidence_hierarchy_without_historical_oos_reselection

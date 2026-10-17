@@ -99,6 +99,15 @@
     "immutable": true
   },
   {
+    "experiment_id": "factor_registry_v2",
+    "title": "Corrected machine-readable factor and price-return convention registry",
+    "stage": "factor_governance",
+    "model_version": "factor_registry_1_1_0",
+    "registered_at_utc": "2026-10-17T12:28:36.020645+00:00",
+    "dataset_version": "d5b008809c690b6a48f920efc19c557fad6cbded43efa644591b3cf42e93be69",
+    "immutable": true
+  },
+  {
     "experiment_id": "factor_tear_sheet_v1",
     "title": "PIT historical-OOS single-factor decile and regime tear sheet",
     "stage": "single_factor_diagnostics",
@@ -132,6 +141,15 @@
     "model_version": "locked_ridge_hgb_constrained_daily_six_style_audited_v2",
     "registered_at_utc": "2026-10-17T12:10:05.200101+00:00",
     "dataset_version": "e01ab1bb0dc9f11528114087b1a02118e5e17898f496cad74aadb4855862aa30",
+    "immutable": true
+  },
+  {
+    "experiment_id": "final_research_baseline_v3",
+    "title": "Final decision-audited PIT factor, executable portfolio, and attribution baseline",
+    "stage": "final_publication_baseline",
+    "model_version": "locked_ridge_hgb_constrained_daily_six_style_decision_audited_v3",
+    "registered_at_utc": "2026-10-17T12:28:41.218984+00:00",
+    "dataset_version": "a62631d4a2051ab826d8d1b5b3efc5c01b66915b980afb685c97ae57efb29a10",
     "immutable": true
   },
   {
@@ -213,6 +231,15 @@
     "model_version": "locked_ridge_weighting_and_fixed_fill_cost_stress_v1",
     "registered_at_utc": "2026-10-17T11:58:48.238442+00:00",
     "dataset_version": "92008c6d802a986602fec088baf88c83d2f253319357d0d20f96b5c6cb86dc75",
+    "immutable": true
+  },
+  {
+    "experiment_id": "research_conclusion_audit_v1",
+    "title": "Decision-oriented conclusion, multiplicity, and lifecycle audit",
+    "stage": "conclusion_governance",
+    "model_version": "evidence_hierarchy_bh_fdr_v1",
+    "registered_at_utc": "2026-10-17T12:28:38.133264+00:00",
+    "dataset_version": "946b3c438f91d7da9ac53aa5490be3aeb93230d7e3eddd7aad726d48d56f2821",
     "immutable": true
   },
   {

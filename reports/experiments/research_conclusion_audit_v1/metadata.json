@@ -1,0 +1,97 @@
+{
+  "experiment_id": "research_conclusion_audit_v1",
+  "title": "Decision-oriented conclusion, multiplicity, and lifecycle audit",
+  "stage": "conclusion_governance",
+  "model_version": "evidence_hierarchy_bh_fdr_v1",
+  "registered_at_utc": "2026-10-17T12:28:38.133264+00:00",
+  "immutable": true,
+  "selection_policy": "validation_only",
+  "historical_oos_used_for_selection": false,
+  "historical_oos_disclosure": "The 2021-2026 block has already been inspected during project development. It is historical out-of-sample evidence, not a pristine production lockbox.",
+  "dataset_version": "946b3c438f91d7da9ac53aa5490be3aeb93230d7e3eddd7aad726d48d56f2821",
+  "dataset_manifest": {
+    "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/manifests/ingestion.jsonl",
+    "size_bytes": 18945516,
+    "sha256": "ec415f8abefc365578a0a5d9fa7a0d320af3dc9cb321a85f047d99839dde7c96"
+  },
+  "input_artifacts": [
+    {
+      "table": "factor_tear_sheet_bootstrap",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/factor_tear_sheet_bootstrap/key=v1/data.parquet",
+      "size_bytes": 9283,
+      "sha256": "ad872cfeda3ce77b0ff2ff14f6b606245a3e45314233225eea9eb6a7adab2908"
+    },
+    {
+      "table": "model_benchmark_winner_pairwise",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/model_benchmark_winner_pairwise/key=v1/data.parquet",
+      "size_bytes": 5616,
+      "sha256": "c594e76477dee0f5389efc644500e6ead9bed4e9b74f637e23f2bdc369abd695"
+    },
+    {
+      "table": "constrained_daily_execution_summary",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/constrained_daily_execution_summary/key=v1/data.parquet",
+      "size_bytes": 11030,
+      "sha256": "336fab9efcf869ab2b9ef701c6fbd41e2e1d327f8c7cf98fc7e388f8cb31b945"
+    },
+    {
+      "table": "execution_cost_stress",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/execution_cost_stress/key=v1/data.parquet",
+      "size_bytes": 12552,
+      "sha256": "e444d3b24dc5baa10478edec14d5d2eedd6e136b8305584106650274005bf6e5"
+    },
+    {
+      "table": "style_factor_regression_summary",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/style_factor_regression_summary/key=v1/data.parquet",
+      "size_bytes": 35842,
+      "sha256": "b418d5e08cd03f1a6eac1d7a004cd0122f7010abec4c51eea9ab6444e7758589"
+    }
+  ],
+  "metric_artifacts": [
+    {
+      "table": "research_conclusion_decisions",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/research_conclusion_decisions/key=v1/data.parquet",
+      "size_bytes": 5088,
+      "sha256": "911960c82dbe5b23b6b1c3046746f787abf527d68cdc531becc65d4d0c06f6ee"
+    },
+    {
+      "table": "research_factor_multiplicity",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/research_factor_multiplicity/key=v1/data.parquet",
+      "size_bytes": 8784,
+      "sha256": "d2f3c8a58c3e9debc060cd2e26279974635ea986c7c812865a072977c3255b16"
+    },
+    {
+      "table": "research_lifecycle_audit",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/research_lifecycle_audit/key=v1/data.parquet",
+      "size_bytes": 4198,
+      "sha256": "7b4967b4f489fead39cc461518ad2de3d4431a70299f6cf88633d780d95988b3"
+    }
+  ],
+  "figures": [],
+  "source_tree_sha256": "d699f7882a0d911e27ac29648d6e84b28690379d82931e14e25388b895ad5e13",
+  "git": {
+    "commit": null,
+    "dirty": null,
+    "status_sha256": null
+  },
+  "environment": {
+    "python": "3.11.16",
+    "implementation": "CPython",
+    "platform": "Linux-5.15.0-92-generic-x86_64-with-glibc2.35",
+    "packages": {
+      "pandas": "3.0.6",
+      "pyarrow": "25.0.1",
+      "PyYAML": "6.0.3",
+      "scikit-learn": "1.9.1",
+      "numpy": "2.4.6",
+      "scipy": "1.17.1"
+    }
+  }
+}

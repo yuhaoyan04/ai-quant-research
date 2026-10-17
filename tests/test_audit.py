@@ -75,6 +75,50 @@ def test_audit_markdown_has_no_trailing_space_for_empty_finding(tmp_path: Path) 
     assert "- `empty_result`:\n" in markdown.read_text(encoding="utf-8")
 
 
+def test_research_conclusion_audit_separates_backtest_from_live() -> None:
+    price_convention = "baostock_unadjusted_ohlc_and_ex_right_reference_pct_chg"
+    decisions = pd.DataFrame([
+        {"question": question, "verdict": verdict}
+        for question, verdict in {
+            "neutralized_factor_signal_exists": "SUPPORTED_AS_DIAGNOSTIC_EVIDENCE",
+            "hgb_adds_stable_increment_over_ridge": "NOT_ESTABLISHED",
+            "executable_backtest_survives_costs": "SUPPORTED_HISTORICALLY",
+            "pure_stock_selection_alpha_is_significant": "NOT_SUPPORTED",
+            "ready_for_live_capital": "NO",
+        }.items()
+    ])
+    p_values = pd.Series([0.001] * 14 + [0.20])
+    from quant_research.leave_one_factor_out import benjamini_hochberg
+    multiplicity = pd.DataFrame({
+        "factor": [f"factor_{number}" for number in range(15)],
+        "one_sided_probability_nonpositive": p_values,
+        "bh_fdr_adjusted_p": benjamini_hochberg(p_values),
+        "survives_bh_fdr": benjamini_hochberg(p_values).le(0.05),
+    })
+    lifecycle = pd.DataFrame([
+        {"stage": "reproducibility_and_governance", "status": "COMPLETE"},
+        {"stage": "paper_live_monitoring", "status": "NEXT_STAGE"},
+    ])
+    frames = {
+        ("research_conclusion_decisions", "v1"): decisions,
+        ("research_factor_multiplicity", "v1"): multiplicity,
+        ("research_lifecycle_audit", "v1"): lifecycle,
+        ("factor_registry", "v1"): pd.DataFrame({
+            "price_convention": [price_convention] * 15,
+        }),
+    }
+    auditor = ResearchAuditor(lake=FrameLake(frames))
+
+    # The final-report phrase check is integration-level and uses the real report.
+    auditor.audit_research_conclusions()
+
+    checks = {check.name: check.status for check in auditor.checks}
+    assert checks["conclusion_decision_hierarchy_complete"] == "PASS"
+    assert checks["single_factor_multiple_testing_controlled"] == "PASS"
+    assert checks["research_and_deployment_scope_separated"] == "PASS"
+    assert checks["price_and_return_convention_explicit"] == "PASS"
+
+
 def test_model_neutralization_audit_checks_locked_paired_protocol() -> None:
     metrics = [
         "rank_ic", "net_return_annualized_arithmetic",

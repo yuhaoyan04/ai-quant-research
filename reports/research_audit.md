@@ -1,8 +1,8 @@
 # Research artifact audit
 
-Generated at `2026-10-17T12:11:16.693125+00:00`.
+Generated at `2026-10-17T12:31:21.168769+00:00`.
 
-Summary: **303 PASS / 36 WARN / 0 FAIL**
+Summary: **317 PASS / 41 WARN / 0 FAIL**
 
 | Status | Check | Detail |
 |---|---|---|
@@ -54,10 +54,12 @@ Summary: **303 PASS / 36 WARN / 0 FAIL**
 | PASS | `frozen_live_inputs:constrained_portfolio_daily_execution_v1` | all registered inputs match their SHA-256 hashes |
 | PASS | `frozen_snapshot_integrity:multi_factor_risk_attribution_v1` | all frozen files match FROZEN.json |
 | PASS | `frozen_live_inputs:multi_factor_risk_attribution_v1` | all registered inputs match their SHA-256 hashes |
+| PASS | `frozen_snapshot_integrity:risk_aware_portfolio_optimization_v1` | all frozen files match FROZEN.json |
+| PASS | `frozen_live_inputs:risk_aware_portfolio_optimization_v1` | all registered inputs match their SHA-256 hashes |
 | PASS | `frozen_snapshot_integrity:risk_aware_portfolio_optimization_v2` | all frozen files match FROZEN.json |
 | PASS | `frozen_live_inputs:risk_aware_portfolio_optimization_v2` | all registered inputs match their SHA-256 hashes |
 | PASS | `frozen_snapshot_integrity:factor_registry_v1` | all frozen files match FROZEN.json |
-| PASS | `frozen_live_inputs:factor_registry_v1` | all registered inputs match their SHA-256 hashes |
+| WARN | `frozen_live_inputs:factor_registry_v1` | mismatches=['factor_registry/v1'] |
 | PASS | `frozen_snapshot_integrity:portfolio_sensitivity_v1` | all frozen files match FROZEN.json |
 | PASS | `frozen_live_inputs:portfolio_sensitivity_v1` | all registered inputs match their SHA-256 hashes |
 | PASS | `frozen_snapshot_integrity:hgb_hyperparameter_stability_v1` | all frozen files match FROZEN.json |
@@ -65,9 +67,15 @@ Summary: **303 PASS / 36 WARN / 0 FAIL**
 | PASS | `frozen_snapshot_integrity:factor_visual_diagnostics_v1` | all frozen files match FROZEN.json |
 | PASS | `frozen_live_inputs:factor_visual_diagnostics_v1` | all registered inputs match their SHA-256 hashes |
 | PASS | `frozen_snapshot_integrity:final_research_baseline_v1` | all frozen files match FROZEN.json |
-| PASS | `frozen_live_inputs:final_research_baseline_v1` | all registered inputs match their SHA-256 hashes |
+| WARN | `frozen_live_inputs:final_research_baseline_v1` | mismatches=['factor_registry/v1'] |
 | PASS | `frozen_snapshot_integrity:final_research_baseline_v2` | all frozen files match FROZEN.json |
-| PASS | `frozen_live_inputs:final_research_baseline_v2` | all registered inputs match their SHA-256 hashes |
+| WARN | `frozen_live_inputs:final_research_baseline_v2` | mismatches=['factor_registry/v1'] |
+| PASS | `frozen_snapshot_integrity:factor_registry_v2` | all frozen files match FROZEN.json |
+| PASS | `frozen_live_inputs:factor_registry_v2` | all registered inputs match their SHA-256 hashes |
+| PASS | `frozen_snapshot_integrity:research_conclusion_audit_v1` | all frozen files match FROZEN.json |
+| PASS | `frozen_live_inputs:research_conclusion_audit_v1` | all registered inputs match their SHA-256 hashes |
+| PASS | `frozen_snapshot_integrity:final_research_baseline_v3` | all frozen files match FROZEN.json |
+| PASS | `frozen_live_inputs:final_research_baseline_v3` | all registered inputs match their SHA-256 hashes |
 | WARN | `invalidated_experiment:factor_preprocessing_ablation_v1` | severity=portfolio_metrics_invalid; superseded_by=factor_preprocessing_ablation_v2; reason=Validation portfolios were formed after filtering rows with non-null future returns. RankIC and model-selection metrics used the correct realized subset, but Top-200 portfolio metrics had outcome-availability leakage. |
 | WARN | `invalidated_experiment:model_benchmark_v1` | severity=portfolio_metrics_execution_idealized; superseded_by=rf_daily_retry_execution_v1; reason=Model ranking and RankIC are valid, but the benchmark Top-200 portfolio assumes every next-day rebalance is filled. RandomForest disproportionately selected stocks blocked by next-day price limits or suspensions, materially inflating validation returns and modestly inflating historical-OOS returns. |
 | WARN | `invalidated_experiment:rf_execution_forensics_v1` | severity=execution_timing_incomplete; superseded_by=rf_daily_retry_execution_v1; reason=The weekly constrained simulator applied a blocked next-day order only at the following weekly rebalance. It also evaluated every signal with a full five-day label even when holiday-week signal dates were fewer than five trading days apart, creating overlapping portfolio return intervals. The price-limit diagnosis remains valid, but its 19.09% validation and 24.19% historical-OOS returns are not the final executable estimates. |
@@ -85,6 +93,8 @@ Summary: **303 PASS / 36 WARN / 0 FAIL**
 | WARN | `invalidated_experiment:rf_hyperparameter_stability_v1` | severity=superseded_model_family; superseded_by=hgb_hyperparameter_stability_v1; reason=The RF local grid is preserved, but the repaired unified benchmark selects HGB and the final robustness work uses a validation-only HGB two-dimensional surface. |
 | WARN | `invalidated_experiment:rf_daily_retry_execution_v1` | severity=superseded_execution_baseline; superseded_by=constrained_portfolio_daily_execution_v1; reason=The RF execution audit remains useful forensic evidence, but the final execution baseline uses locked Ridge/HGB constrained portfolios on the repaired lake. |
 | WARN | `invalidated_experiment:final_research_baseline_v1` | severity=superseded_publication_baseline; superseded_by=final_research_baseline_v2; reason=The first final aggregate was frozen before the dashboard and publication auditor gained explicit gates for the new factor registry, HGB surface, portfolio sensitivity, and cost stress. Its research metrics are unchanged; v2 records the final source tree and publication configuration. |
+| WARN | `invalidated_experiment:factor_registry_v1` | severity=corrected_metadata_convention; superseded_by=factor_registry_v2; reason=The v1 registry incorrectly described adjustflag=3 raw OHLC and ex-right-reference pct_chg as a forward-adjusted price history. Factor formulas and numerical outputs are unchanged; v2 corrects the metadata. |
+| WARN | `invalidated_experiment:final_research_baseline_v2` | severity=superseded_publication_baseline; superseded_by=final_research_baseline_v3; reason=V3 adds an explicit five-question decision hierarchy, BH-FDR control for the single-factor family, corrected price-return metadata, and a formal boundary between completed historical research and future paper/live work. |
 | PASS | `artifact:research_coverage/a_share` | rows=4 |
 | PASS | `historical_universe_download_coverage` | coverage=100.00%, missing_files=0 |
 | PASS | `artifact:model_validation_predictions/ridge_v1` | rows=818,333 |
@@ -339,17 +349,26 @@ Summary: **303 PASS / 36 WARN / 0 FAIL**
 | PASS | `artifact:portfolio_sensitivity_protocol/v1` | rows=1 |
 | PASS | `artifact:portfolio_sensitivity_summary/v1` | rows=16 |
 | PASS | `artifact:execution_cost_stress/v1` | rows=16 |
-| PASS | `factor_registry_complete_and_versioned` | factors=15, version=1.0.0 |
+| PASS | `factor_registry_complete_and_versioned` | factors=15, version=1.1.0 |
 | PASS | `factor_visual_diagnostics_complete` | distributions=15, rolling_pairs=105, expected_pairs=105 |
 | PASS | `hgb_surface_validation_only_and_complete` | surface_points=9, evaluation=2016_2020_validation_only |
 | PASS | `portfolio_sensitivity_common_date_and_no_reselection` | variants={'historical_oos': 8, 'validation': 8}, performance_period_counts={'historical_oos': 1, 'validation': 1} |
 | PASS | `execution_cost_stress_complete_and_monotone` | costs=[0.0, 20.0, 50.0, 100.0], monotone=True |
+| PASS | `artifact:research_conclusion_decisions/v1` | rows=5 |
+| PASS | `artifact:research_factor_multiplicity/v1` | rows=15 |
+| PASS | `artifact:research_lifecycle_audit/v1` | rows=16 |
+| PASS | `artifact:factor_registry/v1` | rows=15 |
+| PASS | `conclusion_decision_hierarchy_complete` | verdicts={'neutralized_factor_signal_exists': 'SUPPORTED_AS_DIAGNOSTIC_EVIDENCE', 'hgb_adds_stable_increment_over_ridge': 'NOT_ESTABLISHED', 'executable_backtest_survives_costs': 'SUPPORTED_HISTORICALLY', 'pure_stock_selection_alpha_is_significant': 'NOT_SUPPORTED', 'ready_for_live_capital': 'NO'} |
+| PASS | `single_factor_multiple_testing_controlled` | factors=15, bh_fdr_5pct_pass=14, maximum_q_error=0.000e+00 |
+| PASS | `research_and_deployment_scope_separated` | historical research chain is complete; paper/live evidence remains a separate gate |
+| PASS | `price_and_return_convention_explicit` | price_convention=baostock_unadjusted_ohlc_and_ex_right_reference_pct_chg |
+| PASS | `final_report_states_decision_boundaries` | missing_phrases=[] |
 | WARN | `known_scope_limitations` | Industry neutralization uses monthly-sampled historical CSRC broad sections rather than Shenwan membership; there is no official historical CSI membership and no broker-calibrated market-impact model. |
 
 ## Headline findings
 
-- `registered_frozen_experiments`: 30
-- `invalidated_experiments`: 17
+- `registered_frozen_experiments`: 34
+- `invalidated_experiments`: 19
 - `common_oos_weeks`: 291
 - `ridge_annualized_return_20bp`: 0.2005894880405501
 - `challenger_annualized_return_20bp`: 0.2507876712519381
@@ -428,3 +447,6 @@ Summary: **303 PASS / 36 WARN / 0 FAIL**
 - `hgb_validation_surface_rank_ic_min`: 0.09713976299008095
 - `hgb_validation_surface_rank_ic_max`: 0.09980789470340727
 - `factor_registry_count`: 15
+- `neutral_factor_spreads_surviving_bh_fdr_5pct`: 14
+- `research_backtest_chain_complete`: True
+- `ready_for_live_capital`: False

@@ -6,7 +6,7 @@
 
 ## 三条简历 bullet
 
-- 搭建 2006–2026 A 股 PIT 横截面研究平台，覆盖 5,521 只历史股票和约 1,479 万行特征；实现历史股票池、下一交易日可用标签、purged walk-forward、15 因子 registry 与 31 个不可变实验版本，自动审计达到 0 FAIL。
+- 搭建 2006–2026 A 股 PIT 横截面研究平台，覆盖 5,521 只历史股票和约 1,479 万行特征；实现历史股票池、下一交易日可用标签、purged walk-forward、15 因子 registry 与 34 个不可变实验版本，自动审计达到 317 PASS / 41 WARN / 0 FAIL。
 - 在统一样本上比较 Ridge、ElasticNet、RF 与 HGB，完成证监会宽行业+规模残差化及单股≤0.5%、行业主动权重±3%、|size-z|≤0.10、周换手≤30%的组合优化；20bp、停牌/涨跌停逐日重试后，HGB historical OOS 年化 20.81%、Sharpe 0.94、最大回撤 -33.32%。
 - 构建 PIT 六风格风险模型与自融资风格归因：CAPM Alpha 13.60%–17.92% 在加入本地 size/beta/volatility/liquidity/value/momentum 后降至 -2.55%–+1.07% 且区间跨零；识别收益主要来自风格而非显著纯选股 Alpha，并保留风险优化失败、RF 不可成交偏差等负面实验。
 

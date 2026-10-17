@@ -18,7 +18,7 @@
 - 最终结果使用 1,387 个唯一日频净值日、股数订单、停牌/涨跌停逐日重试和 20bp 线性成本；它比早期周频标签组合更接近可执行口径。
 - 统一模型基准的 HGB historical OOS RankIC 为 0.0999、Ridge 为 0.0976；HGB 二维验证面仅为 0.0971–0.0998，但年度最优参数不稳定，不能泛化为“机器学习稳定胜出”。
 - PIT 行业+规模中性化后，15 个单因子中没有定向 RankIC 显著增强；四个动量因子显著减弱，其余 11 个差异不显著，说明部分动量预测力依赖行业/规模结构，但多数信号没有被完全解释。
-- 完整单因子 tear sheet 已覆盖十分位单调性、Top–Bottom、换手、年度与市场状态。行业+规模中性化后，14/15 个因子的 Top–Bottom 年化算术价差 95% 下界为正，仅 `earnings_yield` 未通过；但 `down_high` 状态下多个因子失效，且分位组合未建模借券和涨跌停，不能当作可交易多空业绩。
+- 完整单因子 tear sheet 已覆盖十分位单调性、Top–Bottom、换手、年度与市场状态。行业+规模中性化后，14/15 个因子的毛 Top–Bottom 价差通过 BH-FDR 5%，仅 `earnings_yield` 未通过；但 `down_high` 状态下多个因子失效，且分位组合未建模借券和完整成交，不能当作可交易多空业绩。
 - 修复两期被静默截断的证券快照后，锁定模型实验显示：行业+规模中性化使 Ridge RankIC 从 0.0986 降至 0.0900、年化收益从 21.24% 降至 15.54%；HGB RankIC 从 0.1006 降至 0.0941，收益差异区间跨零。两者的 Top-200 行业主动权重都没有自动下降，证明因子正交不等于组合行业中性。
 - 显式组合优化已完成：单股≤0.5%、行业主动权重逐行业≤±3%、|size-z|≤0.10、周换手目标≤30%。原始 HGB 组合约束后年化 24.68%、波动 28.13%、Sharpe 0.92、最大回撤 -32.90%，全部 293 周无换手约束放宽；收益仍是理想完整成交、20bp 研究口径。
 - 约束组合已接入非重叠日频成交引擎。原始 HGB 在同口径下从理想全成交年化 22.18% 降至停牌/涨跌停逐日重试后的 20.81%，Sharpe 0.94、最大回撤 -33.32%；年化算术成交折损 95% 区间为 [-1.66%, -0.68%]。
@@ -32,7 +32,7 @@
 
 ![年度 RankIC](reports/figures/annual_rank_ic.svg)
 
-求职版交付见 [最终研究报告](reports/final_research_report.md)、[PDF](reports/final_report.pdf)、[一页摘要](reports/executive_summary.md)、[简历表述](docs/resume_bullets.md) 与 [面试讲稿](docs/interview_guide.md)。审计与复现入口为 [自动审计报告](reports/research_audit.md)、[离线交互面板](reports/research_dashboard.html) 和 [跨机器复现指南](docs/reproduction.md)。专项实验仍保留在 `docs/`、`reports/` 与不可变实验目录中。
+求职版交付见 [最终研究报告](reports/final_research_report.md)、[PDF](reports/final_report.pdf)、[一页摘要](reports/executive_summary.md)、[简历表述](docs/resume_bullets.md) 与 [面试讲稿](docs/interview_guide.md)。审计与复现入口为 [结论与全链路审计](reports/research_conclusion_audit.md)、[自动产物审计](reports/research_audit.md)、[离线交互面板](reports/research_dashboard.html) 和 [跨机器复现指南](docs/reproduction.md)。专项实验仍保留在 `docs/`、`reports/` 与不可变实验目录中。
 
 完整数据湖不上传 GitHub；跨机器接力时从 BaoStock 下载主数据，并用 AKShare 做独立抽样核对。
 环境安装、断点续传、数据血缘、验收门禁和一键全流水线见[跨机器复现指南](docs/reproduction.md)。
@@ -75,7 +75,7 @@ flowchart LR
 - 250 个历史证监会行业快照；PIT 周度行业暴露最低年度覆盖率 98.55%。
 - 训练、验证、年度扩展窗口样本外预测，以及持仓级结果。
 - 成本、换手、流动性、规模、ADV 容量、市场冲击和 t+1 涨跌停/停牌压力测试。
-- 140 个单元/回归测试；当前自动产物审计为 303 PASS / 36 WARN / 0 FAIL。
+- 143 个单元/回归测试；当前自动产物审计为 317 PASS / 41 WARN / 0 FAIL。
 
 ## 快速验证已提交结果
 
@@ -93,6 +93,7 @@ quant-audit
 quant-rf-hyperparameter-stability
 quant-hgb-hyperparameter-stability
 quant-portfolio-sensitivity
+quant-conclusion-audit
 quant-final-report
 ```
 
@@ -100,7 +101,7 @@ quant-final-report
 
 ### 冻结实验与可复现性
 
-当前 31 个实验版本已登记为不可覆盖快照。每个快照包含解析后的配置、指标表、图表、环境版本、代码树哈希、输入数据 SHA-256 与 historical OOS 使用声明；失败与被替代实验同样保留。
+当前 34 个实验版本已登记为不可覆盖快照。每个快照包含解析后的配置、指标表、图表、环境版本、代码树哈希、输入数据 SHA-256 与 historical OOS 使用声明；失败与被替代实验同样保留。
 
 ```powershell
 # 查看已登记实验
@@ -137,7 +138,7 @@ powershell -ExecutionPolicy Bypass -File scripts/rebuild_all.ps1 `
 
 1. 已完成月度历史证监会宽行业的 PIT 因子中性化、组合主动权重约束及六风格风险归因，但它不等同于申万细分行业或商业风险模型。
 2. 股票池是历史 A 股代理，不是官方 CSI 100/500/1000 历史成分。
-3. 指数收益未含股息；策略未建模税费、真实撮合队列和基金申赎。
+3. 指数收益未含股息；个股 `pct_chg` 使用除权参考价但不是独立复权总收益序列；策略未建模税费、真实撮合队列和基金申赎。
 4. 平方根冲击模型尚未用券商订单校准，容量结果是情景分析而非资金承诺。
 5. 没有 paper/live trading 记录，所有数字均为研究回测。
 

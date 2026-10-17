@@ -1,0 +1,3 @@
+candidate,reference,metric,observations,point_estimate,ci_2_5pct,ci_97_5pct,one_sided_probability_nonpositive
+hgb_shallow15,ridge_1,rank_ic,293,0.0022980090098486403,-0.0022886003426261818,0.007089021253390683,0.1729135432283858
+hgb_shallow15,ridge_1,net_return_annualized_arithmetic,293,0.03242197488585949,-0.008577511954826257,0.07257600687652796,0.06046976511744128

@@ -1,8 +1,8 @@
-registry_version: "1.0.0"
+registry_version: "1.1.0"
 effective_date: "2026-10-17"
 frequency: daily
 availability: next_exchange_trading_day_after_asof_close
-price_convention: baostock_forward_adjusted_history_for_signal_construction
+price_convention: baostock_unadjusted_ohlc_and_ex_right_reference_pct_chg
 direction_policy: sign_of_raw_training_mean_rank_ic_2006_2015
 factors:
   - name: momentum_20d

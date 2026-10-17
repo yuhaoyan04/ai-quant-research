@@ -11,6 +11,9 @@ def test_registry_matches_model_features() -> None:
     registry = load_registry()
     expected = [entry["name"] for entry in registry["factors"]]
     validate_registry(registry, expected)
+    assert registry["price_convention"] == (
+        "baostock_unadjusted_ohlc_and_ex_right_reference_pct_chg"
+    )
 
 
 def test_registry_rejects_duplicate_names() -> None:

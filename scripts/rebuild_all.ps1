@@ -125,15 +125,21 @@ try {
             @{ Name = "RF target holdings"; Program = "quant-rf-target-holdings"; Args = @() },
             @{ Name = "RF daily retry execution"; Program = "quant-rf-daily-retry"; Args = @("all", "--split", "both") },
             @{ Name = "Top-N, inverse-volatility, and cost sensitivity"; Program = "quant-portfolio-sensitivity"; Args = @() }
+            @{ Name = "Decision-oriented conclusion and lifecycle audit"; Program = "quant-conclusion-audit"; Args = @() }
         )
         foreach ($step in $extendedSteps) {
             Invoke-QuantStep $step.Name $step.Program $step.Args
         }
     }
 
-    Invoke-QuantStep "Research dashboard" "quant-research-dashboard" @()
-    Invoke-QuantStep "Publication audit" "quant-audit" @()
-    Invoke-QuantStep "Final PDF report" "quant-final-report" @()
+    if (-not $CoreOnly) {
+        Invoke-QuantStep "Research dashboard" "quant-research-dashboard" @()
+        Invoke-QuantStep "Publication audit" "quant-audit" @()
+        Invoke-QuantStep "Final PDF report" "quant-final-report" @()
+    }
+    else {
+        Write-Host "Core-only run skips the extended dashboard, publication audit, and final PDF." -ForegroundColor Yellow
+    }
     Write-Host "`nRebuild completed. Log: $logPath" -ForegroundColor Green
 }
 finally {

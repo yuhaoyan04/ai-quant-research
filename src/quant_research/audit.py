@@ -15,6 +15,7 @@ import yaml
 
 from quant_research.ingest import ROOT, Lake
 from quant_research.experiment_registry import ExperimentRegistry, load_specs
+from quant_research.leave_one_factor_out import benjamini_hochberg
 from quant_research.portfolio import performance_summary
 
 
@@ -1495,6 +1496,75 @@ class ResearchAuditor:
             "factor_registry_count": len(registry),
         })
 
+    def audit_research_conclusions(self) -> None:
+        """Gate the decision hierarchy, multiplicity control, and lifecycle boundary."""
+        decisions = self.require_table("research_conclusion_decisions", "v1")
+        multiplicity = self.require_table("research_factor_multiplicity", "v1")
+        lifecycle = self.require_table("research_lifecycle_audit", "v1")
+        registry = self.require_table("factor_registry", "v1")
+        if any(frame.empty for frame in (decisions, multiplicity, lifecycle, registry)):
+            return
+        expected = {
+            "neutralized_factor_signal_exists": "SUPPORTED_AS_DIAGNOSTIC_EVIDENCE",
+            "hgb_adds_stable_increment_over_ridge": "NOT_ESTABLISHED",
+            "executable_backtest_survives_costs": "SUPPORTED_HISTORICALLY",
+            "pure_stock_selection_alpha_is_significant": "NOT_SUPPORTED",
+            "ready_for_live_capital": "NO",
+        }
+        observed = decisions.set_index("question")["verdict"].to_dict()
+        self.add(
+            "conclusion_decision_hierarchy_complete",
+            all(observed.get(question) == verdict for question, verdict in expected.items()),
+            f"verdicts={observed}",
+        )
+        recomputed = benjamini_hochberg(
+            multiplicity["one_sided_probability_nonpositive"]
+        )
+        maximum_q_error = float(
+            (recomputed - multiplicity["bh_fdr_adjusted_p"]).abs().max()
+        )
+        fdr_count = int(multiplicity["survives_bh_fdr"].astype(bool).sum())
+        self.add(
+            "single_factor_multiple_testing_controlled",
+            len(multiplicity) == 15 and maximum_q_error < 1e-12,
+            f"factors={len(multiplicity)}, bh_fdr_5pct_pass={fdr_count}, "
+            f"maximum_q_error={maximum_q_error:.3e}",
+        )
+        statuses = lifecycle.set_index("stage")["status"].to_dict()
+        self.add(
+            "research_and_deployment_scope_separated",
+            statuses.get("reproducibility_and_governance") == "COMPLETE"
+            and statuses.get("paper_live_monitoring") == "NEXT_STAGE",
+            "historical research chain is complete; paper/live evidence remains a separate gate",
+        )
+        price_convention = _load_yaml("factor_registry.yaml")["price_convention"]
+        table_conventions = set(registry["price_convention"].astype(str))
+        expected_convention = "baostock_unadjusted_ohlc_and_ex_right_reference_pct_chg"
+        self.add(
+            "price_and_return_convention_explicit",
+            price_convention == expected_convention
+            and table_conventions == {expected_convention},
+            f"price_convention={price_convention}",
+        )
+        report = (ROOT / "reports" / "final_research_report.md").read_text(encoding="utf-8")
+        required_phrases = (
+            "不支持显著纯选股 Alpha",
+            "historical OOS",
+            "不是实盘",
+            "BH-FDR",
+        )
+        missing_phrases = [phrase for phrase in required_phrases if phrase not in report]
+        self.add(
+            "final_report_states_decision_boundaries",
+            not missing_phrases,
+            f"missing_phrases={missing_phrases}",
+        )
+        self.findings.update({
+            "neutral_factor_spreads_surviving_bh_fdr_5pct": fdr_count,
+            "research_backtest_chain_complete": True,
+            "ready_for_live_capital": False,
+        })
+
     def run(self) -> tuple[list[AuditCheck], dict]:
         self.audit_configs()
         self.audit_frozen_experiments()
@@ -1571,6 +1641,7 @@ class ResearchAuditor:
         self.audit_rf_execution_forensics()
         self.audit_rf_daily_retry_execution()
         self.audit_final_research_extensions()
+        self.audit_research_conclusions()
         self.warn(
             "known_scope_limitations",
             "Industry neutralization uses monthly-sampled historical CSRC broad sections rather "

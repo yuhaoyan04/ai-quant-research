@@ -1,0 +1,14 @@
+{
+  "experiment_id": "research_conclusion_audit_v1",
+  "frozen_at_utc": "2026-10-17T12:28:38.133264+00:00",
+  "content_sha256": "77e82809a5b1aaadd3a55e2ef5632887e27c3b30b7b854f265a886944e37149e",
+  "files": {
+    "config.yaml": "ab2ea7ef38e84f0fbdf97b16b172d90759f5c231e6670640a37fc4841c4926d4",
+    "metadata.json": "93c37f5cab8175027454ea9d6f2ed874e5da7e08611e4d2628b5984ee0c71d7d",
+    "metrics.json": "3fa01e528db7c16d67c7cedd0cc63320940437c19c30c72da0779eb626d2052e",
+    "notes.md": "c895984823a1ce8b0cb5cfe9ddf127fdfdacdb24b7c380074a163d6ccc8cf728",
+    "tables/research_conclusion_decisions__v1.csv": "59ad86cb61247ecb0f93a1332933d8c356a02bf739f691aec3d9be380efd5266",
+    "tables/research_factor_multiplicity__v1.csv": "149f5899f6cf1c184a00bfea344410cda9cb5d0289e7fc937778a2dcf624d66f",
+    "tables/research_lifecycle_audit__v1.csv": "d481dcb91be36854a02cce7213abee34801846f2f4c57c73439db9a23e736c59"
+  }
+}

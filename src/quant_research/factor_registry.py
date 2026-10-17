@@ -70,6 +70,7 @@ def materialize_registry(lake: Lake | None = None) -> pd.DataFrame:
             "family": str(entry["family"]),
             "frequency": str(registry["frequency"]),
             "availability": str(registry["availability"]),
+            "price_convention": str(registry["price_convention"]),
             "unit": str(entry["unit"]),
             "lookback_observations": int(entry["lookback_observations"]),
             "raw_fields": ",".join(str(value) for value in entry["raw_fields"]),
@@ -101,6 +102,7 @@ def _write_report(frame: pd.DataFrame, registry: dict[str, Any]) -> None:
         "# 因子注册表", "",
         f"版本：`{registry['registry_version']}`；生效日：`{registry['effective_date']}`。",
         "所有因子只使用 `asof_date` 收盘前已知数据，并在下一交易日才可用。理论方向是事前经济假设；训练期方向仅由 2006–2015 原始 RankIC 锁定，两者不一致不作事后改写。",
+        "价格口径：OHLC 为 BaoStock `adjustflag=3` 未复权价格；收益字段使用供应商相对当日 `pre_close`（含除权参考调整）的 `pct_chg`。这不是一条前复权价格序列，也不等同于含税费和现金分红再投资的总收益指数。",
         "", display.to_markdown(index=False), "",
         "完整公式、缺失机制与研究假设以 `config/factor_registry.yaml` 为唯一机器可读来源。",
     ]

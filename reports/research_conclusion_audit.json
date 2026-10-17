@@ -1,0 +1,350 @@
+{
+  "experiment_id": "research_conclusion_audit_v1",
+  "decisions": [
+    {
+      "question": "neutralized_factor_signal_exists",
+      "verdict": "SUPPORTED_AS_DIAGNOSTIC_EVIDENCE",
+      "evidence": "14/15 neutralized gross factor spreads survive BH-FDR 5%",
+      "statistical_interpretation": "cross-factor multiplicity controlled",
+      "scope_limit": "diagnostic long-short portfolios omit borrow and full execution"
+    },
+    {
+      "question": "hgb_adds_stable_increment_over_ridge",
+      "verdict": "NOT_ESTABLISHED",
+      "evidence": "RankIC delta 95% CI [-0.0023, 0.0071]; annual return delta 95% CI [-0.86%, 7.26%]",
+      "statistical_interpretation": "both paired intervals include zero",
+      "scope_limit": "historical OOS has been inspected"
+    },
+    {
+      "question": "executable_backtest_survives_costs",
+      "verdict": "SUPPORTED_HISTORICALLY",
+      "evidence": "20bp annualized return 20.81%, Sharpe 0.94, max drawdown -33.32%; fixed-path 100bp annualized return 6.23%",
+      "statistical_interpretation": "economic stress result, not a pure-alpha test",
+      "scope_limit": "close execution, approximate limits, no broker-calibrated impact"
+    },
+    {
+      "question": "pure_stock_selection_alpha_is_significant",
+      "verdict": "NOT_SUPPORTED",
+      "evidence": "style-adjusted alpha range -2.55% to 1.07%; all_95pct_intervals_cross_zero=True; R2 range 0.894-0.898",
+      "statistical_interpretation": "CAPM alpha is absorbed by local style factors",
+      "scope_limit": "local factors are research proxies, not a commercial risk model"
+    },
+    {
+      "question": "ready_for_live_capital",
+      "verdict": "NO",
+      "evidence": "no unseen forward sample, paper track record, or broker fill calibration",
+      "statistical_interpretation": "backtest completion is not deployment validation",
+      "scope_limit": "next gate is frozen-parameter paper trading on future data"
+    }
+  ],
+  "factor_multiplicity": [
+    {
+      "pipeline": "industry_size_neutralized",
+      "factor": "amihud_20d",
+      "metric": "gross_top_minus_bottom",
+      "observations": 293,
+      "point_estimate": 0.21879704742348544,
+      "ci_2_5pct": 0.1258133738809751,
+      "ci_97_5pct": 0.30117022363546053,
+      "one_sided_probability_nonpositive": 0.0004997501249375312,
+      "block_length_weeks": 13,
+      "bh_fdr_adjusted_p": 0.0010708931248661383,
+      "individual_95pct_interval_above_zero": true,
+      "survives_bh_fdr": true
+    },
+    {
+      "pipeline": "industry_size_neutralized",
+      "factor": "momentum_20d",
+      "metric": "gross_top_minus_bottom",
+      "observations": 293,
+      "point_estimate": 0.447264743282476,
+      "ci_2_5pct": 0.22014739213434667,
+      "ci_97_5pct": 0.6682765704323166,
+      "one_sided_probability_nonpositive": 0.0004997501249375312,
+      "block_length_weeks": 13,
+      "bh_fdr_adjusted_p": 0.0010708931248661383,
+      "individual_95pct_interval_above_zero": true,
+      "survives_bh_fdr": true
+    },
+    {
+      "pipeline": "industry_size_neutralized",
+      "factor": "return_volume_corr_20d",
+      "metric": "gross_top_minus_bottom",
+      "observations": 293,
+      "point_estimate": 0.1672806787227266,
+      "ci_2_5pct": 0.06898157883009484,
+      "ci_97_5pct": 0.2673845923908942,
+      "one_sided_probability_nonpositive": 0.0004997501249375312,
+      "block_length_weeks": 13,
+      "bh_fdr_adjusted_p": 0.0010708931248661383,
+      "individual_95pct_interval_above_zero": true,
+      "survives_bh_fdr": true
+    },
+    {
+      "pipeline": "industry_size_neutralized",
+      "factor": "reversal_5d",
+      "metric": "gross_top_minus_bottom",
+      "observations": 293,
+      "point_estimate": 0.3786505141179379,
+      "ci_2_5pct": 0.23481319881853377,
+      "ci_97_5pct": 0.5225905271225978,
+      "one_sided_probability_nonpositive": 0.0004997501249375312,
+      "block_length_weeks": 13,
+      "bh_fdr_adjusted_p": 0.0010708931248661383,
+      "individual_95pct_interval_above_zero": true,
+      "survives_bh_fdr": true
+    },
+    {
+      "pipeline": "industry_size_neutralized",
+      "factor": "turnover_20d",
+      "metric": "gross_top_minus_bottom",
+      "observations": 293,
+      "point_estimate": 0.39826143393016666,
+      "ci_2_5pct": 0.23071354516491582,
+      "ci_97_5pct": 0.5419205089187713,
+      "one_sided_probability_nonpositive": 0.0004997501249375312,
+      "block_length_weeks": 13,
+      "bh_fdr_adjusted_p": 0.0010708931248661383,
+      "individual_95pct_interval_above_zero": true,
+      "survives_bh_fdr": true
+    },
+    {
+      "pipeline": "industry_size_neutralized",
+      "factor": "turnover_surprise_20d",
+      "metric": "gross_top_minus_bottom",
+      "observations": 293,
+      "point_estimate": 0.265054273065391,
+      "ci_2_5pct": 0.17009545572331364,
+      "ci_97_5pct": 0.3622436207721321,
+      "one_sided_probability_nonpositive": 0.0004997501249375312,
+      "block_length_weeks": 13,
+      "bh_fdr_adjusted_p": 0.0010708931248661383,
+      "individual_95pct_interval_above_zero": true,
+      "survives_bh_fdr": true
+    },
+    {
+      "pipeline": "industry_size_neutralized",
+      "factor": "volume_surprise_20d",
+      "metric": "gross_top_minus_bottom",
+      "observations": 293,
+      "point_estimate": 0.26437281848027416,
+      "ci_2_5pct": 0.16934100614286077,
+      "ci_97_5pct": 0.36255512561227105,
+      "one_sided_probability_nonpositive": 0.0004997501249375312,
+      "block_length_weeks": 13,
+      "bh_fdr_adjusted_p": 0.0010708931248661383,
+      "individual_95pct_interval_above_zero": true,
+      "survives_bh_fdr": true
+    },
+    {
+      "pipeline": "industry_size_neutralized",
+      "factor": "momentum_60d",
+      "metric": "gross_top_minus_bottom",
+      "observations": 293,
+      "point_estimate": 0.37800065872729804,
+      "ci_2_5pct": 0.16842317196251294,
+      "ci_97_5pct": 0.578948847499327,
+      "one_sided_probability_nonpositive": 0.0009995002498750624,
+      "block_length_weeks": 13,
+      "bh_fdr_adjusted_p": 0.0018740629685157421,
+      "individual_95pct_interval_above_zero": true,
+      "survives_bh_fdr": true
+    },
+    {
+      "pipeline": "industry_size_neutralized",
+      "factor": "max_return_20d",
+      "metric": "gross_top_minus_bottom",
+      "observations": 293,
+      "point_estimate": 0.2694624050623816,
+      "ci_2_5pct": 0.09697755878362337,
+      "ci_97_5pct": 0.40233027436486374,
+      "one_sided_probability_nonpositive": 0.001999000499750125,
+      "block_length_weeks": 13,
+      "bh_fdr_adjusted_p": 0.0033316674995835416,
+      "individual_95pct_interval_above_zero": true,
+      "survives_bh_fdr": true
+    },
+    {
+      "pipeline": "industry_size_neutralized",
+      "factor": "momentum_120d",
+      "metric": "gross_top_minus_bottom",
+      "observations": 293,
+      "point_estimate": 0.28329839252906214,
+      "ci_2_5pct": 0.0832149869353328,
+      "ci_97_5pct": 0.45704060386355155,
+      "one_sided_probability_nonpositive": 0.004497751124437781,
+      "block_length_weeks": 13,
+      "bh_fdr_adjusted_p": 0.0061332969878697,
+      "individual_95pct_interval_above_zero": true,
+      "survives_bh_fdr": true
+    },
+    {
+      "pipeline": "industry_size_neutralized",
+      "factor": "volatility_20d",
+      "metric": "gross_top_minus_bottom",
+      "observations": 293,
+      "point_estimate": 0.2712929979648429,
+      "ci_2_5pct": 0.08758189068000492,
+      "ci_97_5pct": 0.4195309985341401,
+      "one_sided_probability_nonpositive": 0.004497751124437781,
+      "block_length_weeks": 13,
+      "bh_fdr_adjusted_p": 0.0061332969878697,
+      "individual_95pct_interval_above_zero": true,
+      "survives_bh_fdr": true
+    },
+    {
+      "pipeline": "industry_size_neutralized",
+      "factor": "amplitude_20d",
+      "metric": "gross_top_minus_bottom",
+      "observations": 293,
+      "point_estimate": 0.2332300131516612,
+      "ci_2_5pct": 0.011881542232294972,
+      "ci_97_5pct": 0.4140746329994365,
+      "one_sided_probability_nonpositive": 0.01999000499750125,
+      "block_length_weeks": 13,
+      "bh_fdr_adjusted_p": 0.023065390381732213,
+      "individual_95pct_interval_above_zero": true,
+      "survives_bh_fdr": true
+    },
+    {
+      "pipeline": "industry_size_neutralized",
+      "factor": "momentum_20d_skip_5d",
+      "metric": "gross_top_minus_bottom",
+      "observations": 293,
+      "point_estimate": 0.21327372535721328,
+      "ci_2_5pct": 0.014882126461720503,
+      "ci_97_5pct": 0.3977795721790315,
+      "one_sided_probability_nonpositive": 0.01899050474762619,
+      "block_length_weeks": 13,
+      "bh_fdr_adjusted_p": 0.023065390381732213,
+      "individual_95pct_interval_above_zero": true,
+      "survives_bh_fdr": true
+    },
+    {
+      "pipeline": "industry_size_neutralized",
+      "factor": "book_to_price",
+      "metric": "gross_top_minus_bottom",
+      "observations": 293,
+      "point_estimate": 0.1397816513927596,
+      "ci_2_5pct": 0.0025323129825930426,
+      "ci_97_5pct": 0.2594142816758371,
+      "one_sided_probability_nonpositive": 0.022488755622188907,
+      "block_length_weeks": 13,
+      "bh_fdr_adjusted_p": 0.024095095309488116,
+      "individual_95pct_interval_above_zero": true,
+      "survives_bh_fdr": true
+    },
+    {
+      "pipeline": "industry_size_neutralized",
+      "factor": "earnings_yield",
+      "metric": "gross_top_minus_bottom",
+      "observations": 293,
+      "point_estimate": 0.056333354263951585,
+      "ci_2_5pct": -0.09593675206054822,
+      "ci_97_5pct": 0.19023575683331084,
+      "one_sided_probability_nonpositive": 0.22438780609695153,
+      "block_length_weeks": 13,
+      "bh_fdr_adjusted_p": 0.22438780609695153,
+      "individual_95pct_interval_above_zero": false,
+      "survives_bh_fdr": false
+    }
+  ],
+  "lifecycle": [
+    {
+      "stage": "research_mandate",
+      "status": "COMPLETE",
+      "evidence": "question hierarchy and falsifiable hypotheses",
+      "boundary": "final report sections 1 and 10"
+    },
+    {
+      "stage": "data_acquisition",
+      "status": "COMPLETE_WITH_LIMIT",
+      "evidence": "free-source PIT lake and manifests",
+      "boundary": "BaoStock revisions prevent byte-identical redownloads"
+    },
+    {
+      "stage": "data_quality",
+      "status": "COMPLETE",
+      "evidence": "schema, coverage, truncation, and key gates",
+      "boundary": "publication audit"
+    },
+    {
+      "stage": "point_in_time_universe",
+      "status": "COMPLETE_WITH_LIMIT",
+      "evidence": "historical A-share snapshots delayed one day",
+      "boundary": "not official historical CSI membership"
+    },
+    {
+      "stage": "factor_definition",
+      "status": "COMPLETE",
+      "evidence": "versioned registry, formulas, missingness, direction",
+      "boundary": "15-factor registry"
+    },
+    {
+      "stage": "label_and_timing",
+      "status": "COMPLETE",
+      "evidence": "t signal, t+1 close execution, t+2..t+6 label",
+      "boundary": "purged split boundaries"
+    },
+    {
+      "stage": "preprocessing_and_neutralization",
+      "status": "COMPLETE_WITH_LIMIT",
+      "evidence": "same-date transforms and PIT industry/size residualization",
+      "boundary": "monthly CSRC broad industry"
+    },
+    {
+      "stage": "signal_validation",
+      "status": "COMPLETE",
+      "evidence": "IC, deciles, regimes, decay, LOFO, BH-FDR",
+      "boundary": "historical OOS is not pristine"
+    },
+    {
+      "stage": "model_selection",
+      "status": "COMPLETE",
+      "evidence": "validation-only benchmark and parameter stability",
+      "boundary": "HGB increment over Ridge not established"
+    },
+    {
+      "stage": "portfolio_construction",
+      "status": "COMPLETE",
+      "evidence": "single-name, industry, size, and turnover constraints",
+      "boundary": "long-only research policy"
+    },
+    {
+      "stage": "execution_simulation",
+      "status": "COMPLETE_WITH_LIMIT",
+      "evidence": "share orders, cash, suspensions, limits, retry clock",
+      "boundary": "no intraday queue or IPO no-limit window"
+    },
+    {
+      "stage": "cost_capacity_stress",
+      "status": "COMPLETE_WITH_LIMIT",
+      "evidence": "0-100bp and ADV/impact scenarios",
+      "boundary": "impact not calibrated to broker orders"
+    },
+    {
+      "stage": "risk_and_attribution",
+      "status": "COMPLETE_WITH_LIMIT",
+      "evidence": "CAPM, six-style and cross-sectional risk attribution",
+      "boundary": "price index and local proxy factors"
+    },
+    {
+      "stage": "robustness_and_inference",
+      "status": "COMPLETE",
+      "evidence": "paired block bootstrap, HAC, common-date tests, failed experiments",
+      "boundary": "no untouched production lockbox"
+    },
+    {
+      "stage": "reproducibility_and_governance",
+      "status": "COMPLETE",
+      "evidence": "tests, immutable experiments, hashes, invalidations",
+      "boundary": "full data lake intentionally excluded from Git"
+    },
+    {
+      "stage": "paper_live_monitoring",
+      "status": "NEXT_STAGE",
+      "evidence": "frozen-parameter forward evidence required",
+      "boundary": "not part of a completed historical research backtest"
+    }
+  ]
+}

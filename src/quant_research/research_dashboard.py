@@ -398,6 +398,14 @@ def generate(output: Path = REPORT) -> Path:
         "portfolio_sharpe_zero_rate",
     ]].sort_values("mean_rank_ic", ascending=False)
     factor_distribution_display = lake.read("factor_distribution_summary", "v1")
+    conclusion_decisions_display = lake.read("research_conclusion_decisions", "v1")[[
+        "question", "verdict", "evidence", "scope_limit",
+    ]]
+    factor_multiplicity_display = lake.read("research_factor_multiplicity", "v1")[[
+        "factor", "point_estimate", "ci_2_5pct", "ci_97_5pct",
+        "bh_fdr_adjusted_p", "survives_bh_fdr",
+    ]]
+    lifecycle_display = lake.read("research_lifecycle_audit", "v1")
     minimum_industry_coverage = float(
         industry_exposure_index["eligible_industry_coverage"].min()
     )
@@ -427,7 +435,11 @@ def generate(output: Path = REPORT) -> Path:
         ("HGB neutral 可成交年化", f"{hgb_neutral.annualized_return:.1%}", "行业+规模中性化"),
         ("HGB 六风格残余 Alpha", f"{hgb_style_raw.annualized_alpha_arithmetic:.1%}",
          f"95% [{hgb_style_raw.annualized_alpha_ci_low:.1%}, {hgb_style_raw.annualized_alpha_ci_high:.1%}]"),
-        ("冻结实验", "30", "失败与被替代版本同样保留"),
+        ("冻结实验", str(sum(
+            (path / "FROZEN.json").exists()
+            for path in (ROOT / "reports" / "experiments").iterdir()
+            if path.is_dir()
+        )), "失败与被替代版本同样保留"),
     ]
     cards_html = "".join(
         f'<section class="card"><small>{label}</small><strong>{value}</strong><span>{note}</span></section>'
@@ -473,6 +485,9 @@ def generate(output: Path = REPORT) -> Path:
         "execution_cost_stress": execution_cost_stress_display,
         "hgb_hyperparameter_stability": hgb_surface_display,
         "factor_distribution_summary": factor_distribution_display,
+        "research_conclusion_decisions": conclusion_decisions_display,
+        "factor_multiplicity_control": factor_multiplicity_display,
+        "research_lifecycle_audit": lifecycle_display,
     }
     for name, frame in public_tables.items():
         frame.to_csv(TABLES / f"{name}.csv", index=False, encoding="utf-8")
@@ -752,6 +767,14 @@ def generate(output: Path = REPORT) -> Path:
             "maximum_mean_rank_ic": float(hgb_surface_display["mean_rank_ic"].max()),
             "best_candidate_is_not_promoted": True,
         },
+        "research_conclusion_audit": {
+            "decisions": conclusion_decisions_display.to_dict(orient="records"),
+            "neutralized_factor_spreads_surviving_bh_fdr_5pct": int(
+                factor_multiplicity_display["survives_bh_fdr"].sum()
+            ),
+            "historical_research_chain_complete": True,
+            "ready_for_live_capital": False,
+        },
         "interpretation": _increment_interpretation(
             float(increment.ci_2_5pct), float(increment.ci_97_5pct)
         ),
@@ -782,6 +805,7 @@ code{{background:#edf2f7;padding:2px 5px;border-radius:4px}}@media(max-width:850
 </style></head><body><main>
 <h1>A 股点时多因子与机器学习研究面板</h1><p class="muted">点时数据｜t+1 可执行标签｜Purged walk-forward｜成本、容量、规模与涨跌停压力测试｜生成于 {pd.Timestamp.now():%Y-%m-%d %H:%M}</p>
 <div class="grid">{cards_html}</div>
+<section class="panel finding"><h2>五项最终判定</h2>{_table(conclusion_decisions_display)}<p class="muted">研究回测链路已经闭环；paper/live 是下一阶段，不能用历史回测替代。</p></section>
 <section class="panel"><h2>历史样本外累计净值（共同日期，20bp）</h2>{equity_svg}<p class="muted">CSI 500 使用与策略相同的 t+1 收盘入场、随后 5 日持有标签；图中不含指数交易费用。</p></section>
 <section class="panel"><h2>回撤路径</h2>{drawdown_svg}</section>
 <section class="panel"><h2>年度收益</h2>{annual_return_svg}</section>
@@ -794,7 +818,8 @@ code{{background:#edf2f7;padding:2px 5px;border-radius:4px}}@media(max-width:850
 <section class="panel"><h2>t+1 停牌/涨跌停执行约束</h2>{_table(execution, {'annualized_return':'{:.1%}','maximum_drawdown':'{:.1%}','mean_blocked_buy_weight':'{:.3%}','mean_blocked_sell_weight':'{:.3%}','mean_cash_weight':'{:.3%}','mean_target_tracking_l1':'{:.3f}'})}</section>
 <section class="panel"><h2>RF 非重叠日频执行取证</h2>{_table(rf_execution, {'annualized_return':'{:.1%}','sharpe_zero_rate':'{:.2f}','maximum_drawdown':'{:.1%}','mean_turnover':'{:.3f}'})}<p class="muted">所有场景使用唯一日频净值时钟与 20bp 成本。验证期从理想全成交上界 {rf_validation_ideal.annualized_return:.2%} 降至日频重试约束 {rf_validation_constrained.annualized_return:.2%}；historical OOS 从 {rf_oos_ideal.annualized_return:.2%} 降至 {rf_oos_constrained.annualized_return:.2%}。</p></section>
 <section class="panel"><h2>PIT 行业与规模中性化</h2>{_table(factor_neutralization_display, {'raw_mean_oriented_rank_ic':'{:.4f}','neutral_mean_oriented_rank_ic':'{:.4f}','rank_ic_delta':'{:.4f}','rank_ic_delta_ci_low':'{:.4f}','rank_ic_delta_ci_high':'{:.4f}'})}<p class="muted">历史证监会宽行业最低年度覆盖率 {minimum_industry_coverage:.2%}；因子方向仅由训练期确定。行业+规模中性化后无因子 RankIC 显著增强，显著减弱的因子为 {html.escape(', '.join(weakened_factors))}。</p></section>
-<section class="panel"><h2>中性化单因子 Tear Sheet</h2>{_table(factor_tear_sheet_display, {'mean_oriented_rank_ic':'{:.4f}','annualized_icir':'{:.2f}','bucket_return_spearman':'{:.2f}','annualized_gross_top_minus_bottom':'{:.1%}','annualized_net_top_minus_bottom':'{:.1%}','mean_long_short_turnover':'{:.3f}','ci_2_5pct':'{:.1%}','ci_97_5pct':'{:.1%}'})}<p class="muted">293 周十分位等权诊断；方向仅由训练期锁定。15 个因子中 14 个 Top–Bottom 年化算术价差的 13 周块 bootstrap 95% 下界为正，盈利收益率除外；该表未建模借券与涨跌停，不是可交易多空业绩。</p></section>
+<section class="panel"><h2>中性化单因子 Tear Sheet</h2>{_table(factor_tear_sheet_display, {'mean_oriented_rank_ic':'{:.4f}','annualized_icir':'{:.2f}','bucket_return_spearman':'{:.2f}','annualized_gross_top_minus_bottom':'{:.1%}','annualized_net_top_minus_bottom':'{:.1%}','mean_long_short_turnover':'{:.3f}','ci_2_5pct':'{:.1%}','ci_97_5pct':'{:.1%}'})}<p class="muted">293 周十分位等权诊断；方向仅由训练期锁定。15 个因子中 14 个毛价差通过 BH-FDR 5%，盈利收益率除外；该表未建模借券与完整成交，不是可交易多空业绩。</p></section>
+<section class="panel"><h2>单因子多重检验</h2>{_table(factor_multiplicity_display, {'point_estimate':'{:.1%}','ci_2_5pct':'{:.1%}','ci_97_5pct':'{:.1%}','bh_fdr_adjusted_p':'{:.4f}'})}</section>
 <section class="panel"><h2>锁定模型与 Top-200 的中性化传导</h2>{_table(model_neutralization_display, {'raw_mean_rank_ic':'{:.4f}','neutral_mean_rank_ic':'{:.4f}','rank_ic_delta':'{:.4f}','rank_ic_ci_low':'{:.4f}','rank_ic_ci_high':'{:.4f}','raw_annualized_return':'{:.1%}','neutral_annualized_return':'{:.1%}','annualized_arithmetic_return_delta':'{:.1%}','return_delta_ci_low':'{:.1%}','return_delta_ci_high':'{:.1%}','raw_industry_active_weight_l1':'{:.3f}','neutral_industry_active_weight_l1':'{:.3f}'})}<p class="muted">固定 Ridge/HGB 参数、相同 PIT 暴露完整样本与 Top-200 规则。因子正交不保证排序尾部或非线性模型分数行业中性；本表未施加组合行业约束。</p></section>
 <section class="panel"><h2>组合层行业、规模与换手约束</h2>{_table(constrained_portfolio_display, {'annualized_return':'{:.1%}','annualized_volatility':'{:.1%}','sharpe_zero_rate':'{:.2f}','maximum_drawdown':'{:.1%}','mean_turnover':'{:.3f}','mean_abs_portfolio_size_z':'{:.3f}','mean_industry_active_weight_l1':'{:.3f}','mean_maximum_abs_industry_active_weight':'{:.3f}','turnover_relaxation_fraction':'{:.1%}'})}<p class="muted">单股 0.5%、行业主动权重 ±3%、|size-z|≤0.10、周换手目标 30%。所有约束组合均未触发换手放宽；收益是理想全成交、20bp 研究口径。</p></section>
 <section class="panel"><h2>约束组合的日频可成交审计</h2>{_table(constrained_daily_execution_display, {'annualized_return':'{:.1%}','annualized_volatility':'{:.1%}','sharpe_zero_rate':'{:.2f}','maximum_drawdown':'{:.1%}','mean_turnover':'{:.3f}','mean_blocked_buy_weight':'{:.2%}','mean_blocked_sell_weight':'{:.2%}','mean_target_tracking_l1':'{:.3f}','mean_cash_weight':'{:.2%}'})}<p class="muted">同一非重叠日频净值时钟、20bp 成本；停牌和涨跌停未成交股数订单逐日重试。raw HGB 从理想成交年化 22.18% 降至可成交 20.81%，折损区间显著低于零。</p></section>

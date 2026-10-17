@@ -1,0 +1,55 @@
+{
+  "experiment_id": "factor_registry_v2",
+  "title": "Corrected machine-readable factor and price-return convention registry",
+  "stage": "factor_governance",
+  "model_version": "factor_registry_1_1_0",
+  "registered_at_utc": "2026-10-17T12:28:36.020645+00:00",
+  "immutable": true,
+  "selection_policy": "validation_only",
+  "historical_oos_used_for_selection": false,
+  "historical_oos_disclosure": "The 2021-2026 block has already been inspected during project development. It is historical out-of-sample evidence, not a pristine production lockbox.",
+  "dataset_version": "d5b008809c690b6a48f920efc19c557fad6cbded43efa644591b3cf42e93be69",
+  "dataset_manifest": {
+    "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/manifests/ingestion.jsonl",
+    "size_bytes": 18945516,
+    "sha256": "ec415f8abefc365578a0a5d9fa7a0d320af3dc9cb321a85f047d99839dde7c96"
+  },
+  "input_artifacts": [
+    {
+      "table": "factor_neutralization_directions",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/factor_neutralization_directions/key=v1/data.parquet",
+      "size_bytes": 3515,
+      "sha256": "0cb165470a69b5306699edfab213456001ead4fcd077c9bf3ca96a93d25e0df8"
+    }
+  ],
+  "metric_artifacts": [
+    {
+      "table": "factor_registry",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/factor_registry/key=v1/data.parquet",
+      "size_bytes": 13041,
+      "sha256": "d851d470388237d77d3283f2f520d9a186558bdc344384fd8d408ecdc6404405"
+    }
+  ],
+  "figures": [],
+  "source_tree_sha256": "d699f7882a0d911e27ac29648d6e84b28690379d82931e14e25388b895ad5e13",
+  "git": {
+    "commit": null,
+    "dirty": null,
+    "status_sha256": null
+  },
+  "environment": {
+    "python": "3.11.16",
+    "implementation": "CPython",
+    "platform": "Linux-5.15.0-92-generic-x86_64-with-glibc2.35",
+    "packages": {
+      "pandas": "3.0.6",
+      "pyarrow": "25.0.1",
+      "PyYAML": "6.0.3",
+      "scikit-learn": "1.9.1",
+      "numpy": "2.4.6",
+      "scipy": "1.17.1"
+    }
+  }
+}

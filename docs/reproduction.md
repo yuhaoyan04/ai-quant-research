@@ -2,7 +2,7 @@
 
 ## 1. 复现边界
 
-GitHub 仓库保存代码、配置、测试、文档、图表、结果表和 31 个冻结实验版本，**不保存完整
+GitHub 仓库保存代码、配置、测试、文档、图表、结果表和 34 个冻结实验版本，**不保存完整
 `data/` 数据湖**。新机器从 BaoStock 下载主数据，AKShare 只做独立抽样核对，不参与拼接或
 静默覆盖。
 
@@ -135,7 +135,8 @@ powershell -ExecutionPolicy Bypass -File scripts/rebuild_all.ps1 -SkipDownload -
 7. 显式单股、行业主动权重、规模和换手约束组合、日频可成交审计及多因子收益归因；
 8. 统一模型 benchmark、RF/HGB 参数稳定性、收益取证和日频成交重试；
 9. Top-N、inverse-vol、50/100bp 成本、因子分布与滚动相关诊断；
-10. 离线 dashboard、publication audit 与最终 PDF。
+10. 结论证据矩阵、BH-FDR 多重检验、研究生命周期审计；
+11. 离线 dashboard、publication audit 与最终 PDF。
 
 如果需要手工定位失败步骤，可打开 [rebuild_all.ps1](../scripts/rebuild_all.ps1) 查看完全展开、
 可逐条复制的命令序列。脚本默认不删除、不覆盖 `data/`；多数上游阶段通过 `--missing` 或文件
@@ -151,7 +152,7 @@ powershell -ExecutionPolicy Bypass -File scripts/rebuild_all.ps1 -SkipDownload -
 | `data/lake/curated/` 其他表 | 质量表、因子、标签、模型特征、预测、持仓、成交 | 否 |
 | `data/lake/manifests/` | 请求、schema、行数、内容哈希 | 否 |
 | `config/` | 数据、因子、模型、组合和实验配置 | 是 |
-| `reports/experiments/` | 31 个不可变实验版本与输入哈希 | 是 |
+| `reports/experiments/` | 34 个不可变实验版本与输入哈希 | 是 |
 | `reports/tables/`、`reports/figures/` | 求职展示所需结果 | 是 |
 | `reports/research_dashboard.html` | 离线交互面板 | 是 |
 
@@ -161,11 +162,12 @@ powershell -ExecutionPolicy Bypass -File scripts/rebuild_all.ps1 -SkipDownload -
 python -m pytest -q
 quant-experiment list
 quant-experiment verify rf_daily_retry_execution_v1
+quant-conclusion-audit
 quant-audit
 quant-research-dashboard
 ```
 
-当前验收记录为 140 tests passed、研究审计 303 PASS / 36 WARN / 0 FAIL（WARN 保留历史版本漂移与已知边界）。新下载数据应至少
+当前验收记录为 143 tests passed、研究审计 317 PASS / 41 WARN / 0 FAIL（WARN 保留历史版本漂移与已知边界）。新下载数据应至少
 满足：测试通过、schema/唯一键/日期门禁无 FAIL、模型比较使用共同日期、持仓权重和收益恒等式
 通过。
 
