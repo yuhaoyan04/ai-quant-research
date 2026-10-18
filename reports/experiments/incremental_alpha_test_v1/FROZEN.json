@@ -1,0 +1,18 @@
+{
+  "experiment_id": "incremental_alpha_test_v1",
+  "frozen_at_utc": "2026-10-18T07:16:35.409926+00:00",
+  "content_sha256": "b60364c971160c37f970fd0618d9d44644f06f7aaae1a8d1a0fcd814797012c1",
+  "files": {
+    "config.yaml": "95a8e9f835b5a76b6d91a8fb7bbda2afa6fc9d85204c03c1cbd7a8eff96fd8ec",
+    "figures/incremental_alpha_equity_curve.svg": "93677dde7514c0acc5fb0290a1bc2aa30d953c9989b7bf3a9dc072285c03c743",
+    "metadata.json": "c9027d2d4c481f98331c4dd3693f256c43b369812d368168c0f581d711a262e4",
+    "metrics.json": "4da0bd066fb49a2c075079afe2a73d89eddaecc078857ace5a9e2c4f0a05776d",
+    "notes.md": "3731d028089dfb6969101230c48e58b0ab54c42f5e9edae85f41218df41ca1b2",
+    "tables/incremental_alpha_annual__v1.csv": "5a3a8984d521829b64e2c960b2a5b571560150f843425df1069d88620f30e51e",
+    "tables/incremental_alpha_bootstrap__v1.csv": "e171a50b87877188782aa693f3e96c11d7be096e65fd4ef669aeb8754d73298b",
+    "tables/incremental_alpha_comparison__v1.csv": "8f0d80b9e38f4f90ef6b415803bca8508c02c1acc2a055e926bf9bbea20d0806",
+    "tables/incremental_alpha_exposure_audit__v1.csv": "549320f3aa62a2191a06594960ede049cfd701b8f0b40f2572aecaff3051a71b",
+    "tables/incremental_alpha_protocol__v1.csv": "13bb16af4f8ba866319302ba11c118b388bf97c159ce0e79552fe0e6bcd81224",
+    "tables/incremental_alpha_summary__v1.csv": "d4d1d4adfed1fb053fe75fb373d5110e5e2b076edbade5eb3a4eba9f49e6aa6b"
+  }
+}

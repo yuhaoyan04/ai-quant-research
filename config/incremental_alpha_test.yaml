@@ -1,0 +1,36 @@
+experiment_id: incremental_alpha_test_v1
+historical_oos_used_for_selection: false
+source_experiment: constrained_portfolio_daily_execution_v1
+source_targets: {table: constrained_execution_targets, key: v1}
+source_market: {table: constrained_daily_execution_market, key: v1}
+portfolio_construction: risk_constrained
+benchmark_name: pit_industry_style_matched_peer_replica
+industry_level: csrc_broad_section
+styles: [size, beta, volatility, liquidity, value, momentum]
+style_winsor_quantiles: [0.01, 0.99]
+matching:
+  exclude_ml_holdings_when_feasible: true
+  unique_peer_per_source_holding: true
+  previous_peer_cost_multiplier: 0.0
+  held_peer_fallback_penalty: 1000.0
+  self_match_penalty: 1000000.0
+  weekly_one_way_turnover_limit: 0.30
+  maximum_stock_weight: 0.005
+  minimum_reported_weight: 0.00000001
+round_trip_cost_bps: 20.0
+annualization_periods: 252
+limit_detection_tolerance_percentage_points: 0.20
+bootstrap:
+  block_length_trading_days: 20
+  samples: 2000
+  random_seed: 20261018
+false_discovery_rate: 0.05
+rules:
+  st_limit_pct: 5.0
+  main_board_limit_pct: 10.0
+  star_limit_pct: 20.0
+  chinext_limit_pct_before_2020_08_24: 10.0
+  chinext_limit_pct_after_2020_08_24: 20.0
+execution_convention: returns_accrue_before_close_trade_blocked_orders_retry_daily
+inference_note: paired_circular_block_bootstrap_on_common_daily_clock
+volatility_matching_note: ex_post_diagnostic_only_not_an_investable_leverage_policy

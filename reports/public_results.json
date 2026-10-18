@@ -465,6 +465,91 @@
     },
     "execution_convention": "returns accrue before close; blocked share orders retry daily; new weekly targets cancel stale orders"
   },
+  "incremental_alpha_test": {
+    "benchmark": "PIT same-industry six-style matched peer replica",
+    "cost_bps": 20,
+    "common_daily_observations": 1387,
+    "individual_alpha_intervals_above_zero": 1,
+    "alpha_bh_fdr_survivors": 0,
+    "comparisons": [
+      {
+        "model": "hgb_shallow15_locked",
+        "alpha_pipeline": "industry_size_neutralized",
+        "annualized_return_model": 0.20259753394596847,
+        "annualized_return_style": 0.15962461700730546,
+        "sharpe_zero_rate_model": 0.9524822282095728,
+        "sharpe_zero_rate_style": 0.787282680801613,
+        "maximum_drawdown_model": -0.3153082336715889,
+        "maximum_drawdown_style": -0.31409100761022024,
+        "incremental_net_return_annualized_arithmetic__point_estimate": 0.03646786854268133,
+        "incremental_net_return_annualized_arithmetic__ci_2_5pct": 0.0024438912915467014,
+        "incremental_net_return_annualized_arithmetic__ci_97_5pct": 0.07164682883394921,
+        "incremental_alpha_significant_positive": true,
+        "incremental_alpha_survives_bh_fdr_5pct": false,
+        "turnover_improvement__point_estimate": 6.199820594185446e-05,
+        "turnover_improvement__ci_2_5pct": -6.478416254575639e-05,
+        "turnover_improvement__ci_97_5pct": 0.00017504069487879644,
+        "turnover_improvement__survives_bh_fdr_5pct": false
+      },
+      {
+        "model": "hgb_shallow15_locked",
+        "alpha_pipeline": "raw",
+        "annualized_return_model": 0.20811666153330188,
+        "annualized_return_style": 0.1757703406370854,
+        "sharpe_zero_rate_model": 0.9371647586448056,
+        "sharpe_zero_rate_style": 0.8378487237440742,
+        "maximum_drawdown_model": -0.3332492493261954,
+        "maximum_drawdown_style": -0.33003916195810123,
+        "incremental_net_return_annualized_arithmetic__point_estimate": 0.02870154626718977,
+        "incremental_net_return_annualized_arithmetic__ci_2_5pct": -0.006198207461416692,
+        "incremental_net_return_annualized_arithmetic__ci_97_5pct": 0.06553195018346354,
+        "incremental_alpha_significant_positive": false,
+        "incremental_alpha_survives_bh_fdr_5pct": false,
+        "turnover_improvement__point_estimate": -0.00013374987235637015,
+        "turnover_improvement__ci_2_5pct": -0.0002695504318310834,
+        "turnover_improvement__ci_97_5pct": 5.898033834262836e-06,
+        "turnover_improvement__survives_bh_fdr_5pct": false
+      },
+      {
+        "model": "ridge_locked",
+        "alpha_pipeline": "industry_size_neutralized",
+        "annualized_return_model": 0.15865309676061146,
+        "annualized_return_style": 0.1344651040824052,
+        "sharpe_zero_rate_model": 0.7902912700382323,
+        "sharpe_zero_rate_style": 0.6877509591001145,
+        "maximum_drawdown_model": -0.3171493915237966,
+        "maximum_drawdown_style": -0.31578358254618666,
+        "incremental_net_return_annualized_arithmetic__point_estimate": 0.020542277146921854,
+        "incremental_net_return_annualized_arithmetic__ci_2_5pct": -0.01935255247528804,
+        "incremental_net_return_annualized_arithmetic__ci_97_5pct": 0.05688977043619411,
+        "incremental_alpha_significant_positive": false,
+        "incremental_alpha_survives_bh_fdr_5pct": false,
+        "turnover_improvement__point_estimate": -1.9319902486034102e-05,
+        "turnover_improvement__ci_2_5pct": -0.00014229326595160963,
+        "turnover_improvement__ci_97_5pct": 9.50430558811522e-05,
+        "turnover_improvement__survives_bh_fdr_5pct": false
+      },
+      {
+        "model": "ridge_locked",
+        "alpha_pipeline": "raw",
+        "annualized_return_model": 0.1779585323613453,
+        "annualized_return_style": 0.1608808812966882,
+        "sharpe_zero_rate_model": 0.8557592969888698,
+        "sharpe_zero_rate_style": 0.7936535833549045,
+        "maximum_drawdown_model": -0.3299120161819925,
+        "maximum_drawdown_style": -0.3123052802171774,
+        "incremental_net_return_annualized_arithmetic__point_estimate": 0.014904611222849602,
+        "incremental_net_return_annualized_arithmetic__ci_2_5pct": -0.020585873053327763,
+        "incremental_net_return_annualized_arithmetic__ci_97_5pct": 0.050567363351548066,
+        "incremental_alpha_significant_positive": false,
+        "incremental_alpha_survives_bh_fdr_5pct": false,
+        "turnover_improvement__point_estimate": 0.0008534287728847595,
+        "turnover_improvement__ci_2_5pct": 0.0007326555708865298,
+        "turnover_improvement__ci_97_5pct": 0.0009733282026882214,
+        "turnover_improvement__survives_bh_fdr_5pct": true
+      }
+    ]
+  },
   "multi_factor_risk_attribution": {
     "benchmark": "equal-weight PIT exposure-complete universe",
     "styles": [
@@ -868,6 +953,12 @@
         "verdict": "NOT_ESTABLISHED",
         "evidence": "RankIC delta 95% CI [-0.0023, 0.0071]; annual return delta 95% CI [-0.86%, 7.26%]",
         "scope_limit": "historical OOS has been inspected"
+      },
+      {
+        "question": "ml_adds_value_over_style_matched_baseline",
+        "verdict": "MIXED_LOCAL_EVIDENCE",
+        "evidence": "incremental return intervals above zero 1/4; BH-FDR survivors 0/4; HGB neutral delta 3.65% with 95% CI [0.24%, 7.16%]; multiplicity-controlled risk/efficiency survivors 1/4",
+        "scope_limit": "matched peers use local six-style proxies and monthly broad industry"
       },
       {
         "question": "executable_backtest_survives_costs",

@@ -1,5 +1,5 @@
 {
-  "experiment_id": "research_conclusion_audit_v1",
+  "experiment_id": "research_conclusion_audit_v2",
   "decisions": [
     {
       "question": "neutralized_factor_signal_exists",
@@ -14,6 +14,13 @@
       "evidence": "RankIC delta 95% CI [-0.0023, 0.0071]; annual return delta 95% CI [-0.86%, 7.26%]",
       "statistical_interpretation": "both paired intervals include zero",
       "scope_limit": "historical OOS has been inspected"
+    },
+    {
+      "question": "ml_adds_value_over_style_matched_baseline",
+      "verdict": "MIXED_LOCAL_EVIDENCE",
+      "evidence": "incremental return intervals above zero 1/4; BH-FDR survivors 0/4; HGB neutral delta 3.65% with 95% CI [0.24%, 7.16%]; multiplicity-controlled risk/efficiency survivors 1/4",
+      "statistical_interpretation": "one local alpha interval excludes zero but not after cross-strategy BH-FDR; Ridge raw turnover efficiency survives its metric family",
+      "scope_limit": "matched peers use local six-style proxies and monthly broad industry"
     },
     {
       "question": "executable_backtest_survives_costs",

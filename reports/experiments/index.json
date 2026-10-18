@@ -153,6 +153,15 @@
     "immutable": true
   },
   {
+    "experiment_id": "final_research_baseline_v4",
+    "title": "Final characteristic-matched incremental-alpha audited publication baseline",
+    "stage": "final_publication_baseline",
+    "model_version": "locked_ridge_hgb_incremental_alpha_decision_audited_v4",
+    "registered_at_utc": "2026-10-18T07:16:40.314816+00:00",
+    "dataset_version": "c06670ec92d422b91b4ae5ee07f602fcd08273620f993848682cefaf486d0f05",
+    "immutable": true
+  },
+  {
     "experiment_id": "hgb_hyperparameter_stability_v1",
     "title": "Validation-only HGB leaf-count by L2 stability surface",
     "stage": "model_hyperparameter_robustness",
@@ -168,6 +177,15 @@
     "model_version": "locked_quantile_zscore_ridge",
     "registered_at_utc": "2026-10-14T15:51:08.639857+00:00",
     "dataset_version": "d78ba046e049240e18e2ec900d06952e327a0f7f0afa51e41684d2efae58f1c9",
+    "immutable": true
+  },
+  {
+    "experiment_id": "incremental_alpha_test_v1",
+    "title": "Executable characteristic-matched incremental alpha test",
+    "stage": "incremental_alpha_and_implementation_value",
+    "model_version": "pit_industry_six_style_peer_replica_daily_retry_v1",
+    "registered_at_utc": "2026-10-18T07:16:35.409926+00:00",
+    "dataset_version": "fdba993e75cbfcafe11841b9e053d8190fd5f7d0c003c5571fd7eb7faa21382c",
     "immutable": true
   },
   {
@@ -240,6 +258,15 @@
     "model_version": "evidence_hierarchy_bh_fdr_v1",
     "registered_at_utc": "2026-10-17T12:28:38.133264+00:00",
     "dataset_version": "946b3c438f91d7da9ac53aa5490be3aeb93230d7e3eddd7aad726d48d56f2821",
+    "immutable": true
+  },
+  {
+    "experiment_id": "research_conclusion_audit_v2",
+    "title": "Decision audit with characteristic-matched incremental alpha evidence",
+    "stage": "conclusion_governance",
+    "model_version": "evidence_hierarchy_incremental_alpha_bh_fdr_v2",
+    "registered_at_utc": "2026-10-18T07:16:37.637509+00:00",
+    "dataset_version": "9c7b8bb93c9babfc037fe5ff3ff6df35dc878bc3baaf4733a69980a54037dad5",
     "immutable": true
   },
   {

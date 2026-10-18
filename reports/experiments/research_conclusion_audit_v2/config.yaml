@@ -1,0 +1,450 @@
+experiment_id: research_conclusion_audit_v2
+registry_version: 1
+selection_policy: validation_only
+historical_oos_disclosure: The 2021-2026 block has already been inspected during project
+  development. It is historical out-of-sample evidence, not a pristine production
+  lockbox.
+experiment:
+  title: Decision audit with characteristic-matched incremental alpha evidence
+  stage: conclusion_governance
+  model_version: evidence_hierarchy_incremental_alpha_bh_fdr_v2
+  dataset_version_method: sha256_of_registered_inputs_and_ingestion_manifest
+  historical_oos_used_for_selection: false
+  config_files:
+  - research_conclusion_audit.yaml
+  - incremental_alpha_test.yaml
+  - factor_registry.yaml
+  - model_benchmark.yaml
+  - constrained_portfolio_daily_execution.yaml
+  - style_factor_attribution.yaml
+  input_tables:
+  - table: factor_tear_sheet_bootstrap
+    key: v1
+  - table: model_benchmark_winner_pairwise
+    key: v1
+  - table: constrained_daily_execution_summary
+    key: v1
+  - table: execution_cost_stress
+    key: v1
+  - table: style_factor_regression_summary
+    key: v1
+  - table: incremental_alpha_bootstrap
+    key: v1
+  - table: incremental_alpha_comparison
+    key: v1
+  metric_tables:
+  - table: research_conclusion_decisions
+    key: v2
+  - table: research_factor_multiplicity
+    key: v2
+  - table: research_lifecycle_audit
+    key: v2
+  figures: []
+resolved_configs:
+  research_conclusion_audit.yaml:
+    experiment_id: research_conclusion_audit_v2
+    period: historical_oos_2021_2026
+    false_discovery_rate: 0.05
+    primary_model: hgb_shallow15_locked
+    primary_alpha_pipeline: raw
+    primary_execution_scenario: daily_retry_limit_and_suspension_constrained
+    model_increment_candidate: hgb_shallow15
+    model_increment_reference: ridge_1
+    deployment_requires_paper_or_live_evidence: true
+    interpretation: evidence_hierarchy_without_historical_oos_reselection
+  incremental_alpha_test.yaml:
+    experiment_id: incremental_alpha_test_v1
+    historical_oos_used_for_selection: false
+    source_experiment: constrained_portfolio_daily_execution_v1
+    source_targets:
+      table: constrained_execution_targets
+      key: v1
+    source_market:
+      table: constrained_daily_execution_market
+      key: v1
+    portfolio_construction: risk_constrained
+    benchmark_name: pit_industry_style_matched_peer_replica
+    industry_level: csrc_broad_section
+    styles:
+    - size
+    - beta
+    - volatility
+    - liquidity
+    - value
+    - momentum
+    style_winsor_quantiles:
+    - 0.01
+    - 0.99
+    matching:
+      exclude_ml_holdings_when_feasible: true
+      unique_peer_per_source_holding: true
+      previous_peer_cost_multiplier: 0.0
+      held_peer_fallback_penalty: 1000.0
+      self_match_penalty: 1000000.0
+      weekly_one_way_turnover_limit: 0.3
+      maximum_stock_weight: 0.005
+      minimum_reported_weight: 1.0e-08
+    round_trip_cost_bps: 20.0
+    annualization_periods: 252
+    limit_detection_tolerance_percentage_points: 0.2
+    bootstrap:
+      block_length_trading_days: 20
+      samples: 2000
+      random_seed: 20261018
+    false_discovery_rate: 0.05
+    rules:
+      st_limit_pct: 5.0
+      main_board_limit_pct: 10.0
+      star_limit_pct: 20.0
+      chinext_limit_pct_before_2020_08_24: 10.0
+      chinext_limit_pct_after_2020_08_24: 20.0
+    execution_convention: returns_accrue_before_close_trade_blocked_orders_retry_daily
+    inference_note: paired_circular_block_bootstrap_on_common_daily_clock
+    volatility_matching_note: ex_post_diagnostic_only_not_an_investable_leverage_policy
+  factor_registry.yaml:
+    registry_version: 1.1.0
+    effective_date: '2026-10-17'
+    frequency: daily
+    availability: next_exchange_trading_day_after_asof_close
+    price_convention: baostock_unadjusted_ohlc_and_ex_right_reference_pct_chg
+    direction_policy: sign_of_raw_training_mean_rank_ic_2006_2015
+    factors:
+    - name: momentum_20d
+      family: momentum
+      formula: product(1 + pct_chg / 100, trailing 20 observations) - 1
+      unit: decimal_return
+      lookback_observations: 20
+      raw_fields:
+      - pct_chg
+      missingness: fewer_than_20_valid_returns_or_missing_return
+      theoretical_direction: 1
+      hypothesis: medium-term price continuation
+    - name: momentum_60d
+      family: momentum
+      formula: product(1 + pct_chg / 100, trailing 60 observations) - 1
+      unit: decimal_return
+      lookback_observations: 60
+      raw_fields:
+      - pct_chg
+      missingness: fewer_than_60_valid_returns_or_missing_return
+      theoretical_direction: 1
+      hypothesis: medium-term price continuation
+    - name: momentum_120d
+      family: momentum
+      formula: product(1 + pct_chg / 100, trailing 120 observations) - 1
+      unit: decimal_return
+      lookback_observations: 120
+      raw_fields:
+      - pct_chg
+      missingness: fewer_than_120_valid_returns_or_missing_return
+      theoretical_direction: 1
+      hypothesis: medium-term price continuation
+    - name: momentum_20d_skip_5d
+      family: momentum
+      formula: product(1 + lag(pct_chg / 100, 5), trailing 20 observations) - 1
+      unit: decimal_return
+      lookback_observations: 25
+      raw_fields:
+      - pct_chg
+      missingness: fewer_than_25_valid_returns_or_missing_return
+      theoretical_direction: 1
+      hypothesis: continuation excluding the latest reversal window
+    - name: reversal_5d
+      family: reversal
+      formula: -(product(1 + pct_chg / 100, trailing 5 observations) - 1)
+      unit: decimal_return
+      lookback_observations: 5
+      raw_fields:
+      - pct_chg
+      missingness: fewer_than_5_valid_returns_or_missing_return
+      theoretical_direction: 1
+      hypothesis: short-term overreaction reverses
+    - name: volatility_20d
+      family: risk
+      formula: sample_std(pct_chg / 100, trailing 20 observations)
+      unit: daily_decimal_volatility
+      lookback_observations: 20
+      raw_fields:
+      - pct_chg
+      missingness: fewer_than_20_valid_returns_or_missing_return
+      theoretical_direction: -1
+      hypothesis: low-volatility stocks outperform on a risk-adjusted basis
+    - name: amihud_20d
+      family: liquidity
+      formula: mean(abs(pct_chg / 100) / amount, trailing 20 observations)
+      unit: inverse_baostock_amount
+      lookback_observations: 20
+      raw_fields:
+      - pct_chg
+      - amount
+      missingness: nonpositive_amount_or_fewer_than_20_valid_observations
+      theoretical_direction: 1
+      hypothesis: illiquidity commands a return premium
+    - name: turnover_20d
+      family: liquidity_attention
+      formula: mean(turn, trailing 20 observations)
+      unit: baostock_turnover_percentage_points
+      lookback_observations: 20
+      raw_fields:
+      - turn
+      missingness: fewer_than_20_valid_turnover_observations
+      theoretical_direction: -1
+      hypothesis: excessive trading and attention predict lower returns
+    - name: turnover_surprise_20d
+      family: liquidity_attention
+      formula: turn / mean(lag(turn, 1), prior 20 observations) - 1
+      unit: ratio_minus_one
+      lookback_observations: 21
+      raw_fields:
+      - turn
+      missingness: missing_current_turnover_or_nonpositive_or_incomplete_prior_mean
+      theoretical_direction: -1
+      hypothesis: abnormal speculative turnover predicts reversal
+    - name: volume_surprise_20d
+      family: liquidity_attention
+      formula: volume / mean(lag(volume, 1), prior 20 observations) - 1
+      unit: ratio_minus_one
+      lookback_observations: 21
+      raw_fields:
+      - volume
+      missingness: missing_current_volume_or_nonpositive_or_incomplete_prior_mean
+      theoretical_direction: -1
+      hypothesis: abnormal volume proxies short-lived attention
+    - name: amplitude_20d
+      family: risk
+      formula: mean((high - low) / pre_close, trailing 20 observations)
+      unit: decimal_price_range
+      lookback_observations: 20
+      raw_fields:
+      - high
+      - low
+      - pre_close
+      missingness: nonpositive_pre_close_or_fewer_than_20_valid_ranges
+      theoretical_direction: -1
+      hypothesis: high intraday disagreement predicts lower subsequent returns
+    - name: return_volume_corr_20d
+      family: price_volume
+      formula: corr(pct_chg / 100, diff(log(volume)), trailing 20 observations)
+      unit: correlation
+      lookback_observations: 21
+      raw_fields:
+      - pct_chg
+      - volume
+      missingness: nonpositive_volume_or_fewer_than_20_paired_observations
+      theoretical_direction: null
+      hypothesis: price-volume confirmation may distinguish persistent from transient
+        moves
+    - name: max_return_20d
+      family: lottery_attention
+      formula: max(pct_chg / 100, trailing 20 observations)
+      unit: decimal_return
+      lookback_observations: 20
+      raw_fields:
+      - pct_chg
+      missingness: fewer_than_20_valid_returns_or_missing_return
+      theoretical_direction: -1
+      hypothesis: lottery-like recent payoffs attract overpricing
+    - name: earnings_yield
+      family: value
+      formula: 1 / pe_ttm when pe_ttm > 0
+      unit: inverse_pe
+      lookback_observations: 1
+      raw_fields:
+      - pe_ttm
+      missingness: nonpositive_or_missing_pe_ttm_including_loss_making_firms
+      theoretical_direction: 1
+      hypothesis: cheaper profitable firms earn a value premium
+    - name: book_to_price
+      family: value
+      formula: 1 / pb_mrq when pb_mrq > 0
+      unit: inverse_pb
+      lookback_observations: 1
+      raw_fields:
+      - pb_mrq
+      missingness: nonpositive_or_missing_pb_mrq
+      theoretical_direction: 1
+      hypothesis: high book-to-price stocks earn a value premium
+  model_benchmark.yaml:
+    experiment_id: model_benchmark_v1
+    historical_oos_used_for_selection: false
+    train:
+      start_year: 2006
+      end_year: 2015
+    validation:
+      start_year: 2016
+      end_year: 2020
+    historical_oos:
+      start_year: 2021
+      end_year: 2026
+    target: fwd_return_5d_lag1
+    label_horizon_trading_days: 5
+    minimum_cross_section_size: 100
+    annualization_periods: 52
+    sample_per_training_date: 300
+    random_state: 20261016
+    quantile_limits:
+    - 0.01
+    - 0.99
+    mad_multiplier: 5.0
+    include_missing_indicators: true
+    selection_metric: mean_rank_ic
+    selection_tiebreakers:
+    - portfolio_sharpe_zero_rate
+    - portfolio_annualized_return
+    portfolio:
+      top_n: 200
+      round_trip_cost_bps: 20.0
+      minimum_realized_weight_fraction: 0.95
+    bootstrap:
+      block_length_weeks: 13
+      samples: 2000
+      random_seed: 20261016
+    candidates:
+    - candidate: naive_directional
+      family: naive
+      kind: naive
+    - candidate: ols
+      family: ols
+      kind: ols
+    - candidate: ridge_0.0001
+      family: ridge
+      kind: ridge
+      penalty: 0.0001
+    - candidate: ridge_0.001
+      family: ridge
+      kind: ridge
+      penalty: 0.001
+    - candidate: ridge_0.01
+      family: ridge
+      kind: ridge
+      penalty: 0.01
+    - candidate: ridge_0.1
+      family: ridge
+      kind: ridge
+      penalty: 0.1
+    - candidate: ridge_1
+      family: ridge
+      kind: ridge
+      penalty: 1.0
+    - candidate: elastic_a0.0001_l10.1
+      family: elastic_net
+      kind: elastic_net
+      alpha: 0.0001
+      l1_ratio: 0.1
+    - candidate: elastic_a0.001_l10.1
+      family: elastic_net
+      kind: elastic_net
+      alpha: 0.001
+      l1_ratio: 0.1
+    - candidate: elastic_a0.001_l10.5
+      family: elastic_net
+      kind: elastic_net
+      alpha: 0.001
+      l1_ratio: 0.5
+    - candidate: elastic_a0.01_l10.5
+      family: elastic_net
+      kind: elastic_net
+      alpha: 0.01
+      l1_ratio: 0.5
+    - candidate: elastic_a0.01_l10.9
+      family: elastic_net
+      kind: elastic_net
+      alpha: 0.01
+      l1_ratio: 0.9
+    - candidate: random_forest_depth6
+      family: random_forest
+      kind: random_forest
+      n_estimators: 100
+      max_depth: 6
+      min_samples_leaf: 100
+      max_features: 0.7
+    - candidate: hgb_shallow15
+      family: hgb
+      kind: hgb
+      learning_rate: 0.05
+      max_iter: 120
+      max_leaf_nodes: 15
+      min_samples_leaf: 100
+      l2_regularization: 1.0
+    - candidate: hgb_regularized31
+      family: hgb
+      kind: hgb
+      learning_rate: 0.04
+      max_iter: 150
+      max_leaf_nodes: 31
+      min_samples_leaf: 150
+      l2_regularization: 10.0
+    - candidate: hgb_flexible63
+      family: hgb
+      kind: hgb
+      learning_rate: 0.03
+      max_iter: 180
+      max_leaf_nodes: 63
+      min_samples_leaf: 200
+      l2_regularization: 20.0
+    unavailable_models:
+      lightgbm: dependency_not_installed
+      xgboost: dependency_not_installed
+  constrained_portfolio_daily_execution.yaml:
+    experiment_id: constrained_portfolio_daily_execution_v1
+    historical_oos_used_for_selection: false
+    source_experiment: constrained_portfolio_neutralization_v1
+    source_holdings:
+      table: constrained_portfolio_oos_holdings
+      key: v1
+    target_construction: risk_constrained
+    round_trip_cost_bps: 20.0
+    annualization_periods: 252
+    label_horizon_trading_days: 5
+    limit_detection_tolerance_percentage_points: 0.2
+    bootstrap:
+      block_length_trading_days: 20
+      samples: 2000
+      random_seed: 20261017
+    rules:
+      st_limit_pct: 5.0
+      main_board_limit_pct: 10.0
+      star_limit_pct: 20.0
+      chinext_limit_pct_before_2020_08_24: 10.0
+      chinext_limit_pct_after_2020_08_24: 20.0
+    execution_convention: returns_accrue_before_close_trade_blocked_orders_retry_daily
+    scope_note: conservative_close_limit_rule_intraday_queue_and_ipo_no_limit_windows_not_modeled
+  style_factor_attribution.yaml:
+    experiment_id: style_factor_attribution_v1
+    source_experiment: capm_attribution_v1
+    period: historical_oos_2021_2026
+    historical_oos_used_for_selection: false
+    primary_scenario: daily_retry_limit_and_suspension_constrained
+    market_factor: CSI500
+    risk_free_rate_convention: zero_daily_rate
+    annualization_days: 252
+    newey_west_lags: 5
+    confidence_level: 0.95
+    styles:
+    - size
+    - beta
+    - volatility
+    - liquidity
+    - value
+    - momentum
+    factor_orientation:
+      size: large_minus_small
+      beta: high_minus_low
+      volatility: high_minus_low
+      liquidity: liquid_minus_illiquid
+      value: cheap_minus_expensive
+      momentum: winner_minus_loser
+    factor_portfolio:
+      construction: residual_proportional_self_financing
+      controls: full_csrc_broad_industry_and_other_five_styles
+      long_gross_exposure: 1.0
+      short_gross_exposure: 1.0
+      transaction_cost_bps: 0.0
+      execution: signal_next_trading_day_close
+    style_winsor_quantiles:
+    - 0.01
+    - 0.99
+    rolling:
+      window_trading_days: 252
+      step_trading_days: 21
+    scope_note: explanatory_style_factors_are_gross_of_cost_and_not_directly_tradable

@@ -82,6 +82,7 @@ def test_research_conclusion_audit_separates_backtest_from_live() -> None:
         for question, verdict in {
             "neutralized_factor_signal_exists": "SUPPORTED_AS_DIAGNOSTIC_EVIDENCE",
             "hgb_adds_stable_increment_over_ridge": "NOT_ESTABLISHED",
+            "ml_adds_value_over_style_matched_baseline": "MIXED_LOCAL_EVIDENCE",
             "executable_backtest_survives_costs": "SUPPORTED_HISTORICALLY",
             "pure_stock_selection_alpha_is_significant": "NOT_SUPPORTED",
             "ready_for_live_capital": "NO",
@@ -100,9 +101,9 @@ def test_research_conclusion_audit_separates_backtest_from_live() -> None:
         {"stage": "paper_live_monitoring", "status": "NEXT_STAGE"},
     ])
     frames = {
-        ("research_conclusion_decisions", "v1"): decisions,
-        ("research_factor_multiplicity", "v1"): multiplicity,
-        ("research_lifecycle_audit", "v1"): lifecycle,
+        ("research_conclusion_decisions", "v2"): decisions,
+        ("research_factor_multiplicity", "v2"): multiplicity,
+        ("research_lifecycle_audit", "v2"): lifecycle,
         ("factor_registry", "v1"): pd.DataFrame({
             "price_convention": [price_convention] * 15,
         }),

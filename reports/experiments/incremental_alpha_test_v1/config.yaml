@@ -1,0 +1,201 @@
+experiment_id: incremental_alpha_test_v1
+registry_version: 1
+selection_policy: validation_only
+historical_oos_disclosure: The 2021-2026 block has already been inspected during project
+  development. It is historical out-of-sample evidence, not a pristine production
+  lockbox.
+experiment:
+  title: Executable characteristic-matched incremental alpha test
+  stage: incremental_alpha_and_implementation_value
+  model_version: pit_industry_six_style_peer_replica_daily_retry_v1
+  dataset_version_method: sha256_of_registered_inputs_and_ingestion_manifest
+  historical_oos_used_for_selection: false
+  config_files:
+  - incremental_alpha_test.yaml
+  - constrained_portfolio_daily_execution.yaml
+  - multi_factor_risk_attribution.yaml
+  input_tables:
+  - table: constrained_execution_targets
+    key: v1
+  - table: incremental_alpha_market
+    key: v1
+  - table: multi_horizon_factor_panel
+    key: '2021'
+  - table: multi_horizon_factor_panel
+    key: '2022'
+  - table: multi_horizon_factor_panel
+    key: '2023'
+  - table: multi_horizon_factor_panel
+    key: '2024'
+  - table: multi_horizon_factor_panel
+    key: '2025'
+  - table: multi_horizon_factor_panel
+    key: '2026'
+  - table: pit_size_exposures
+    key: '2021'
+  - table: pit_size_exposures
+    key: '2022'
+  - table: pit_size_exposures
+    key: '2023'
+  - table: pit_size_exposures
+    key: '2024'
+  - table: pit_size_exposures
+    key: '2025'
+  - table: pit_size_exposures
+    key: '2026'
+  - table: pit_industry_exposures
+    key: '2021'
+  - table: pit_industry_exposures
+    key: '2022'
+  - table: pit_industry_exposures
+    key: '2023'
+  - table: pit_industry_exposures
+    key: '2024'
+  - table: pit_industry_exposures
+    key: '2025'
+  - table: pit_industry_exposures
+    key: '2026'
+  - table: pit_beta_exposures
+    key: '2021'
+  - table: pit_beta_exposures
+    key: '2022'
+  - table: pit_beta_exposures
+    key: '2023'
+  - table: pit_beta_exposures
+    key: '2024'
+  - table: pit_beta_exposures
+    key: '2025'
+  - table: pit_beta_exposures
+    key: '2026'
+  metric_tables:
+  - table: incremental_alpha_protocol
+    key: v1
+  - table: incremental_alpha_exposure_audit
+    key: v1
+  - table: incremental_alpha_summary
+    key: v1
+  - table: incremental_alpha_annual
+    key: v1
+  - table: incremental_alpha_bootstrap
+    key: v1
+  - table: incremental_alpha_comparison
+    key: v1
+  figures:
+  - reports/figures/incremental_alpha_equity_curve.svg
+resolved_configs:
+  incremental_alpha_test.yaml:
+    experiment_id: incremental_alpha_test_v1
+    historical_oos_used_for_selection: false
+    source_experiment: constrained_portfolio_daily_execution_v1
+    source_targets:
+      table: constrained_execution_targets
+      key: v1
+    source_market:
+      table: constrained_daily_execution_market
+      key: v1
+    portfolio_construction: risk_constrained
+    benchmark_name: pit_industry_style_matched_peer_replica
+    industry_level: csrc_broad_section
+    styles:
+    - size
+    - beta
+    - volatility
+    - liquidity
+    - value
+    - momentum
+    style_winsor_quantiles:
+    - 0.01
+    - 0.99
+    matching:
+      exclude_ml_holdings_when_feasible: true
+      unique_peer_per_source_holding: true
+      previous_peer_cost_multiplier: 0.0
+      held_peer_fallback_penalty: 1000.0
+      self_match_penalty: 1000000.0
+      weekly_one_way_turnover_limit: 0.3
+      maximum_stock_weight: 0.005
+      minimum_reported_weight: 1.0e-08
+    round_trip_cost_bps: 20.0
+    annualization_periods: 252
+    limit_detection_tolerance_percentage_points: 0.2
+    bootstrap:
+      block_length_trading_days: 20
+      samples: 2000
+      random_seed: 20261018
+    false_discovery_rate: 0.05
+    rules:
+      st_limit_pct: 5.0
+      main_board_limit_pct: 10.0
+      star_limit_pct: 20.0
+      chinext_limit_pct_before_2020_08_24: 10.0
+      chinext_limit_pct_after_2020_08_24: 20.0
+    execution_convention: returns_accrue_before_close_trade_blocked_orders_retry_daily
+    inference_note: paired_circular_block_bootstrap_on_common_daily_clock
+    volatility_matching_note: ex_post_diagnostic_only_not_an_investable_leverage_policy
+  constrained_portfolio_daily_execution.yaml:
+    experiment_id: constrained_portfolio_daily_execution_v1
+    historical_oos_used_for_selection: false
+    source_experiment: constrained_portfolio_neutralization_v1
+    source_holdings:
+      table: constrained_portfolio_oos_holdings
+      key: v1
+    target_construction: risk_constrained
+    round_trip_cost_bps: 20.0
+    annualization_periods: 252
+    label_horizon_trading_days: 5
+    limit_detection_tolerance_percentage_points: 0.2
+    bootstrap:
+      block_length_trading_days: 20
+      samples: 2000
+      random_seed: 20261017
+    rules:
+      st_limit_pct: 5.0
+      main_board_limit_pct: 10.0
+      star_limit_pct: 20.0
+      chinext_limit_pct_before_2020_08_24: 10.0
+      chinext_limit_pct_after_2020_08_24: 20.0
+    execution_convention: returns_accrue_before_close_trade_blocked_orders_retry_daily
+    scope_note: conservative_close_limit_rule_intraday_queue_and_ipo_no_limit_windows_not_modeled
+  multi_factor_risk_attribution.yaml:
+    experiment_id: multi_factor_risk_attribution_v1
+    historical_oos_used_for_selection: false
+    source_experiment: constrained_portfolio_neutralization_v1
+    target: fwd_return_5d_lag1
+    risk_model:
+      start_year: 2008
+      end_year: 2026
+    attribution:
+      start_year: 2021
+      end_year: 2026
+    portfolio_construction: risk_constrained
+    benchmark: equal_weight_pit_exposure_complete_universe
+    regression: equal_weight_cross_sectional_ols
+    industry_level: csrc_broad_section
+    styles:
+    - size
+    - beta
+    - volatility
+    - liquidity
+    - value
+    - momentum
+    beta:
+      benchmark_instrument: sh.000905
+      lookback_trading_days: 252
+      minimum_observations: 120
+    style_winsor_quantiles:
+    - 0.01
+    - 0.99
+    covariance:
+      trailing_weeks: 104
+      minimum_weeks: 52
+      ewma_half_life_weeks: 26
+      diagonal_shrinkage: 0.2
+    specific_risk:
+      ewma_half_life_weeks: 26
+      minimum_observations: 26
+    annualization_periods: 52
+    bootstrap:
+      block_length_weeks: 13
+      samples: 2000
+      random_seed: 20261017
+    scope_note: weekly_five_day_label_attribution_not_daily_execution_attribution

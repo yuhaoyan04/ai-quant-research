@@ -99,6 +99,28 @@ def conclusion_decisions(
     )
     fdr_count = int(multiplicity["survives_bh_fdr"].sum())
     factor_count = len(multiplicity)
+    incremental = lake.read("incremental_alpha_bootstrap", "v1")
+    incremental_alpha = incremental.loc[
+        incremental["metric"].eq("incremental_net_return_annualized_arithmetic")
+    ]
+    if len(incremental_alpha) != 4:
+        raise RuntimeError(
+            f"expected four style-matched incremental alpha rows, got {len(incremental_alpha)}"
+        )
+    individual_incremental = int(incremental_alpha["ci_2_5pct"].gt(0).sum())
+    fdr_incremental = int(
+        incremental_alpha["survives_bh_fdr_5pct"].astype(bool).sum()
+    )
+    implementation = lake.read("incremental_alpha_comparison", "v1")
+    implementation_survivors = int(
+        implementation[
+            "multiplicity_controlled_risk_or_efficiency_value_detected"
+        ].astype(bool).sum()
+    )
+    hgb_neutral = incremental_alpha.loc[
+        incremental_alpha["model"].eq("hgb_shallow15_locked")
+        & incremental_alpha["alpha_pipeline"].eq("industry_size_neutralized")
+    ].iloc[0]
 
     records = [
         {
@@ -122,6 +144,23 @@ def conclusion_decisions(
             ),
             "statistical_interpretation": "both paired intervals include zero",
             "scope_limit": "historical OOS has been inspected",
+        },
+        {
+            "question": "ml_adds_value_over_style_matched_baseline",
+            "verdict": "MIXED_LOCAL_EVIDENCE",
+            "evidence": (
+                f"incremental return intervals above zero {individual_incremental}/4; "
+                f"BH-FDR survivors {fdr_incremental}/4; HGB neutral delta "
+                f"{float(hgb_neutral['point_estimate']):.2%} with 95% CI "
+                f"[{float(hgb_neutral['ci_2_5pct']):.2%}, "
+                f"{float(hgb_neutral['ci_97_5pct']):.2%}]; multiplicity-controlled "
+                f"risk/efficiency survivors {implementation_survivors}/4"
+            ),
+            "statistical_interpretation": (
+                "one local alpha interval excludes zero but not after cross-strategy BH-FDR; "
+                "Ridge raw turnover efficiency survives its metric family"
+            ),
+            "scope_limit": "matched peers use local six-style proxies and monthly broad industry",
         },
         {
             "question": "executable_backtest_survives_costs",
@@ -207,7 +246,7 @@ def write_outputs(
     lines = [
         "# 研究结论与全链路审计",
         "",
-        "本页把研究结果拆成五个独立决策，防止把预测力、回测收益、模型增量、"
+        "本页把研究结果拆成六个独立决策，防止把预测力、回测收益、模型增量、"
         "风险调整 Alpha 和上线资格混为一谈。",
         "",
         "## 决策矩阵",
@@ -245,18 +284,19 @@ def run(lake: Lake | None = None) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFr
     multiplicity = factor_multiplicity(lake, float(cfg["false_discovery_rate"]))
     decisions = conclusion_decisions(lake, cfg, multiplicity)
     lifecycle = lifecycle_audit()
+    artifact_key = str(cfg["experiment_id"]).rsplit("_", 1)[-1]
     request = {**cfg, "source": "registered_research_outputs"}
     lake.write(
-        "research_conclusion_decisions", decisions, key="v1",
-        source="research_conclusion_audit.v1", request=request,
+        "research_conclusion_decisions", decisions, key=artifact_key,
+        source=f"research_conclusion_audit.{artifact_key}", request=request,
     )
     lake.write(
-        "research_factor_multiplicity", multiplicity, key="v1",
-        source="research_conclusion_audit.v1", request=request,
+        "research_factor_multiplicity", multiplicity, key=artifact_key,
+        source=f"research_conclusion_audit.{artifact_key}", request=request,
     )
     lake.write(
-        "research_lifecycle_audit", lifecycle, key="v1",
-        source="research_conclusion_audit.v1", request=request,
+        "research_lifecycle_audit", lifecycle, key=artifact_key,
+        source=f"research_conclusion_audit.{artifact_key}", request=request,
     )
     write_outputs(decisions, multiplicity, lifecycle, cfg)
     return decisions, multiplicity, lifecycle

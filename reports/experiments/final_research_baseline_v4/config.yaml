@@ -1,0 +1,886 @@
+experiment_id: final_research_baseline_v4
+registry_version: 1
+selection_policy: validation_only
+historical_oos_disclosure: The 2021-2026 block has already been inspected during project
+  development. It is historical out-of-sample evidence, not a pristine production
+  lockbox.
+experiment:
+  title: Final characteristic-matched incremental-alpha audited publication baseline
+  stage: final_publication_baseline
+  model_version: locked_ridge_hgb_incremental_alpha_decision_audited_v4
+  dataset_version_method: sha256_of_registered_inputs_and_ingestion_manifest
+  historical_oos_used_for_selection: false
+  config_files:
+  - factor_registry.yaml
+  - preprocessing.yaml
+  - model_benchmark.yaml
+  - constrained_portfolio_neutralization.yaml
+  - constrained_portfolio_daily_execution.yaml
+  - multi_factor_risk_attribution.yaml
+  - capm_attribution.yaml
+  - style_factor_attribution.yaml
+  - incremental_alpha_test.yaml
+  - research_conclusion_audit.yaml
+  - experiment_invalidations.yaml
+  input_tables:
+  - table: factor_registry
+    key: v1
+  - table: constrained_daily_execution_daily
+    key: v1
+  - table: style_factor_daily_returns
+    key: v1
+  - table: incremental_alpha_daily
+    key: v1
+  - table: research_conclusion_decisions
+    key: v2
+  metric_tables:
+  - table: model_benchmark_oos_summary
+    key: v1
+  - table: constrained_daily_execution_summary
+    key: v1
+  - table: risk_model_attribution_summary
+    key: v1
+  - table: style_factor_regression_summary
+    key: v1
+  - table: incremental_alpha_exposure_audit
+    key: v1
+  - table: incremental_alpha_summary
+    key: v1
+  - table: incremental_alpha_bootstrap
+    key: v1
+  - table: incremental_alpha_comparison
+    key: v1
+  - table: research_conclusion_decisions
+    key: v2
+  - table: research_factor_multiplicity
+    key: v2
+  - table: research_lifecycle_audit
+    key: v2
+  figures:
+  - reports/figures/oos_equity_curve.svg
+  - reports/figures/oos_drawdown.svg
+  - reports/figures/annual_rank_ic.svg
+  - reports/figures/annual_returns.svg
+  - reports/figures/incremental_alpha_equity_curve.svg
+resolved_configs:
+  factor_registry.yaml:
+    registry_version: 1.1.0
+    effective_date: '2026-10-17'
+    frequency: daily
+    availability: next_exchange_trading_day_after_asof_close
+    price_convention: baostock_unadjusted_ohlc_and_ex_right_reference_pct_chg
+    direction_policy: sign_of_raw_training_mean_rank_ic_2006_2015
+    factors:
+    - name: momentum_20d
+      family: momentum
+      formula: product(1 + pct_chg / 100, trailing 20 observations) - 1
+      unit: decimal_return
+      lookback_observations: 20
+      raw_fields:
+      - pct_chg
+      missingness: fewer_than_20_valid_returns_or_missing_return
+      theoretical_direction: 1
+      hypothesis: medium-term price continuation
+    - name: momentum_60d
+      family: momentum
+      formula: product(1 + pct_chg / 100, trailing 60 observations) - 1
+      unit: decimal_return
+      lookback_observations: 60
+      raw_fields:
+      - pct_chg
+      missingness: fewer_than_60_valid_returns_or_missing_return
+      theoretical_direction: 1
+      hypothesis: medium-term price continuation
+    - name: momentum_120d
+      family: momentum
+      formula: product(1 + pct_chg / 100, trailing 120 observations) - 1
+      unit: decimal_return
+      lookback_observations: 120
+      raw_fields:
+      - pct_chg
+      missingness: fewer_than_120_valid_returns_or_missing_return
+      theoretical_direction: 1
+      hypothesis: medium-term price continuation
+    - name: momentum_20d_skip_5d
+      family: momentum
+      formula: product(1 + lag(pct_chg / 100, 5), trailing 20 observations) - 1
+      unit: decimal_return
+      lookback_observations: 25
+      raw_fields:
+      - pct_chg
+      missingness: fewer_than_25_valid_returns_or_missing_return
+      theoretical_direction: 1
+      hypothesis: continuation excluding the latest reversal window
+    - name: reversal_5d
+      family: reversal
+      formula: -(product(1 + pct_chg / 100, trailing 5 observations) - 1)
+      unit: decimal_return
+      lookback_observations: 5
+      raw_fields:
+      - pct_chg
+      missingness: fewer_than_5_valid_returns_or_missing_return
+      theoretical_direction: 1
+      hypothesis: short-term overreaction reverses
+    - name: volatility_20d
+      family: risk
+      formula: sample_std(pct_chg / 100, trailing 20 observations)
+      unit: daily_decimal_volatility
+      lookback_observations: 20
+      raw_fields:
+      - pct_chg
+      missingness: fewer_than_20_valid_returns_or_missing_return
+      theoretical_direction: -1
+      hypothesis: low-volatility stocks outperform on a risk-adjusted basis
+    - name: amihud_20d
+      family: liquidity
+      formula: mean(abs(pct_chg / 100) / amount, trailing 20 observations)
+      unit: inverse_baostock_amount
+      lookback_observations: 20
+      raw_fields:
+      - pct_chg
+      - amount
+      missingness: nonpositive_amount_or_fewer_than_20_valid_observations
+      theoretical_direction: 1
+      hypothesis: illiquidity commands a return premium
+    - name: turnover_20d
+      family: liquidity_attention
+      formula: mean(turn, trailing 20 observations)
+      unit: baostock_turnover_percentage_points
+      lookback_observations: 20
+      raw_fields:
+      - turn
+      missingness: fewer_than_20_valid_turnover_observations
+      theoretical_direction: -1
+      hypothesis: excessive trading and attention predict lower returns
+    - name: turnover_surprise_20d
+      family: liquidity_attention
+      formula: turn / mean(lag(turn, 1), prior 20 observations) - 1
+      unit: ratio_minus_one
+      lookback_observations: 21
+      raw_fields:
+      - turn
+      missingness: missing_current_turnover_or_nonpositive_or_incomplete_prior_mean
+      theoretical_direction: -1
+      hypothesis: abnormal speculative turnover predicts reversal
+    - name: volume_surprise_20d
+      family: liquidity_attention
+      formula: volume / mean(lag(volume, 1), prior 20 observations) - 1
+      unit: ratio_minus_one
+      lookback_observations: 21
+      raw_fields:
+      - volume
+      missingness: missing_current_volume_or_nonpositive_or_incomplete_prior_mean
+      theoretical_direction: -1
+      hypothesis: abnormal volume proxies short-lived attention
+    - name: amplitude_20d
+      family: risk
+      formula: mean((high - low) / pre_close, trailing 20 observations)
+      unit: decimal_price_range
+      lookback_observations: 20
+      raw_fields:
+      - high
+      - low
+      - pre_close
+      missingness: nonpositive_pre_close_or_fewer_than_20_valid_ranges
+      theoretical_direction: -1
+      hypothesis: high intraday disagreement predicts lower subsequent returns
+    - name: return_volume_corr_20d
+      family: price_volume
+      formula: corr(pct_chg / 100, diff(log(volume)), trailing 20 observations)
+      unit: correlation
+      lookback_observations: 21
+      raw_fields:
+      - pct_chg
+      - volume
+      missingness: nonpositive_volume_or_fewer_than_20_paired_observations
+      theoretical_direction: null
+      hypothesis: price-volume confirmation may distinguish persistent from transient
+        moves
+    - name: max_return_20d
+      family: lottery_attention
+      formula: max(pct_chg / 100, trailing 20 observations)
+      unit: decimal_return
+      lookback_observations: 20
+      raw_fields:
+      - pct_chg
+      missingness: fewer_than_20_valid_returns_or_missing_return
+      theoretical_direction: -1
+      hypothesis: lottery-like recent payoffs attract overpricing
+    - name: earnings_yield
+      family: value
+      formula: 1 / pe_ttm when pe_ttm > 0
+      unit: inverse_pe
+      lookback_observations: 1
+      raw_fields:
+      - pe_ttm
+      missingness: nonpositive_or_missing_pe_ttm_including_loss_making_firms
+      theoretical_direction: 1
+      hypothesis: cheaper profitable firms earn a value premium
+    - name: book_to_price
+      family: value
+      formula: 1 / pb_mrq when pb_mrq > 0
+      unit: inverse_pb
+      lookback_observations: 1
+      raw_fields:
+      - pb_mrq
+      missingness: nonpositive_or_missing_pb_mrq
+      theoretical_direction: 1
+      hypothesis: high book-to-price stocks earn a value premium
+  preprocessing.yaml:
+    factor_columns:
+    - momentum_20d
+    - momentum_60d
+    - momentum_120d
+    - momentum_20d_skip_5d
+    - reversal_5d
+    - volatility_20d
+    - amihud_20d
+    - turnover_20d
+    - turnover_surprise_20d
+    - volume_surprise_20d
+    - amplitude_20d
+    - return_volume_corr_20d
+    - max_return_20d
+    - earnings_yield
+    - book_to_price
+    target: fwd_return_5d_lag1
+    winsorization:
+      method: cross_sectional_median_mad
+      mad_multiplier: 5.0
+    normalization: cross_sectional_zscore
+    missing_strategy: cross_sectional_median_plus_indicator
+    minimum_cross_section_size: 100
+    neutralization: none_pit_exposures_unavailable
+  model_benchmark.yaml:
+    experiment_id: model_benchmark_v1
+    historical_oos_used_for_selection: false
+    train:
+      start_year: 2006
+      end_year: 2015
+    validation:
+      start_year: 2016
+      end_year: 2020
+    historical_oos:
+      start_year: 2021
+      end_year: 2026
+    target: fwd_return_5d_lag1
+    label_horizon_trading_days: 5
+    minimum_cross_section_size: 100
+    annualization_periods: 52
+    sample_per_training_date: 300
+    random_state: 20261016
+    quantile_limits:
+    - 0.01
+    - 0.99
+    mad_multiplier: 5.0
+    include_missing_indicators: true
+    selection_metric: mean_rank_ic
+    selection_tiebreakers:
+    - portfolio_sharpe_zero_rate
+    - portfolio_annualized_return
+    portfolio:
+      top_n: 200
+      round_trip_cost_bps: 20.0
+      minimum_realized_weight_fraction: 0.95
+    bootstrap:
+      block_length_weeks: 13
+      samples: 2000
+      random_seed: 20261016
+    candidates:
+    - candidate: naive_directional
+      family: naive
+      kind: naive
+    - candidate: ols
+      family: ols
+      kind: ols
+    - candidate: ridge_0.0001
+      family: ridge
+      kind: ridge
+      penalty: 0.0001
+    - candidate: ridge_0.001
+      family: ridge
+      kind: ridge
+      penalty: 0.001
+    - candidate: ridge_0.01
+      family: ridge
+      kind: ridge
+      penalty: 0.01
+    - candidate: ridge_0.1
+      family: ridge
+      kind: ridge
+      penalty: 0.1
+    - candidate: ridge_1
+      family: ridge
+      kind: ridge
+      penalty: 1.0
+    - candidate: elastic_a0.0001_l10.1
+      family: elastic_net
+      kind: elastic_net
+      alpha: 0.0001
+      l1_ratio: 0.1
+    - candidate: elastic_a0.001_l10.1
+      family: elastic_net
+      kind: elastic_net
+      alpha: 0.001
+      l1_ratio: 0.1
+    - candidate: elastic_a0.001_l10.5
+      family: elastic_net
+      kind: elastic_net
+      alpha: 0.001
+      l1_ratio: 0.5
+    - candidate: elastic_a0.01_l10.5
+      family: elastic_net
+      kind: elastic_net
+      alpha: 0.01
+      l1_ratio: 0.5
+    - candidate: elastic_a0.01_l10.9
+      family: elastic_net
+      kind: elastic_net
+      alpha: 0.01
+      l1_ratio: 0.9
+    - candidate: random_forest_depth6
+      family: random_forest
+      kind: random_forest
+      n_estimators: 100
+      max_depth: 6
+      min_samples_leaf: 100
+      max_features: 0.7
+    - candidate: hgb_shallow15
+      family: hgb
+      kind: hgb
+      learning_rate: 0.05
+      max_iter: 120
+      max_leaf_nodes: 15
+      min_samples_leaf: 100
+      l2_regularization: 1.0
+    - candidate: hgb_regularized31
+      family: hgb
+      kind: hgb
+      learning_rate: 0.04
+      max_iter: 150
+      max_leaf_nodes: 31
+      min_samples_leaf: 150
+      l2_regularization: 10.0
+    - candidate: hgb_flexible63
+      family: hgb
+      kind: hgb
+      learning_rate: 0.03
+      max_iter: 180
+      max_leaf_nodes: 63
+      min_samples_leaf: 200
+      l2_regularization: 20.0
+    unavailable_models:
+      lightgbm: dependency_not_installed
+      xgboost: dependency_not_installed
+  constrained_portfolio_neutralization.yaml:
+    experiment_id: constrained_portfolio_neutralization_v1
+    historical_oos_used_for_selection: false
+    source_experiment: model_portfolio_neutralization_v2
+    target: fwd_return_5d_lag1
+    label_horizon_trading_days: 5
+    train:
+      start_year: 2006
+      end_year: 2015
+    historical_oos:
+      start_year: 2021
+      end_year: 2026
+    alpha_pipelines:
+    - raw
+    - industry_size_neutralized
+    models:
+      ridge_locked:
+        kind: ridge
+        penalty_per_observation: 1.0
+      hgb_shallow15_locked:
+        kind: hgb
+        learning_rate: 0.05
+        max_iter: 120
+        max_leaf_nodes: 15
+        min_samples_leaf: 100
+        l2_regularization: 1.0
+    minimum_industry_group_size: 5
+    minimum_cross_section_size: 100
+    sample_per_training_date: 300
+    random_state: 20261016
+    annualization_periods: 52
+    quantile_limits:
+    - 0.01
+    - 0.99
+    mad_multiplier: 5.0
+    include_missing_indicators: true
+    portfolio:
+      constructions:
+      - top200_equal
+      - risk_constrained
+      baseline_top_n: 200
+      round_trip_cost_bps: 20.0
+      minimum_realized_weight_fraction: 0.95
+    optimizer:
+      method: scipy_highs_linear_program
+      objective: maximize_cross_sectional_score_rank
+      maximum_stock_weight: 0.005
+      industry_active_weight_bound: 0.03
+      absolute_size_z_bound: 0.1
+      weekly_turnover_limit: 0.3
+      turnover_feasibility_relaxation:
+      - 0.3
+      - 0.4
+      - 0.5
+      - 0.75
+      - 1.0
+      candidate_top_n: 800
+      industry_capacity_buffer_names: 10
+      size_tail_candidates_each_side: 100
+      minimum_reported_weight: 1.0e-08
+    bootstrap:
+      block_length_weeks: 13
+      samples: 2000
+      random_seed: 20261017
+    interpretation: Prespecified policy experiment. Constraint values are not selected
+      on the 2021-2026 historical OOS. Turnover is relaxed only when required for
+      LP feasibility and every relaxation is reported.
+  constrained_portfolio_daily_execution.yaml:
+    experiment_id: constrained_portfolio_daily_execution_v1
+    historical_oos_used_for_selection: false
+    source_experiment: constrained_portfolio_neutralization_v1
+    source_holdings:
+      table: constrained_portfolio_oos_holdings
+      key: v1
+    target_construction: risk_constrained
+    round_trip_cost_bps: 20.0
+    annualization_periods: 252
+    label_horizon_trading_days: 5
+    limit_detection_tolerance_percentage_points: 0.2
+    bootstrap:
+      block_length_trading_days: 20
+      samples: 2000
+      random_seed: 20261017
+    rules:
+      st_limit_pct: 5.0
+      main_board_limit_pct: 10.0
+      star_limit_pct: 20.0
+      chinext_limit_pct_before_2020_08_24: 10.0
+      chinext_limit_pct_after_2020_08_24: 20.0
+    execution_convention: returns_accrue_before_close_trade_blocked_orders_retry_daily
+    scope_note: conservative_close_limit_rule_intraday_queue_and_ipo_no_limit_windows_not_modeled
+  multi_factor_risk_attribution.yaml:
+    experiment_id: multi_factor_risk_attribution_v1
+    historical_oos_used_for_selection: false
+    source_experiment: constrained_portfolio_neutralization_v1
+    target: fwd_return_5d_lag1
+    risk_model:
+      start_year: 2008
+      end_year: 2026
+    attribution:
+      start_year: 2021
+      end_year: 2026
+    portfolio_construction: risk_constrained
+    benchmark: equal_weight_pit_exposure_complete_universe
+    regression: equal_weight_cross_sectional_ols
+    industry_level: csrc_broad_section
+    styles:
+    - size
+    - beta
+    - volatility
+    - liquidity
+    - value
+    - momentum
+    beta:
+      benchmark_instrument: sh.000905
+      lookback_trading_days: 252
+      minimum_observations: 120
+    style_winsor_quantiles:
+    - 0.01
+    - 0.99
+    covariance:
+      trailing_weeks: 104
+      minimum_weeks: 52
+      ewma_half_life_weeks: 26
+      diagonal_shrinkage: 0.2
+    specific_risk:
+      ewma_half_life_weeks: 26
+      minimum_observations: 26
+    annualization_periods: 52
+    bootstrap:
+      block_length_weeks: 13
+      samples: 2000
+      random_seed: 20261017
+    scope_note: weekly_five_day_label_attribution_not_daily_execution_attribution
+  capm_attribution.yaml:
+    experiment_id: capm_attribution_v1
+    source_experiment: constrained_portfolio_daily_execution_v1
+    period: historical_oos_2021_2026
+    historical_oos_used_for_selection: false
+    strategy_return: daily_net_return
+    risk_free_rate_convention: zero_daily_rate
+    annualization_days: 252
+    newey_west_lags: 5
+    confidence_level: 0.95
+    benchmarks:
+    - name: CSI300
+      instrument_id: sh.000300
+    - name: CSI500
+      instrument_id: sh.000905
+    - name: CSI1000
+      instrument_id: sh.000852
+    primary_benchmark: CSI500
+    primary_scenario: daily_retry_limit_and_suspension_constrained
+    rolling:
+      window_trading_days: 252
+      step_trading_days: 21
+    subperiod: calendar_year
+    interpretation: descriptive_historical_oos_jensen_alpha_without_model_reselection
+    scope_note: benchmark_price_returns_exclude_dividends_and_risk_free_rate_is_zero
+  style_factor_attribution.yaml:
+    experiment_id: style_factor_attribution_v1
+    source_experiment: capm_attribution_v1
+    period: historical_oos_2021_2026
+    historical_oos_used_for_selection: false
+    primary_scenario: daily_retry_limit_and_suspension_constrained
+    market_factor: CSI500
+    risk_free_rate_convention: zero_daily_rate
+    annualization_days: 252
+    newey_west_lags: 5
+    confidence_level: 0.95
+    styles:
+    - size
+    - beta
+    - volatility
+    - liquidity
+    - value
+    - momentum
+    factor_orientation:
+      size: large_minus_small
+      beta: high_minus_low
+      volatility: high_minus_low
+      liquidity: liquid_minus_illiquid
+      value: cheap_minus_expensive
+      momentum: winner_minus_loser
+    factor_portfolio:
+      construction: residual_proportional_self_financing
+      controls: full_csrc_broad_industry_and_other_five_styles
+      long_gross_exposure: 1.0
+      short_gross_exposure: 1.0
+      transaction_cost_bps: 0.0
+      execution: signal_next_trading_day_close
+    style_winsor_quantiles:
+    - 0.01
+    - 0.99
+    rolling:
+      window_trading_days: 252
+      step_trading_days: 21
+    scope_note: explanatory_style_factors_are_gross_of_cost_and_not_directly_tradable
+  incremental_alpha_test.yaml:
+    experiment_id: incremental_alpha_test_v1
+    historical_oos_used_for_selection: false
+    source_experiment: constrained_portfolio_daily_execution_v1
+    source_targets:
+      table: constrained_execution_targets
+      key: v1
+    source_market:
+      table: constrained_daily_execution_market
+      key: v1
+    portfolio_construction: risk_constrained
+    benchmark_name: pit_industry_style_matched_peer_replica
+    industry_level: csrc_broad_section
+    styles:
+    - size
+    - beta
+    - volatility
+    - liquidity
+    - value
+    - momentum
+    style_winsor_quantiles:
+    - 0.01
+    - 0.99
+    matching:
+      exclude_ml_holdings_when_feasible: true
+      unique_peer_per_source_holding: true
+      previous_peer_cost_multiplier: 0.0
+      held_peer_fallback_penalty: 1000.0
+      self_match_penalty: 1000000.0
+      weekly_one_way_turnover_limit: 0.3
+      maximum_stock_weight: 0.005
+      minimum_reported_weight: 1.0e-08
+    round_trip_cost_bps: 20.0
+    annualization_periods: 252
+    limit_detection_tolerance_percentage_points: 0.2
+    bootstrap:
+      block_length_trading_days: 20
+      samples: 2000
+      random_seed: 20261018
+    false_discovery_rate: 0.05
+    rules:
+      st_limit_pct: 5.0
+      main_board_limit_pct: 10.0
+      star_limit_pct: 20.0
+      chinext_limit_pct_before_2020_08_24: 10.0
+      chinext_limit_pct_after_2020_08_24: 20.0
+    execution_convention: returns_accrue_before_close_trade_blocked_orders_retry_daily
+    inference_note: paired_circular_block_bootstrap_on_common_daily_clock
+    volatility_matching_note: ex_post_diagnostic_only_not_an_investable_leverage_policy
+  research_conclusion_audit.yaml:
+    experiment_id: research_conclusion_audit_v2
+    period: historical_oos_2021_2026
+    false_discovery_rate: 0.05
+    primary_model: hgb_shallow15_locked
+    primary_alpha_pipeline: raw
+    primary_execution_scenario: daily_retry_limit_and_suspension_constrained
+    model_increment_candidate: hgb_shallow15
+    model_increment_reference: ridge_1
+    deployment_requires_paper_or_live_evidence: true
+    interpretation: evidence_hierarchy_without_historical_oos_reselection
+  experiment_invalidations.yaml:
+    invalidations:
+      factor_preprocessing_ablation_v1:
+        invalidated_at_utc: '2026-10-14T12:45:00Z'
+        severity: portfolio_metrics_invalid
+        reason: Validation portfolios were formed after filtering rows with non-null
+          future returns. RankIC and model-selection metrics used the correct realized
+          subset, but Top-200 portfolio metrics had outcome-availability leakage.
+        unaffected_outputs:
+        - factor_preprocessing_ablation_selection/v1
+        - factor_preprocessing_ablation_daily/v1
+        - factor_preprocessing_ablation_factor_summary/v1
+        invalid_outputs:
+        - factor_preprocessing_ablation_portfolio/v1
+        - portfolio fields in factor_preprocessing_ablation_grid/v1
+        - portfolio fields in factor_preprocessing_ablation_annual/v1
+        superseded_by: factor_preprocessing_ablation_v2
+      model_benchmark_v1:
+        invalidated_at_utc: '2026-10-15T12:00:00Z'
+        severity: portfolio_metrics_execution_idealized
+        reason: Model ranking and RankIC are valid, but the benchmark Top-200 portfolio
+          assumes every next-day rebalance is filled. RandomForest disproportionately
+          selected stocks blocked by next-day price limits or suspensions, materially
+          inflating validation returns and modestly inflating historical-OOS returns.
+        unaffected_outputs:
+        - model_benchmark_validation_grid/v1 RankIC fields
+        - model_benchmark_selection/v1
+        - model_benchmark_oos_summary/v1 RankIC fields
+        - model_benchmark_oos_annual/v1 RankIC fields
+        invalid_outputs:
+        - unqualified portfolio return and Sharpe claims from model_benchmark_validation_grid/v1
+        - unqualified portfolio return and Sharpe claims from model_benchmark_oos_summary/v1
+        superseded_by: rf_daily_retry_execution_v1
+      rf_execution_forensics_v1:
+        invalidated_at_utc: '2026-10-15T16:00:00Z'
+        severity: execution_timing_incomplete
+        reason: The weekly constrained simulator applied a blocked next-day order
+          only at the following weekly rebalance. It also evaluated every signal with
+          a full five-day label even when holiday-week signal dates were fewer than
+          five trading days apart, creating overlapping portfolio return intervals.
+          The price-limit diagnosis remains valid, but its 19.09% validation and 24.19%
+          historical-OOS returns are not the final executable estimates.
+        unaffected_outputs:
+        - rf_forensic_label_audit/v1
+        - rf_forensic_holdings_summary/v1 size and missingness fields
+        - qualitative finding that RF concentrates in blocked small-cap names
+        invalid_outputs:
+        - rf_forensic_summary/v1 constrained portfolio metrics
+        - rf_oos_execution_summary/v1 constrained portfolio metrics
+        superseded_by: rf_daily_retry_execution_v1
+      factor_neutralization_v1:
+        invalidated_at_utc: '2026-10-17T00:00:00Z'
+        severity: upstream_snapshot_truncation
+        reason: BaoStock security snapshots for 2023-06-16 and 2025-10-10 were silently
+          truncated at pagination boundaries. The affected PIT universe, factor panel,
+          and industry exposure partitions were repaired and the experiment was rerun.
+        unaffected_outputs: []
+        invalid_outputs:
+        - all factor_neutralization_v1 conclusions and metrics
+        superseded_by: factor_neutralization_v2
+      model_portfolio_neutralization_v1:
+        invalidated_at_utc: '2026-10-17T00:00:00Z'
+        severity: upstream_snapshot_truncation
+        reason: BaoStock security snapshots for 2023-06-16 and 2025-10-10 were silently
+          truncated at pagination boundaries. The affected PIT universe, feature,
+          and industry exposure partitions were repaired and the locked models were
+          rerun.
+        unaffected_outputs: []
+        invalid_outputs:
+        - all model_portfolio_neutralization_v1 conclusions and metrics
+        superseded_by: model_portfolio_neutralization_v2
+      risk_aware_portfolio_optimization_v1:
+        invalidated_at_utc: '2026-10-17T06:00:00Z'
+        severity: frozen_provenance_incomplete
+        reason: The first immutable registration accidentally reused the constrained
+          daily execution input-list YAML anchor. Research tables and conclusions
+          are valid, but the frozen metadata omitted the full PIT beta, panel, size,
+          and industry dependency set consumed by the risk optimizer.
+        unaffected_outputs:
+        - all risk_aware_portfolio v1 research metrics and conclusions
+        invalid_outputs:
+        - risk_aware_portfolio_optimization_v1 frozen input provenance
+        superseded_by: risk_aware_portfolio_optimization_v2
+      baseline_ridge_v1:
+        invalidated_at_utc: '2026-10-17T12:00:00Z'
+        severity: superseded_live_baseline
+        reason: The immutable snapshot remains valid, but its registered live model
+          and portfolio artifacts predate the final PIT lake repair and consolidated
+          research rebuild. It is retained only as historical provenance.
+        unaffected_outputs:
+        - all immutable snapshot files
+        invalid_outputs:
+        - claims that this snapshot is the current live baseline
+        superseded_by: final_research_baseline_v2
+      challenger_hgb_blend_v1:
+        invalidated_at_utc: '2026-10-17T12:00:00Z'
+        severity: superseded_live_baseline
+        reason: The original HGB/Ridge blend snapshot predates the repaired PIT lake
+          and unified model benchmark. Its immutable result is historical, not current.
+        unaffected_outputs:
+        - all immutable snapshot files
+        invalid_outputs:
+        - claims that the blend is the current selected challenger
+        superseded_by: final_research_baseline_v2
+      factor_preprocessing_ablation_v2:
+        invalidated_at_utc: '2026-10-17T12:00:00Z'
+        severity: superseded_live_artifacts
+        reason: The leakage-corrected frozen snapshot is intact, but its live derived
+          tables were regenerated during the consolidated rebuild. The final baseline
+          records the current hashes while preserving this historical run.
+        unaffected_outputs:
+        - all immutable snapshot files
+        - qualitative preprocessing choice
+        invalid_outputs:
+        - claims that frozen hashes equal the current live tables
+        superseded_by: final_research_baseline_v2
+      factor_preprocessing_oos_v1:
+        invalidated_at_utc: '2026-10-17T12:00:00Z'
+        severity: superseded_live_artifacts
+        reason: Current OOS preprocessing artifacts were rebuilt after upstream PIT
+          data repairs. The old snapshot is immutable but no longer the live publication
+          baseline.
+        unaffected_outputs:
+        - all immutable snapshot files
+        invalid_outputs:
+        - claims that frozen hashes equal the current live tables
+        superseded_by: final_research_baseline_v2
+      ic_decay_v1:
+        invalidated_at_utc: '2026-10-17T12:00:00Z'
+        severity: superseded_live_artifacts
+        reason: IC-decay live tables were regenerated after the PIT panel repair.
+          The old frozen result remains auditable and is superseded for publication.
+        unaffected_outputs:
+        - all immutable snapshot files
+        invalid_outputs:
+        - claims that frozen hashes equal the current live tables
+        superseded_by: final_research_baseline_v2
+      leave_one_factor_out_v1:
+        invalidated_at_utc: '2026-10-17T12:00:00Z'
+        severity: superseded_live_artifacts
+        reason: LOFO live outputs were regenerated during the final PIT rebuild. The
+          immutable run is retained as history but is not the current baseline.
+        unaffected_outputs:
+        - all immutable snapshot files
+        invalid_outputs:
+        - claims that frozen hashes equal the current live tables
+        superseded_by: final_research_baseline_v2
+      label_horizon_v1:
+        invalidated_at_utc: '2026-10-17T12:00:00Z'
+        severity: superseded_live_artifacts
+        reason: Label-horizon artifacts were regenerated from the repaired panel.
+          The historical frozen snapshot remains intact and its selection caveat remains
+          valid.
+        unaffected_outputs:
+        - all immutable snapshot files
+        - preregistered selection disclosure
+        invalid_outputs:
+        - claims that frozen hashes equal the current live tables
+        superseded_by: final_research_baseline_v2
+      size_neutralization_v1:
+        invalidated_at_utc: '2026-10-17T12:00:00Z'
+        severity: superseded_live_artifacts
+        reason: Size-neutralization outputs were rebuilt after upstream security snapshot
+          repair and are now incorporated into the full industry-plus-size chain.
+        unaffected_outputs:
+        - all immutable snapshot files
+        invalid_outputs:
+        - claims that this is the current standalone baseline
+        superseded_by: factor_neutralization_v2
+      rf_hyperparameter_stability_v1:
+        invalidated_at_utc: '2026-10-17T12:00:00Z'
+        severity: superseded_model_family
+        reason: The RF local grid is preserved, but the repaired unified benchmark
+          selects HGB and the final robustness work uses a validation-only HGB two-dimensional
+          surface.
+        unaffected_outputs:
+        - all immutable snapshot files
+        - RF local-instability finding
+        invalid_outputs:
+        - claims that RF is the current nonlinear baseline
+        superseded_by: hgb_hyperparameter_stability_v1
+      rf_daily_retry_execution_v1:
+        invalidated_at_utc: '2026-10-17T12:00:00Z'
+        severity: superseded_execution_baseline
+        reason: The RF execution audit remains useful forensic evidence, but the final
+          execution baseline uses locked Ridge/HGB constrained portfolios on the repaired
+          lake.
+        unaffected_outputs:
+        - all immutable snapshot files
+        - execution-bias diagnosis
+        invalid_outputs:
+        - claims that RF is the current executable strategy baseline
+        superseded_by: constrained_portfolio_daily_execution_v1
+      final_research_baseline_v1:
+        invalidated_at_utc: '2026-10-17T12:10:00Z'
+        severity: superseded_publication_baseline
+        reason: The first final aggregate was frozen before the dashboard and publication
+          auditor gained explicit gates for the new factor registry, HGB surface,
+          portfolio sensitivity, and cost stress. Its research metrics are unchanged;
+          v2 records the final source tree and publication configuration.
+        unaffected_outputs:
+        - all immutable snapshot files
+        - all research metrics
+        invalid_outputs:
+        - claims that v1 represents the final publication source tree
+        superseded_by: final_research_baseline_v2
+      factor_registry_v1:
+        invalidated_at_utc: '2026-10-17T13:00:00Z'
+        severity: corrected_metadata_convention
+        reason: The v1 registry incorrectly described adjustflag=3 raw OHLC and ex-right-reference
+          pct_chg as a forward-adjusted price history. Factor formulas and numerical
+          outputs are unchanged; v2 corrects the metadata.
+        unaffected_outputs:
+        - all factor values
+        - all model and portfolio results
+        invalid_outputs:
+        - the v1 price_convention description
+        superseded_by: factor_registry_v2
+      final_research_baseline_v2:
+        invalidated_at_utc: '2026-10-17T13:00:00Z'
+        severity: superseded_publication_baseline
+        reason: V3 adds an explicit five-question decision hierarchy, BH-FDR control
+          for the single-factor family, corrected price-return metadata, and a formal
+          boundary between completed historical research and future paper/live work.
+        unaffected_outputs:
+        - all frozen research metrics and figures
+        invalid_outputs:
+        - claims that v2 contains the final conclusion-governance layer
+        superseded_by: final_research_baseline_v3
+      research_conclusion_audit_v1:
+        invalidated_at_utc: '2026-10-18T08:00:00Z'
+        severity: superseded_conclusion_baseline
+        reason: V2 adds the executable industry-and-six-style matched Incremental
+          Alpha Test, including paired block intervals, equal-volatility diagnostics,
+          transaction efficiency, and BH-FDR control across the four locked strategy
+          variants.
+        unaffected_outputs:
+        - all immutable snapshot files
+        - prior five-question conclusions
+        invalid_outputs:
+        - claims that v1 contains the complete incremental-alpha evidence
+        superseded_by: research_conclusion_audit_v2
+      final_research_baseline_v3:
+        invalidated_at_utc: '2026-10-18T08:00:00Z'
+        severity: superseded_publication_baseline
+        reason: V4 adds a characteristic-matched executable style benchmark and distinguishes
+          individual confidence intervals from cross-strategy multiplicity-controlled
+          evidence.
+        unaffected_outputs:
+        - all immutable snapshot files
+        - all pre-existing research metrics
+        invalid_outputs:
+        - claims that v3 contains the final incremental-alpha comparison
+        superseded_by: final_research_baseline_v4

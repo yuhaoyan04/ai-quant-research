@@ -1,0 +1,27 @@
+{
+  "experiment_id": "final_research_baseline_v4",
+  "frozen_at_utc": "2026-10-18T07:16:40.314816+00:00",
+  "content_sha256": "68cdf420b23a86ff1442a54034897b17bf2b61e94ae5ab34ced224fa013cfadd",
+  "files": {
+    "config.yaml": "5cedff7e6410948de36650575df1d2ff6d0fd37cfc15a96391e73897b1328f68",
+    "figures/annual_rank_ic.svg": "c067b4db5259f1bc0e9273ebd7727f6bcfededf435c1d0b76afc116b25be3b7b",
+    "figures/annual_returns.svg": "11573222bd1aa9d97a6f29ef708411639c7a6713aff9929f22d5e8e02f1f7d8a",
+    "figures/incremental_alpha_equity_curve.svg": "93677dde7514c0acc5fb0290a1bc2aa30d953c9989b7bf3a9dc072285c03c743",
+    "figures/oos_drawdown.svg": "984304171ddda336f03d77e429ec428619114e16cd785a8134a225ed702bc870",
+    "figures/oos_equity_curve.svg": "4bce2cbe393b98bea20fbcdddae4bec29059947d490b85cba0f7e708bdcbf85a",
+    "metadata.json": "127174c1ee6bc673a0b38f25b4a50a24f34524ee15b63c8f2f5bda7c7eb03a98",
+    "metrics.json": "eb7463acd7e1d32f80c318c2343b60724c1142bbbfe5327f91c1bdf5260db911",
+    "notes.md": "d5251e91a4a614a7f9eeecb44421f0f446147f39ff2853f8e7a71c2163eef8dd",
+    "tables/constrained_daily_execution_summary__v1.csv": "ab206c199e5600bf4ca32a151f82cc5b74ef65642413a0e2e20aef4d146a2efa",
+    "tables/incremental_alpha_bootstrap__v1.csv": "e171a50b87877188782aa693f3e96c11d7be096e65fd4ef669aeb8754d73298b",
+    "tables/incremental_alpha_comparison__v1.csv": "8f0d80b9e38f4f90ef6b415803bca8508c02c1acc2a055e926bf9bbea20d0806",
+    "tables/incremental_alpha_exposure_audit__v1.csv": "549320f3aa62a2191a06594960ede049cfd701b8f0b40f2572aecaff3051a71b",
+    "tables/incremental_alpha_summary__v1.csv": "d4d1d4adfed1fb053fe75fb373d5110e5e2b076edbade5eb3a4eba9f49e6aa6b",
+    "tables/model_benchmark_oos_summary__v1.csv": "0e99112f3aaf2abacf0bb70baf655eeb4b6f66ef74a45d32c9467e73d7764db7",
+    "tables/research_conclusion_decisions__v2.csv": "ae175233a3288cb390af5c1801159dfdfe032a84e1952eb6211fdb6287c55e6a",
+    "tables/research_factor_multiplicity__v2.csv": "149f5899f6cf1c184a00bfea344410cda9cb5d0289e7fc937778a2dcf624d66f",
+    "tables/research_lifecycle_audit__v2.csv": "d481dcb91be36854a02cce7213abee34801846f2f4c57c73439db9a23e736c59",
+    "tables/risk_model_attribution_summary__v1.csv": "65bc00270e44d9d85d7254debd568f1c42bfde5162e094acfe2aa139f5d205f9",
+    "tables/style_factor_regression_summary__v1.csv": "d64b1a4dcfd4cf24250c052bcb3e3edcbc99bffa470211c0436eeb4cc2f63df4"
+  }
+}

@@ -900,6 +900,134 @@ class ResearchAuditor:
             ),
         })
 
+    def audit_incremental_alpha_test(self) -> None:
+        """Gate the characteristic-matched executable incremental-alpha test."""
+        protocol = self.require_table("incremental_alpha_protocol", "v1")
+        targets = self.require_table("incremental_alpha_style_targets", "v1")
+        exposure = self.require_table("incremental_alpha_exposure_audit", "v1")
+        daily = self.require_table("incremental_alpha_daily", "v1")
+        summary = self.require_table("incremental_alpha_summary", "v1")
+        bootstrap = self.require_table("incremental_alpha_bootstrap", "v1")
+        comparison = self.require_table("incremental_alpha_comparison", "v1")
+        if any(frame.empty for frame in (
+            protocol, targets, exposure, daily, summary, bootstrap, comparison,
+        )):
+            return
+        row = protocol.iloc[0]
+        self.add(
+            "incremental_alpha_protocol_locked",
+            not bool(row["historical_oos_used_for_selection"])
+            and bool(row["pit_style_exposures_only"])
+            and bool(row["same_daily_execution_and_cost"])
+            and bool(row["industry_matched"])
+            and bool(row["volatility_matching_is_ex_post_diagnostic"])
+            and str(row["source_experiment"]) == "constrained_portfolio_daily_execution_v1",
+            "frozen ML targets; PIT style peers; same 20bp executable clock",
+        )
+        keys = ["model", "alpha_pipeline", "strategy"]
+        date_counts = targets.groupby(keys)["execution_date"].nunique()
+        weight_sums = targets.groupby([*keys, "execution_date"])["target_weight"].sum()
+        max_weight = float(targets["target_weight"].max())
+        self.add(
+            "incremental_alpha_target_constraints",
+            date_counts.nunique() == 1 and int(date_counts.min()) == 293
+            and np.allclose(weight_sums.to_numpy(dtype=float), 1.0, atol=1e-10)
+            and max_weight <= 0.005000001,
+            f"dates={date_counts.min()}-{date_counts.max()}, max_weight={max_weight:.8f}",
+        )
+        noninitial = exposure.groupby(keys).cumcount().gt(0)
+        maximum_turnover = float(exposure.loc[noninitial, "target_turnover"].max())
+        maximum_industry_gap = float(exposure["maximum_abs_industry_weight_gap"].max())
+        mean_overlap = float(exposure["portfolio_overlap_weight"].mean())
+        maximum_mean_style_gap = max(
+            float(exposure.groupby(keys)[f"{style}_exposure_gap"].apply(
+                lambda values: values.abs().mean()
+            ).max())
+            for style in ("size", "beta", "volatility", "liquidity", "value", "momentum")
+        )
+        self.add(
+            "incremental_alpha_exposure_and_turnover_match",
+            maximum_turnover <= 0.300001
+            and maximum_industry_gap <= 0.02
+            and mean_overlap <= 0.02
+            and maximum_mean_style_gap <= 0.35,
+            f"turnover={maximum_turnover:.6f}, industry_gap={maximum_industry_gap:.4f}, "
+            f"overlap={mean_overlap:.4f}, max_mean_style_gap={maximum_mean_style_gap:.4f}",
+        )
+        daily_counts = daily.groupby([*keys, "portfolio_type"])["trade_date"].nunique()
+        accounting_error = float((daily["accounting_weight_sum"] - 1.0).abs().max())
+        return_error = float((
+            daily["net_return"] - daily["gross_return"] + daily["transaction_cost"]
+        ).abs().max())
+        self.add(
+            "incremental_alpha_common_executable_clock",
+            daily_counts.nunique() == 1 and int(daily_counts.min()) == 1387
+            and accounting_error < 1e-10 and return_error < 1e-10,
+            f"dates={daily_counts.min()}-{daily_counts.max()}, "
+            f"accounting={accounting_error:.3e}, return={return_error:.3e}",
+        )
+        original = self.require_table("constrained_daily_execution_summary", "v1")
+        original = original.loc[
+            original["scenario"].eq("daily_retry_limit_and_suspension_constrained")
+        ][["model", "alpha_pipeline", "strategy", "annualized_return"]]
+        reproduced = summary.loc[summary["portfolio_type"].eq("ml_model")][
+            ["model", "alpha_pipeline", "strategy", "annualized_return"]
+        ]
+        merged = reproduced.merge(
+            original, on=keys, suffixes=("_incremental", "_original"),
+            validate="one_to_one",
+        )
+        reproduction_error = float((
+            merged["annualized_return_incremental"] - merged["annualized_return_original"]
+        ).abs().max())
+        self.add(
+            "incremental_alpha_reproduces_frozen_ml_path",
+            len(merged) == 4 and reproduction_error < 1e-12,
+            f"strategies={len(merged)}, max_annual_return_error={reproduction_error:.3e}",
+        )
+        expected_metrics = {
+            "incremental_net_return_annualized_arithmetic",
+            "volatility_matched_incremental_return_annualized_arithmetic",
+            "sharpe_improvement", "maximum_drawdown_improvement",
+            "turnover_improvement", "return_per_turnover_improvement",
+        }
+        complete = bootstrap.groupby(keys)["metric"].apply(set)
+        self.add(
+            "incremental_alpha_inference_and_multiplicity_complete",
+            len(complete) == 4 and complete.apply(lambda values: expected_metrics <= values).all()
+            and bootstrap["bh_fdr_adjusted_probability"].between(0, 1).all(),
+            f"comparisons={len(complete)}, metrics={bootstrap['metric'].nunique()}",
+        )
+        alpha = bootstrap.loc[
+            bootstrap["metric"].eq("incremental_net_return_annualized_arithmetic")
+        ]
+        hgb_neutral = alpha.loc[
+            alpha["model"].eq("hgb_shallow15_locked")
+            & alpha["alpha_pipeline"].eq("industry_size_neutralized")
+        ].iloc[0]
+        ridge_raw = comparison.loc[
+            comparison["model"].eq("ridge_locked")
+            & comparison["alpha_pipeline"].eq("raw")
+        ].iloc[0]
+        self.findings.update({
+            "incremental_alpha_individual_intervals_above_zero": int(
+                alpha["ci_2_5pct"].gt(0).sum()
+            ),
+            "incremental_alpha_bh_fdr_survivors": int(
+                alpha["survives_bh_fdr_5pct"].astype(bool).sum()
+            ),
+            "hgb_neutral_incremental_return_annualized_arithmetic": float(
+                hgb_neutral["point_estimate"]
+            ),
+            "hgb_neutral_incremental_return_ci_low": float(hgb_neutral["ci_2_5pct"]),
+            "hgb_neutral_incremental_return_ci_high": float(hgb_neutral["ci_97_5pct"]),
+            "ridge_raw_turnover_value_survives_multiplicity": bool(
+                ridge_raw[
+                    "multiplicity_controlled_risk_or_efficiency_value_detected"
+                ]
+            ),
+        })
+
     def audit_multi_factor_risk_attribution(self) -> None:
         """Gate PIT style coverage, exact attribution, and lagged risk forecasts."""
         protocol = self.require_table("risk_model_protocol", "v1")
@@ -1498,15 +1626,16 @@ class ResearchAuditor:
 
     def audit_research_conclusions(self) -> None:
         """Gate the decision hierarchy, multiplicity control, and lifecycle boundary."""
-        decisions = self.require_table("research_conclusion_decisions", "v1")
-        multiplicity = self.require_table("research_factor_multiplicity", "v1")
-        lifecycle = self.require_table("research_lifecycle_audit", "v1")
+        decisions = self.require_table("research_conclusion_decisions", "v2")
+        multiplicity = self.require_table("research_factor_multiplicity", "v2")
+        lifecycle = self.require_table("research_lifecycle_audit", "v2")
         registry = self.require_table("factor_registry", "v1")
         if any(frame.empty for frame in (decisions, multiplicity, lifecycle, registry)):
             return
         expected = {
             "neutralized_factor_signal_exists": "SUPPORTED_AS_DIAGNOSTIC_EVIDENCE",
             "hgb_adds_stable_increment_over_ridge": "NOT_ESTABLISHED",
+            "ml_adds_value_over_style_matched_baseline": "MIXED_LOCAL_EVIDENCE",
             "executable_backtest_survives_costs": "SUPPORTED_HISTORICALLY",
             "pure_stock_selection_alpha_is_significant": "NOT_SUPPORTED",
             "ready_for_live_capital": "NO",
@@ -1624,6 +1753,7 @@ class ResearchAuditor:
         self.audit_model_portfolio_neutralization()
         self.audit_constrained_portfolio_neutralization()
         self.audit_constrained_portfolio_daily_execution()
+        self.audit_incremental_alpha_test()
         self.audit_multi_factor_risk_attribution()
         self.audit_risk_aware_portfolio_optimization()
         self.audit_weekly_identity(

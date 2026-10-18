@@ -116,6 +116,7 @@ try {
             @{ Name = "Executable portfolio CAPM attribution"; Program = "quant-capm-attribution"; Args = @() },
             @{ Name = "Self-financing style factor attribution"; Program = "quant-style-factor-attribution"; Args = @() },
             @{ Name = "Multi-factor risk model and attribution"; Program = "quant-risk-attribution"; Args = @("all") },
+            @{ Name = "Characteristic-matched incremental alpha test"; Program = "quant-incremental-alpha"; Args = @("all") },
             @{ Name = "Risk-aware portfolio optimization"; Program = "quant-risk-aware-portfolio"; Args = @() },
             @{ Name = "Unified model benchmark"; Program = "quant-model-benchmark"; Args = @() },
             @{ Name = "HGB two-dimensional hyperparameter stability"; Program = "quant-hgb-hyperparameter-stability"; Args = @() },

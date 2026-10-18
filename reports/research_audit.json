@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-10-17T12:31:21.168769+00:00",
+  "generated_at_utc": "2026-10-18T07:18:16.215492+00:00",
   "checks": [
     {
       "name": "chronological_split_order",
@@ -302,6 +302,36 @@
       "detail": "all registered inputs match their SHA-256 hashes"
     },
     {
+      "name": "frozen_snapshot_integrity:incremental_alpha_test_v1",
+      "status": "PASS",
+      "detail": "all frozen files match FROZEN.json"
+    },
+    {
+      "name": "frozen_live_inputs:incremental_alpha_test_v1",
+      "status": "PASS",
+      "detail": "all registered inputs match their SHA-256 hashes"
+    },
+    {
+      "name": "frozen_snapshot_integrity:research_conclusion_audit_v2",
+      "status": "PASS",
+      "detail": "all frozen files match FROZEN.json"
+    },
+    {
+      "name": "frozen_live_inputs:research_conclusion_audit_v2",
+      "status": "PASS",
+      "detail": "all registered inputs match their SHA-256 hashes"
+    },
+    {
+      "name": "frozen_snapshot_integrity:final_research_baseline_v4",
+      "status": "PASS",
+      "detail": "all frozen files match FROZEN.json"
+    },
+    {
+      "name": "frozen_live_inputs:final_research_baseline_v4",
+      "status": "PASS",
+      "detail": "all registered inputs match their SHA-256 hashes"
+    },
+    {
       "name": "frozen_snapshot_integrity:final_research_baseline_v1",
       "status": "PASS",
       "detail": "all frozen files match FROZEN.json"
@@ -445,6 +475,16 @@
       "name": "invalidated_experiment:final_research_baseline_v2",
       "status": "WARN",
       "detail": "severity=superseded_publication_baseline; superseded_by=final_research_baseline_v3; reason=V3 adds an explicit five-question decision hierarchy, BH-FDR control for the single-factor family, corrected price-return metadata, and a formal boundary between completed historical research and future paper/live work."
+    },
+    {
+      "name": "invalidated_experiment:research_conclusion_audit_v1",
+      "status": "WARN",
+      "detail": "severity=superseded_conclusion_baseline; superseded_by=research_conclusion_audit_v2; reason=V2 adds the executable industry-and-six-style matched Incremental Alpha Test, including paired block intervals, equal-volatility diagnostics, transaction efficiency, and BH-FDR control across the four locked strategy variants."
+    },
+    {
+      "name": "invalidated_experiment:final_research_baseline_v3",
+      "status": "WARN",
+      "detail": "severity=superseded_publication_baseline; superseded_by=final_research_baseline_v4; reason=V4 adds a characteristic-matched executable style benchmark and distinguishes individual confidence intervals from cross-strategy multiplicity-controlled evidence."
     },
     {
       "name": "artifact:research_coverage/a_share",
@@ -1262,6 +1302,76 @@
       "detail": "strategies_with_haircut=4/4, negative_upper_intervals=4/4"
     },
     {
+      "name": "artifact:incremental_alpha_protocol/v1",
+      "status": "PASS",
+      "detail": "rows=1"
+    },
+    {
+      "name": "artifact:incremental_alpha_style_targets/v1",
+      "status": "PASS",
+      "detail": "rows=674,443"
+    },
+    {
+      "name": "artifact:incremental_alpha_exposure_audit/v1",
+      "status": "PASS",
+      "detail": "rows=1,172"
+    },
+    {
+      "name": "artifact:incremental_alpha_daily/v1",
+      "status": "PASS",
+      "detail": "rows=11,096"
+    },
+    {
+      "name": "artifact:incremental_alpha_summary/v1",
+      "status": "PASS",
+      "detail": "rows=8"
+    },
+    {
+      "name": "artifact:incremental_alpha_bootstrap/v1",
+      "status": "PASS",
+      "detail": "rows=24"
+    },
+    {
+      "name": "artifact:incremental_alpha_comparison/v1",
+      "status": "PASS",
+      "detail": "rows=4"
+    },
+    {
+      "name": "incremental_alpha_protocol_locked",
+      "status": "PASS",
+      "detail": "frozen ML targets; PIT style peers; same 20bp executable clock"
+    },
+    {
+      "name": "incremental_alpha_target_constraints",
+      "status": "PASS",
+      "detail": "dates=293-293, max_weight=0.00500000"
+    },
+    {
+      "name": "incremental_alpha_exposure_and_turnover_match",
+      "status": "PASS",
+      "detail": "turnover=0.300000, industry_gap=0.0169, overlap=0.0106, max_mean_style_gap=0.3314"
+    },
+    {
+      "name": "incremental_alpha_common_executable_clock",
+      "status": "PASS",
+      "detail": "dates=1387-1387, accounting=7.772e-15, return=5.234e-15"
+    },
+    {
+      "name": "artifact:constrained_daily_execution_summary/v1",
+      "status": "PASS",
+      "detail": "rows=8"
+    },
+    {
+      "name": "incremental_alpha_reproduces_frozen_ml_path",
+      "status": "PASS",
+      "detail": "strategies=4, max_annual_return_error=5.329e-15"
+    },
+    {
+      "name": "incremental_alpha_inference_and_multiplicity_complete",
+      "status": "PASS",
+      "detail": "comparisons=4, metrics=6"
+    },
+    {
       "name": "artifact:risk_model_protocol/v1",
       "status": "PASS",
       "detail": "rows=1"
@@ -1742,17 +1852,17 @@
       "detail": "costs=[0.0, 20.0, 50.0, 100.0], monotone=True"
     },
     {
-      "name": "artifact:research_conclusion_decisions/v1",
+      "name": "artifact:research_conclusion_decisions/v2",
       "status": "PASS",
-      "detail": "rows=5"
+      "detail": "rows=6"
     },
     {
-      "name": "artifact:research_factor_multiplicity/v1",
+      "name": "artifact:research_factor_multiplicity/v2",
       "status": "PASS",
       "detail": "rows=15"
     },
     {
-      "name": "artifact:research_lifecycle_audit/v1",
+      "name": "artifact:research_lifecycle_audit/v2",
       "status": "PASS",
       "detail": "rows=16"
     },
@@ -1764,7 +1874,7 @@
     {
       "name": "conclusion_decision_hierarchy_complete",
       "status": "PASS",
-      "detail": "verdicts={'neutralized_factor_signal_exists': 'SUPPORTED_AS_DIAGNOSTIC_EVIDENCE', 'hgb_adds_stable_increment_over_ridge': 'NOT_ESTABLISHED', 'executable_backtest_survives_costs': 'SUPPORTED_HISTORICALLY', 'pure_stock_selection_alpha_is_significant': 'NOT_SUPPORTED', 'ready_for_live_capital': 'NO'}"
+      "detail": "verdicts={'neutralized_factor_signal_exists': 'SUPPORTED_AS_DIAGNOSTIC_EVIDENCE', 'hgb_adds_stable_increment_over_ridge': 'NOT_ESTABLISHED', 'ml_adds_value_over_style_matched_baseline': 'MIXED_LOCAL_EVIDENCE', 'executable_backtest_survives_costs': 'SUPPORTED_HISTORICALLY', 'pure_stock_selection_alpha_is_significant': 'NOT_SUPPORTED', 'ready_for_live_capital': 'NO'}"
     },
     {
       "name": "single_factor_multiple_testing_controlled",
@@ -1793,8 +1903,8 @@
     }
   ],
   "findings": {
-    "registered_frozen_experiments": 34,
-    "invalidated_experiments": 19,
+    "registered_frozen_experiments": 37,
+    "invalidated_experiments": 21,
     "common_oos_weeks": 291,
     "ridge_annualized_return_20bp": 0.2005894880405501,
     "challenger_annualized_return_20bp": 0.2507876712519381,
@@ -1837,6 +1947,12 @@
     "constrained_daily_hgb_raw_sharpe": 0.9371647586448054,
     "constrained_daily_hgb_raw_maximum_drawdown": -0.3332492493261945,
     "constrained_daily_hgb_raw_mean_blocked_buy_weight": 0.004518262280589924,
+    "incremental_alpha_individual_intervals_above_zero": 1,
+    "incremental_alpha_bh_fdr_survivors": 0,
+    "hgb_neutral_incremental_return_annualized_arithmetic": 0.03646786854268133,
+    "hgb_neutral_incremental_return_ci_low": 0.0024438912915467014,
+    "hgb_neutral_incremental_return_ci_high": 0.07164682883394921,
+    "ridge_raw_turnover_value_survives_multiplicity": true,
     "pit_beta_minimum_coverage": 0.914180582483791,
     "hgb_raw_annualized_style_contribution_arithmetic": 0.13613172549903055,
     "hgb_raw_annualized_specific_selection_contribution_arithmetic": -0.004344077537185444,

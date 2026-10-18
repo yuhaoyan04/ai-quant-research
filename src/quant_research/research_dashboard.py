@@ -336,6 +336,22 @@ def generate(output: Path = REPORT) -> Path:
         "mean_turnover", "mean_blocked_buy_weight", "mean_blocked_sell_weight",
         "mean_target_tracking_l1", "mean_cash_weight",
     ]].copy()
+    incremental_alpha = lake.read("incremental_alpha_comparison", "v1")
+    incremental_alpha_display = incremental_alpha[[
+        "model", "alpha_pipeline", "annualized_return_model",
+        "annualized_return_style", "sharpe_zero_rate_model",
+        "sharpe_zero_rate_style", "maximum_drawdown_model",
+        "maximum_drawdown_style",
+        "incremental_net_return_annualized_arithmetic__point_estimate",
+        "incremental_net_return_annualized_arithmetic__ci_2_5pct",
+        "incremental_net_return_annualized_arithmetic__ci_97_5pct",
+        "incremental_alpha_significant_positive",
+        "incremental_alpha_survives_bh_fdr_5pct",
+        "turnover_improvement__point_estimate",
+        "turnover_improvement__ci_2_5pct",
+        "turnover_improvement__ci_97_5pct",
+        "turnover_improvement__survives_bh_fdr_5pct",
+    ]].copy()
     risk_attribution = lake.read("risk_model_attribution_summary", "v1")
     risk_attribution_display = risk_attribution[[
         "model", "alpha_pipeline", "annualized_return",
@@ -398,14 +414,14 @@ def generate(output: Path = REPORT) -> Path:
         "portfolio_sharpe_zero_rate",
     ]].sort_values("mean_rank_ic", ascending=False)
     factor_distribution_display = lake.read("factor_distribution_summary", "v1")
-    conclusion_decisions_display = lake.read("research_conclusion_decisions", "v1")[[
+    conclusion_decisions_display = lake.read("research_conclusion_decisions", "v2")[[
         "question", "verdict", "evidence", "scope_limit",
     ]]
-    factor_multiplicity_display = lake.read("research_factor_multiplicity", "v1")[[
+    factor_multiplicity_display = lake.read("research_factor_multiplicity", "v2")[[
         "factor", "point_estimate", "ci_2_5pct", "ci_97_5pct",
         "bh_fdr_adjusted_p", "survives_bh_fdr",
     ]]
-    lifecycle_display = lake.read("research_lifecycle_audit", "v1")
+    lifecycle_display = lake.read("research_lifecycle_audit", "v2")
     minimum_industry_coverage = float(
         industry_exposure_index["eligible_industry_coverage"].min()
     )
@@ -476,6 +492,7 @@ def generate(output: Path = REPORT) -> Path:
         "model_portfolio_neutralization": model_neutralization_display,
         "constrained_portfolio_neutralization": constrained_portfolio_display,
         "constrained_portfolio_daily_execution": constrained_daily_execution_display,
+        "incremental_alpha_test": incremental_alpha_display,
         "multi_factor_risk_attribution": risk_attribution_display,
         "capm_attribution": capm_display,
         "self_financing_style_factors": style_factor_diagnostics,
@@ -632,6 +649,22 @@ def generate(output: Path = REPORT) -> Path:
                 "returns accrue before close; blocked share orders retry daily; "
                 "new weekly targets cancel stale orders"
             ),
+        },
+        "incremental_alpha_test": {
+            "benchmark": "PIT same-industry six-style matched peer replica",
+            "cost_bps": 20,
+            "common_daily_observations": 1387,
+            "individual_alpha_intervals_above_zero": int(
+                incremental_alpha_display[
+                    "incremental_alpha_significant_positive"
+                ].astype(bool).sum()
+            ),
+            "alpha_bh_fdr_survivors": int(
+                incremental_alpha_display[
+                    "incremental_alpha_survives_bh_fdr_5pct"
+                ].astype(bool).sum()
+            ),
+            "comparisons": incremental_alpha_display.to_dict(orient="records"),
         },
         "multi_factor_risk_attribution": {
             "benchmark": "equal-weight PIT exposure-complete universe",
@@ -805,7 +838,7 @@ code{{background:#edf2f7;padding:2px 5px;border-radius:4px}}@media(max-width:850
 </style></head><body><main>
 <h1>A 股点时多因子与机器学习研究面板</h1><p class="muted">点时数据｜t+1 可执行标签｜Purged walk-forward｜成本、容量、规模与涨跌停压力测试｜生成于 {pd.Timestamp.now():%Y-%m-%d %H:%M}</p>
 <div class="grid">{cards_html}</div>
-<section class="panel finding"><h2>五项最终判定</h2>{_table(conclusion_decisions_display)}<p class="muted">研究回测链路已经闭环；paper/live 是下一阶段，不能用历史回测替代。</p></section>
+<section class="panel finding"><h2>六项最终判定</h2>{_table(conclusion_decisions_display)}<p class="muted">研究回测链路已经闭环；paper/live 是下一阶段，不能用历史回测替代。</p></section>
 <section class="panel"><h2>历史样本外累计净值（共同日期，20bp）</h2>{equity_svg}<p class="muted">CSI 500 使用与策略相同的 t+1 收盘入场、随后 5 日持有标签；图中不含指数交易费用。</p></section>
 <section class="panel"><h2>回撤路径</h2>{drawdown_svg}</section>
 <section class="panel"><h2>年度收益</h2>{annual_return_svg}</section>
@@ -823,6 +856,7 @@ code{{background:#edf2f7;padding:2px 5px;border-radius:4px}}@media(max-width:850
 <section class="panel"><h2>锁定模型与 Top-200 的中性化传导</h2>{_table(model_neutralization_display, {'raw_mean_rank_ic':'{:.4f}','neutral_mean_rank_ic':'{:.4f}','rank_ic_delta':'{:.4f}','rank_ic_ci_low':'{:.4f}','rank_ic_ci_high':'{:.4f}','raw_annualized_return':'{:.1%}','neutral_annualized_return':'{:.1%}','annualized_arithmetic_return_delta':'{:.1%}','return_delta_ci_low':'{:.1%}','return_delta_ci_high':'{:.1%}','raw_industry_active_weight_l1':'{:.3f}','neutral_industry_active_weight_l1':'{:.3f}'})}<p class="muted">固定 Ridge/HGB 参数、相同 PIT 暴露完整样本与 Top-200 规则。因子正交不保证排序尾部或非线性模型分数行业中性；本表未施加组合行业约束。</p></section>
 <section class="panel"><h2>组合层行业、规模与换手约束</h2>{_table(constrained_portfolio_display, {'annualized_return':'{:.1%}','annualized_volatility':'{:.1%}','sharpe_zero_rate':'{:.2f}','maximum_drawdown':'{:.1%}','mean_turnover':'{:.3f}','mean_abs_portfolio_size_z':'{:.3f}','mean_industry_active_weight_l1':'{:.3f}','mean_maximum_abs_industry_active_weight':'{:.3f}','turnover_relaxation_fraction':'{:.1%}'})}<p class="muted">单股 0.5%、行业主动权重 ±3%、|size-z|≤0.10、周换手目标 30%。所有约束组合均未触发换手放宽；收益是理想全成交、20bp 研究口径。</p></section>
 <section class="panel"><h2>约束组合的日频可成交审计</h2>{_table(constrained_daily_execution_display, {'annualized_return':'{:.1%}','annualized_volatility':'{:.1%}','sharpe_zero_rate':'{:.2f}','maximum_drawdown':'{:.1%}','mean_turnover':'{:.3f}','mean_blocked_buy_weight':'{:.2%}','mean_blocked_sell_weight':'{:.2%}','mean_target_tracking_l1':'{:.3f}','mean_cash_weight':'{:.2%}'})}<p class="muted">同一非重叠日频净值时钟、20bp 成本；停牌和涨跌停未成交股数订单逐日重试。raw HGB 从理想成交年化 22.18% 降至可成交 20.81%，折损区间显著低于零。</p></section>
+<section class="panel"><h2>Incremental Alpha Test：ML 相对风格复制基准</h2>{_table(incremental_alpha_display, {'annualized_return_model':'{:.1%}','annualized_return_style':'{:.1%}','sharpe_zero_rate_model':'{:.2f}','sharpe_zero_rate_style':'{:.2f}','maximum_drawdown_model':'{:.1%}','maximum_drawdown_style':'{:.1%}','incremental_net_return_annualized_arithmetic__point_estimate':'{:.1%}','incremental_net_return_annualized_arithmetic__ci_2_5pct':'{:.1%}','incremental_net_return_annualized_arithmetic__ci_97_5pct':'{:.1%}','turnover_improvement__point_estimate':'{:.3%}','turnover_improvement__ci_2_5pct':'{:.3%}','turnover_improvement__ci_97_5pct':'{:.3%}'})}<p class="muted">基准逐期匹配行业、规模、Beta、波动、流动性、价值与动量，并共享 30% 周换手上限、停牌/涨跌停重试及 20bp 成本。HGB neutral 的单项增量区间为正，但四策略 BH-FDR 后 0/4 通过；Ridge raw 的换手改善通过同指标四策略 BH-FDR。结论是局部证据，不是稳定纯 Alpha。</p></section>
 <section class="panel"><h2>多因子风险与收益归因</h2>{_table(risk_attribution_display, {'annualized_return':'{:.1%}','annualized_market_contribution_arithmetic':'{:.1%}','annualized_industry_active_contribution_arithmetic':'{:.1%}','annualized_style_contribution_arithmetic':'{:.1%}','annualized_specific_selection_contribution_arithmetic':'{:.1%}','annualized_transaction_cost_arithmetic':'{:.1%}','mean_forecast_annualized_volatility':'{:.1%}','mean_forecast_annualized_tracking_error':'{:.1%}'})}<p class="muted">等权 PIT 股票池为市场基准。行业主动贡献接近零；raw HGB 的风格贡献约 13.61%，特异选股贡献约 -0.43%，其 95% 区间跨零。当前收益主要来自流动性、波动与动量风格，而非已证实的纯个股 alpha。</p></section>
 <section class="panel"><h2>日频可成交组合 CAPM Alpha</h2>{_table(capm_display, {'annualized_alpha_arithmetic':'{:.1%}','annualized_alpha_ci_low':'{:.1%}','annualized_alpha_ci_high':'{:.1%}','alpha_hac_t_stat':'{:.2f}','beta':'{:.3f}','beta_ci_low':'{:.3f}','beta_ci_high':'{:.3f}','r_squared':'{:.3f}'})}<p class="muted">相对 CSI500，唯一非重叠日频净收益，Newey–West(5)。四条组合的全样本 Alpha 区间下界均为正，但滚动窗口曾转负；指数不含股息且无风险利率按0，因此不能将截距解释为纯个股 Alpha。</p></section>
 <section class="panel"><h2>自融资风格组合</h2>{_table(style_factor_diagnostics, {'annualized_mean_return_arithmetic':'{:.1%}','annualized_volatility':'{:.1%}','mean_return_hac_t_stat':'{:.2f}','mean_weekly_two_leg_turnover':'{:.3f}'})}<p class="muted">目标风格先对宽行业与其余五风格残差化；正负残差形成单位多空腿。收益未扣成本，仅作时间序列解释变量。</p></section>
@@ -831,7 +865,7 @@ code{{background:#edf2f7;padding:2px 5px;border-radius:4px}}@media(max-width:850
 <section class="panel"><h2>Top-N 与 inverse-vol 共同日期诊断</h2>{_table(portfolio_sensitivity_display, {'maximum_target_weight':'{:.2%}','annualized_return':'{:.1%}','annualized_volatility':'{:.1%}','sharpe_zero_rate':'{:.2f}','annualized_excess_return_arithmetic':'{:.1%}','information_ratio':'{:.2f}','maximum_drawdown':'{:.1%}','mean_turnover':'{:.3f}','mean_realized_weight_fraction':'{:.2%}'})}<p class="muted">Top50/100/200/500 全部报告；historical OOS 已被查看，不据此重新选择已锁定的 Top-200 等权政策。</p></section>
 <section class="panel"><h2>最终日频组合 0/20/50/100bp 成本压力</h2>{_table(execution_cost_stress_display, {'cost_bps':'{:.0f}','annualized_return':'{:.1%}','sharpe_zero_rate':'{:.2f}','maximum_drawdown':'{:.1%}'})}<p class="muted">固定实际成交路径的线性费用重定价，不包含费用反馈、股数取整或券商校准市场冲击。</p></section>
 <section class="panel"><h2>HGB 二维参数稳定面</h2>{_table(hgb_surface_display, {'l2_regularization':'{:.1f}','mean_rank_ic':'{:.4f}','annualized_icir':'{:.2f}','portfolio_annualized_return':'{:.1%}','portfolio_sharpe_zero_rate':'{:.2f}'})}<p class="muted">仅使用 2006–2015 训练和 2016–2020 验证。RankIC 面较平坦，但理想成交收益与年度最优坐标不稳定；不据此提升新参数。</p></section>
-<section class="panel finding"><h2>最终 finding</h2><p>Ridge 多因子基线在各历史样本外年度均保持正 RankIC；20bp 成本后，相对 CSI 500 的年化算术超额块 bootstrap 95% 区间仍高于 0，这是当前最可靠的正向证据。RF 的 RankIC 约 0.100，但旧组合回测同时含持有期重叠和不可成交偏差。改用股数订单、非重叠日频时钟及停牌/涨跌停逐日重试后，historical OOS 年化 {rf_oos_constrained.annualized_return:.2%}、Sharpe {rf_oos_constrained.sharpe_zero_rate:.2f}、最大回撤 {rf_oos_constrained.maximum_drawdown:.2%}；验证期为 {rf_validation_constrained.annualized_return:.2%}。显式组合约束把每个行业主动权重压到 ±3%、规模暴露压到 ±0.10，并把换手稳定在 30%。在非重叠日频成交口径下，原始 HGB 理想成交年化 22.18%，加入停牌/涨跌停逐日重试后为 20.81%、Sharpe 0.94、最大回撤 -33.32%。正式归因进一步表明行业主动贡献接近零，但 raw HGB 约 13.61% 的年化算术贡献来自流动性、波动、动量等风格，特异选股贡献 -0.43% 且区间 [-3.52%, 3.08%] 跨零；因此当前证据支持“可控风格溢价”，不支持“稳定纯个股 alpha”。第一版风险感知政策虽把 raw HGB 预测 TE 从 8.07% 降到 4.43%，但收益差区间显著为负，故明确拒绝该政策。结果仍受申万细分行业缺失、股票池代理、日内排队和冲击模型未校准等限制；2021–2026 已在开发中被检查，应称为历史样本外，不再称作从未查看的 lockbox。</p></section>
+<section class="panel finding"><h2>最终 finding</h2><p>Ridge 多因子基线在各历史样本外年度均保持正 RankIC；20bp 成本后，相对 CSI 500 的年化算术超额块 bootstrap 95% 区间仍高于 0，这是当前最可靠的正向证据。RF 的 RankIC 约 0.100，但旧组合回测同时含持有期重叠和不可成交偏差。改用股数订单、非重叠日频时钟及停牌/涨跌停逐日重试后，historical OOS 年化 {rf_oos_constrained.annualized_return:.2%}、Sharpe {rf_oos_constrained.sharpe_zero_rate:.2f}、最大回撤 {rf_oos_constrained.maximum_drawdown:.2%}；验证期为 {rf_validation_constrained.annualized_return:.2%}。显式组合约束把每个行业主动权重压到 ±3%、规模暴露压到 ±0.10，并把换手稳定在 30%。在非重叠日频成交口径下，原始 HGB 理想成交年化 22.18%，加入停牌/涨跌停逐日重试后为 20.81%、Sharpe 0.94、最大回撤 -33.32%。正式归因进一步表明行业主动贡献接近零，但 raw HGB 约 13.61% 的年化算术贡献来自流动性、波动、动量等风格，特异选股贡献 -0.43% 且区间 [-3.52%, 3.08%] 跨零。新增的可成交特征匹配检验中，HGB neutral 相对风格复制组合的年化算术增量为 3.65%，单项 95% 区间 [0.24%, 7.16%]，但四策略 BH-FDR 后无一通过；Ridge raw 仅在换手效率上保留多重检验后的优势。因此当前证据支持“可控风格溢价 + 局部实施价值”，不支持“跨模型稳定纯个股 alpha”。结果仍受申万细分行业缺失、股票池代理、日内排队和冲击模型未校准等限制；2021–2026 已在开发中被检查，应称为历史样本外，不再称作从未查看的 lockbox。</p></section>
 </main></body></html>'''
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(document, encoding="utf-8")

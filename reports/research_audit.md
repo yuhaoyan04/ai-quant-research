@@ -1,8 +1,8 @@
 # Research artifact audit
 
-Generated at `2026-10-17T12:31:21.168769+00:00`.
+Generated at `2026-10-18T07:18:16.215492+00:00`.
 
-Summary: **317 PASS / 41 WARN / 0 FAIL**
+Summary: **337 PASS / 43 WARN / 0 FAIL**
 
 | Status | Check | Detail |
 |---|---|---|
@@ -66,6 +66,12 @@ Summary: **317 PASS / 41 WARN / 0 FAIL**
 | PASS | `frozen_live_inputs:hgb_hyperparameter_stability_v1` | all registered inputs match their SHA-256 hashes |
 | PASS | `frozen_snapshot_integrity:factor_visual_diagnostics_v1` | all frozen files match FROZEN.json |
 | PASS | `frozen_live_inputs:factor_visual_diagnostics_v1` | all registered inputs match their SHA-256 hashes |
+| PASS | `frozen_snapshot_integrity:incremental_alpha_test_v1` | all frozen files match FROZEN.json |
+| PASS | `frozen_live_inputs:incremental_alpha_test_v1` | all registered inputs match their SHA-256 hashes |
+| PASS | `frozen_snapshot_integrity:research_conclusion_audit_v2` | all frozen files match FROZEN.json |
+| PASS | `frozen_live_inputs:research_conclusion_audit_v2` | all registered inputs match their SHA-256 hashes |
+| PASS | `frozen_snapshot_integrity:final_research_baseline_v4` | all frozen files match FROZEN.json |
+| PASS | `frozen_live_inputs:final_research_baseline_v4` | all registered inputs match their SHA-256 hashes |
 | PASS | `frozen_snapshot_integrity:final_research_baseline_v1` | all frozen files match FROZEN.json |
 | WARN | `frozen_live_inputs:final_research_baseline_v1` | mismatches=['factor_registry/v1'] |
 | PASS | `frozen_snapshot_integrity:final_research_baseline_v2` | all frozen files match FROZEN.json |
@@ -95,6 +101,8 @@ Summary: **317 PASS / 41 WARN / 0 FAIL**
 | WARN | `invalidated_experiment:final_research_baseline_v1` | severity=superseded_publication_baseline; superseded_by=final_research_baseline_v2; reason=The first final aggregate was frozen before the dashboard and publication auditor gained explicit gates for the new factor registry, HGB surface, portfolio sensitivity, and cost stress. Its research metrics are unchanged; v2 records the final source tree and publication configuration. |
 | WARN | `invalidated_experiment:factor_registry_v1` | severity=corrected_metadata_convention; superseded_by=factor_registry_v2; reason=The v1 registry incorrectly described adjustflag=3 raw OHLC and ex-right-reference pct_chg as a forward-adjusted price history. Factor formulas and numerical outputs are unchanged; v2 corrects the metadata. |
 | WARN | `invalidated_experiment:final_research_baseline_v2` | severity=superseded_publication_baseline; superseded_by=final_research_baseline_v3; reason=V3 adds an explicit five-question decision hierarchy, BH-FDR control for the single-factor family, corrected price-return metadata, and a formal boundary between completed historical research and future paper/live work. |
+| WARN | `invalidated_experiment:research_conclusion_audit_v1` | severity=superseded_conclusion_baseline; superseded_by=research_conclusion_audit_v2; reason=V2 adds the executable industry-and-six-style matched Incremental Alpha Test, including paired block intervals, equal-volatility diagnostics, transaction efficiency, and BH-FDR control across the four locked strategy variants. |
+| WARN | `invalidated_experiment:final_research_baseline_v3` | severity=superseded_publication_baseline; superseded_by=final_research_baseline_v4; reason=V4 adds a characteristic-matched executable style benchmark and distinguishes individual confidence intervals from cross-strategy multiplicity-controlled evidence. |
 | PASS | `artifact:research_coverage/a_share` | rows=4 |
 | PASS | `historical_universe_download_coverage` | coverage=100.00%, missing_files=0 |
 | PASS | `artifact:model_validation_predictions/ridge_v1` | rows=818,333 |
@@ -258,6 +266,20 @@ Summary: **317 PASS / 41 WARN / 0 FAIL**
 | PASS | `constrained_daily_execution_accounting_identity` | dates=1387-1387, accounting=8.327e-15, return=5.840e-15 |
 | PASS | `constrained_daily_execution_no_hidden_rebalance` | ideal_non_target_max_turnover=0.000e+00 |
 | PASS | `constrained_daily_execution_haircut_detected` | strategies_with_haircut=4/4, negative_upper_intervals=4/4 |
+| PASS | `artifact:incremental_alpha_protocol/v1` | rows=1 |
+| PASS | `artifact:incremental_alpha_style_targets/v1` | rows=674,443 |
+| PASS | `artifact:incremental_alpha_exposure_audit/v1` | rows=1,172 |
+| PASS | `artifact:incremental_alpha_daily/v1` | rows=11,096 |
+| PASS | `artifact:incremental_alpha_summary/v1` | rows=8 |
+| PASS | `artifact:incremental_alpha_bootstrap/v1` | rows=24 |
+| PASS | `artifact:incremental_alpha_comparison/v1` | rows=4 |
+| PASS | `incremental_alpha_protocol_locked` | frozen ML targets; PIT style peers; same 20bp executable clock |
+| PASS | `incremental_alpha_target_constraints` | dates=293-293, max_weight=0.00500000 |
+| PASS | `incremental_alpha_exposure_and_turnover_match` | turnover=0.300000, industry_gap=0.0169, overlap=0.0106, max_mean_style_gap=0.3314 |
+| PASS | `incremental_alpha_common_executable_clock` | dates=1387-1387, accounting=7.772e-15, return=5.234e-15 |
+| PASS | `artifact:constrained_daily_execution_summary/v1` | rows=8 |
+| PASS | `incremental_alpha_reproduces_frozen_ml_path` | strategies=4, max_annual_return_error=5.329e-15 |
+| PASS | `incremental_alpha_inference_and_multiplicity_complete` | comparisons=4, metrics=6 |
 | PASS | `artifact:risk_model_protocol/v1` | rows=1 |
 | PASS | `artifact:pit_beta_exposure_index/v1` | rows=19 |
 | PASS | `artifact:risk_model_factor_returns/v1` | rows=26,028 |
@@ -354,11 +376,11 @@ Summary: **317 PASS / 41 WARN / 0 FAIL**
 | PASS | `hgb_surface_validation_only_and_complete` | surface_points=9, evaluation=2016_2020_validation_only |
 | PASS | `portfolio_sensitivity_common_date_and_no_reselection` | variants={'historical_oos': 8, 'validation': 8}, performance_period_counts={'historical_oos': 1, 'validation': 1} |
 | PASS | `execution_cost_stress_complete_and_monotone` | costs=[0.0, 20.0, 50.0, 100.0], monotone=True |
-| PASS | `artifact:research_conclusion_decisions/v1` | rows=5 |
-| PASS | `artifact:research_factor_multiplicity/v1` | rows=15 |
-| PASS | `artifact:research_lifecycle_audit/v1` | rows=16 |
+| PASS | `artifact:research_conclusion_decisions/v2` | rows=6 |
+| PASS | `artifact:research_factor_multiplicity/v2` | rows=15 |
+| PASS | `artifact:research_lifecycle_audit/v2` | rows=16 |
 | PASS | `artifact:factor_registry/v1` | rows=15 |
-| PASS | `conclusion_decision_hierarchy_complete` | verdicts={'neutralized_factor_signal_exists': 'SUPPORTED_AS_DIAGNOSTIC_EVIDENCE', 'hgb_adds_stable_increment_over_ridge': 'NOT_ESTABLISHED', 'executable_backtest_survives_costs': 'SUPPORTED_HISTORICALLY', 'pure_stock_selection_alpha_is_significant': 'NOT_SUPPORTED', 'ready_for_live_capital': 'NO'} |
+| PASS | `conclusion_decision_hierarchy_complete` | verdicts={'neutralized_factor_signal_exists': 'SUPPORTED_AS_DIAGNOSTIC_EVIDENCE', 'hgb_adds_stable_increment_over_ridge': 'NOT_ESTABLISHED', 'ml_adds_value_over_style_matched_baseline': 'MIXED_LOCAL_EVIDENCE', 'executable_backtest_survives_costs': 'SUPPORTED_HISTORICALLY', 'pure_stock_selection_alpha_is_significant': 'NOT_SUPPORTED', 'ready_for_live_capital': 'NO'} |
 | PASS | `single_factor_multiple_testing_controlled` | factors=15, bh_fdr_5pct_pass=14, maximum_q_error=0.000e+00 |
 | PASS | `research_and_deployment_scope_separated` | historical research chain is complete; paper/live evidence remains a separate gate |
 | PASS | `price_and_return_convention_explicit` | price_convention=baostock_unadjusted_ohlc_and_ex_right_reference_pct_chg |
@@ -367,8 +389,8 @@ Summary: **317 PASS / 41 WARN / 0 FAIL**
 
 ## Headline findings
 
-- `registered_frozen_experiments`: 34
-- `invalidated_experiments`: 19
+- `registered_frozen_experiments`: 37
+- `invalidated_experiments`: 21
 - `common_oos_weeks`: 291
 - `ridge_annualized_return_20bp`: 0.2005894880405501
 - `challenger_annualized_return_20bp`: 0.2507876712519381
@@ -411,6 +433,12 @@ Summary: **317 PASS / 41 WARN / 0 FAIL**
 - `constrained_daily_hgb_raw_sharpe`: 0.9371647586448054
 - `constrained_daily_hgb_raw_maximum_drawdown`: -0.3332492493261945
 - `constrained_daily_hgb_raw_mean_blocked_buy_weight`: 0.004518262280589924
+- `incremental_alpha_individual_intervals_above_zero`: 1
+- `incremental_alpha_bh_fdr_survivors`: 0
+- `hgb_neutral_incremental_return_annualized_arithmetic`: 0.03646786854268133
+- `hgb_neutral_incremental_return_ci_low`: 0.0024438912915467014
+- `hgb_neutral_incremental_return_ci_high`: 0.07164682883394921
+- `ridge_raw_turnover_value_survives_multiplicity`: True
 - `pit_beta_minimum_coverage`: 0.914180582483791
 - `hgb_raw_annualized_style_contribution_arithmetic`: 0.13613172549903055
 - `hgb_raw_annualized_specific_selection_contribution_arithmetic`: -0.004344077537185444

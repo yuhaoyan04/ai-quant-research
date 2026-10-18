@@ -208,3 +208,22 @@ invalidations:
     unaffected_outputs: [all frozen research metrics and figures]
     invalid_outputs: [claims that v2 contains the final conclusion-governance layer]
     superseded_by: final_research_baseline_v3
+  research_conclusion_audit_v1:
+    invalidated_at_utc: "2026-10-18T08:00:00Z"
+    severity: superseded_conclusion_baseline
+    reason: >-
+      V2 adds the executable industry-and-six-style matched Incremental Alpha Test,
+      including paired block intervals, equal-volatility diagnostics, transaction
+      efficiency, and BH-FDR control across the four locked strategy variants.
+    unaffected_outputs: [all immutable snapshot files, prior five-question conclusions]
+    invalid_outputs: [claims that v1 contains the complete incremental-alpha evidence]
+    superseded_by: research_conclusion_audit_v2
+  final_research_baseline_v3:
+    invalidated_at_utc: "2026-10-18T08:00:00Z"
+    severity: superseded_publication_baseline
+    reason: >-
+      V4 adds a characteristic-matched executable style benchmark and distinguishes
+      individual confidence intervals from cross-strategy multiplicity-controlled evidence.
+    unaffected_outputs: [all immutable snapshot files, all pre-existing research metrics]
+    invalid_outputs: [claims that v3 contains the final incremental-alpha comparison]
+    superseded_by: final_research_baseline_v4
