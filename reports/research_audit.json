@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-10-20T09:52:25.152056+00:00",
+  "generated_at_utc": "2026-10-20T09:54:54.197484+00:00",
   "checks": [
     {
       "name": "chronological_split_order",
@@ -440,6 +440,21 @@
       "name": "frozen_live_inputs:institutional_execution_v1",
       "status": "PASS",
       "detail": "all registered inputs match their SHA-256 hashes"
+    },
+    {
+      "name": "frozen_snapshot_integrity:institutional_execution_v2",
+      "status": "PASS",
+      "detail": "all frozen files match FROZEN.json"
+    },
+    {
+      "name": "frozen_live_inputs:institutional_execution_v2",
+      "status": "PASS",
+      "detail": "all registered inputs match their SHA-256 hashes"
+    },
+    {
+      "name": "invalidated_experiment:institutional_execution_v1",
+      "status": "WARN",
+      "detail": "severity=registry_self_staging_dirty_flag; superseded_by=institutional_execution_v2; reason=The research outputs and hashes are valid, but the experiment registry created its temporary snapshot directory inside the repository before capturing Git status. That self-created untracked directory caused the metadata to report dirty=true even though registration began from clean commit d1b00aedd5b3dcbc660733fa64288c550a83e446."
     },
     {
       "name": "invalidated_experiment:portfolio_sensitivity_v1",
@@ -2143,8 +2158,8 @@
     }
   ],
   "findings": {
-    "registered_frozen_experiments": 43,
-    "invalidated_experiments": 22,
+    "registered_frozen_experiments": 44,
+    "invalidated_experiments": 23,
     "common_oos_weeks": 291,
     "ridge_annualized_return_20bp": 0.2005894880405501,
     "challenger_annualized_return_20bp": 0.2507876712519381,
