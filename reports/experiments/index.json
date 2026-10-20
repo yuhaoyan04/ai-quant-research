@@ -315,6 +315,15 @@
     "immutable": true
   },
   {
+    "experiment_id": "paper_trading_pipeline_v1",
+    "title": "Phase 11 forward-only paper trading and future-lockbox operations",
+    "stage": "paper_trading_and_future_lockbox",
+    "model_version": "candidate_bundle_v1_hgb_raw_p4_constrained_forward_only",
+    "registered_at_utc": "2026-10-20T13:55:21.311192+00:00",
+    "dataset_version": "ad975fa1e9be0c4b4e8160904d964081c44ef81e3508dbe50eea191013907903",
+    "immutable": true
+  },
+  {
     "experiment_id": "portfolio_construction_comparison_v1",
     "title": "Phase 6 common-signal portfolio construction and execution comparison",
     "stage": "portfolio_weighting_and_constrained_optimization",

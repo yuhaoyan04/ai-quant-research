@@ -1,0 +1,112 @@
+{
+  "experiment_id": "paper_trading_pipeline_v1",
+  "title": "Phase 11 forward-only paper trading and future-lockbox operations",
+  "stage": "paper_trading_and_future_lockbox",
+  "model_version": "candidate_bundle_v1_hgb_raw_p4_constrained_forward_only",
+  "registered_at_utc": "2026-10-20T13:55:21.311192+00:00",
+  "immutable": true,
+  "selection_policy": "validation_only",
+  "historical_oos_used_for_selection": false,
+  "historical_oos_disclosure": "The 2021-2026 block has already been inspected during project development. It is historical out-of-sample evidence, not a pristine production lockbox.",
+  "evidence_class": "governance_only",
+  "research_selection_role": "operational_tracking",
+  "claims_independent_evidence": false,
+  "lockbox_id": null,
+  "dataset_version": "ad975fa1e9be0c4b4e8160904d964081c44ef81e3508dbe50eea191013907903",
+  "dataset_manifest": {
+    "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/manifests/ingestion.jsonl",
+    "size_bytes": 19769258,
+    "sha256": "f04d9088efd0bb7284820c254761429aeee648b4fa258aa9a2c81607779c8f00"
+  },
+  "input_artifacts": [
+    {
+      "table": "research_candidate_freeze",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/research_candidate_freeze/key=v1/data.parquet",
+      "size_bytes": 14133,
+      "sha256": "aa9e76e4d500041aa738ed8b1742a00337dd88892b9c3dfd2a4da54a42ebe3d6"
+    },
+    {
+      "table": "research_lockbox_registry",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/research_lockbox_registry/key=v1/data.parquet",
+      "size_bytes": 9786,
+      "sha256": "f889d0b8b481c941109a718548bf0f1daf3fa6e945d0a9ed899244c760bb6697"
+    },
+    {
+      "table": "research_paper_trading_registry",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/research_paper_trading_registry/key=v1/data.parquet",
+      "size_bytes": 6703,
+      "sha256": "3f0a63ebc7ee7b6ce9d74eb031e68c1f2ce65608ad19c81eef60dfddf7e78709"
+    }
+  ],
+  "metric_artifacts": [
+    {
+      "table": "paper_trading_protocol",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/paper_trading_protocol/key=v1/data.parquet",
+      "size_bytes": 9534,
+      "sha256": "906c3bbbfb5dc8bb54cb23b11fe8217a397e2567aa57318e73f1a9e0252af239"
+    },
+    {
+      "table": "paper_trading_source_contracts",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/paper_trading_source_contracts/key=v1/data.parquet",
+      "size_bytes": 2678,
+      "sha256": "ba6d39920493a507c339c953f3e9ac3f5c21df488258e4f23844bdde38c59d41"
+    },
+    {
+      "table": "paper_trading_status",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/paper_trading_status/key=v1/data.parquet",
+      "size_bytes": 5791,
+      "sha256": "0b419091c1b9fc27b537c1727a3870f501e3d460b824f7df4853f3e8980d139b"
+    },
+    {
+      "table": "paper_trading_checks",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/paper_trading_checks/key=v1/data.parquet",
+      "size_bytes": 2636,
+      "sha256": "692b615cb00517e0e0f402862772128a2fdfa454f093c77eb3b996505e3924c4"
+    },
+    {
+      "table": "paper_trading_failed_assertions",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/paper_trading_failed_assertions/key=v1/data.parquet",
+      "size_bytes": 2403,
+      "sha256": "af374835a808430b1764048d2e49096adf66eb2f7c9d79da2a1d0ab6096ad7bd"
+    }
+  ],
+  "figures": [
+    {
+      "source": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/reports/governance/paper_candidate_bundle_v1_manifest.json",
+      "snapshot": "paper_candidate_bundle_v1_manifest.json",
+      "sha256": "4442ac39812bf64ef7df2cf0ec6505875152d8f1ab4774519575b86c74174d53"
+    },
+    {
+      "source": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/reports/paper_trading.md",
+      "snapshot": "paper_trading.md",
+      "sha256": "4344a638087682c7fb88db16e1e902ed6b608f366428c4c6529c606ed39c3038"
+    }
+  ],
+  "source_tree_sha256": "31e45142fe25cbb250ece65da62903600472b3f72f1cd3d7dbfc7bf03cf81bd9",
+  "git": {
+    "commit": "16fe5b35f2b3a5af482a06bfa1425ba6e16e1a28",
+    "dirty": false,
+    "status_sha256": null
+  },
+  "environment": {
+    "python": "3.11.16",
+    "implementation": "CPython",
+    "platform": "Linux-5.15.0-92-generic-x86_64-with-glibc2.35",
+    "packages": {
+      "pandas": "3.0.6",
+      "pyarrow": "25.0.1",
+      "PyYAML": "6.0.3",
+      "scikit-learn": "1.9.1",
+      "numpy": "2.4.6",
+      "scipy": "1.17.1"
+    }
+  }
+}

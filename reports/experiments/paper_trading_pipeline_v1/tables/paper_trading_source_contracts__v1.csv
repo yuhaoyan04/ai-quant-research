@@ -1,0 +1,6 @@
+artifact,required,contract
+signal_input,True,PIT factors plus same-date industry and size; available_date equals run date
+model_bundle,True,"immutable HGB artifact, config hash, source hash, dependency hashes"
+target,True,P4 constraints frozen; fallback explicit; no silent relaxation
+account,True,"orders, fills, cash, positions and NAV reconcile daily"
+operations_log,True,append-only SHA-256 chain retains failed and missing-data dates

@@ -166,7 +166,7 @@ powershell -ExecutionPolicy Bypass -File scripts/rebuild_all.ps1 -SkipDownload -
 | `data/lake/curated/` 其他表 | 质量表、因子、标签、模型特征、预测、持仓、成交 | 否 |
 | `data/lake/manifests/` | 请求、schema、行数、内容哈希 | 否 |
 | `config/` | 数据、因子、模型、组合和实验配置 | 是 |
-| `reports/experiments/` | 51 个不可变实验版本与输入哈希 | 是 |
+| `reports/experiments/` | 52 个不可变实验版本与输入哈希 | 是 |
 | `reports/tables/`、`reports/figures/` | 求职展示所需结果 | 是 |
 | `reports/research_dashboard.html` | 离线交互面板 | 是 |
 
@@ -182,7 +182,7 @@ quant-research-dashboard
 quant-paper-trading status
 ```
 
-当前验收记录为 205 tests passed；研究审计为 482 PASS / 46 WARN / 0 FAIL（WARN 保留历史版本漂移与已知边界）。新下载数据应至少
+当前验收记录为 211 tests passed；研究审计为 496 PASS / 46 WARN / 0 FAIL（WARN 保留历史版本漂移与已知边界）。新下载数据应至少
 满足：测试通过、schema/唯一键/日期门禁无 FAIL、模型比较使用共同日期、持仓权重和收益恒等式
 通过。
 

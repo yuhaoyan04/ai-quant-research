@@ -1,0 +1,18 @@
+{
+  "experiment_id": "paper_trading_pipeline_v1",
+  "frozen_at_utc": "2026-10-20T13:55:21.311192+00:00",
+  "content_sha256": "0df0b642a7daf1313f0e6d4cc2ac7b7a41461699bd8ea53c273a2300144cc5c8",
+  "files": {
+    "config.yaml": "4a8c5a60776761dfdcdaf4561f68d49722b053ad195c7941b3651a27740fb8c8",
+    "figures/paper_candidate_bundle_v1_manifest.json": "4442ac39812bf64ef7df2cf0ec6505875152d8f1ab4774519575b86c74174d53",
+    "figures/paper_trading.md": "4344a638087682c7fb88db16e1e902ed6b608f366428c4c6529c606ed39c3038",
+    "metadata.json": "13d74e2cd71adf0e0be6f745995ede12edb06fa91bef7e6ab6460909935cc370",
+    "metrics.json": "708cde110f9807639aa9db46475ec76c34c48457130cb00874cd982f9ec976fb",
+    "notes.md": "c7a571167024ee8b2cfb354131455876d27ae1cc8827cb35ef0773a42c28c5bf",
+    "tables/paper_trading_checks__v1.csv": "4573aa390603f1402b7faa50cd4583e8d04517208ad217ac7c83cdf9398cb52e",
+    "tables/paper_trading_failed_assertions__v1.csv": "66a3c6288bd429a5dacb6102683b8d26fb41f75d5bae64e4e28f2f9c4a1f2daf",
+    "tables/paper_trading_protocol__v1.csv": "5fd1bf54fbf38e8f74e035dff174fe8ae11356c10c842e92de5de180cc89a23e",
+    "tables/paper_trading_source_contracts__v1.csv": "994853600128185646d39d342c43d8c9b520c04850455d8b04c8c731c4fb9504",
+    "tables/paper_trading_status__v1.csv": "ae7c7673ae65ef511891448ebc5ce77d92ea1ea7a01c37084dd03581bfe10924"
+  }
+}

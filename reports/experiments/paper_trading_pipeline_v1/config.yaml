@@ -1,0 +1,425 @@
+experiment_id: paper_trading_pipeline_v1
+registry_version: 1
+selection_policy: validation_only
+historical_oos_disclosure: The 2021-2026 block has already been inspected during project
+  development. It is historical out-of-sample evidence, not a pristine production
+  lockbox.
+governance_required_for_new_registrations: true
+governance_policy: research_governance.yaml
+experiment:
+  title: Phase 11 forward-only paper trading and future-lockbox operations
+  stage: paper_trading_and_future_lockbox
+  model_version: candidate_bundle_v1_hgb_raw_p4_constrained_forward_only
+  dataset_version_method: sha256_of_registered_inputs_and_ingestion_manifest
+  historical_oos_used_for_selection: false
+  evidence_class: governance_only
+  research_selection_role: operational_tracking
+  claims_independent_evidence: false
+  config_files:
+  - paper_trading.yaml
+  - preprocessing.yaml
+  - research_governance.yaml
+  - portfolio_construction_comparison.yaml
+  - constrained_portfolio_daily_execution.yaml
+  input_tables:
+  - table: research_candidate_freeze
+    key: v1
+  - table: research_lockbox_registry
+    key: v1
+  - table: research_paper_trading_registry
+    key: v1
+  metric_tables:
+  - table: paper_trading_protocol
+    key: v1
+  - table: paper_trading_source_contracts
+    key: v1
+  - table: paper_trading_status
+    key: v1
+  - table: paper_trading_checks
+    key: v1
+  - table: paper_trading_failed_assertions
+    key: v1
+  figures:
+  - reports/governance/paper_candidate_bundle_v1_manifest.json
+  - reports/paper_trading.md
+resolved_configs:
+  paper_trading.yaml:
+    experiment_id: paper_trading_pipeline_v1
+    evidence_class: governance_only
+    research_selection_role: operational_tracking
+    claims_independent_evidence: false
+    historical_oos_used_for_selection: false
+    paper_id: paper_candidate_bundle_v1
+    lockbox_id: future_lockbox_2026q4_2027q3_v1
+    candidate_bundle_id: candidate_bundle_v1
+    activation_not_before: '2026-10-21'
+    timezone: Asia/Shanghai
+    allow_retroactive_backfill: false
+    allow_interim_lockbox_performance_access: false
+    model:
+      name: hgb_shallow15_locked
+      pipeline: raw
+      target: fwd_return_5d_lag1
+      train_start_year: 2006
+      training_data_cutoff: '2026-09-30'
+      label_horizon_trading_days: 5
+      minimum_cross_section_size: 100
+      sample_per_training_date: 300
+      random_state: 20261016
+      include_missing_indicators: true
+      quantile_limits:
+      - 0.01
+      - 0.99
+      mad_multiplier: 5.0
+      minimum_industry_group_size: 5
+      parameters:
+        kind: hgb
+        learning_rate: 0.05
+        max_iter: 120
+        max_leaf_nodes: 15
+        min_samples_leaf: 100
+        l2_regularization: 1.0
+    signal:
+      frequency: weekly
+      decision_rule: last_available_session_in_week
+      execution_rule: first_available_trading_session_after_signal
+      factor_table: multi_horizon_factor_panel
+      industry_table: pit_industry_exposures
+      size_table: pit_size_exposures
+      require_available_date_equal_execution_date: true
+    portfolio:
+      method: P4_constrained
+      entry_rank: 200
+      exit_rank: 400
+      maximum_stock_weight: 0.01
+      industry_active_weight_bound: 0.03
+      absolute_size_z_bound: 0.1
+      one_way_turnover_limit: 0.3
+      industry_capacity_buffer_names: 5
+      size_tail_candidates_each_side: 50
+      infeasible_policy: explicit_carry_forward_capacity_repair
+      allow_constraint_relaxation: false
+    execution:
+      initial_cash_cny: 100000000.0
+      round_trip_cost_bps: 20.0
+      max_volume_participation: 0.1
+      max_pending_trading_days: 5
+      enforce_trade_flags: true
+      enforce_volume_participation: true
+      enforce_order_quantity_rules: true
+      enforce_t_plus_one: true
+      order_quantity_rules:
+        main_board_buy_lot: 100
+        main_board_sell_lot: 100
+        star_market_minimum_order: 200
+        star_market_increment: 1
+        odd_lot_liquidation_allowed: true
+      corporate_action_proxy:
+        activation_absolute_deviation: 0.005
+    storage:
+      root: reports/paper_trading
+      run_directory: reports/paper_trading/runs
+      operations_log: reports/paper_trading/operations.jsonl
+      model_bundle_directory: data/paper_trading/model_bundles/candidate_bundle_v1
+      public_model_manifest: reports/governance/paper_candidate_bundle_v1_manifest.json
+    health_thresholds:
+      minimum_signal_universe: 100
+      maximum_missing_factor_fraction: 0.5
+      maximum_nav_reconciliation_error_cny: 0.0001
+      minimum_cash_cny: -1.0e-06
+    scope_note: Forward-only paper-trading implementation. It freezes the existing
+      candidate and does not use 2021-2026 results to change the model, portfolio,
+      cost or execution rules. Operational health is observable daily; interim future
+      lockbox performance remains sealed. A failed or missing date is retained and
+      cannot be silently removed. Paper observations before activation are invalid.
+  preprocessing.yaml:
+    factor_columns:
+    - momentum_20d
+    - momentum_60d
+    - momentum_120d
+    - momentum_20d_skip_5d
+    - reversal_5d
+    - volatility_20d
+    - amihud_20d
+    - turnover_20d
+    - turnover_surprise_20d
+    - volume_surprise_20d
+    - amplitude_20d
+    - return_volume_corr_20d
+    - max_return_20d
+    - earnings_yield
+    - book_to_price
+    target: fwd_return_5d_lag1
+    winsorization:
+      method: cross_sectional_median_mad
+      mad_multiplier: 5.0
+    normalization: cross_sectional_zscore
+    missing_strategy: cross_sectional_median_plus_indicator
+    minimum_cross_section_size: 100
+    neutralization: none_pit_exposures_unavailable
+  research_governance.yaml:
+    experiment_id: research_governance_v1
+    policy_version: 1
+    purpose: phase4_historical_oos_contamination_and_future_evidence_governance
+    policy_frozen_date_utc: '2026-10-20'
+    current_data_cutoff: '2026-09-30'
+    historical_oos_used_for_selection: false
+    new_model_selected: false
+    evidence_periods:
+      training:
+        start_date: '2006-01-01'
+        end_date: '2015-12-31'
+        evidence_class: training
+        selection_allowed: true
+        already_observed: true
+      validation_selection:
+        start_date: '2016-01-01'
+        end_date: '2020-12-31'
+        evidence_class: validation_selection
+        selection_allowed: true
+        already_observed: true
+      historical_oos:
+        start_date: '2021-01-01'
+        end_date: '2026-09-30'
+        evidence_class: historical_oos
+        selection_allowed_for_new_revisions: false
+        already_observed: true
+        consumed: true
+        disclosure: inspected_repeatedly_during_research_not_a_pristine_lockbox
+      future_lockbox:
+        lockbox_id: future_lockbox_2026q4_2027q3_v1
+        start_date: '2026-10-01'
+        planned_end_date: '2027-09-30'
+        evidence_class: future_lockbox
+        selection_allowed: false
+        already_observed: false
+        initial_state: SEALED_EMPTY
+        minimum_daily_observations: 252
+        minimum_weekly_signal_observations: 52
+        minimum_calendar_months: 12
+        minimum_coverage_fraction: 0.95
+        open_rule: planned_end_date_and_all_minimum_observation_gates
+        interim_performance_access_allowed: false
+        operational_health_access_allowed: true
+        local_enforcement_is_cryptographic: false
+      paper_trading:
+        paper_id: paper_candidate_bundle_v1
+        activation_rule: first_eligible_signal_strictly_after_candidate_freeze_commit
+        retroactive_backfill_allowed: false
+        evidence_class: paper_trading
+        selection_allowed_for_same_version: false
+        performance_reporting_frequency: monthly
+        operational_health_reporting_frequency: daily
+        modification_rule: any_outcome_driven_change_creates_new_candidate_version
+    candidate_bundle:
+      bundle_id: candidate_bundle_v1
+      primary:
+        model: hgb_shallow15_locked
+        alpha_pipeline: raw
+        portfolio_construction: risk_constrained
+        selection_source: validation_2016_2020_only
+      secondary:
+      - model: hgb_shallow15_locked
+        alpha_pipeline: industry_size_neutralized
+        portfolio_construction: risk_constrained
+      - model: ridge_locked
+        alpha_pipeline: raw
+        portfolio_construction: risk_constrained
+      - model: ridge_locked
+        alpha_pipeline: industry_size_neutralized
+        portfolio_construction: risk_constrained
+      benchmark: pit_industry_style_matched_peer_replica
+      market_benchmarks:
+      - CSI500_price
+      - CSI500_total_return
+      model_training_window: expanding_from_2006
+      target: fwd_return_5d_lag1
+      rebalance_frequency: weekly
+      historical_oos_used_for_selection: false
+    cost_and_execution:
+      primary_cost_scenario: C0_fixed_020bp
+      secondary_cost_scenario: C2_public_levies_commission_scenario
+      primary_round_trip_cost_bps: 20.0
+      execution_convention: returns_accrue_before_close_trade_blocked_orders_retry_daily
+      limitations:
+      - daily_bar_execution_approximation
+      - no_bid_ask_quote_history
+      - no_broker_calibrated_market_impact
+      - incomplete_intraday_limit_queue_and_ipo_no_limit_windows
+    statistical_plan:
+      primary_hypothesis: hgb_raw_incremental_net_return_vs_style_matched_benchmark_positive
+      secondary_hypotheses:
+      - hgb_industry_size_neutralized_incremental_net_return_positive
+      - ridge_raw_incremental_net_return_positive
+      - ridge_industry_size_neutralized_incremental_net_return_positive
+      paired_clock: common_daily_dates
+      bootstrap: circular_block_bootstrap
+      block_length_trading_days: 20
+      bootstrap_samples: 2000
+      bootstrap_seed: 20261020
+      familywise_strategy_count: 4
+      multiplicity_control: benjamini_hochberg
+      false_discovery_rate: 0.05
+      primary_metrics:
+      - incremental_net_return_annualized_arithmetic
+      - mean_rank_ic
+      secondary_metrics:
+      - risk_free_adjusted_sharpe
+      - maximum_drawdown
+      - turnover
+      - return_per_turnover
+      - target_tracking_error
+      - cash_weight
+      decision_rule: no_parameter_or_strategy_change_from_lockbox_or_paper_results_without_new_version
+    source_artifacts:
+    - table: model_benchmark_selection
+      key: v1
+    - table: model_stability_protocol
+      key: v1
+    - table: constrained_portfolio_protocol
+      key: v1
+    - table: constrained_daily_execution_protocol
+      key: v1
+    - table: transaction_cost_protocol
+      key: v1
+    - table: incremental_alpha_protocol
+      key: v1
+    - table: market_benchmark_protocol
+      key: v1
+    - table: risk_free_rate_attribution_protocol
+      key: v1
+    - table: research_conclusion_decisions
+      key: v2
+    access_log:
+      path: reports/governance/research_access_log.jsonl
+      hash_chained: true
+      append_only_policy: true
+      required_fields:
+      - actor
+      - evidence_class
+      - action
+      - reason
+      - result_accessed
+      - used_for_change
+      consume_actions:
+      - VIEW_RESULTS
+      - EXPORT_RESULTS
+      - USE_FOR_CHANGE
+  portfolio_construction_comparison.yaml:
+    experiment_id: portfolio_construction_comparison_v1
+    source_experiment: constrained_portfolio_neutralization_v1
+    evidence_class: post_historical_oos_adaptation
+    research_selection_role: post_hoc_adaptation
+    claims_independent_evidence: false
+    historical_oos_used_for_selection: true
+    signal:
+      pipeline: raw
+      model: hgb_shallow15_locked
+      target: fwd_return_5d_lag1
+      volatility: volatility_20d
+      train_start_year: 2006
+      historical_oos_start_year: 2021
+      historical_oos_end_year: 2026
+      label_horizon_trading_days: 5
+      minimum_cross_section_size: 100
+      sample_per_training_date: 300
+      random_state: 20261016
+      include_missing_indicators: true
+      quantile_limits:
+      - 0.01
+      - 0.99
+      mad_multiplier: 5.0
+      minimum_industry_group_size: 5
+      model_parameters:
+        kind: hgb
+        learning_rate: 0.05
+        max_iter: 120
+        max_leaf_nodes: 15
+        min_samples_leaf: 100
+        l2_regularization: 1.0
+    buffer:
+      entry_rank: 200
+      exit_rank: 400
+    weighting:
+      methods:
+      - P0_equal
+      - P1_inverse_volatility
+      - P2_score_weighted
+      - P4_constrained
+      maximum_stock_weight: 0.01
+      inverse_volatility_clip_quantiles:
+      - 0.05
+      - 0.95
+      score_rank_floor: 0.1
+      score_rank_power: 1.0
+    optimizer:
+      method: scipy_highs_linear_program
+      objective: maximize_cross_sectional_score_rank
+      industry_active_weight_bound: 0.03
+      absolute_size_z_bound: 0.1
+      one_way_turnover_limit: 0.3
+      industry_capacity_buffer_names: 5
+      size_tail_candidates_each_side: 50
+      minimum_reported_weight: 1.0e-08
+      infeasible_policy: explicit_carry_forward_capacity_repair
+      allow_constraint_relaxation: false
+    execution:
+      initial_cash_cny: 100000000.0
+      capacity_stress_cash_cny:
+      - 25000000.0
+      - 500000000.0
+      round_trip_cost_bps: 20.0
+      max_volume_participation: 0.1
+      max_pending_trading_days: 5
+      annualization_periods: 252
+      risk_free_scenario: R1_ccdc_cgb_3m
+      scenarios:
+      - scenario: daily_close_institutional_constraints
+        enforce_trade_flags: true
+        enforce_volume_participation: true
+        enforce_order_quantity_rules: true
+        enforce_t_plus_one: true
+      order_quantity_rules:
+        main_board_buy_lot: 100
+        main_board_sell_lot: 100
+        star_market_minimum_order: 200
+        star_market_increment: 1
+        odd_lot_liquidation_allowed: true
+      corporate_action_proxy:
+        method: inferred_value_preserving_share_factor_from_vendor_pct_chg_and_raw_close
+        activation_absolute_deviation: 0.005
+        evidence_status: proxy_not_official_corporate_action_record
+    bootstrap:
+      block_length_trading_days: 20
+      samples: 2000
+      random_seed: 20261020
+    scope_note: Retrospective historical-OOS construction diagnostic. Signal, dates,
+      PIT universe, cost and execution assumptions are fixed. Structural feasibility
+      observations were used to make optimizer fallback/support handling explicit,
+      so this is disclosed as post-historical-OOS adaptation even though returns were
+      not used to tune or promote a method. Future lockbox or prospective paper trading
+      is required for new independent evidence.
+  constrained_portfolio_daily_execution.yaml:
+    experiment_id: constrained_portfolio_daily_execution_v1
+    historical_oos_used_for_selection: false
+    source_experiment: constrained_portfolio_neutralization_v1
+    source_holdings:
+      table: constrained_portfolio_oos_holdings
+      key: v1
+    target_construction: risk_constrained
+    round_trip_cost_bps: 20.0
+    annualization_periods: 252
+    label_horizon_trading_days: 5
+    limit_detection_tolerance_percentage_points: 0.2
+    bootstrap:
+      block_length_trading_days: 20
+      samples: 2000
+      random_seed: 20261017
+    rules:
+      st_limit_pct: 5.0
+      main_board_limit_pct: 10.0
+      star_limit_pct: 20.0
+      chinext_limit_pct_before_2020_08_24: 10.0
+      chinext_limit_pct_after_2020_08_24: 20.0
+    execution_convention: returns_accrue_before_close_trade_blocked_orders_retry_daily
+    scope_note: conservative_close_limit_rule_intraday_queue_and_ipo_no_limit_windows_not_modeled

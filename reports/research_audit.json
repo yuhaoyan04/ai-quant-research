@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-10-20T13:38:43.739141+00:00",
+  "generated_at_utc": "2026-10-20T13:56:24.790412+00:00",
   "checks": [
     {
       "name": "chronological_split_order",
@@ -518,6 +518,16 @@
     },
     {
       "name": "frozen_live_inputs:engineering_quality_v1",
+      "status": "PASS",
+      "detail": "all registered inputs match their SHA-256 hashes"
+    },
+    {
+      "name": "frozen_snapshot_integrity:paper_trading_pipeline_v1",
+      "status": "PASS",
+      "detail": "all frozen files match FROZEN.json"
+    },
+    {
+      "name": "frozen_live_inputs:paper_trading_pipeline_v1",
       "status": "PASS",
       "detail": "all registered inputs match their SHA-256 hashes"
     },
@@ -2032,6 +2042,66 @@
       "detail": "[{'check_name': 'NO_FAILED_ASSERTIONS', 'status': 'PASS', 'observed': 'all Phase 10 engineering gates passed'}]"
     },
     {
+      "name": "artifact:paper_trading_protocol/v1",
+      "status": "PASS",
+      "detail": "rows=1"
+    },
+    {
+      "name": "artifact:paper_trading_source_contracts/v1",
+      "status": "PASS",
+      "detail": "rows=5"
+    },
+    {
+      "name": "artifact:paper_trading_status/v1",
+      "status": "PASS",
+      "detail": "rows=1"
+    },
+    {
+      "name": "artifact:paper_trading_checks/v1",
+      "status": "PASS",
+      "detail": "rows=7"
+    },
+    {
+      "name": "artifact:paper_trading_failed_assertions/v1",
+      "status": "PASS",
+      "detail": "rows=1"
+    },
+    {
+      "name": "paper_pipeline_does_not_claim_forward_evidence",
+      "status": "PASS",
+      "detail": "observations=0"
+    },
+    {
+      "name": "paper_pipeline_contract_is_complete",
+      "status": "PASS",
+      "detail": "contracts=5"
+    },
+    {
+      "name": "paper_pipeline_checks_all_pass",
+      "status": "PASS",
+      "detail": "checks=7"
+    },
+    {
+      "name": "paper_model_bundle_is_commit_and_hash_anchored",
+      "status": "PASS",
+      "detail": "commit=631ca494e5d5f829bd353134482e80812ae62129, observations=318300"
+    },
+    {
+      "name": "paper_operations_log_and_run_manifests_are_immutable",
+      "status": "PASS",
+      "detail": "events=1"
+    },
+    {
+      "name": "paper_observations_are_forward_only_and_unique",
+      "status": "PASS",
+      "detail": "success_dates=[]"
+    },
+    {
+      "name": "paper_status_matches_append_only_log",
+      "status": "PASS",
+      "detail": "attempts=1, successes=0"
+    },
+    {
       "name": "artifact:risk_model_protocol/v1",
       "status": "PASS",
       "detail": "rows=1"
@@ -2643,7 +2713,7 @@
     }
   ],
   "findings": {
-    "registered_frozen_experiments": 51,
+    "registered_frozen_experiments": 52,
     "invalidated_experiments": 23,
     "common_oos_weeks": 291,
     "ridge_annualized_return_20bp": 0.2005894880405501,
@@ -2717,6 +2787,10 @@
     "engineering_canonical_execution_market_module": "src/quant_research/execution_market.py",
     "engineering_test_layers": 5,
     "engineering_open_p0_gaps": 0,
+    "paper_trading_attempts": 1,
+    "paper_trading_successful_observations": 0,
+    "future_lockbox_interim_performance_sealed": true,
+    "paper_trading_performance_validated": false,
     "pit_beta_minimum_coverage": 0.914180582483791,
     "hgb_raw_annualized_style_contribution_arithmetic": 0.13613172549903055,
     "hgb_raw_annualized_specific_selection_contribution_arithmetic": -0.004344077537185444,

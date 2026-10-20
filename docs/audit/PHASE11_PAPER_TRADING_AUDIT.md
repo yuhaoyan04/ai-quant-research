@@ -23,6 +23,13 @@ Phase 11 的工程实现已经完成，但前瞻统计验证尚未开始。`cand
 - 尚无真实券商回报、盘口排队或经订单校准的冲击参数；
 - 因此`ready_for_live_capital`仍为`False`。
 
+## 验收记录
+
+- Phase 11与执行器针对性测试：13 passed；
+- 全仓库测试：211 passed；
+- 冻结快照`paper_trading_pipeline_v1`：snapshot integrity通过、8/8 live input hashes一致；
+- 全仓库产物审计：496 PASS / 46 WARN / 0 FAIL；WARN仍为历史输入版本漂移与已披露范围限制。
+
 ## 运行责任
 
 激活后应先更新原始数据并完成PIT因子、行业和规模物化，再执行`quant-paper-trading run-daily`。运营人员可以查看运行健康，但不能打开future lockbox的中途绩效。若paper结果触发任何策略修改，必须停止旧版本、登记其已被用于变更，冻结新的候选ID并重新开始前瞻期。

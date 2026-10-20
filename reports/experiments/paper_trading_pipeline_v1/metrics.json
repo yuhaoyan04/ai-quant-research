@@ -1,0 +1,103 @@
+{
+  "paper_trading_protocol__v1": [
+    {
+      "experiment_id": "paper_trading_pipeline_v1",
+      "paper_id": "paper_candidate_bundle_v1",
+      "lockbox_id": "future_lockbox_2026q4_2027q3_v1",
+      "candidate_bundle_id": "candidate_bundle_v1",
+      "activation_not_before": "2026-10-21",
+      "model": "hgb_shallow15_locked",
+      "pipeline": "raw",
+      "portfolio": "P4_constrained",
+      "round_trip_cost_bps": 20.0,
+      "evidence_class": "governance_only",
+      "research_selection_role": "operational_tracking",
+      "claims_independent_evidence": false,
+      "successful_forward_observations": 0,
+      "ready_for_live_capital": false
+    }
+  ],
+  "paper_trading_source_contracts__v1": [
+    {
+      "artifact": "signal_input",
+      "required": true,
+      "contract": "PIT factors plus same-date industry and size; available_date equals run date"
+    },
+    {
+      "artifact": "model_bundle",
+      "required": true,
+      "contract": "immutable HGB artifact, config hash, source hash, dependency hashes"
+    },
+    {
+      "artifact": "target",
+      "required": true,
+      "contract": "P4 constraints frozen; fallback explicit; no silent relaxation"
+    },
+    {
+      "artifact": "account",
+      "required": true,
+      "contract": "orders, fills, cash, positions and NAV reconcile daily"
+    },
+    {
+      "artifact": "operations_log",
+      "required": true,
+      "contract": "append-only SHA-256 chain retains failed and missing-data dates"
+    }
+  ],
+  "paper_trading_status__v1": [
+    {
+      "paper_id": "paper_candidate_bundle_v1",
+      "state": "FROZEN_NOT_STARTED",
+      "attempts": 1,
+      "successful_observations": 0,
+      "failed_attempts": 0,
+      "last_attempt_date": "2026-10-20",
+      "last_event_hash": "3b5f0faa46297c50972a8576ae0fd42116b7642fcb2c93e171cccce0f7029773",
+      "performance_validated": false
+    }
+  ],
+  "paper_trading_checks__v1": [
+    {
+      "check": "config_valid",
+      "status": "PASS",
+      "detail": "paper_trading_pipeline_v1"
+    },
+    {
+      "check": "model_bundle_frozen",
+      "status": "PASS",
+      "detail": "6ae5ef99d7f4b7a53da79dfdc146d9d968f55b03d088096677eb028d9d924849"
+    },
+    {
+      "check": "operations_log_hash_chain_valid",
+      "status": "PASS",
+      "detail": "events=1"
+    },
+    {
+      "check": "retroactive_backfill_disabled",
+      "status": "PASS",
+      "detail": "False"
+    },
+    {
+      "check": "interim_lockbox_performance_sealed",
+      "status": "PASS",
+      "detail": "False"
+    },
+    {
+      "check": "failed_runs_retained",
+      "status": "PASS",
+      "detail": "failed=0"
+    },
+    {
+      "check": "no_false_forward_claim",
+      "status": "PASS",
+      "detail": "successful_observations=0"
+    }
+  ],
+  "paper_trading_failed_assertions__v1": [
+    {
+      "check": "NO_FAILED_ASSERTIONS",
+      "status": "PASS",
+      "detail": "all Phase 11 implementation gates passed"
+    }
+  ]
+}

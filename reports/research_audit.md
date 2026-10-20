@@ -1,8 +1,8 @@
 # Research artifact audit
 
-Generated at `2026-10-20T13:38:43.739141+00:00`.
+Generated at `2026-10-20T13:56:24.790412+00:00`.
 
-Summary: **482 PASS / 46 WARN / 0 FAIL**
+Summary: **496 PASS / 46 WARN / 0 FAIL**
 
 | Status | Check | Detail |
 |---|---|---|
@@ -110,6 +110,8 @@ Summary: **482 PASS / 46 WARN / 0 FAIL**
 | PASS | `frozen_live_inputs:alpha_evidence_matrix_v2` | all registered inputs match their SHA-256 hashes |
 | PASS | `frozen_snapshot_integrity:engineering_quality_v1` | all frozen files match FROZEN.json |
 | PASS | `frozen_live_inputs:engineering_quality_v1` | all registered inputs match their SHA-256 hashes |
+| PASS | `frozen_snapshot_integrity:paper_trading_pipeline_v1` | all frozen files match FROZEN.json |
+| PASS | `frozen_live_inputs:paper_trading_pipeline_v1` | all registered inputs match their SHA-256 hashes |
 | WARN | `invalidated_experiment:institutional_execution_v1` | severity=registry_self_staging_dirty_flag; superseded_by=institutional_execution_v2; reason=The research outputs and hashes are valid, but the experiment registry created its temporary snapshot directory inside the repository before capturing Git status. That self-created untracked directory caused the metadata to report dirty=true even though registration began from clean commit d1b00aedd5b3dcbc660733fa64288c550a83e446. |
 | WARN | `invalidated_experiment:portfolio_sensitivity_v1` | severity=cost_stress_repricing_formula_superseded; superseded_by=transaction_cost_model_v1; reason=The v1 fixed-fill execution cost stress subtracted turnover times the fee rate directly from gross return. The daily executor defines turnover over pre-trade NAV while return is measured over previous NAV, so exact C0 reproduction additionally requires the pre-trade-to-previous-NAV ratio. The difference is small but the v1 stress grid is not an exact 20bp regression of the executable baseline. |
 | WARN | `invalidated_experiment:factor_preprocessing_ablation_v1` | severity=portfolio_metrics_invalid; superseded_by=factor_preprocessing_ablation_v2; reason=Validation portfolios were formed after filtering rows with non-null future returns. RankIC and model-selection metrics used the correct realized subset, but Top-200 portfolio metrics had outcome-availability leakage. |
@@ -412,6 +414,18 @@ Summary: **482 PASS / 46 WARN / 0 FAIL**
 | PASS | `engineering_quality_output_contracts_frozen` | [{'stage': 'phase5_execution', 'frozen_experiment': 'institutional_execution_v2'}, {'stage': 'phase6_portfolio', 'frozen_experiment': 'portfolio_construction_comparison_v1'}, {'stage': 'phase7_ledger', 'frozen_experiment': 'unified_account_ledger_v1'}, {'stage': 'phase8_inference', 'frozen_experiment': 'statistical_inference_protocol_v1'}, {'stage': 'phase9_alpha', 'frozen_experiment': 'alpha_evidence_matrix_v2'}] |
 | PASS | `engineering_quality_no_open_p0` | {('P1', 'CONTROLLED_BY_IMMUTABLE_REGISTRY'): 1, ('P1', 'OPEN'): 1, ('P2', 'OPEN'): 1, ('P2', 'OPEN_NONRESEARCH'): 1} |
 | PASS | `engineering_quality_assertion_log_clean` | [{'check_name': 'NO_FAILED_ASSERTIONS', 'status': 'PASS', 'observed': 'all Phase 10 engineering gates passed'}] |
+| PASS | `artifact:paper_trading_protocol/v1` | rows=1 |
+| PASS | `artifact:paper_trading_source_contracts/v1` | rows=5 |
+| PASS | `artifact:paper_trading_status/v1` | rows=1 |
+| PASS | `artifact:paper_trading_checks/v1` | rows=7 |
+| PASS | `artifact:paper_trading_failed_assertions/v1` | rows=1 |
+| PASS | `paper_pipeline_does_not_claim_forward_evidence` | observations=0 |
+| PASS | `paper_pipeline_contract_is_complete` | contracts=5 |
+| PASS | `paper_pipeline_checks_all_pass` | checks=7 |
+| PASS | `paper_model_bundle_is_commit_and_hash_anchored` | commit=631ca494e5d5f829bd353134482e80812ae62129, observations=318300 |
+| PASS | `paper_operations_log_and_run_manifests_are_immutable` | events=1 |
+| PASS | `paper_observations_are_forward_only_and_unique` | success_dates=[] |
+| PASS | `paper_status_matches_append_only_log` | attempts=1, successes=0 |
 | PASS | `artifact:risk_model_protocol/v1` | rows=1 |
 | PASS | `artifact:pit_beta_exposure_index/v1` | rows=19 |
 | PASS | `artifact:risk_model_factor_returns/v1` | rows=26,028 |
@@ -537,7 +551,7 @@ Summary: **482 PASS / 46 WARN / 0 FAIL**
 
 ## Headline findings
 
-- `registered_frozen_experiments`: 51
+- `registered_frozen_experiments`: 52
 - `invalidated_experiments`: 23
 - `common_oos_weeks`: 291
 - `ridge_annualized_return_20bp`: 0.2005894880405501
@@ -611,6 +625,10 @@ Summary: **482 PASS / 46 WARN / 0 FAIL**
 - `engineering_canonical_execution_market_module`: src/quant_research/execution_market.py
 - `engineering_test_layers`: 5
 - `engineering_open_p0_gaps`: 0
+- `paper_trading_attempts`: 1
+- `paper_trading_successful_observations`: 0
+- `future_lockbox_interim_performance_sealed`: True
+- `paper_trading_performance_validated`: False
 - `pit_beta_minimum_coverage`: 0.914180582483791
 - `hgb_raw_annualized_style_contribution_arithmetic`: 0.13613172549903055
 - `hgb_raw_annualized_specific_selection_contribution_arithmetic`: -0.004344077537185444
