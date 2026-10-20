@@ -95,6 +95,24 @@ def test_new_target_replaces_blocked_order_instead_of_silently_dropping_it() -> 
     ]
 
 
+def test_explicit_cancel_request_creates_terminal_cancelled_event() -> None:
+    data = market([
+        {"trade_date": "2024-01-02", "instrument_id": "A", "close": 10.0,
+         "trade_status": False, "buy_allowed": False, "sell_allowed": False},
+        {"trade_date": "2024-01-03", "instrument_id": "A", "close": 10.0},
+    ])
+
+    result = simulate_execution(
+        data, targets([("2024-01-02", "A", 1.0)]), config(), scenario=scenario(),
+        cancellation_requests={"2024-01-03": {"O000000001"}},
+    )
+
+    order = result.orders.iloc[0]
+    assert order["status"] == "CANCELLED"
+    assert order["terminal_reason"] == "explicit_cancel_request"
+    assert result.events["status"].tolist() == ["NEW", "BLOCKED", "CANCELLED"]
+
+
 def test_suspension_upper_limit_and_lower_limit_have_distinct_reasons() -> None:
     data = market([
         {"trade_date": "2024-01-02", "instrument_id": "A", "close": 10.0,

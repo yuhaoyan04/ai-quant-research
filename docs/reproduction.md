@@ -174,7 +174,7 @@ quant-audit
 quant-research-dashboard
 ```
 
-当前验收记录为 181 tests passed；Phase 0 研究审计基线为 337 PASS / 43 WARN / 0 FAIL（WARN 保留历史版本漂移与已知边界）。新下载数据应至少
+当前验收记录为 182 tests passed；Phase 0 研究审计基线为 337 PASS / 43 WARN / 0 FAIL（WARN 保留历史版本漂移与已知边界）。新下载数据应至少
 满足：测试通过、schema/唯一键/日期门禁无 FAIL、模型比较使用共同日期、持仓权重和收益恒等式
 通过。
 

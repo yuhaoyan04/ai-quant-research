@@ -106,6 +106,7 @@ def simulate_execution(
     config: dict[str, Any],
     *,
     scenario: dict[str, Any],
+    cancellation_requests: dict[str, set[str]] | None = None,
 ) -> ExecutionResult:
     """Run one portfolio through the daily close execution state machine."""
     required_market = {
@@ -167,6 +168,7 @@ def simulate_execution(
     max_age = int(config["max_pending_trading_days"])
     participation = float(config["max_volume_participation"])
     cost_rate = float(config["round_trip_cost_bps"]) / 10_000.0
+    cancellation_requests = cancellation_requests or {}
 
     def add_event(order: dict[str, Any], date: str, status: str, reason: str | None,
                   shares: float = 0.0) -> None:
@@ -269,6 +271,16 @@ def simulate_execution(
                 open_orders[order["order_id"]] = order
                 all_orders[order["order_id"]] = order
                 add_event(order, date, "NEW", None)
+
+        for order_id in sorted(cancellation_requests.get(date, set())):
+            order = open_orders.get(str(order_id))
+            if order is None:
+                raise KeyError(f"cannot cancel unknown or terminal order: {order_id}")
+            order["status"] = "CANCELLED"
+            order["terminal_reason"] = "explicit_cancel_request"
+            order["terminal_date"] = date
+            add_event(order, date, "CANCELLED", order["terminal_reason"])
+            open_orders.pop(order["order_id"], None)
 
         candidates: list[tuple[dict[str, Any], float, float, str | None]] = []
         for order in list(open_orders.values()):
