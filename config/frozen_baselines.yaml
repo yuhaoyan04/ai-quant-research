@@ -1571,3 +1571,41 @@ experiments:
       - {table: portfolio_construction_bootstrap, key: v1}
       - {table: portfolio_construction_acceptance_checks, key: v1}
     figures: []
+
+  unified_account_ledger_v1:
+    title: Phase 7 unified target, position, cash and NAV account ledger
+    stage: unified_accounting_and_reconciliation
+    model_version: frozen_hgb_raw_primary_account_normalization_v1
+    dataset_version_method: sha256_of_registered_inputs_and_ingestion_manifest
+    historical_oos_used_for_selection: false
+    evidence_class: historical_oos_descriptive
+    research_selection_role: diagnostic
+    claims_independent_evidence: false
+    config_files:
+      - unified_account_ledger.yaml
+      - institutional_execution.yaml
+      - research_governance.yaml
+    input_tables:
+      - {table: constrained_execution_targets, key: v1}
+      - {table: institutional_execution_market, key: v1}
+      - {table: institutional_execution_daily, key: v1}
+      - {table: institutional_execution_orders, key: v1}
+      - {table: institutional_execution_events, key: v1}
+      - {table: institutional_execution_fills, key: v1}
+      - {table: institutional_execution_positions, key: v1}
+      - {table: institutional_execution_corporate_actions, key: v1}
+      - {table: unified_account_daily_ledger, key: v1}
+      - {table: unified_account_security_ledger, key: v1}
+      - {table: unified_account_cash_journal, key: v1}
+      - {table: unified_account_orders, key: v1}
+      - {table: unified_account_events, key: v1}
+      - {table: unified_account_fills, key: v1}
+      - {table: unified_account_corporate_actions, key: v1}
+      - {table: unified_account_position_reconciliation, key: v1}
+      - {table: unified_account_order_exceptions, key: v1}
+    metric_tables:
+      - {table: unified_account_protocol, key: v1}
+      - {table: unified_account_checks, key: v1}
+      - {table: unified_account_daily_reconciliation, key: v1}
+      - {table: unified_account_failed_assertions, key: v1}
+    figures: []

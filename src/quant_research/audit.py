@@ -1022,6 +1022,90 @@ class ResearchAuditor:
             ),
         })
 
+    def audit_unified_account_ledger(self) -> None:
+        """Gate the Phase-7 cross-table account ledger and replay checks."""
+        protocol = self.require_table("unified_account_protocol", "v1")
+        daily = self.require_table("unified_account_daily_ledger", "v1")
+        security = self.require_table("unified_account_security_ledger", "v1")
+        cash = self.require_table("unified_account_cash_journal", "v1")
+        orders = self.require_table("unified_account_orders", "v1")
+        events = self.require_table("unified_account_events", "v1")
+        fills = self.require_table("unified_account_fills", "v1")
+        actions = self.require_table("unified_account_corporate_actions", "v1")
+        daily_recon = self.require_table("unified_account_daily_reconciliation", "v1")
+        position_recon = self.require_table("unified_account_position_reconciliation", "v1")
+        exceptions = self.require_table("unified_account_order_exceptions", "v1")
+        failures = self.require_table("unified_account_failed_assertions", "v1")
+        checks = self.require_table("unified_account_checks", "v1")
+        if any(frame.empty for frame in (
+            protocol, daily, security, cash, orders, events, fills, actions,
+            daily_recon, position_recon, exceptions, failures, checks,
+        )):
+            return
+        row = protocol.iloc[0]
+        self.add(
+            "unified_account_protocol_is_read_only_diagnostic",
+            str(row["evidence_class"]) == "historical_oos_descriptive"
+            and str(row["research_selection_role"]) == "diagnostic"
+            and not bool(row["claims_independent_evidence"])
+            and not bool(row["source_outputs_mutated"])
+            and not bool(row["returns_recomputed_or_changed"]),
+            "frozen Phase 5 outputs normalized without changing returns or claiming new evidence",
+        )
+        hard = checks.loc[checks["status"].eq("FAIL")]
+        self.add(
+            "unified_account_all_hard_reconciliations_pass",
+            hard.empty and len(checks) == 16,
+            f"checks={len(checks)}, pass={int(checks['status'].eq('PASS').sum())}, "
+            f"warn={int(checks['status'].eq('WARN').sum())}, fail={len(hard)}",
+        )
+        self.add(
+            "unified_account_common_daily_key",
+            len(daily) == len(cash) == len(daily_recon) == 1387
+            and daily["trade_date"].nunique() == 1387
+            and not daily.duplicated(["account_id", "trade_date"]).any(),
+            f"daily={len(daily):,}, cash={len(cash):,}, reconciliation={len(daily_recon):,}",
+        )
+        required_security = {
+            "target_weight", "actual_shares", "actual_weight", "cash_weight", "weight_gap",
+        }
+        self.add(
+            "unified_account_target_actual_cash_semantics",
+            required_security <= set(security.columns)
+            and not security.duplicated(["account_id", "trade_date", "instrument_id"]).any(),
+            f"security_rows={len(security):,}; required_fields={sorted(required_security)}",
+        )
+        max_cash = float(cash["cash_reconciliation_error"].abs().max())
+        max_nav = float(daily_recon["nav_identity_error"].abs().max())
+        max_shares = float(position_recon["share_reconciliation_error"].abs().max())
+        self.add(
+            "unified_account_cash_nav_position_replay",
+            max_cash <= 1e-4 and max_nav <= 1e-4 and max_shares <= 1e-6,
+            f"cash_error_cny={max_cash:.3e}, nav_error_cny={max_nav:.3e}, "
+            f"share_error={max_shares:.3e}",
+        )
+        self.add(
+            "unified_account_assertion_log_clean",
+            len(failures) == 1
+            and str(failures.iloc[0]["check_name"]) == "NO_FAILED_ASSERTIONS"
+            and str(failures.iloc[0]["status"]) == "PASS",
+            failures.to_dict(orient="records").__str__(),
+        )
+        self.warn(
+            "legacy_corporate_action_scenario_key_missing",
+            "The frozen Phase 5 corporate-action table concatenated two scenarios without a "
+            "scenario key. Phase 7 preserves it and reconstructs account-specific actions from "
+            "prior actual holdings plus frozen market action fields.",
+        )
+        self.findings.update({
+            "unified_account_daily_rows": len(daily),
+            "unified_account_security_rows": len(security),
+            "unified_account_order_exceptions": len(exceptions),
+            "unified_account_max_cash_error_cny": max_cash,
+            "unified_account_max_nav_error_cny": max_nav,
+            "unified_account_max_share_error": max_shares,
+        })
+
     def audit_incremental_alpha_test(self) -> None:
         """Gate the characteristic-matched executable incremental-alpha test."""
         protocol = self.require_table("incremental_alpha_protocol", "v1")
@@ -1955,6 +2039,7 @@ class ResearchAuditor:
         self.audit_constrained_portfolio_neutralization()
         self.audit_constrained_portfolio_daily_execution()
         self.audit_institutional_execution()
+        self.audit_unified_account_ledger()
         self.audit_incremental_alpha_test()
         self.audit_multi_factor_risk_attribution()
         self.audit_risk_aware_portfolio_optimization()

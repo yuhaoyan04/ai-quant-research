@@ -31,6 +31,7 @@
 - 约束组合已接入非重叠日频成交引擎。原始 HGB 在同口径下从理想全成交年化 22.18% 降至停牌/涨跌停逐日重试后的 20.81%，Sharpe 0.94、最大回撤 -33.32%；年化算术成交折损 95% 区间为 [-1.66%, -0.68%]。
 - Phase 5 将冻结的 raw HGB 目标接入人民币股数、订单状态、T+1、整手、10% 日成交量参与率、公司行动代理和逐日现金/持仓/NAV 账本。受限场景年化 20.66%、Sharpe 0.93、最大回撤 -33.31%，移除停牌/涨跌停/成交量约束的上界为 22.08%；成交股数比例 98.83%，平均目标偏离 L1 为 2.31%。这是已查看 historical OOS 的日线近似诊断，不是真实券商成交或新独立证据。
 - Phase 6 在同一 raw HGB 分数、日期、20bp 成本和账户执行器下比较 Top-200/400 缓冲等权、逆波动率、分数加权与严格约束优化。P0/P1/P2/P4 年化分别为 22.14%/21.77%/19.56%/18.81%；P1 相对 P0 的收益差区间跨零，P2 区间完全低于零。P4 把波动和回撤降到 21.63%/-32.26%，但严格 LP 仅 45.4% 日期可行、成交股数比例仅 58.8%，因此保留 P0，不晋升复杂方法。P4 可行性处理属于已披露的 post-OOS adaptation。
+- Phase 7 将冻结主账户的目标权重、实际股数、实际权重、现金、订单、成交、费用与公司行动统一为逐日账本。1,387 个账户日全部通过现金/NAV/持仓独立回放，股数迁移误差为 0、T+1 违规为 0；旧公司行动表缺少场景键的问题被保留并显式警告，新账本按账户重建 1,034 条行动记录。
 - Phase 1 已将买入、卖出、双边成交额和单边换手统一到 fill 级协议；C0 20bp 严格复现 20.81%，同一成交路径下 raw HGB 的 100bp 年化为 6.20%。含日期生效印花税/过户费和 3bp 双边佣金假设的 C2 情景为 22.11%，但它不是历史券商账单；详见[交易成本报告](reports/transaction_cost_model.md)。
 - Phase 2 新增中央结算公司中债国债收益率曲线数据产品：3个月主基线与1年敏感性均覆盖1,387日、0缺失、0插值，并按“观察日次日可用 + ACT/365复利”对齐。3个月利率下 raw HGB Sharpe 从0.937降至0.863；其CSI500 CAPM Alpha为17.55%，95%区间[3.63%, 31.46%]，但六风格残余Alpha仅0.86%，区间跨零。详见[无风险利率与归因报告](reports/risk_free_rate_attribution.md)。
 - 市场基准现同时支持价格指数和中证官方全收益指数。CSI500 全收益/价格指数年化分别为4.10%/2.32%，同源几何股息再投资楔子约1.74%；在3个月国债rf下，raw HGB相对CSI500全收益指数的CAPM Alpha降至16.19%，六风格残余Alpha降至-0.65%，后者仍不显著。详见[价格与全收益基准报告](reports/market_benchmark_attribution.md)。
@@ -109,6 +110,7 @@ quant-model-stability-validation
 quant-research-governance status
 quant-portfolio-sensitivity
 quant-portfolio-construction-comparison all
+quant-unified-account-ledger run
 quant-transaction-costs run
 quant-risk-free-attribution
 quant-market-benchmark-attribution
@@ -121,7 +123,7 @@ quant-final-report
 
 ### 冻结实验与可复现性
 
-当前 42 个实验版本已登记为不可覆盖快照。每个快照包含解析后的配置、指标表、图表、环境版本、代码树哈希、输入数据 SHA-256 与 historical OOS 使用声明；失败与被替代实验同样保留。Phase 3 保留 expanding/10 年 rolling、逐年失败标记、RF 多 seed 分布和非因果 Purged CV 补充诊断；Phase 4 将 2021–2026 标记为已消耗历史证据，并冻结 future lockbox、paper-trading 协议和 hash-chained 访问日志。
+当前 46 个实验版本已登记为不可覆盖快照。每个快照包含解析后的配置、指标表、图表、环境版本、代码树哈希、输入数据 SHA-256 与 historical OOS 使用声明；失败与被替代实验同样保留。Phase 3 保留 expanding/10 年 rolling、逐年失败标记、RF 多 seed 分布和非因果 Purged CV 补充诊断；Phase 4 将 2021–2026 标记为已消耗历史证据，并冻结 future lockbox、paper-trading 协议和 hash-chained 访问日志。
 
 ```powershell
 # 查看已登记实验

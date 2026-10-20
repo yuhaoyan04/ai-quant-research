@@ -2,7 +2,7 @@
 
 ## 1. 复现边界
 
-GitHub 仓库保存代码、配置、测试、文档、图表、结果表和 42 个冻结实验版本，**不保存完整
+GitHub 仓库保存代码、配置、测试、文档、图表、结果表和 46 个冻结实验版本，**不保存完整
 `data/` 数据湖**。新机器从 BaoStock 下载股票主数据；AKShare 承担股票抽样核对和中债官方
 历史接口适配，市场归因从中证指数公司官方接口取得价格/全收益序列。不同来源不静默互相覆盖。
 
@@ -98,6 +98,7 @@ quant-constrained-portfolio-neutralization
 quant-constrained-daily-execution all
 quant-institutional-execution all
 quant-portfolio-construction-comparison all
+quant-unified-account-ledger run
 quant-transaction-costs run
 quant-risk-attribution all
 quant-incremental-alpha all
@@ -144,8 +145,9 @@ powershell -ExecutionPolicy Bypass -File scripts/rebuild_all.ps1 -SkipDownload -
 8. 统一模型 benchmark、RF/HGB 参数稳定性、收益取证和日频成交重试；
 9. Top-N、inverse-vol、fill 级 C0/C1/C2 成本协议、因子分布与滚动相关诊断；
 10. 同一 HGB 信号下的 P0/P1/P2/P4 权重比较、账户执行与 2500 万/1 亿/5 亿容量重跑；
-11. 结论证据矩阵、BH-FDR 多重检验、研究生命周期审计；
-12. 离线 dashboard、publication audit 与最终 PDF。
+11. 冻结主账户的目标/实际权重、现金、订单、成交、公司行动与 NAV 统一账本及独立回放；
+12. 结论证据矩阵、BH-FDR 多重检验、研究生命周期审计；
+13. 离线 dashboard、publication audit 与最终 PDF。
 
 如果需要手工定位失败步骤，可打开 [rebuild_all.ps1](../scripts/rebuild_all.ps1) 查看完全展开、
 可逐条复制的命令序列。脚本默认不删除、不覆盖 `data/`；多数上游阶段通过 `--missing` 或文件
@@ -161,7 +163,7 @@ powershell -ExecutionPolicy Bypass -File scripts/rebuild_all.ps1 -SkipDownload -
 | `data/lake/curated/` 其他表 | 质量表、因子、标签、模型特征、预测、持仓、成交 | 否 |
 | `data/lake/manifests/` | 请求、schema、行数、内容哈希 | 否 |
 | `config/` | 数据、因子、模型、组合和实验配置 | 是 |
-| `reports/experiments/` | 45 个不可变实验版本与输入哈希 | 是 |
+| `reports/experiments/` | 46 个不可变实验版本与输入哈希 | 是 |
 | `reports/tables/`、`reports/figures/` | 求职展示所需结果 | 是 |
 | `reports/research_dashboard.html` | 离线交互面板 | 是 |
 
@@ -189,6 +191,8 @@ quant-research-dashboard
 `quant-institutional-execution all` 首次运行会从未复权日线构建人民币价格/成交量执行面板，再运行受限场景和移除市场约束上界。它不会改动冻结模型或目标权重。日线模拟不包含盘口队列、bid/ask、精确成交时刻或真实券商订单；公司行动字段是价值保持代理，不能替代官方权益分派记录。
 
 `quant-portfolio-construction-comparison all` 会重建冻结 raw HGB 全截面分数，生成 Top-200/400 缓冲下的四种目标权重，扩展执行市场并真实重跑三个资金规模。该步骤计算量和产物体积都较大；其 2021–2026 结果属于 post-OOS adaptation/诊断，不得用于宣称新的独立样本外最优方法。
+
+`quant-unified-account-ledger run` 不重跑信号或策略，只读 Phase 5 的冻结主账户输出，生成目标/实际权重、现金、订单、成交、公司行动与 NAV 的统一账本并执行独立对账。它要求上游 institutional execution 表已经存在；任何硬对账失败都会以非零状态退出。
 
 ## 8. 常见故障
 

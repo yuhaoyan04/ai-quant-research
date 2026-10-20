@@ -1,0 +1,47 @@
+experiment_id: unified_account_ledger_v1
+source_experiment: institutional_execution_v2
+evidence_class: historical_oos_descriptive
+research_selection_role: diagnostic
+claims_independent_evidence: false
+historical_oos_used_for_selection: false
+
+account_id: candidate_bundle_v1_primary
+scenario: daily_close_institutional_constraints
+candidate:
+  model: hgb_shallow15_locked
+  alpha_pipeline: raw
+  strategy: raw__risk_constrained
+
+initial_cash_cny: 100000000.0
+timing_convention: mark_existing_positions_then_replace_orders_then_close_execute_then_posttrade_mark
+execution_time: close
+marking_price: unadjusted_close
+allow_margin: false
+allow_short_sales: false
+enforce_t_plus_one: true
+
+sources:
+  daily: {table: institutional_execution_daily, key: v1}
+  orders: {table: institutional_execution_orders, key: v1}
+  events: {table: institutional_execution_events, key: v1}
+  fills: {table: institutional_execution_fills, key: v1}
+  positions: {table: institutional_execution_positions, key: v1}
+  corporate_actions_legacy: {table: institutional_execution_corporate_actions, key: v1}
+  targets: {table: constrained_execution_targets, key: v1}
+  market: {table: institutional_execution_market, key: v1}
+
+tolerances:
+  cash_cny: 0.0001
+  nav_cny: 0.0001
+  market_value_cny: 0.0001
+  shares: 0.000001
+  weight: 0.0000000001
+  fees_cny: 0.000001
+
+scope_note: >-
+  Read-only Phase 7 accounting normalization of the already frozen Phase 5
+  primary account. It does not change targets, fills, costs, positions or
+  returns. The legacy corporate-action table omitted scenario identity after
+  concatenating two simulations; account-specific action rows are therefore
+  reconstructed from the selected account's prior holdings and the frozen
+  market action fields, while the legacy defect remains disclosed.

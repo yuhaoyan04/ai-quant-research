@@ -86,6 +86,7 @@ quant-model-stability-validation = "quant_research.model_stability_validation:ru
 quant-research-governance = "quant_research.research_governance:main"
 quant-institutional-execution = "quant_research.institutional_execution:main"
 quant-portfolio-construction-comparison = "quant_research.portfolio_construction_comparison:main"
+quant-unified-account-ledger = "quant_research.unified_account_ledger:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
