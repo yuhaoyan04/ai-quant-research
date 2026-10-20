@@ -166,7 +166,7 @@ powershell -ExecutionPolicy Bypass -File scripts/rebuild_all.ps1 -SkipDownload -
 | `data/lake/curated/` 其他表 | 质量表、因子、标签、模型特征、预测、持仓、成交 | 否 |
 | `data/lake/manifests/` | 请求、schema、行数、内容哈希 | 否 |
 | `config/` | 数据、因子、模型、组合和实验配置 | 是 |
-| `reports/experiments/` | 50 个不可变实验版本与输入哈希 | 是 |
+| `reports/experiments/` | 51 个不可变实验版本与输入哈希 | 是 |
 | `reports/tables/`、`reports/figures/` | 求职展示所需结果 | 是 |
 | `reports/research_dashboard.html` | 离线交互面板 | 是 |
 
@@ -181,7 +181,7 @@ quant-audit
 quant-research-dashboard
 ```
 
-当前验收记录为 200 tests passed；研究审计为 465 PASS / 46 WARN / 0 FAIL（WARN 保留历史版本漂移与已知边界）。新下载数据应至少
+当前验收记录为 205 tests passed；研究审计为 482 PASS / 46 WARN / 0 FAIL（WARN 保留历史版本漂移与已知边界）。新下载数据应至少
 满足：测试通过、schema/唯一键/日期门禁无 FAIL、模型比较使用共同日期、持仓权重和收益恒等式
 通过。
 
@@ -202,6 +202,8 @@ quant-research-dashboard
 `quant-alpha-evidence run` 将无风险利率、CSI500 官方价格/全收益指数、本地六风格、ML/风格复制组合和 Phase 8 配对推断统一到 1,387 日证据矩阵。它固定全收益指数、3 个月国债和 HAC(5) 为主规格，保存 96 个风险模型敏感性回归，并把缺少股数级 fill ledger 登记为 P0，而不是估算成交率。
 
 `quant-incremental-alpha-fill all` 先复用 Phase 5 股数级市场并补齐风格复制组合新增证券，再将4条ML与4条风格复制目标统一通过1亿元账户执行器。运行完成后再执行 `quant-alpha-evidence run`，v2会用股数级净收益重算配对bootstrap、风险调整Alpha与FDR。该步骤计算和落盘量较大，但不会覆盖Phase 5或Phase 9 v1冻结产物。
+
+`quant-engineering-quality run` 扫描共同实现、随机seed、五层测试和Phase 5–9输出契约。它是治理检查，不重跑模型或选择历史结果；任何唯一实现、协议版本或冻结快照门禁失败都会返回非零状态。
 
 ## 8. 常见故障
 

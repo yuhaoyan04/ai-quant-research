@@ -17,8 +17,8 @@ import pandas as pd
 import yaml
 
 from quant_research.daily_execution import daily_performance_summary
+from quant_research.execution_market import read_execution_market_rows
 from quant_research.ingest import ROOT, Lake
-from quant_research.rf_daily_retry_execution import _limit_array
 from quant_research.transaction_costs import price_fills
 
 
@@ -545,41 +545,14 @@ def build_market(lake: Lake | None = None, *, overwrite: bool = False) -> pd.Dat
     start = str(selected["execution_date"].min())
     legacy_market = lake.read(str(cfg["source_market"]["table"]), str(cfg["source_market"]["key"]))
     end = str(legacy_market["trade_date"].max())
-    tolerance = 0.20
     rules = load_config(ROOT / "config" / "constrained_portfolio_daily_execution.yaml")["rules"]
     threshold = float(cfg["corporate_action_proxy"]["activation_absolute_deviation"])
     frames = []
     for number, code in enumerate(codes, start=1):
-        bars = pd.read_parquet(
-            lake.table_path("daily_bars_validated", code.replace(".", "_")),
-            columns=["instrument_id", "trade_date", "close", "volume", "pct_chg", "trade_status", "is_st"],
-        ).sort_values("trade_date")
-        close = pd.to_numeric(bars["close"], errors="coerce")
-        previous = close.shift(1)
-        returns = pd.to_numeric(bars["pct_chg"], errors="coerce") / 100.0
-        raw_factor = previous * (1.0 + returns) / close
-        factor = raw_factor.where(raw_factor.sub(1.0).abs().gt(threshold), 1.0).fillna(1.0)
-        status = pd.to_numeric(bars["trade_status"], errors="coerce").eq(1)
-        is_st = pd.to_numeric(bars["is_st"], errors="coerce").fillna(0).eq(1)
-        limits = _limit_array(code, bars["trade_date"], is_st, rules)
-        pct = pd.to_numeric(bars["pct_chg"], errors="coerce")
-        bars = bars.assign(
-            previous_close=previous, daily_return=returns,
-            buy_allowed=status & pct.lt(limits - tolerance),
-            sell_allowed=status & pct.gt(-limits + tolerance),
-            at_upper_limit=status & pct.ge(limits - tolerance),
-            at_lower_limit=status & pct.le(-limits + tolerance),
-            share_factor=factor, cash_dividend_per_share=0.0,
-            action_source=np.where(
-                factor.ne(1.0), "inferred_value_preserving_factor", "none"
-            ),
-        )
-        frames.append(bars.loc[bars["trade_date"].between(start, end), [
-            "trade_date", "instrument_id", "close", "previous_close", "volume",
-            "daily_return", "trade_status", "buy_allowed", "sell_allowed",
-            "at_upper_limit", "at_lower_limit", "share_factor",
-            "cash_dividend_per_share", "action_source",
-        ]])
+        frames.append(read_execution_market_rows(
+            lake, code, rules=rules, corporate_action_threshold=threshold,
+            start_date=start, end_date=end,
+        ))
         if number % 500 == 0:
             print(f"institutional market files={number}/{len(codes)}", flush=True)
     result = pd.concat(frames, ignore_index=True)

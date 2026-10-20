@@ -19,6 +19,7 @@ from scipy.optimize import linprog
 from scipy.sparse import coo_matrix, csr_matrix
 
 from quant_research.factor_neutralization import _read_year
+from quant_research.execution_market import read_execution_market_rows
 from quant_research.ingest import ROOT, Lake
 from quant_research.institutional_execution import _summaries, simulate_execution
 from quant_research.model_baseline import purged_end_date
@@ -29,7 +30,6 @@ from quant_research.model_portfolio_neutralization import (
     model_designs,
 )
 from quant_research.preprocessing import load_config as load_preprocessing_config
-from quant_research.rf_daily_retry_execution import _limit_array
 from quant_research.robustness import circular_block_bootstrap_mean
 
 
@@ -527,41 +527,11 @@ def build_execution_market(lake: Lake | None = None, *, overwrite: bool = False)
     threshold = float(cfg["execution"]["corporate_action_proxy"][
         "activation_absolute_deviation"
     ])
-    tolerance = 0.20
     for number, code in enumerate(missing, start=1):
-        bars = pd.read_parquet(
-            lake.table_path("daily_bars_validated", code.replace(".", "_")),
-            columns=[
-                "instrument_id", "trade_date", "close", "volume", "pct_chg",
-                "trade_status", "is_st",
-            ],
-        ).sort_values("trade_date")
-        close = pd.to_numeric(bars["close"], errors="coerce")
-        previous = close.shift(1)
-        returns = pd.to_numeric(bars["pct_chg"], errors="coerce") / 100.0
-        raw_factor = previous * (1.0 + returns) / close
-        factor = raw_factor.where(raw_factor.sub(1.0).abs().gt(threshold), 1.0).fillna(1.0)
-        status = pd.to_numeric(bars["trade_status"], errors="coerce").eq(1)
-        is_st = pd.to_numeric(bars["is_st"], errors="coerce").fillna(0).eq(1)
-        limits = _limit_array(code, bars["trade_date"], is_st, rules)
-        pct = pd.to_numeric(bars["pct_chg"], errors="coerce")
-        current = bars.assign(
-            previous_close=previous, daily_return=returns,
-            buy_allowed=status & pct.lt(limits - tolerance),
-            sell_allowed=status & pct.gt(-limits + tolerance),
-            at_upper_limit=status & pct.ge(limits - tolerance),
-            at_lower_limit=status & pct.le(-limits + tolerance),
-            share_factor=factor, cash_dividend_per_share=0.0,
-            action_source=np.where(
-                factor.ne(1.0), "inferred_value_preserving_factor", "none"
-            ),
-        )
-        frames.append(current.loc[current["trade_date"].between(start, end), [
-            "trade_date", "instrument_id", "close", "previous_close", "volume",
-            "daily_return", "trade_status", "buy_allowed", "sell_allowed",
-            "at_upper_limit", "at_lower_limit", "share_factor",
-            "cash_dividend_per_share", "action_source",
-        ]])
+        frames.append(read_execution_market_rows(
+            lake, code, rules=rules, corporate_action_threshold=threshold,
+            start_date=start, end_date=end,
+        ))
         if number % 250 == 0:
             print(f"phase6 market files={number}/{len(missing)}", flush=True)
     result = pd.concat(frames, ignore_index=True).drop_duplicates(

@@ -1,0 +1,136 @@
+{
+  "experiment_id": "engineering_quality_v1",
+  "title": "Phase 10 canonical implementations and engineering quality gates",
+  "stage": "engineering_structure_configuration_and_tests",
+  "model_version": "canonical_execution_market_and_five_layer_test_contract_v1",
+  "registered_at_utc": "2026-10-20T13:37:40.679049+00:00",
+  "immutable": true,
+  "selection_policy": "validation_only",
+  "historical_oos_used_for_selection": false,
+  "historical_oos_disclosure": "The 2021-2026 block has already been inspected during project development. It is historical out-of-sample evidence, not a pristine production lockbox.",
+  "evidence_class": "governance_only",
+  "research_selection_role": "governance",
+  "claims_independent_evidence": false,
+  "lockbox_id": null,
+  "dataset_version": "4d06066ee44230522f31d5dccf10b2428e6da4f2d013ea34a21578efb9ccb30f",
+  "dataset_manifest": {
+    "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/manifests/ingestion.jsonl",
+    "size_bytes": 19751417,
+    "sha256": "88dc2a89720b68778b68997db9d99d2bb3114fc6f753f298f20c2c653218536a"
+  },
+  "input_artifacts": [
+    {
+      "table": "institutional_execution_protocol",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/institutional_execution_protocol/key=v1/data.parquet",
+      "size_bytes": 6556,
+      "sha256": "534ea9835baeb7e25dbe5f90ce1636e04225880ce54283716e5ac7ac95cdc0fc"
+    },
+    {
+      "table": "portfolio_construction_protocol",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/portfolio_construction_protocol/key=v1/data.parquet",
+      "size_bytes": 6452,
+      "sha256": "bcc4677742680d5eeff34d0bd74652214de2457362ccb2d454fb2465c77fc193"
+    },
+    {
+      "table": "unified_account_protocol",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/unified_account_protocol/key=v1/data.parquet",
+      "size_bytes": 8105,
+      "sha256": "d58814619ab233409549b53f22f792daa73ae9555ef544a50d814ab24120a684"
+    },
+    {
+      "table": "statistical_inference_protocol",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/statistical_inference_protocol/key=v1/data.parquet",
+      "size_bytes": 9232,
+      "sha256": "d369084bc133c02d60622e8750afebe1325820293613ed6297e05a504794825a"
+    },
+    {
+      "table": "alpha_evidence_protocol",
+      "key": "v2",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/alpha_evidence_protocol/key=v2/data.parquet",
+      "size_bytes": 8997,
+      "sha256": "cf7d4e616c23fd87372ffa5cca436b269e9bed52699e7df5c8a96ce00ff1b822"
+    }
+  ],
+  "metric_artifacts": [
+    {
+      "table": "engineering_quality_protocol",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/engineering_quality_protocol/key=v1/data.parquet",
+      "size_bytes": 5895,
+      "sha256": "7a6baaadd48c99fed5a2e853dc097eefc98b64c71a08be3365827d0a713f3f06"
+    },
+    {
+      "table": "engineering_implementation_inventory",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/engineering_implementation_inventory/key=v1/data.parquet",
+      "size_bytes": 3155,
+      "sha256": "01c3b6c82609a0d322915202a9ccedc8c4abc6b85512fcafa9ba68d94cb8f7fc"
+    },
+    {
+      "table": "engineering_random_seed_inventory",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/engineering_random_seed_inventory/key=v1/data.parquet",
+      "size_bytes": 3153,
+      "sha256": "7621b189a5420cd70803b181029b95b0374420cfe7b8baed3814283351c2bb06"
+    },
+    {
+      "table": "engineering_test_layer_inventory",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/engineering_test_layer_inventory/key=v1/data.parquet",
+      "size_bytes": 3100,
+      "sha256": "29c2f84eea7773b7601bebbd2a687a3d2c6dc3e9de9bb736e6e9530f393a7edf"
+    },
+    {
+      "table": "engineering_output_contracts",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/engineering_output_contracts/key=v1/data.parquet",
+      "size_bytes": 6397,
+      "sha256": "c3ff15aa26306c179c7deb947075f6357f1800739f818da452618cd3cd11366b"
+    },
+    {
+      "table": "engineering_gap_register",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/engineering_gap_register/key=v1/data.parquet",
+      "size_bytes": 3387,
+      "sha256": "af1b50e3daeaab034eb37bdf036f905ad9a37a70f6c4738757c669b52647a204"
+    },
+    {
+      "table": "engineering_quality_checks",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/engineering_quality_checks/key=v1/data.parquet",
+      "size_bytes": 3437,
+      "sha256": "c23b0142a8973c65275d578cf4c9886f103e2cc676d8d395e3cc0aab78261f25"
+    },
+    {
+      "table": "engineering_failed_assertions",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/engineering_failed_assertions/key=v1/data.parquet",
+      "size_bytes": 2448,
+      "sha256": "36904b27371840728d3a37b1fae09d50ce736186047500b76285778ba2eff39d"
+    }
+  ],
+  "figures": [],
+  "source_tree_sha256": "00be7b3032273bdac80ea509230b035cbb4925f8b5357d90263b905c2f7e1fec",
+  "git": {
+    "commit": "3fc41f52a29d96643c5501ae20eb412ad89a22fa",
+    "dirty": true,
+    "status_sha256": "e542cc5fdef08221271f7b88911cfcaed39a10137c41c7520ec6498764b68d0a"
+  },
+  "environment": {
+    "python": "3.11.16",
+    "implementation": "CPython",
+    "platform": "Linux-5.15.0-92-generic-x86_64-with-glibc2.35",
+    "packages": {
+      "pandas": "3.0.6",
+      "pyarrow": "25.0.1",
+      "PyYAML": "6.0.3",
+      "scikit-learn": "1.9.1",
+      "numpy": "2.4.6",
+      "scipy": "1.17.1"
+    }
+  }
+}

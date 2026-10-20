@@ -1461,6 +1461,77 @@ class ResearchAuditor:
             ),
         })
 
+    def audit_engineering_quality(self) -> None:
+        protocol = self.require_table("engineering_quality_protocol", "v1")
+        implementation = self.require_table("engineering_implementation_inventory", "v1")
+        seeds = self.require_table("engineering_random_seed_inventory", "v1")
+        tests = self.require_table("engineering_test_layer_inventory", "v1")
+        contracts = self.require_table("engineering_output_contracts", "v1")
+        gaps = self.require_table("engineering_gap_register", "v1")
+        checks = self.require_table("engineering_quality_checks", "v1")
+        failures = self.require_table("engineering_failed_assertions", "v1")
+        if any(frame.empty for frame in (
+            protocol, implementation, seeds, tests, contracts, gaps, checks, failures,
+        )):
+            return
+        row = protocol.iloc[0]
+        self.add(
+            "engineering_quality_governance_only",
+            str(row["evidence_class"]) == "governance_only"
+            and str(row["research_selection_role"]) == "governance"
+            and not bool(row["research_logic_changed"])
+            and not bool(row["frozen_results_reselected"]),
+            f"canonical_module={row['canonical_execution_market_module']}",
+        )
+        self.add(
+            "engineering_quality_all_checks_pass",
+            len(checks) == 8 and checks["status"].eq("PASS").all(),
+            f"checks={len(checks)}",
+        )
+        self.add(
+            "engineering_quality_single_execution_market_implementation",
+            implementation.loc[
+                implementation["logic"].isin([
+                    "corporate_action_proxy_formula", "execution_buy_limit_rule",
+                ]), "path"
+            ].nunique() == 1,
+            implementation.to_dict(orient="records").__str__(),
+        )
+        self.add(
+            "engineering_quality_tests_and_seeds_complete",
+            tests["exists"].astype(bool).all()
+            and tests.groupby("layer")["test_functions"].sum().gt(0).all()
+            and seeds["explicit_seed"].astype(bool).all(),
+            f"layers={tests['layer'].nunique()}, random_generators={len(seeds)}",
+        )
+        self.add(
+            "engineering_quality_output_contracts_frozen",
+            len(contracts) == 5
+            and contracts["protocol_has_experiment_id"].astype(bool).all()
+            and contracts["frozen_snapshot_immutable"].astype(bool).all(),
+            contracts[["stage", "frozen_experiment"]].to_dict(orient="records").__str__(),
+        )
+        self.add(
+            "engineering_quality_no_open_p0",
+            not (gaps["priority"].eq("P0") & gaps["status"].str.startswith("OPEN")).any(),
+            gaps.groupby(["priority", "status"]).size().to_dict().__str__(),
+        )
+        self.add(
+            "engineering_quality_assertion_log_clean",
+            len(failures) == 1
+            and str(failures.iloc[0]["check_name"]) == "NO_FAILED_ASSERTIONS",
+            failures.to_dict(orient="records").__str__(),
+        )
+        self.findings.update({
+            "engineering_canonical_execution_market_module": str(
+                row["canonical_execution_market_module"]
+            ),
+            "engineering_test_layers": int(tests["layer"].nunique()),
+            "engineering_open_p0_gaps": int((
+                gaps["priority"].eq("P0") & gaps["status"].str.startswith("OPEN")
+            ).sum()),
+        })
+
     def audit_multi_factor_risk_attribution(self) -> None:
         """Gate PIT style coverage, exact attribution, and lagged risk forecasts."""
         protocol = self.require_table("risk_model_protocol", "v1")
@@ -2270,6 +2341,7 @@ class ResearchAuditor:
         self.audit_statistical_inference()
         self.audit_incremental_alpha_test()
         self.audit_alpha_evidence_matrix()
+        self.audit_engineering_quality()
         self.audit_multi_factor_risk_attribution()
         self.audit_risk_aware_portfolio_optimization()
         self.audit_weekly_identity(

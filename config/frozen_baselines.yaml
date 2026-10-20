@@ -1760,3 +1760,30 @@ experiments:
       - {table: alpha_evidence_checks, key: v2}
       - {table: alpha_evidence_failed_assertions, key: v2}
     figures: []
+
+  engineering_quality_v1:
+    title: Phase 10 canonical implementations and engineering quality gates
+    stage: engineering_structure_configuration_and_tests
+    model_version: canonical_execution_market_and_five_layer_test_contract_v1
+    dataset_version_method: sha256_of_registered_inputs_and_ingestion_manifest
+    historical_oos_used_for_selection: false
+    evidence_class: governance_only
+    research_selection_role: governance
+    claims_independent_evidence: false
+    config_files: [engineering_quality.yaml, research_governance.yaml]
+    input_tables:
+      - {table: institutional_execution_protocol, key: v1}
+      - {table: portfolio_construction_protocol, key: v1}
+      - {table: unified_account_protocol, key: v1}
+      - {table: statistical_inference_protocol, key: v1}
+      - {table: alpha_evidence_protocol, key: v2}
+    metric_tables:
+      - {table: engineering_quality_protocol, key: v1}
+      - {table: engineering_implementation_inventory, key: v1}
+      - {table: engineering_random_seed_inventory, key: v1}
+      - {table: engineering_test_layer_inventory, key: v1}
+      - {table: engineering_output_contracts, key: v1}
+      - {table: engineering_gap_register, key: v1}
+      - {table: engineering_quality_checks, key: v1}
+      - {table: engineering_failed_assertions, key: v1}
+    figures: []

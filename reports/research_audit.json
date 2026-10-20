@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-10-20T13:19:32.173294+00:00",
+  "generated_at_utc": "2026-10-20T13:38:43.739141+00:00",
   "checks": [
     {
       "name": "chronological_split_order",
@@ -508,6 +508,16 @@
     },
     {
       "name": "frozen_live_inputs:alpha_evidence_matrix_v2",
+      "status": "PASS",
+      "detail": "all registered inputs match their SHA-256 hashes"
+    },
+    {
+      "name": "frozen_snapshot_integrity:engineering_quality_v1",
+      "status": "PASS",
+      "detail": "all frozen files match FROZEN.json"
+    },
+    {
+      "name": "frozen_live_inputs:engineering_quality_v1",
       "status": "PASS",
       "detail": "all registered inputs match their SHA-256 hashes"
     },
@@ -1947,6 +1957,81 @@
       "detail": "paths=8, checks=10"
     },
     {
+      "name": "artifact:engineering_quality_protocol/v1",
+      "status": "PASS",
+      "detail": "rows=1"
+    },
+    {
+      "name": "artifact:engineering_implementation_inventory/v1",
+      "status": "PASS",
+      "detail": "rows=6"
+    },
+    {
+      "name": "artifact:engineering_random_seed_inventory/v1",
+      "status": "PASS",
+      "detail": "rows=3"
+    },
+    {
+      "name": "artifact:engineering_test_layer_inventory/v1",
+      "status": "PASS",
+      "detail": "rows=10"
+    },
+    {
+      "name": "artifact:engineering_output_contracts/v1",
+      "status": "PASS",
+      "detail": "rows=5"
+    },
+    {
+      "name": "artifact:engineering_gap_register/v1",
+      "status": "PASS",
+      "detail": "rows=4"
+    },
+    {
+      "name": "artifact:engineering_quality_checks/v1",
+      "status": "PASS",
+      "detail": "rows=8"
+    },
+    {
+      "name": "artifact:engineering_failed_assertions/v1",
+      "status": "PASS",
+      "detail": "rows=1"
+    },
+    {
+      "name": "engineering_quality_governance_only",
+      "status": "PASS",
+      "detail": "canonical_module=src/quant_research/execution_market.py"
+    },
+    {
+      "name": "engineering_quality_all_checks_pass",
+      "status": "PASS",
+      "detail": "checks=8"
+    },
+    {
+      "name": "engineering_quality_single_execution_market_implementation",
+      "status": "PASS",
+      "detail": "[{'logic': 'corporate_action_proxy_formula', 'path': 'src/quant_research/execution_market.py', 'line': 41, 'is_definition': True}, {'logic': 'execution_buy_limit_rule', 'path': 'src/quant_research/execution_market.py', 'line': 52, 'is_definition': True}, {'logic': 'execution_market_public_api', 'path': 'src/quant_research/execution_market.py', 'line': 64, 'is_definition': True}, {'logic': 'execution_market_public_api', 'path': 'src/quant_research/incremental_alpha_fill_execution.py', 'line': 69, 'is_definition': False}, {'logic': 'execution_market_public_api', 'path': 'src/quant_research/institutional_execution.py', 'line': 552, 'is_definition': False}, {'logic': 'execution_market_public_api', 'path': 'src/quant_research/portfolio_construction_comparison.py', 'line': 531, 'is_definition': False}]"
+    },
+    {
+      "name": "engineering_quality_tests_and_seeds_complete",
+      "status": "PASS",
+      "detail": "layers=5, random_generators=3"
+    },
+    {
+      "name": "engineering_quality_output_contracts_frozen",
+      "status": "PASS",
+      "detail": "[{'stage': 'phase5_execution', 'frozen_experiment': 'institutional_execution_v2'}, {'stage': 'phase6_portfolio', 'frozen_experiment': 'portfolio_construction_comparison_v1'}, {'stage': 'phase7_ledger', 'frozen_experiment': 'unified_account_ledger_v1'}, {'stage': 'phase8_inference', 'frozen_experiment': 'statistical_inference_protocol_v1'}, {'stage': 'phase9_alpha', 'frozen_experiment': 'alpha_evidence_matrix_v2'}]"
+    },
+    {
+      "name": "engineering_quality_no_open_p0",
+      "status": "PASS",
+      "detail": "{('P1', 'CONTROLLED_BY_IMMUTABLE_REGISTRY'): 1, ('P1', 'OPEN'): 1, ('P2', 'OPEN'): 1, ('P2', 'OPEN_NONRESEARCH'): 1}"
+    },
+    {
+      "name": "engineering_quality_assertion_log_clean",
+      "status": "PASS",
+      "detail": "[{'check_name': 'NO_FAILED_ASSERTIONS', 'status': 'PASS', 'observed': 'all Phase 10 engineering gates passed'}]"
+    },
+    {
       "name": "artifact:risk_model_protocol/v1",
       "status": "PASS",
       "detail": "rows=1"
@@ -2558,7 +2643,7 @@
     }
   ],
   "findings": {
-    "registered_frozen_experiments": 50,
+    "registered_frozen_experiments": 51,
     "invalidated_experiments": 23,
     "common_oos_weeks": 291,
     "ridge_annualized_return_20bp": 0.2005894880405501,
@@ -2629,6 +2714,9 @@
     "alpha_evidence_risk_adjusted_fdr_survivors": 0,
     "hgb_raw_risk_adjusted_incremental_alpha": 0.0016893221338765405,
     "hgb_neutral_risk_adjusted_incremental_alpha": 0.01220379692104986,
+    "engineering_canonical_execution_market_module": "src/quant_research/execution_market.py",
+    "engineering_test_layers": 5,
+    "engineering_open_p0_gaps": 0,
     "pit_beta_minimum_coverage": 0.914180582483791,
     "hgb_raw_annualized_style_contribution_arithmetic": 0.13613172549903055,
     "hgb_raw_annualized_specific_selection_contribution_arithmetic": -0.004344077537185444,

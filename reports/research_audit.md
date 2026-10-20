@@ -1,8 +1,8 @@
 # Research artifact audit
 
-Generated at `2026-10-20T13:19:32.173294+00:00`.
+Generated at `2026-10-20T13:38:43.739141+00:00`.
 
-Summary: **465 PASS / 46 WARN / 0 FAIL**
+Summary: **482 PASS / 46 WARN / 0 FAIL**
 
 | Status | Check | Detail |
 |---|---|---|
@@ -108,6 +108,8 @@ Summary: **465 PASS / 46 WARN / 0 FAIL**
 | PASS | `frozen_live_inputs:incremental_alpha_fill_execution_v1` | all registered inputs match their SHA-256 hashes |
 | PASS | `frozen_snapshot_integrity:alpha_evidence_matrix_v2` | all frozen files match FROZEN.json |
 | PASS | `frozen_live_inputs:alpha_evidence_matrix_v2` | all registered inputs match their SHA-256 hashes |
+| PASS | `frozen_snapshot_integrity:engineering_quality_v1` | all frozen files match FROZEN.json |
+| PASS | `frozen_live_inputs:engineering_quality_v1` | all registered inputs match their SHA-256 hashes |
 | WARN | `invalidated_experiment:institutional_execution_v1` | severity=registry_self_staging_dirty_flag; superseded_by=institutional_execution_v2; reason=The research outputs and hashes are valid, but the experiment registry created its temporary snapshot directory inside the repository before capturing Git status. That self-created untracked directory caused the metadata to report dirty=true even though registration began from clean commit d1b00aedd5b3dcbc660733fa64288c550a83e446. |
 | WARN | `invalidated_experiment:portfolio_sensitivity_v1` | severity=cost_stress_repricing_formula_superseded; superseded_by=transaction_cost_model_v1; reason=The v1 fixed-fill execution cost stress subtracted turnover times the fee rate directly from gross return. The daily executor defines turnover over pre-trade NAV while return is measured over previous NAV, so exact C0 reproduction additionally requires the pre-trade-to-previous-NAV ratio. The difference is small but the v1 stress grid is not an exact 20bp regression of the executable baseline. |
 | WARN | `invalidated_experiment:factor_preprocessing_ablation_v1` | severity=portfolio_metrics_invalid; superseded_by=factor_preprocessing_ablation_v2; reason=Validation portfolios were formed after filtering rows with non-null future returns. RankIC and model-selection metrics used the correct realized subset, but Top-200 portfolio metrics had outcome-availability leakage. |
@@ -395,6 +397,21 @@ Summary: **465 PASS / 46 WARN / 0 FAIL**
 | PASS | `alpha_evidence_assertion_log_clean` | [{'check_name': 'NO_FAILED_ASSERTIONS', 'status': 'PASS', 'observed': 'all Phase 9 assertions passed; share-level fill comparison is complete'}] |
 | PASS | `alpha_evidence_share_level_fill_comparison_complete` | paths=8, ratios=[0.987309, 0.931394, 0.988337, 0.891164, 0.860965, 0.954013, 0.756205, 0.99485] |
 | PASS | `alpha_evidence_fill_accounting_invariants_pass` | paths=8, checks=10 |
+| PASS | `artifact:engineering_quality_protocol/v1` | rows=1 |
+| PASS | `artifact:engineering_implementation_inventory/v1` | rows=6 |
+| PASS | `artifact:engineering_random_seed_inventory/v1` | rows=3 |
+| PASS | `artifact:engineering_test_layer_inventory/v1` | rows=10 |
+| PASS | `artifact:engineering_output_contracts/v1` | rows=5 |
+| PASS | `artifact:engineering_gap_register/v1` | rows=4 |
+| PASS | `artifact:engineering_quality_checks/v1` | rows=8 |
+| PASS | `artifact:engineering_failed_assertions/v1` | rows=1 |
+| PASS | `engineering_quality_governance_only` | canonical_module=src/quant_research/execution_market.py |
+| PASS | `engineering_quality_all_checks_pass` | checks=8 |
+| PASS | `engineering_quality_single_execution_market_implementation` | [{'logic': 'corporate_action_proxy_formula', 'path': 'src/quant_research/execution_market.py', 'line': 41, 'is_definition': True}, {'logic': 'execution_buy_limit_rule', 'path': 'src/quant_research/execution_market.py', 'line': 52, 'is_definition': True}, {'logic': 'execution_market_public_api', 'path': 'src/quant_research/execution_market.py', 'line': 64, 'is_definition': True}, {'logic': 'execution_market_public_api', 'path': 'src/quant_research/incremental_alpha_fill_execution.py', 'line': 69, 'is_definition': False}, {'logic': 'execution_market_public_api', 'path': 'src/quant_research/institutional_execution.py', 'line': 552, 'is_definition': False}, {'logic': 'execution_market_public_api', 'path': 'src/quant_research/portfolio_construction_comparison.py', 'line': 531, 'is_definition': False}] |
+| PASS | `engineering_quality_tests_and_seeds_complete` | layers=5, random_generators=3 |
+| PASS | `engineering_quality_output_contracts_frozen` | [{'stage': 'phase5_execution', 'frozen_experiment': 'institutional_execution_v2'}, {'stage': 'phase6_portfolio', 'frozen_experiment': 'portfolio_construction_comparison_v1'}, {'stage': 'phase7_ledger', 'frozen_experiment': 'unified_account_ledger_v1'}, {'stage': 'phase8_inference', 'frozen_experiment': 'statistical_inference_protocol_v1'}, {'stage': 'phase9_alpha', 'frozen_experiment': 'alpha_evidence_matrix_v2'}] |
+| PASS | `engineering_quality_no_open_p0` | {('P1', 'CONTROLLED_BY_IMMUTABLE_REGISTRY'): 1, ('P1', 'OPEN'): 1, ('P2', 'OPEN'): 1, ('P2', 'OPEN_NONRESEARCH'): 1} |
+| PASS | `engineering_quality_assertion_log_clean` | [{'check_name': 'NO_FAILED_ASSERTIONS', 'status': 'PASS', 'observed': 'all Phase 10 engineering gates passed'}] |
 | PASS | `artifact:risk_model_protocol/v1` | rows=1 |
 | PASS | `artifact:pit_beta_exposure_index/v1` | rows=19 |
 | PASS | `artifact:risk_model_factor_returns/v1` | rows=26,028 |
@@ -520,7 +537,7 @@ Summary: **465 PASS / 46 WARN / 0 FAIL**
 
 ## Headline findings
 
-- `registered_frozen_experiments`: 50
+- `registered_frozen_experiments`: 51
 - `invalidated_experiments`: 23
 - `common_oos_weeks`: 291
 - `ridge_annualized_return_20bp`: 0.2005894880405501
@@ -591,6 +608,9 @@ Summary: **465 PASS / 46 WARN / 0 FAIL**
 - `alpha_evidence_risk_adjusted_fdr_survivors`: 0
 - `hgb_raw_risk_adjusted_incremental_alpha`: 0.0016893221338765405
 - `hgb_neutral_risk_adjusted_incremental_alpha`: 0.01220379692104986
+- `engineering_canonical_execution_market_module`: src/quant_research/execution_market.py
+- `engineering_test_layers`: 5
+- `engineering_open_p0_gaps`: 0
 - `pit_beta_minimum_coverage`: 0.914180582483791
 - `hgb_raw_annualized_style_contribution_arithmetic`: 0.13613172549903055
 - `hgb_raw_annualized_specific_selection_contribution_arithmetic`: -0.004344077537185444

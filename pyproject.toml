@@ -90,6 +90,7 @@ quant-unified-account-ledger = "quant_research.unified_account_ledger:main"
 quant-statistical-inference = "quant_research.statistical_inference:main"
 quant-alpha-evidence = "quant_research.alpha_evidence_matrix:main"
 quant-incremental-alpha-fill = "quant_research.incremental_alpha_fill_execution:main"
+quant-engineering-quality = "quant_research.engineering_quality:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]

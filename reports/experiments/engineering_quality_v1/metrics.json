@@ -1,0 +1,266 @@
+{
+  "engineering_quality_protocol__v1": [
+    {
+      "experiment_id": "engineering_quality_v1",
+      "evidence_class": "governance_only",
+      "research_selection_role": "governance",
+      "claims_independent_evidence": false,
+      "historical_oos_used_for_selection": false,
+      "canonical_execution_market_module": "src/quant_research/execution_market.py",
+      "research_logic_changed": false,
+      "frozen_results_reselected": false
+    }
+  ],
+  "engineering_implementation_inventory__v1": [
+    {
+      "logic": "corporate_action_proxy_formula",
+      "path": "src/quant_research/execution_market.py",
+      "line": 41,
+      "is_definition": true
+    },
+    {
+      "logic": "execution_buy_limit_rule",
+      "path": "src/quant_research/execution_market.py",
+      "line": 52,
+      "is_definition": true
+    },
+    {
+      "logic": "execution_market_public_api",
+      "path": "src/quant_research/execution_market.py",
+      "line": 64,
+      "is_definition": true
+    },
+    {
+      "logic": "execution_market_public_api",
+      "path": "src/quant_research/incremental_alpha_fill_execution.py",
+      "line": 69,
+      "is_definition": false
+    },
+    {
+      "logic": "execution_market_public_api",
+      "path": "src/quant_research/institutional_execution.py",
+      "line": 552,
+      "is_definition": false
+    },
+    {
+      "logic": "execution_market_public_api",
+      "path": "src/quant_research/portfolio_construction_comparison.py",
+      "line": 531,
+      "is_definition": false
+    }
+  ],
+  "engineering_random_seed_inventory__v1": [
+    {
+      "path": "src/quant_research/incremental_alpha_test.py",
+      "line": 451,
+      "seed_expression": "int(cfg[\"bootstrap\"][\"random_seed\"]",
+      "explicit_seed": true
+    },
+    {
+      "path": "src/quant_research/model_interpretation.py",
+      "line": 86,
+      "seed_expression": "zlib.crc32(seed_text",
+      "explicit_seed": true
+    },
+    {
+      "path": "src/quant_research/robustness.py",
+      "line": 25,
+      "seed_expression": "seed",
+      "explicit_seed": true
+    }
+  ],
+  "engineering_test_layer_inventory__v1": [
+    {
+      "layer": "unit",
+      "path": "tests/test_execution_market.py",
+      "exists": true,
+      "test_functions": 3
+    },
+    {
+      "layer": "unit",
+      "path": "tests/test_transaction_costs.py",
+      "exists": true,
+      "test_functions": 5
+    },
+    {
+      "layer": "integration",
+      "path": "tests/test_institutional_execution.py",
+      "exists": true,
+      "test_functions": 7
+    },
+    {
+      "layer": "integration",
+      "path": "tests/test_unified_account_ledger.py",
+      "exists": true,
+      "test_functions": 2
+    },
+    {
+      "layer": "regression",
+      "path": "tests/test_alpha_evidence_matrix.py",
+      "exists": true,
+      "test_functions": 2
+    },
+    {
+      "layer": "regression",
+      "path": "tests/test_statistical_inference.py",
+      "exists": true,
+      "test_functions": 3
+    },
+    {
+      "layer": "property_invariant",
+      "path": "tests/test_institutional_execution.py",
+      "exists": true,
+      "test_functions": 7
+    },
+    {
+      "layer": "property_invariant",
+      "path": "tests/test_unified_account_ledger.py",
+      "exists": true,
+      "test_functions": 2
+    },
+    {
+      "layer": "data_contract",
+      "path": "tests/test_market_benchmark_attribution.py",
+      "exists": true,
+      "test_functions": 3
+    },
+    {
+      "layer": "data_contract",
+      "path": "tests/test_risk_free_rate_attribution.py",
+      "exists": true,
+      "test_functions": 4
+    }
+  ],
+  "engineering_output_contracts__v1": [
+    {
+      "stage": "phase5_execution",
+      "table": "institutional_execution_protocol",
+      "key": "v1",
+      "frozen_experiment": "institutional_execution_v2",
+      "protocol_rows": 1,
+      "protocol_experiment_id": "institutional_execution_v1",
+      "protocol_has_experiment_id": true,
+      "frozen_snapshot_exists": true,
+      "frozen_snapshot_immutable": true
+    },
+    {
+      "stage": "phase6_portfolio",
+      "table": "portfolio_construction_protocol",
+      "key": "v1",
+      "frozen_experiment": "portfolio_construction_comparison_v1",
+      "protocol_rows": 1,
+      "protocol_experiment_id": "portfolio_construction_comparison_v1",
+      "protocol_has_experiment_id": true,
+      "frozen_snapshot_exists": true,
+      "frozen_snapshot_immutable": true
+    },
+    {
+      "stage": "phase7_ledger",
+      "table": "unified_account_protocol",
+      "key": "v1",
+      "frozen_experiment": "unified_account_ledger_v1",
+      "protocol_rows": 1,
+      "protocol_experiment_id": "unified_account_ledger_v1",
+      "protocol_has_experiment_id": true,
+      "frozen_snapshot_exists": true,
+      "frozen_snapshot_immutable": true
+    },
+    {
+      "stage": "phase8_inference",
+      "table": "statistical_inference_protocol",
+      "key": "v1",
+      "frozen_experiment": "statistical_inference_protocol_v1",
+      "protocol_rows": 1,
+      "protocol_experiment_id": "statistical_inference_protocol_v1",
+      "protocol_has_experiment_id": true,
+      "frozen_snapshot_exists": true,
+      "frozen_snapshot_immutable": true
+    },
+    {
+      "stage": "phase9_alpha",
+      "table": "alpha_evidence_protocol",
+      "key": "v2",
+      "frozen_experiment": "alpha_evidence_matrix_v2",
+      "protocol_rows": 1,
+      "protocol_experiment_id": "alpha_evidence_matrix_v2",
+      "protocol_has_experiment_id": true,
+      "frozen_snapshot_exists": true,
+      "frozen_snapshot_immutable": true
+    }
+  ],
+  "engineering_gap_register__v1": [
+    {
+      "priority": "P1",
+      "gap": "live_curated_table_names_are_mutable",
+      "status": "CONTROLLED_BY_IMMUTABLE_REGISTRY",
+      "mitigation": "publication claims use frozen experiment SHA-256, never bare live v1 names"
+    },
+    {
+      "priority": "P1",
+      "gap": "no_static_type_gate",
+      "status": "OPEN",
+      "mitigation": "add pyright or mypy after annotating legacy modules"
+    },
+    {
+      "priority": "P2",
+      "gap": "pytest_cache_mount_permission",
+      "status": "OPEN_NONRESEARCH",
+      "mitigation": "set a writable cache_dir in CI/workspace"
+    },
+    {
+      "priority": "P2",
+      "gap": "legacy_modules_still_contain_version_literals",
+      "status": "OPEN",
+      "mitigation": "migrate new work first; change old versions only with new experiment IDs"
+    }
+  ],
+  "engineering_quality_checks__v1": [
+    {
+      "check_name": "execution_market_logic_has_one_definition",
+      "status": "PASS",
+      "observed": "[{'logic': 'corporate_action_proxy_formula', 'path': 'src/quant_research/execution_market.py', 'line': 41, 'is_definition': True}, {'logic': 'execution_buy_limit_rule', 'path': 'src/quant_research/execution_market.py', 'line': 52, 'is_definition': True}]"
+    },
+    {
+      "check_name": "all_execution_consumers_use_canonical_api",
+      "status": "PASS",
+      "observed": "['src/quant_research/execution_market.py', 'src/quant_research/incremental_alpha_fill_execution.py', 'src/quant_research/institutional_execution.py', 'src/quant_research/portfolio_construction_comparison.py']"
+    },
+    {
+      "check_name": "random_generators_have_explicit_seeds",
+      "status": "PASS",
+      "observed": "3"
+    },
+    {
+      "check_name": "five_test_layers_present",
+      "status": "PASS",
+      "observed": "{'data_contract': 7, 'integration': 9, 'property_invariant': 9, 'regression': 5, 'unit': 8}"
+    },
+    {
+      "check_name": "critical_outputs_have_versioned_protocols",
+      "status": "PASS",
+      "observed": "[{'stage': 'phase5_execution', 'table': 'institutional_execution_protocol', 'key': 'v1', 'frozen_experiment': 'institutional_execution_v2', 'protocol_rows': 1, 'protocol_experiment_id': 'institutional_execution_v1', 'protocol_has_experiment_id': True, 'frozen_snapshot_exists': True, 'frozen_snapshot_immutable': True}, {'stage': 'phase6_portfolio', 'table': 'portfolio_construction_protocol', 'key': 'v1', 'frozen_experiment': 'portfolio_construction_comparison_v1', 'protocol_rows': 1, 'protocol_experiment_id': 'portfolio_construction_comparison_v1', 'protocol_has_experiment_id': True, 'frozen_snapshot_exists': True, 'frozen_snapshot_immutable': True}, {'stage': 'phase7_ledger', 'table': 'unified_account_protocol', 'key': 'v1', 'frozen_experiment': 'unified_account_ledger_v1', 'protocol_rows': 1, 'protocol_experiment_id': 'unified_account_ledger_v1', 'protocol_has_experiment_id': True, 'frozen_snapshot_exists': True, 'frozen_snapshot_immutable': True}, {'stage': 'phase8_inference', 'table': 'statistical_inference_protocol', 'key': 'v1', 'frozen_experiment': 'statistical_inference_protocol_v1', 'protocol_rows': 1, 'protocol_experiment_id': 'statistical_inference_protocol_v1', 'protocol_has_experiment_id': True, 'frozen_snapshot_exists': True, 'frozen_snapshot_immutable': True}, {'stage': 'phase9_alpha', 'table': 'alpha_evidence_protocol', 'key': 'v2', 'frozen_experiment': 'alpha_evidence_matrix_v2', 'protocol_rows': 1, 'protocol_experiment_id': 'alpha_evidence_matrix_v2', 'protocol_has_experiment_id': True, 'frozen_snapshot_exists': True, 'frozen_snapshot_immutable': True}]"
+    },
+    {
+      "check_name": "critical_outputs_have_immutable_snapshots",
+      "status": "PASS",
+      "observed": "[{'stage': 'phase5_execution', 'frozen_experiment': 'institutional_execution_v2'}, {'stage': 'phase6_portfolio', 'frozen_experiment': 'portfolio_construction_comparison_v1'}, {'stage': 'phase7_ledger', 'frozen_experiment': 'unified_account_ledger_v1'}, {'stage': 'phase8_inference', 'frozen_experiment': 'statistical_inference_protocol_v1'}, {'stage': 'phase9_alpha', 'frozen_experiment': 'alpha_evidence_matrix_v2'}]"
+    },
+    {
+      "check_name": "frozen_experiment_inventory_complete",
+      "status": "PASS",
+      "observed": "50"
+    },
+    {
+      "check_name": "no_open_p0_engineering_gaps",
+      "status": "PASS",
+      "observed": "{('P1', 'CONTROLLED_BY_IMMUTABLE_REGISTRY'): 1, ('P1', 'OPEN'): 1, ('P2', 'OPEN'): 1, ('P2', 'OPEN_NONRESEARCH'): 1}"
+    }
+  ],
+  "engineering_failed_assertions__v1": [
+    {
+      "check_name": "NO_FAILED_ASSERTIONS",
+      "status": "PASS",
+      "observed": "all Phase 10 engineering gates passed"
+    }
+  ]
+}

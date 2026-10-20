@@ -1,0 +1,22 @@
+experiment_id: engineering_quality_v1
+evidence_class: governance_only
+research_selection_role: governance
+claims_independent_evidence: false
+historical_oos_used_for_selection: false
+canonical_execution_market_module: src/quant_research/execution_market.py
+expected_frozen_experiments: 50
+critical_protocols:
+  - {stage: phase5_execution, table: institutional_execution_protocol, key: v1, frozen_experiment: institutional_execution_v2}
+  - {stage: phase6_portfolio, table: portfolio_construction_protocol, key: v1, frozen_experiment: portfolio_construction_comparison_v1}
+  - {stage: phase7_ledger, table: unified_account_protocol, key: v1, frozen_experiment: unified_account_ledger_v1}
+  - {stage: phase8_inference, table: statistical_inference_protocol, key: v1, frozen_experiment: statistical_inference_protocol_v1}
+  - {stage: phase9_alpha, table: alpha_evidence_protocol, key: v2, frozen_experiment: alpha_evidence_matrix_v2}
+required_test_layers:
+  unit: [tests/test_execution_market.py, tests/test_transaction_costs.py]
+  integration: [tests/test_institutional_execution.py, tests/test_unified_account_ledger.py]
+  regression: [tests/test_alpha_evidence_matrix.py, tests/test_statistical_inference.py]
+  property_invariant: [tests/test_institutional_execution.py, tests/test_unified_account_ledger.py]
+  data_contract: [tests/test_market_benchmark_attribution.py, tests/test_risk_free_rate_attribution.py]
+scope_note: >-
+  Engineering governance only. This phase refactors duplicated implementation
+  without changing signals, targets, costs, fills or research conclusions.

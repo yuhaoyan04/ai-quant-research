@@ -1,0 +1,5 @@
+priority,gap,status,mitigation
+P1,live_curated_table_names_are_mutable,CONTROLLED_BY_IMMUTABLE_REGISTRY,"publication claims use frozen experiment SHA-256, never bare live v1 names"
+P1,no_static_type_gate,OPEN,add pyright or mypy after annotating legacy modules
+P2,pytest_cache_mount_permission,OPEN_NONRESEARCH,set a writable cache_dir in CI/workspace
+P2,legacy_modules_still_contain_version_literals,OPEN,migrate new work first; change old versions only with new experiment IDs

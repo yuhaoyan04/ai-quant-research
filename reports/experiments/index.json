@@ -63,6 +63,15 @@
     "immutable": true
   },
   {
+    "experiment_id": "engineering_quality_v1",
+    "title": "Phase 10 canonical implementations and engineering quality gates",
+    "stage": "engineering_structure_configuration_and_tests",
+    "model_version": "canonical_execution_market_and_five_layer_test_contract_v1",
+    "registered_at_utc": "2026-10-20T13:37:40.679049+00:00",
+    "dataset_version": "4d06066ee44230522f31d5dccf10b2428e6da4f2d013ea34a21578efb9ccb30f",
+    "immutable": true
+  },
+  {
     "experiment_id": "factor_neutralization_v1",
     "title": "PIT CSRC-industry and log-size neutralized factor diagnostics",
     "stage": "risk_exposure_and_factor_neutralization",
