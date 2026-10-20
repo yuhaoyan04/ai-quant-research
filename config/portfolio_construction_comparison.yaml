@@ -1,0 +1,91 @@
+experiment_id: portfolio_construction_comparison_v1
+source_experiment: constrained_portfolio_neutralization_v1
+evidence_class: post_historical_oos_adaptation
+research_selection_role: post_hoc_adaptation
+claims_independent_evidence: false
+historical_oos_used_for_selection: true
+
+signal:
+  pipeline: raw
+  model: hgb_shallow15_locked
+  target: fwd_return_5d_lag1
+  volatility: volatility_20d
+  train_start_year: 2006
+  historical_oos_start_year: 2021
+  historical_oos_end_year: 2026
+  label_horizon_trading_days: 5
+  minimum_cross_section_size: 100
+  sample_per_training_date: 300
+  random_state: 20261016
+  include_missing_indicators: true
+  quantile_limits: [0.01, 0.99]
+  mad_multiplier: 5.0
+  minimum_industry_group_size: 5
+  model_parameters:
+    kind: hgb
+    learning_rate: 0.05
+    max_iter: 120
+    max_leaf_nodes: 15
+    min_samples_leaf: 100
+    l2_regularization: 1.0
+
+buffer:
+  entry_rank: 200
+  exit_rank: 400
+
+weighting:
+  methods: [P0_equal, P1_inverse_volatility, P2_score_weighted, P4_constrained]
+  maximum_stock_weight: 0.01
+  inverse_volatility_clip_quantiles: [0.05, 0.95]
+  score_rank_floor: 0.10
+  score_rank_power: 1.0
+
+optimizer:
+  method: scipy_highs_linear_program
+  objective: maximize_cross_sectional_score_rank
+  industry_active_weight_bound: 0.03
+  absolute_size_z_bound: 0.10
+  one_way_turnover_limit: 0.30
+  industry_capacity_buffer_names: 5
+  size_tail_candidates_each_side: 50
+  minimum_reported_weight: 0.00000001
+  infeasible_policy: explicit_carry_forward_capacity_repair
+  allow_constraint_relaxation: false
+
+execution:
+  initial_cash_cny: 100000000.0
+  capacity_stress_cash_cny: [25000000.0, 500000000.0]
+  round_trip_cost_bps: 20.0
+  max_volume_participation: 0.10
+  max_pending_trading_days: 5
+  annualization_periods: 252
+  risk_free_scenario: R1_ccdc_cgb_3m
+  scenarios:
+    - scenario: daily_close_institutional_constraints
+      enforce_trade_flags: true
+      enforce_volume_participation: true
+      enforce_order_quantity_rules: true
+      enforce_t_plus_one: true
+  order_quantity_rules:
+    main_board_buy_lot: 100
+    main_board_sell_lot: 100
+    star_market_minimum_order: 200
+    star_market_increment: 1
+    odd_lot_liquidation_allowed: true
+  corporate_action_proxy:
+    method: inferred_value_preserving_share_factor_from_vendor_pct_chg_and_raw_close
+    activation_absolute_deviation: 0.005
+    evidence_status: proxy_not_official_corporate_action_record
+
+bootstrap:
+  block_length_trading_days: 20
+  samples: 2000
+  random_seed: 20261020
+
+scope_note: >-
+  Retrospective historical-OOS construction diagnostic. Signal, dates, PIT
+  universe, cost and execution assumptions are fixed. Structural feasibility
+  observations were used to make optimizer fallback/support handling explicit,
+  so this is disclosed as post-historical-OOS adaptation even though returns
+  were not used to tune or promote a method. Future lockbox or prospective
+  paper trading is required for new independent evidence.

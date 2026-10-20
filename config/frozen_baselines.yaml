@@ -1537,3 +1537,37 @@ experiments:
       - {table: institutional_execution_invariants, key: v1}
       - {table: institutional_execution_order_status, key: v1}
     figures: []
+
+  portfolio_construction_comparison_v1:
+    title: Phase 6 common-signal portfolio construction and execution comparison
+    stage: portfolio_weighting_and_constrained_optimization
+    model_version: locked_raw_hgb_top200_400_buffer_v1
+    dataset_version_method: sha256_of_registered_inputs_and_ingestion_manifest
+    historical_oos_used_for_selection: true
+    evidence_class: post_historical_oos_adaptation
+    research_selection_role: post_hoc_adaptation
+    claims_independent_evidence: false
+    config_files:
+      - portfolio_construction_comparison.yaml
+      - constrained_portfolio_neutralization.yaml
+      - institutional_execution.yaml
+      - constrained_portfolio_daily_execution.yaml
+      - research_governance.yaml
+    input_tables:
+      - {table: portfolio_construction_signal_panel, key: v1}
+      - {table: portfolio_construction_targets, key: v1}
+      - {table: portfolio_construction_execution_market, key: v1}
+      - {table: risk_free_rate_daily, key: v1}
+      - {table: portfolio_construction_execution_daily, key: v1}
+      - {table: portfolio_construction_execution_orders, key: v1}
+      - {table: portfolio_construction_execution_fills, key: v1}
+      - {table: portfolio_construction_execution_positions, key: v1}
+    metric_tables:
+      - {table: portfolio_construction_protocol, key: v1}
+      - {table: portfolio_construction_audit, key: v1}
+      - {table: portfolio_construction_execution_summary, key: v1}
+      - {table: portfolio_construction_execution_invariants, key: v1}
+      - {table: portfolio_construction_capacity, key: v1}
+      - {table: portfolio_construction_bootstrap, key: v1}
+      - {table: portfolio_construction_acceptance_checks, key: v1}
+    figures: []

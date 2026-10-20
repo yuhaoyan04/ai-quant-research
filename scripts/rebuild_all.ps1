@@ -118,6 +118,7 @@ try {
             @{ Name = "Executable portfolio CAPM attribution"; Program = "quant-capm-attribution"; Args = @() },
             @{ Name = "Self-financing style factor attribution"; Program = "quant-style-factor-attribution"; Args = @() },
             @{ Name = "PIT risk-free rate and excess-return attribution"; Program = "quant-risk-free-attribution"; Args = @() },
+            @{ Name = "Phase 6 common-signal portfolio construction comparison"; Program = "quant-portfolio-construction-comparison"; Args = @("all") },
             @{ Name = "Official price and total-return benchmark attribution"; Program = "quant-market-benchmark-attribution"; Args = @() },
             @{ Name = "Multi-factor risk model and attribution"; Program = "quant-risk-attribution"; Args = @("all") },
             @{ Name = "Characteristic-matched incremental alpha test"; Program = "quant-incremental-alpha"; Args = @("all") },

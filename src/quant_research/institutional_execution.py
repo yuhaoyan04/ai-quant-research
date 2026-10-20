@@ -186,15 +186,34 @@ def simulate_execution(
                 available[code] = available.get(code, 0.0) + quantity
             unsettled = {}
 
-        # Explicit or inferred actions are applied before marking and trading.
-        for code, row in group.iterrows():
-            close = float(row["close"])
-            if np.isfinite(close) and close > 0:
-                prices[code] = close
+        # Mark prices vectorially. Iterating all quoted names was the dominant
+        # cost when the same market is replayed across portfolio methods.
+        close_values = pd.to_numeric(group["close"], errors="coerce")
+        valid_close = close_values.notna() & close_values.gt(0)
+        prices.update(zip(
+            group.index[valid_close].astype(str),
+            close_values.loc[valid_close].astype(float),
+        ))
+        factors = pd.to_numeric(
+            group.get("share_factor", pd.Series(1.0, index=group.index)), errors="coerce"
+        )
+        if factors.isna().any() or factors.le(0).any():
+            invalid = str(factors.loc[factors.isna() | factors.le(0)].index[0])
+            raise ValueError(f"invalid share factor for {invalid}/{date}")
+        dividends = pd.to_numeric(
+            group.get("cash_dividend_per_share", pd.Series(0.0, index=group.index)),
+            errors="coerce",
+        ).fillna(0.0)
+        action_mask = factors.sub(1.0).abs().gt(1e-12) | dividends.ne(0.0)
+
+        # Explicit or inferred actions are applied before trading. Corporate
+        # action rows are sparse, so iterate only rows that can change state.
+        for code, row in group.loc[action_mask].iterrows():
+            close = prices.get(code)
+            if close is None:
+                continue
             factor = float(row.get("share_factor", 1.0))
             dividend = float(row.get("cash_dividend_per_share", 0.0))
-            if not np.isfinite(factor) or factor <= 0:
-                raise ValueError(f"invalid share factor for {code}/{date}: {factor}")
             old_position = positions.get(code, 0.0)
             if old_position > 0 and (not np.isclose(factor, 1.0) or dividend != 0.0):
                 previous_close = float(row.get("previous_close", close))

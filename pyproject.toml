@@ -85,6 +85,7 @@ quant-market-benchmark-attribution = "quant_research.market_benchmark_attributio
 quant-model-stability-validation = "quant_research.model_stability_validation:run"
 quant-research-governance = "quant_research.research_governance:main"
 quant-institutional-execution = "quant_research.institutional_execution:main"
+quant-portfolio-construction-comparison = "quant_research.portfolio_construction_comparison:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
