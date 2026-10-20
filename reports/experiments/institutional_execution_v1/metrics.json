@@ -1,0 +1,137 @@
+{
+  "institutional_execution_protocol__v1": [
+    {
+      "experiment_id": "institutional_execution_v1",
+      "evidence_class": "historical_oos_descriptive",
+      "research_selection_role": "diagnostic",
+      "claims_independent_evidence": false,
+      "historical_oos_used_for_selection": false,
+      "candidate": "hgb_shallow15_locked/raw/raw__risk_constrained",
+      "execution_timing": "mark_to_market_then_close_execution",
+      "daily_bar_approximation": true,
+      "intraday_matching_claimed": false
+    }
+  ],
+  "institutional_execution_summary__v1": [
+    {
+      "periods": 1387,
+      "terminal_wealth": 2.811999736421062,
+      "annualized_return": 0.20664712035609334,
+      "annualized_volatility": 0.23006975505463229,
+      "sharpe_zero_rate": 0.9322853955205596,
+      "maximum_drawdown": -0.3330956293053998,
+      "mean_turnover": 0.06408457762556294,
+      "mean_blocked_buy_weight": 0.004096918820456585,
+      "mean_blocked_sell_weight": 0.0031843606421738824,
+      "mean_target_tracking_l1": 0.023068045971368942,
+      "mean_cash_weight": 0.0013310761133225085,
+      "scenario": "daily_close_institutional_constraints",
+      "total_orders": 68262,
+      "total_fills": 81650,
+      "fill_ratio_by_shares": 0.9883369584835313,
+      "total_cost_cny": 31122909.225686505
+    },
+    {
+      "periods": 1387,
+      "terminal_wealth": 2.9985633427688843,
+      "annualized_return": 0.22081253146171176,
+      "annualized_volatility": 0.2302428480410388,
+      "sharpe_zero_rate": 0.9824829518836286,
+      "maximum_drawdown": -0.3328393853379782,
+      "mean_turnover": 0.06374601906540565,
+      "mean_blocked_buy_weight": 0.0022925843356663427,
+      "mean_blocked_sell_weight": 0.0020191111216100025,
+      "mean_target_tracking_l1": 0.019099125113704686,
+      "mean_cash_weight": 0.0006829642532571508,
+      "scenario": "market_constraints_removed_upper_bound",
+      "total_orders": 68233,
+      "total_fills": 79565,
+      "fill_ratio_by_shares": 0.9904637325178482,
+      "total_cost_cny": 32373665.798722427
+    }
+  ],
+  "institutional_execution_invariants__v1": [
+    {
+      "scenario": "daily_close_institutional_constraints",
+      "max_abs_nav_reconciliation_error": 1.7881393432617188e-07,
+      "minimum_cash": 0.6862432244688534,
+      "max_abs_accounting_weight_error": 0.0,
+      "negative_position_count": 0,
+      "negative_cash_day_count": 0,
+      "t_plus_one_violation_count": 0,
+      "max_abs_order_fill_reconciliation_error": 0.0,
+      "fee_reconciliation_error": 0.0,
+      "unreconciled_corporate_action_count": 0,
+      "all_invariants_pass": true
+    },
+    {
+      "scenario": "market_constraints_removed_upper_bound",
+      "max_abs_nav_reconciliation_error": 2.086162567138672e-07,
+      "minimum_cash": 2805.7423940931476,
+      "max_abs_accounting_weight_error": 0.0,
+      "negative_position_count": 0,
+      "negative_cash_day_count": 0,
+      "t_plus_one_violation_count": 0,
+      "max_abs_order_fill_reconciliation_error": 0.0,
+      "fee_reconciliation_error": 0.0,
+      "unreconciled_corporate_action_count": 0,
+      "all_invariants_pass": true
+    }
+  ],
+  "institutional_execution_order_status__v1": [
+    {
+      "scenario": "daily_close_institutional_constraints",
+      "status": "EXPIRED",
+      "terminal_reason": "max_pending_trading_days",
+      "orders": 14241,
+      "original_shares": 785210666.9653891,
+      "filled_shares": 751637482.0,
+      "remaining_shares": 33286031.732689533
+    },
+    {
+      "scenario": "daily_close_institutional_constraints",
+      "status": "FILLED",
+      "terminal_reason": null,
+      "orders": 50767,
+      "original_shares": 2589267370.1576138,
+      "filled_shares": 2589265904.5662727,
+      "remaining_shares": 0.0
+    },
+    {
+      "scenario": "daily_close_institutional_constraints",
+      "status": "REPLACED",
+      "terminal_reason": "new_target",
+      "orders": 3254,
+      "original_shares": 185014204.2317384,
+      "filled_shares": 177074349.0,
+      "remaining_shares": 7908117.356731752
+    },
+    {
+      "scenario": "market_constraints_removed_upper_bound",
+      "status": "EXPIRED",
+      "terminal_reason": "max_pending_trading_days",
+      "orders": 20679,
+      "original_shares": 1121303673.3798625,
+      "filled_shares": 1091477463.0,
+      "remaining_shares": 29424457.90059683
+    },
+    {
+      "scenario": "market_constraints_removed_upper_bound",
+      "status": "FILLED",
+      "terminal_reason": null,
+      "orders": 44012,
+      "original_shares": 2377351325.8661013,
+      "filled_shares": 2377351325.8661013,
+      "remaining_shares": 0.0
+    },
+    {
+      "scenario": "market_constraints_removed_upper_bound",
+      "status": "REPLACED",
+      "terminal_reason": "new_target",
+      "orders": 3542,
+      "original_shares": 216131984.94055608,
+      "filled_shares": 210532993.0,
+      "remaining_shares": 5559536.4275557855
+    }
+  ]
+}

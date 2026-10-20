@@ -1,5 +1,6 @@
 import json
 import shutil
+import subprocess
 from pathlib import Path
 
 import pandas as pd
@@ -54,6 +55,24 @@ def test_register_creates_complete_immutable_snapshot(tmp_path: Path) -> None:
     verification = registry.verify("ridge_v1")
     assert verification["snapshot_integrity"]
     assert verification["live_inputs_match"]
+
+
+def test_registration_does_not_mark_its_own_staging_directory_dirty(tmp_path: Path) -> None:
+    registry, global_spec, spec = _setup(tmp_path)
+    subprocess.run(["git", "init"], cwd=registry.project_root, check=True,
+                   capture_output=True)
+    subprocess.run(["git", "add", "."], cwd=registry.project_root, check=True,
+                   capture_output=True)
+    subprocess.run([
+        "git", "-c", "user.name=Test", "-c", "user.email=test@example.com",
+        "commit", "-m", "baseline",
+    ], cwd=registry.project_root, check=True, capture_output=True)
+
+    path = registry.register("ridge_v1", global_spec, spec)
+    metadata = json.loads((path / "metadata.json").read_text(encoding="utf-8"))
+
+    assert metadata["git"]["commit"]
+    assert metadata["git"]["dirty"] is False
 
 
 def test_frozen_experiment_cannot_be_overwritten(tmp_path: Path) -> None:

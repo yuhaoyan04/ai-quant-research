@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-10-20T08:57:43.752423+00:00",
+  "generated_at_utc": "2026-10-20T09:52:25.152056+00:00",
   "checks": [
     {
       "name": "chronological_split_order",
@@ -428,6 +428,16 @@
     },
     {
       "name": "frozen_live_inputs:research_governance_v1",
+      "status": "PASS",
+      "detail": "all registered inputs match their SHA-256 hashes"
+    },
+    {
+      "name": "frozen_snapshot_integrity:institutional_execution_v1",
+      "status": "PASS",
+      "detail": "all frozen files match FROZEN.json"
+    },
+    {
+      "name": "frozen_live_inputs:institutional_execution_v1",
       "status": "PASS",
       "detail": "all registered inputs match their SHA-256 hashes"
     },
@@ -1357,6 +1367,101 @@
       "detail": "strategies_with_haircut=4/4, negative_upper_intervals=4/4"
     },
     {
+      "name": "artifact:institutional_execution_protocol/v1",
+      "status": "PASS",
+      "detail": "rows=1"
+    },
+    {
+      "name": "artifact:institutional_execution_daily/v1",
+      "status": "PASS",
+      "detail": "rows=2,774"
+    },
+    {
+      "name": "artifact:institutional_execution_orders/v1",
+      "status": "PASS",
+      "detail": "rows=136,495"
+    },
+    {
+      "name": "artifact:institutional_execution_events/v1",
+      "status": "PASS",
+      "detail": "rows=473,296"
+    },
+    {
+      "name": "artifact:institutional_execution_fills/v1",
+      "status": "PASS",
+      "detail": "rows=161,215"
+    },
+    {
+      "name": "artifact:institutional_execution_positions/v1",
+      "status": "PASS",
+      "detail": "rows=592,376"
+    },
+    {
+      "name": "artifact:institutional_execution_corporate_actions/v1",
+      "status": "PASS",
+      "detail": "rows=2,068"
+    },
+    {
+      "name": "artifact:institutional_execution_summary/v1",
+      "status": "PASS",
+      "detail": "rows=2"
+    },
+    {
+      "name": "artifact:institutional_execution_invariants/v1",
+      "status": "PASS",
+      "detail": "rows=2"
+    },
+    {
+      "name": "institutional_execution_evidence_disclosed",
+      "status": "PASS",
+      "detail": "historical OOS diagnostic; no independent-evidence claim or model selection"
+    },
+    {
+      "name": "institutional_execution_common_clock",
+      "status": "PASS",
+      "detail": "scenarios=['daily_close_institutional_constraints', 'market_constraints_removed_upper_bound'], dates={'daily_close_institutional_constraints': 1387, 'market_constraints_removed_upper_bound': 1387}"
+    },
+    {
+      "name": "institutional_execution_invariants",
+      "status": "PASS",
+      "detail": "[{'scenario': 'daily_close_institutional_constraints', 'max_abs_nav_reconciliation_error': 1.7881393432617188e-07, 'minimum_cash': 0.6862432244688534, 'max_abs_accounting_weight_error': 0.0, 'negative_position_count': 0, 'negative_cash_day_count': 0, 't_plus_one_violation_count': 0, 'max_abs_order_fill_reconciliation_error': 0.0, 'fee_reconciliation_error': 0.0, 'unreconciled_corporate_action_count': 0, 'all_invariants_pass': True}, {'scenario': 'market_constraints_removed_upper_bound', 'max_abs_nav_reconciliation_error': 2.086162567138672e-07, 'minimum_cash': 2805.7423940931476, 'max_abs_accounting_weight_error': 0.0, 'negative_position_count': 0, 'negative_cash_day_count': 0, 't_plus_one_violation_count': 0, 'max_abs_order_fill_reconciliation_error': 0.0, 'fee_reconciliation_error': 0.0, 'unreconciled_corporate_action_count': 0, 'all_invariants_pass': True}]"
+    },
+    {
+      "name": "institutional_execution_nav_cash_positions_reconcile",
+      "status": "PASS",
+      "detail": "accounting_error=0.000e+00, nav_error_cny=2.086e-07, minimum_cash=0.686243"
+    },
+    {
+      "name": "institutional_execution_fill_fees_reconcile",
+      "status": "PASS",
+      "detail": "fill_minus_daily_fee_cny=0.000e+00"
+    },
+    {
+      "name": "institutional_execution_t_plus_one_fill_gate",
+      "status": "PASS",
+      "detail": "sell_fills=67,275, violations=0"
+    },
+    {
+      "name": "institutional_execution_order_state_machine",
+      "status": "PASS",
+      "detail": "event_statuses=['ACTION_ADJUSTED', 'BLOCKED', 'EXPIRED', 'FILLED', 'NEW', 'PARTIALLY_FILLED', 'REPLACED'], orders=136,495, new_events=136,495"
+    },
+    {
+      "name": "institutional_execution_orders_terminal",
+      "status": "PASS",
+      "detail": "terminal_statuses=['EXPIRED', 'FILLED', 'REPLACED']"
+    },
+    {
+      "name": "institutional_execution_corporate_action_proxy_reconciles",
+      "status": "PASS",
+      "detail": "actions=2,068, max_error_cny=4.657e-10; proxy_not_official"
+    },
+    {
+      "name": "institutional_execution_constraints_have_measurable_haircut",
+      "status": "PASS",
+      "detail": "annualized=0.206647 vs 0.220813; tracking_l1=0.023068 vs 0.019099"
+    },
+    {
       "name": "artifact:incremental_alpha_protocol/v1",
       "status": "PASS",
       "detail": "rows=1"
@@ -2027,9 +2132,9 @@
       "detail": "hypotheses=4"
     },
     {
-      "name": "access_log_hash_chain_matches_snapshot",
+      "name": "access_log_hash_chain_extends_frozen_snapshot",
       "status": "PASS",
-      "detail": "live_events=4, snapshot_events=4"
+      "detail": "live_events=5, frozen_prefix_events=4"
     },
     {
       "name": "known_scope_limitations",
@@ -2038,7 +2143,7 @@
     }
   ],
   "findings": {
-    "registered_frozen_experiments": 42,
+    "registered_frozen_experiments": 43,
     "invalidated_experiments": 22,
     "common_oos_weeks": 291,
     "ridge_annualized_return_20bp": 0.2005894880405501,
@@ -2082,6 +2187,10 @@
     "constrained_daily_hgb_raw_sharpe": 0.9371647586448054,
     "constrained_daily_hgb_raw_maximum_drawdown": -0.3332492493261945,
     "constrained_daily_hgb_raw_mean_blocked_buy_weight": 0.004518262280589924,
+    "institutional_execution_hgb_raw_annualized_return": 0.20664712035609334,
+    "institutional_execution_hgb_raw_sharpe": 0.9322853955205596,
+    "institutional_execution_hgb_raw_maximum_drawdown": -0.3330956293053998,
+    "institutional_execution_hgb_raw_fill_ratio": 0.9883369584835313,
     "incremental_alpha_individual_intervals_above_zero": 1,
     "incremental_alpha_bh_fdr_survivors": 0,
     "hgb_neutral_incremental_return_annualized_arithmetic": 0.03646786854268133,

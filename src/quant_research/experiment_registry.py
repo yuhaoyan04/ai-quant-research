@@ -268,6 +268,10 @@ class ExperimentRegistry:
         if target.exists():
             raise FileExistsError(f"experiment already exists and will not be overwritten: {target}")
 
+        # Capture the repository before creating the in-repository staging
+        # directory. Otherwise the registry's own temporary files make an
+        # otherwise clean registration appear dirty in metadata.
+        registration_git = git_state(self.project_root)
         temp = Path(tempfile.mkdtemp(prefix=f".{experiment_id}.", dir=self.registry_root))
         try:
             (temp / "tables").mkdir()
@@ -341,7 +345,7 @@ class ExperimentRegistry:
                 "metric_artifacts": metric_artifacts,
                 "figures": copied_figures,
                 "source_tree_sha256": source_tree_hash(self.project_root),
-                "git": git_state(self.project_root),
+                "git": registration_git,
                 "environment": environment_snapshot(),
             }
             (temp / "metadata.json").write_text(

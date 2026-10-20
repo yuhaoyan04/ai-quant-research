@@ -1,4 +1,18 @@
 invalidations:
+  institutional_execution_v1:
+    invalidated_at_utc: "2026-10-20T09:55:00Z"
+    severity: registry_self_staging_dirty_flag
+    reason: >-
+      The research outputs and hashes are valid, but the experiment registry
+      created its temporary snapshot directory inside the repository before
+      capturing Git status. That self-created untracked directory caused the
+      metadata to report dirty=true even though registration began from clean
+      commit d1b00aedd5b3dcbc660733fa64288c550a83e446.
+    unaffected_outputs:
+      - all research tables, metrics, hashes, and snapshot-integrity records
+    invalid_outputs:
+      - metadata.json git.dirty field
+    superseded_by: institutional_execution_v2
   portfolio_sensitivity_v1:
     invalidated_at_utc: "2026-10-20T06:10:00Z"
     severity: cost_stress_repricing_formula_superseded

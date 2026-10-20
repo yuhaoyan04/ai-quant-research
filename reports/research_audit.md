@@ -1,8 +1,8 @@
 # Research artifact audit
 
-Generated at `2026-10-20T08:57:43.752423+00:00`.
+Generated at `2026-10-20T09:52:25.152056+00:00`.
 
-Summary: **363 PASS / 44 WARN / 0 FAIL**
+Summary: **384 PASS / 44 WARN / 0 FAIL**
 
 | Status | Check | Detail |
 |---|---|---|
@@ -92,6 +92,8 @@ Summary: **363 PASS / 44 WARN / 0 FAIL**
 | PASS | `frozen_live_inputs:model_stability_validation_v1` | all registered inputs match their SHA-256 hashes |
 | PASS | `frozen_snapshot_integrity:research_governance_v1` | all frozen files match FROZEN.json |
 | PASS | `frozen_live_inputs:research_governance_v1` | all registered inputs match their SHA-256 hashes |
+| PASS | `frozen_snapshot_integrity:institutional_execution_v1` | all frozen files match FROZEN.json |
+| PASS | `frozen_live_inputs:institutional_execution_v1` | all registered inputs match their SHA-256 hashes |
 | WARN | `invalidated_experiment:portfolio_sensitivity_v1` | severity=cost_stress_repricing_formula_superseded; superseded_by=transaction_cost_model_v1; reason=The v1 fixed-fill execution cost stress subtracted turnover times the fee rate directly from gross return. The daily executor defines turnover over pre-trade NAV while return is measured over previous NAV, so exact C0 reproduction additionally requires the pre-trade-to-previous-NAV ratio. The difference is small but the v1 stress grid is not an exact 20bp regression of the executable baseline. |
 | WARN | `invalidated_experiment:factor_preprocessing_ablation_v1` | severity=portfolio_metrics_invalid; superseded_by=factor_preprocessing_ablation_v2; reason=Validation portfolios were formed after filtering rows with non-null future returns. RankIC and model-selection metrics used the correct realized subset, but Top-200 portfolio metrics had outcome-availability leakage. |
 | WARN | `invalidated_experiment:model_benchmark_v1` | severity=portfolio_metrics_execution_idealized; superseded_by=rf_daily_retry_execution_v1; reason=Model ranking and RankIC are valid, but the benchmark Top-200 portfolio assumes every next-day rebalance is filled. RandomForest disproportionately selected stocks blocked by next-day price limits or suspensions, materially inflating validation returns and modestly inflating historical-OOS returns. |
@@ -277,6 +279,25 @@ Summary: **363 PASS / 44 WARN / 0 FAIL**
 | PASS | `constrained_daily_execution_accounting_identity` | dates=1387-1387, accounting=8.327e-15, return=5.840e-15 |
 | PASS | `constrained_daily_execution_no_hidden_rebalance` | ideal_non_target_max_turnover=0.000e+00 |
 | PASS | `constrained_daily_execution_haircut_detected` | strategies_with_haircut=4/4, negative_upper_intervals=4/4 |
+| PASS | `artifact:institutional_execution_protocol/v1` | rows=1 |
+| PASS | `artifact:institutional_execution_daily/v1` | rows=2,774 |
+| PASS | `artifact:institutional_execution_orders/v1` | rows=136,495 |
+| PASS | `artifact:institutional_execution_events/v1` | rows=473,296 |
+| PASS | `artifact:institutional_execution_fills/v1` | rows=161,215 |
+| PASS | `artifact:institutional_execution_positions/v1` | rows=592,376 |
+| PASS | `artifact:institutional_execution_corporate_actions/v1` | rows=2,068 |
+| PASS | `artifact:institutional_execution_summary/v1` | rows=2 |
+| PASS | `artifact:institutional_execution_invariants/v1` | rows=2 |
+| PASS | `institutional_execution_evidence_disclosed` | historical OOS diagnostic; no independent-evidence claim or model selection |
+| PASS | `institutional_execution_common_clock` | scenarios=['daily_close_institutional_constraints', 'market_constraints_removed_upper_bound'], dates={'daily_close_institutional_constraints': 1387, 'market_constraints_removed_upper_bound': 1387} |
+| PASS | `institutional_execution_invariants` | [{'scenario': 'daily_close_institutional_constraints', 'max_abs_nav_reconciliation_error': 1.7881393432617188e-07, 'minimum_cash': 0.6862432244688534, 'max_abs_accounting_weight_error': 0.0, 'negative_position_count': 0, 'negative_cash_day_count': 0, 't_plus_one_violation_count': 0, 'max_abs_order_fill_reconciliation_error': 0.0, 'fee_reconciliation_error': 0.0, 'unreconciled_corporate_action_count': 0, 'all_invariants_pass': True}, {'scenario': 'market_constraints_removed_upper_bound', 'max_abs_nav_reconciliation_error': 2.086162567138672e-07, 'minimum_cash': 2805.7423940931476, 'max_abs_accounting_weight_error': 0.0, 'negative_position_count': 0, 'negative_cash_day_count': 0, 't_plus_one_violation_count': 0, 'max_abs_order_fill_reconciliation_error': 0.0, 'fee_reconciliation_error': 0.0, 'unreconciled_corporate_action_count': 0, 'all_invariants_pass': True}] |
+| PASS | `institutional_execution_nav_cash_positions_reconcile` | accounting_error=0.000e+00, nav_error_cny=2.086e-07, minimum_cash=0.686243 |
+| PASS | `institutional_execution_fill_fees_reconcile` | fill_minus_daily_fee_cny=0.000e+00 |
+| PASS | `institutional_execution_t_plus_one_fill_gate` | sell_fills=67,275, violations=0 |
+| PASS | `institutional_execution_order_state_machine` | event_statuses=['ACTION_ADJUSTED', 'BLOCKED', 'EXPIRED', 'FILLED', 'NEW', 'PARTIALLY_FILLED', 'REPLACED'], orders=136,495, new_events=136,495 |
+| PASS | `institutional_execution_orders_terminal` | terminal_statuses=['EXPIRED', 'FILLED', 'REPLACED'] |
+| PASS | `institutional_execution_corporate_action_proxy_reconciles` | actions=2,068, max_error_cny=4.657e-10; proxy_not_official |
+| PASS | `institutional_execution_constraints_have_measurable_haircut` | annualized=0.206647 vs 0.220813; tracking_l1=0.023068 vs 0.019099 |
 | PASS | `artifact:incremental_alpha_protocol/v1` | rows=1 |
 | PASS | `artifact:incremental_alpha_style_targets/v1` | rows=674,443 |
 | PASS | `artifact:incremental_alpha_exposure_audit/v1` | rows=1,172 |
@@ -411,12 +432,12 @@ Summary: **363 PASS / 44 WARN / 0 FAIL**
 | PASS | `candidate_freeze_is_commit_anchored` | commit=978aedf9615482e79cbca9670c458e8663b5ebcc, dirty=False |
 | PASS | `governance_checks_all_pass` | checks=10, failures=0 |
 | PASS | `future_hypothesis_family_frozen` | hypotheses=4 |
-| PASS | `access_log_hash_chain_matches_snapshot` | live_events=4, snapshot_events=4 |
+| PASS | `access_log_hash_chain_extends_frozen_snapshot` | live_events=5, frozen_prefix_events=4 |
 | WARN | `known_scope_limitations` | Industry neutralization uses monthly-sampled historical CSRC broad sections rather than Shenwan membership; there is no official historical CSI membership and no broker-calibrated market-impact model. |
 
 ## Headline findings
 
-- `registered_frozen_experiments`: 42
+- `registered_frozen_experiments`: 43
 - `invalidated_experiments`: 22
 - `common_oos_weeks`: 291
 - `ridge_annualized_return_20bp`: 0.2005894880405501
@@ -460,6 +481,10 @@ Summary: **363 PASS / 44 WARN / 0 FAIL**
 - `constrained_daily_hgb_raw_sharpe`: 0.9371647586448054
 - `constrained_daily_hgb_raw_maximum_drawdown`: -0.3332492493261945
 - `constrained_daily_hgb_raw_mean_blocked_buy_weight`: 0.004518262280589924
+- `institutional_execution_hgb_raw_annualized_return`: 0.20664712035609334
+- `institutional_execution_hgb_raw_sharpe`: 0.9322853955205596
+- `institutional_execution_hgb_raw_maximum_drawdown`: -0.3330956293053998
+- `institutional_execution_hgb_raw_fill_ratio`: 0.9883369584835313
 - `incremental_alpha_individual_intervals_above_zero`: 1
 - `incremental_alpha_bh_fdr_survivors`: 0
 - `hgb_neutral_incremental_return_annualized_arithmetic`: 0.03646786854268133

@@ -1879,11 +1879,15 @@ class ResearchAuditor:
         from quant_research.research_governance import load_config, verify_access_log
         governance_cfg = load_config()
         live_events = verify_access_log(ROOT / governance_cfg["access_log"]["path"])
+        snapshot_events = access.sort_values("sequence").to_dict(orient="records")
+        snapshot_is_prefix = len(live_events) >= len(snapshot_events) and all(
+            live_events[index]["event_hash"] == event["event_hash"]
+            for index, event in enumerate(snapshot_events)
+        )
         self.add(
-            "access_log_hash_chain_matches_snapshot",
-            len(live_events) == len(access)
-            and live_events[-1]["event_hash"] == access.iloc[-1]["event_hash"],
-            f"live_events={len(live_events)}, snapshot_events={len(access)}",
+            "access_log_hash_chain_extends_frozen_snapshot",
+            snapshot_is_prefix,
+            f"live_events={len(live_events)}, frozen_prefix_events={len(access)}",
         )
         self.findings.update({
             "future_lockbox_state": str(current_lockbox["state"]),

@@ -1,0 +1,7 @@
+scenario,status,terminal_reason,orders,original_shares,filled_shares,remaining_shares
+daily_close_institutional_constraints,EXPIRED,max_pending_trading_days,14241,785210666.9653891,751637482.0,33286031.732689533
+daily_close_institutional_constraints,FILLED,,50767,2589267370.1576138,2589265904.5662727,0.0
+daily_close_institutional_constraints,REPLACED,new_target,3254,185014204.2317384,177074349.0,7908117.356731752
+market_constraints_removed_upper_bound,EXPIRED,max_pending_trading_days,20679,1121303673.3798625,1091477463.0,29424457.90059683
+market_constraints_removed_upper_bound,FILLED,,44012,2377351325.8661013,2377351325.8661013,0.0
+market_constraints_removed_upper_bound,REPLACED,new_target,3542,216131984.94055608,210532993.0,5559536.4275557855

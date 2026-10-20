@@ -1,0 +1,15 @@
+{
+  "experiment_id": "institutional_execution_v1",
+  "frozen_at_utc": "2026-10-20T09:50:43.300099+00:00",
+  "content_sha256": "9557ff097e6b26576229e5d70b90fca8ec659d474c73ecad618bb8681ad16a5c",
+  "files": {
+    "config.yaml": "3378b515386a71841a4590543820a9026a798e6405c0b25a458ad46e1945abdd",
+    "metadata.json": "8bd02017cea8a46b3e6676916fe57045d5450c00bcc6e68a0d3663915109a5cf",
+    "metrics.json": "077d1b8392485565bc8e13ce60a95e3ed8ec0efb2a56e82d4626ac702365ae4b",
+    "notes.md": "5125de0697ed50394d1f903788d8093abe442d714acc2bf788645150b4abd9a9",
+    "tables/institutional_execution_invariants__v1.csv": "22918e0428e81dddbd0294c66647efde522474b5a600ac11eb88942e8a32a2dc",
+    "tables/institutional_execution_order_status__v1.csv": "c5c49b29c7c60cae42ad60fefded2020ab0de93f7002a9cd56f7d758090ad00f",
+    "tables/institutional_execution_protocol__v1.csv": "f240ee99f6aa4de7857b5d8169ed9dbc6894423dad24caec03c607d62ccce2ef",
+    "tables/institutional_execution_summary__v1.csv": "f3b6426cdb97fdd85162e53ccfa89f9242a02b44a9f026f76e64cc2b33c730ff"
+  }
+}

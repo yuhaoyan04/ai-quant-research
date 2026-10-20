@@ -4,7 +4,7 @@
 
 **训练 / 验证 / historical OOS：** 2006–2015 / 2016–2020 / 2021–2026
 
-**最终研究状态：** 代码、配置、测试、数据血缘、失败实验和 43 个不可变实验版本已纳入统一治理。
+**最终研究状态：** 代码、配置、测试、数据血缘、失败实验和 44 个不可变实验版本已纳入统一治理。
 
 Phase 3 已冻结并完成模型稳定性验证：naive、Ridge、ElasticNet、Random Forest 与 HGB 在共同日期、共同标签和 20 bps 往返成本下进行 expanding/10 年 rolling walk-forward；RF 报告三个预设 seed 的均值、标准差和范围；五个验证年份执行标签区间 purge 的补充 CV。rolling 在验证期改善部分净收益，但在 historical OOS 上 ElasticNet/HGB 的配对差异显著转负，因此不根据已查看的 OOS 切换窗口或晋升模型。
 
