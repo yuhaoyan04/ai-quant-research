@@ -1,0 +1,15 @@
+{
+  "experiment_id": "unified_account_ledger_v1",
+  "frozen_at_utc": "2026-10-20T11:57:12.091960+00:00",
+  "content_sha256": "9c35441d89eca307abd50cca71669155fed01c27abefc06d3abcf6b7379e6080",
+  "files": {
+    "config.yaml": "3d89a3449d10a1e1fc770a02be9eb9f06a14bba0752facc844241e28e4be477d",
+    "metadata.json": "ee8cd04cd8d854e51dbd22c912f686febae050e029ee2218a84a81f577206c9d",
+    "metrics.json": "adc970f2a29be2fade5a7d260eabc2f1cbe1395d9baa2cbf6de3126a5ce5068e",
+    "notes.md": "c5ecbcf89869fbc41b73622e5d8d51a08831dfac283d32ad9affd6d29be17ca1",
+    "tables/unified_account_checks__v1.csv": "a7a01ae165cd49edc9383b48f1be517da0765605cb26b88784f7b1f6b82854a9",
+    "tables/unified_account_daily_reconciliation__v1.csv": "14b68bf1c77b9d2d606bd1a897b08daf545ae1ed64cf8454c7de8a6c34eb15d7",
+    "tables/unified_account_failed_assertions__v1.csv": "d30a51d5bb2bee04d71a21fbd189c33834063dc083a97e1383aae0d3b8438cfa",
+    "tables/unified_account_protocol__v1.csv": "8e2e258dbe2c45bae18e1f1d6fcd0bc7df0120712c45165bfbdb12a9bf8021dc"
+  }
+}

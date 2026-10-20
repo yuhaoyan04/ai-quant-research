@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-10-20T10:30:05.295086+00:00",
+  "generated_at_utc": "2026-10-20T11:58:01.839952+00:00",
   "checks": [
     {
       "name": "chronological_split_order",
@@ -458,6 +458,16 @@
     },
     {
       "name": "frozen_live_inputs:portfolio_construction_comparison_v1",
+      "status": "PASS",
+      "detail": "all registered inputs match their SHA-256 hashes"
+    },
+    {
+      "name": "frozen_snapshot_integrity:unified_account_ledger_v1",
+      "status": "PASS",
+      "detail": "all frozen files match FROZEN.json"
+    },
+    {
+      "name": "frozen_live_inputs:unified_account_ledger_v1",
       "status": "PASS",
       "detail": "all registered inputs match their SHA-256 hashes"
     },
@@ -1487,6 +1497,106 @@
       "detail": "annualized=0.206647 vs 0.220813; tracking_l1=0.023068 vs 0.019099"
     },
     {
+      "name": "artifact:unified_account_protocol/v1",
+      "status": "PASS",
+      "detail": "rows=1"
+    },
+    {
+      "name": "artifact:unified_account_daily_ledger/v1",
+      "status": "PASS",
+      "detail": "rows=1,387"
+    },
+    {
+      "name": "artifact:unified_account_security_ledger/v1",
+      "status": "PASS",
+      "detail": "rows=296,714"
+    },
+    {
+      "name": "artifact:unified_account_cash_journal/v1",
+      "status": "PASS",
+      "detail": "rows=1,387"
+    },
+    {
+      "name": "artifact:unified_account_orders/v1",
+      "status": "PASS",
+      "detail": "rows=68,262"
+    },
+    {
+      "name": "artifact:unified_account_events/v1",
+      "status": "PASS",
+      "detail": "rows=221,968"
+    },
+    {
+      "name": "artifact:unified_account_fills/v1",
+      "status": "PASS",
+      "detail": "rows=81,650"
+    },
+    {
+      "name": "artifact:unified_account_corporate_actions/v1",
+      "status": "PASS",
+      "detail": "rows=1,034"
+    },
+    {
+      "name": "artifact:unified_account_daily_reconciliation/v1",
+      "status": "PASS",
+      "detail": "rows=1,387"
+    },
+    {
+      "name": "artifact:unified_account_position_reconciliation/v1",
+      "status": "PASS",
+      "detail": "rows=313,728"
+    },
+    {
+      "name": "artifact:unified_account_order_exceptions/v1",
+      "status": "PASS",
+      "detail": "rows=17,495"
+    },
+    {
+      "name": "artifact:unified_account_failed_assertions/v1",
+      "status": "PASS",
+      "detail": "rows=1"
+    },
+    {
+      "name": "artifact:unified_account_checks/v1",
+      "status": "PASS",
+      "detail": "rows=16"
+    },
+    {
+      "name": "unified_account_protocol_is_read_only_diagnostic",
+      "status": "PASS",
+      "detail": "frozen Phase 5 outputs normalized without changing returns or claiming new evidence"
+    },
+    {
+      "name": "unified_account_all_hard_reconciliations_pass",
+      "status": "PASS",
+      "detail": "checks=16, pass=15, warn=1, fail=0"
+    },
+    {
+      "name": "unified_account_common_daily_key",
+      "status": "PASS",
+      "detail": "daily=1,387, cash=1,387, reconciliation=1,387"
+    },
+    {
+      "name": "unified_account_target_actual_cash_semantics",
+      "status": "PASS",
+      "detail": "security_rows=296,714; required_fields=['actual_shares', 'actual_weight', 'cash_weight', 'target_weight', 'weight_gap']"
+    },
+    {
+      "name": "unified_account_cash_nav_position_replay",
+      "status": "PASS",
+      "detail": "cash_error_cny=1.185e-07, nav_error_cny=1.192e-07, share_error=0.000e+00"
+    },
+    {
+      "name": "unified_account_assertion_log_clean",
+      "status": "PASS",
+      "detail": "[{'check_name': 'NO_FAILED_ASSERTIONS', 'status': 'PASS', 'observed': 'all hard Phase 7 accounting assertions passed'}]"
+    },
+    {
+      "name": "legacy_corporate_action_scenario_key_missing",
+      "status": "WARN",
+      "detail": "The frozen Phase 5 corporate-action table concatenated two scenarios without a scenario key. Phase 7 preserves it and reconstructs account-specific actions from prior actual holdings plus frozen market action fields."
+    },
+    {
       "name": "artifact:incremental_alpha_protocol/v1",
       "status": "PASS",
       "detail": "rows=1"
@@ -2168,7 +2278,7 @@
     }
   ],
   "findings": {
-    "registered_frozen_experiments": 45,
+    "registered_frozen_experiments": 46,
     "invalidated_experiments": 23,
     "common_oos_weeks": 291,
     "ridge_annualized_return_20bp": 0.2005894880405501,
@@ -2216,6 +2326,12 @@
     "institutional_execution_hgb_raw_sharpe": 0.9322853955205596,
     "institutional_execution_hgb_raw_maximum_drawdown": -0.3330956293053998,
     "institutional_execution_hgb_raw_fill_ratio": 0.9883369584835313,
+    "unified_account_daily_rows": 1387,
+    "unified_account_security_rows": 296714,
+    "unified_account_order_exceptions": 17495,
+    "unified_account_max_cash_error_cny": 1.1851079761981964e-07,
+    "unified_account_max_nav_error_cny": 1.1920928955078125e-07,
+    "unified_account_max_share_error": 0.0,
     "incremental_alpha_individual_intervals_above_zero": 1,
     "incremental_alpha_bh_fdr_survivors": 0,
     "hgb_neutral_incremental_return_annualized_arithmetic": 0.03646786854268133,

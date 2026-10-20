@@ -1,8 +1,8 @@
 # Research artifact audit
 
-Generated at `2026-10-20T10:30:05.295086+00:00`.
+Generated at `2026-10-20T11:58:01.839952+00:00`.
 
-Summary: **388 PASS / 45 WARN / 0 FAIL**
+Summary: **409 PASS / 46 WARN / 0 FAIL**
 
 | Status | Check | Detail |
 |---|---|---|
@@ -98,6 +98,8 @@ Summary: **388 PASS / 45 WARN / 0 FAIL**
 | PASS | `frozen_live_inputs:institutional_execution_v2` | all registered inputs match their SHA-256 hashes |
 | PASS | `frozen_snapshot_integrity:portfolio_construction_comparison_v1` | all frozen files match FROZEN.json |
 | PASS | `frozen_live_inputs:portfolio_construction_comparison_v1` | all registered inputs match their SHA-256 hashes |
+| PASS | `frozen_snapshot_integrity:unified_account_ledger_v1` | all frozen files match FROZEN.json |
+| PASS | `frozen_live_inputs:unified_account_ledger_v1` | all registered inputs match their SHA-256 hashes |
 | WARN | `invalidated_experiment:institutional_execution_v1` | severity=registry_self_staging_dirty_flag; superseded_by=institutional_execution_v2; reason=The research outputs and hashes are valid, but the experiment registry created its temporary snapshot directory inside the repository before capturing Git status. That self-created untracked directory caused the metadata to report dirty=true even though registration began from clean commit d1b00aedd5b3dcbc660733fa64288c550a83e446. |
 | WARN | `invalidated_experiment:portfolio_sensitivity_v1` | severity=cost_stress_repricing_formula_superseded; superseded_by=transaction_cost_model_v1; reason=The v1 fixed-fill execution cost stress subtracted turnover times the fee rate directly from gross return. The daily executor defines turnover over pre-trade NAV while return is measured over previous NAV, so exact C0 reproduction additionally requires the pre-trade-to-previous-NAV ratio. The difference is small but the v1 stress grid is not an exact 20bp regression of the executable baseline. |
 | WARN | `invalidated_experiment:factor_preprocessing_ablation_v1` | severity=portfolio_metrics_invalid; superseded_by=factor_preprocessing_ablation_v2; reason=Validation portfolios were formed after filtering rows with non-null future returns. RankIC and model-selection metrics used the correct realized subset, but Top-200 portfolio metrics had outcome-availability leakage. |
@@ -303,6 +305,26 @@ Summary: **388 PASS / 45 WARN / 0 FAIL**
 | PASS | `institutional_execution_orders_terminal` | terminal_statuses=['EXPIRED', 'FILLED', 'REPLACED'] |
 | PASS | `institutional_execution_corporate_action_proxy_reconciles` | actions=2,068, max_error_cny=4.657e-10; proxy_not_official |
 | PASS | `institutional_execution_constraints_have_measurable_haircut` | annualized=0.206647 vs 0.220813; tracking_l1=0.023068 vs 0.019099 |
+| PASS | `artifact:unified_account_protocol/v1` | rows=1 |
+| PASS | `artifact:unified_account_daily_ledger/v1` | rows=1,387 |
+| PASS | `artifact:unified_account_security_ledger/v1` | rows=296,714 |
+| PASS | `artifact:unified_account_cash_journal/v1` | rows=1,387 |
+| PASS | `artifact:unified_account_orders/v1` | rows=68,262 |
+| PASS | `artifact:unified_account_events/v1` | rows=221,968 |
+| PASS | `artifact:unified_account_fills/v1` | rows=81,650 |
+| PASS | `artifact:unified_account_corporate_actions/v1` | rows=1,034 |
+| PASS | `artifact:unified_account_daily_reconciliation/v1` | rows=1,387 |
+| PASS | `artifact:unified_account_position_reconciliation/v1` | rows=313,728 |
+| PASS | `artifact:unified_account_order_exceptions/v1` | rows=17,495 |
+| PASS | `artifact:unified_account_failed_assertions/v1` | rows=1 |
+| PASS | `artifact:unified_account_checks/v1` | rows=16 |
+| PASS | `unified_account_protocol_is_read_only_diagnostic` | frozen Phase 5 outputs normalized without changing returns or claiming new evidence |
+| PASS | `unified_account_all_hard_reconciliations_pass` | checks=16, pass=15, warn=1, fail=0 |
+| PASS | `unified_account_common_daily_key` | daily=1,387, cash=1,387, reconciliation=1,387 |
+| PASS | `unified_account_target_actual_cash_semantics` | security_rows=296,714; required_fields=['actual_shares', 'actual_weight', 'cash_weight', 'target_weight', 'weight_gap'] |
+| PASS | `unified_account_cash_nav_position_replay` | cash_error_cny=1.185e-07, nav_error_cny=1.192e-07, share_error=0.000e+00 |
+| PASS | `unified_account_assertion_log_clean` | [{'check_name': 'NO_FAILED_ASSERTIONS', 'status': 'PASS', 'observed': 'all hard Phase 7 accounting assertions passed'}] |
+| WARN | `legacy_corporate_action_scenario_key_missing` | The frozen Phase 5 corporate-action table concatenated two scenarios without a scenario key. Phase 7 preserves it and reconstructs account-specific actions from prior actual holdings plus frozen market action fields. |
 | PASS | `artifact:incremental_alpha_protocol/v1` | rows=1 |
 | PASS | `artifact:incremental_alpha_style_targets/v1` | rows=674,443 |
 | PASS | `artifact:incremental_alpha_exposure_audit/v1` | rows=1,172 |
@@ -442,7 +464,7 @@ Summary: **388 PASS / 45 WARN / 0 FAIL**
 
 ## Headline findings
 
-- `registered_frozen_experiments`: 45
+- `registered_frozen_experiments`: 46
 - `invalidated_experiments`: 23
 - `common_oos_weeks`: 291
 - `ridge_annualized_return_20bp`: 0.2005894880405501
@@ -490,6 +512,12 @@ Summary: **388 PASS / 45 WARN / 0 FAIL**
 - `institutional_execution_hgb_raw_sharpe`: 0.9322853955205596
 - `institutional_execution_hgb_raw_maximum_drawdown`: -0.3330956293053998
 - `institutional_execution_hgb_raw_fill_ratio`: 0.9883369584835313
+- `unified_account_daily_rows`: 1387
+- `unified_account_security_rows`: 296714
+- `unified_account_order_exceptions`: 17495
+- `unified_account_max_cash_error_cny`: 1.1851079761981964e-07
+- `unified_account_max_nav_error_cny`: 1.1920928955078125e-07
+- `unified_account_max_share_error`: 0.0
 - `incremental_alpha_individual_intervals_above_zero`: 1
 - `incremental_alpha_bh_fdr_survivors`: 0
 - `hgb_neutral_incremental_return_annualized_arithmetic`: 0.03646786854268133

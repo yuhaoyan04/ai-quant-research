@@ -1,0 +1,192 @@
+{
+  "experiment_id": "unified_account_ledger_v1",
+  "title": "Phase 7 unified target, position, cash and NAV account ledger",
+  "stage": "unified_accounting_and_reconciliation",
+  "model_version": "frozen_hgb_raw_primary_account_normalization_v1",
+  "registered_at_utc": "2026-10-20T11:57:12.091960+00:00",
+  "immutable": true,
+  "selection_policy": "validation_only",
+  "historical_oos_used_for_selection": false,
+  "historical_oos_disclosure": "The 2021-2026 block has already been inspected during project development. It is historical out-of-sample evidence, not a pristine production lockbox.",
+  "evidence_class": "historical_oos_descriptive",
+  "research_selection_role": "diagnostic",
+  "claims_independent_evidence": false,
+  "lockbox_id": null,
+  "dataset_version": "8b8b88b93f28e6f1e8e900d0bbfed8680a004727a980ed96185d9890efeac713",
+  "dataset_manifest": {
+    "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/manifests/ingestion.jsonl",
+    "size_bytes": 19522896,
+    "sha256": "4513a516602913ad690f895bdec73f38e51938fe7cb60938a5cb415e78db3e8c"
+  },
+  "input_artifacts": [
+    {
+      "table": "constrained_execution_targets",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/constrained_execution_targets/key=v1/data.parquet",
+      "size_bytes": 1283200,
+      "sha256": "bb88888f8d5b83433429bf85953c967f82eb2acf597f1ec08874617b7b30e362"
+    },
+    {
+      "table": "institutional_execution_market",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/institutional_execution_market/key=v1/data.parquet",
+      "size_bytes": 57876240,
+      "sha256": "5221f1b6414ba6f8c255f141f6daf99a69088067983eee9e035eb9cd8061d962"
+    },
+    {
+      "table": "institutional_execution_daily",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/institutional_execution_daily/key=v1/data.parquet",
+      "size_bytes": 392733,
+      "sha256": "794c477558f5f533b13a0e4adec6f261f94b5799363a761323e2c4ef56863546"
+    },
+    {
+      "table": "institutional_execution_orders",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/institutional_execution_orders/key=v1/data.parquet",
+      "size_bytes": 1270656,
+      "sha256": "fc57b5fb6997da8159bcc8a39fd5e784fd4b51213e0086a860c82f0236870fd0"
+    },
+    {
+      "table": "institutional_execution_events",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/institutional_execution_events/key=v1/data.parquet",
+      "size_bytes": 2115747,
+      "sha256": "5b09b202bd8ae21263eb7b89da163ac8670b8ed3ba8bbc2ea13cd7b342b49b6c"
+    },
+    {
+      "table": "institutional_execution_fills",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/institutional_execution_fills/key=v1/data.parquet",
+      "size_bytes": 5969245,
+      "sha256": "5a38d468a5725ebc93f175f716618305e5c34bc37b25e48bd3d359780462ad22"
+    },
+    {
+      "table": "institutional_execution_positions",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/institutional_execution_positions/key=v1/data.parquet",
+      "size_bytes": 10493128,
+      "sha256": "fc578a194c599b4cb8f753d8eb4816aed1e8612dcbec680e14d850ca41df5f88"
+    },
+    {
+      "table": "institutional_execution_corporate_actions",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/institutional_execution_corporate_actions/key=v1/data.parquet",
+      "size_bytes": 90135,
+      "sha256": "f8cd9158d001083c91cd0d26e9af8fb2b4f72a58ea062d265318ff56fd2f5349"
+    },
+    {
+      "table": "unified_account_daily_ledger",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/unified_account_daily_ledger/key=v1/data.parquet",
+      "size_bytes": 180689,
+      "sha256": "b77062549973509a0e9e44d2e56f2d246ee3bda7482f8fd89b6c5e62159f10b0"
+    },
+    {
+      "table": "unified_account_security_ledger",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/unified_account_security_ledger/key=v1/data.parquet",
+      "size_bytes": 8389745,
+      "sha256": "70f2616821352ffa9581acead7faa4ae3356e1ec172cdc3f66e4d05023181085"
+    },
+    {
+      "table": "unified_account_cash_journal",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/unified_account_cash_journal/key=v1/data.parquet",
+      "size_bytes": 61011,
+      "sha256": "99c5ae251ca184c64b977647cfc17a430002939ac7cb3be627440ca70e6497c1"
+    },
+    {
+      "table": "unified_account_orders",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/unified_account_orders/key=v1/data.parquet",
+      "size_bytes": 651448,
+      "sha256": "d2808431789611ba2ab7a11cb5f7405716e502c4003323937640ee83648304e7"
+    },
+    {
+      "table": "unified_account_events",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/unified_account_events/key=v1/data.parquet",
+      "size_bytes": 1032089,
+      "sha256": "7fa5b54ee30233e54cd0e94512f00a4404605abad16973eecc2baae658c86c43"
+    },
+    {
+      "table": "unified_account_fills",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/unified_account_fills/key=v1/data.parquet",
+      "size_bytes": 3269958,
+      "sha256": "a7ced980a65e1cadec0e0a93ba926ba2f42f4bdc1e3d561283fc02b3408cf8ba"
+    },
+    {
+      "table": "unified_account_corporate_actions",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/unified_account_corporate_actions/key=v1/data.parquet",
+      "size_bytes": 54957,
+      "sha256": "517b057edf239b250f50cf7ee5a222c31e57099f56ccfc3d52d0b9b4729efdfc"
+    },
+    {
+      "table": "unified_account_position_reconciliation",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/unified_account_position_reconciliation/key=v1/data.parquet",
+      "size_bytes": 1793210,
+      "sha256": "b831e91ecba41ea9867cd53c268df200e9d77e07717dc9634faab6dad9fcebdc"
+    },
+    {
+      "table": "unified_account_order_exceptions",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/unified_account_order_exceptions/key=v1/data.parquet",
+      "size_bytes": 248477,
+      "sha256": "0dafdeba0ae64d8f40e640b6c9c05ae5f1169b8ca1a8945c6a8c2faa0a390a79"
+    }
+  ],
+  "metric_artifacts": [
+    {
+      "table": "unified_account_protocol",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/unified_account_protocol/key=v1/data.parquet",
+      "size_bytes": 8105,
+      "sha256": "d58814619ab233409549b53f22f792daa73ae9555ef544a50d814ab24120a684"
+    },
+    {
+      "table": "unified_account_checks",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/unified_account_checks/key=v1/data.parquet",
+      "size_bytes": 2917,
+      "sha256": "b16c4ddb545ba44a1f3c41495fd69e29f4fda8dbc5d8d8b4e16f961147ebac7c"
+    },
+    {
+      "table": "unified_account_daily_reconciliation",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/unified_account_daily_reconciliation/key=v1/data.parquet",
+      "size_bytes": 308131,
+      "sha256": "bea7290bbf3031c9cfe6ad4a6a8ea2f4bb9e28e9d32cd06b64bf808abbf4de1d"
+    },
+    {
+      "table": "unified_account_failed_assertions",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/unified_account_failed_assertions/key=v1/data.parquet",
+      "size_bytes": 2488,
+      "sha256": "8b2654bcffc7df827c4323fa6afaeb63cc347f557df04df81b3c82feba1e07f7"
+    }
+  ],
+  "figures": [],
+  "source_tree_sha256": "782e3a163bcfff0b39a8c844f22c1505a949b8ce6877b6be6b6d491de1255800",
+  "git": {
+    "commit": "7a387c5b737ebc1cf31fd842f49f7bac41862937",
+    "dirty": false,
+    "status_sha256": null
+  },
+  "environment": {
+    "python": "3.11.16",
+    "implementation": "CPython",
+    "platform": "Linux-5.15.0-92-generic-x86_64-with-glibc2.35",
+    "packages": {
+      "pandas": "3.0.6",
+      "pyarrow": "25.0.1",
+      "PyYAML": "6.0.3",
+      "scikit-learn": "1.9.1",
+      "numpy": "2.4.6",
+      "scipy": "1.17.1"
+    }
+  }
+}

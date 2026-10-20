@@ -403,5 +403,14 @@
     "registered_at_utc": "2026-10-20T06:03:20.545635+00:00",
     "dataset_version": "d22ade8fbb24b2e32dc667b191d54722b9cf4697026fa738b631ba9dbd8fe47e",
     "immutable": true
+  },
+  {
+    "experiment_id": "unified_account_ledger_v1",
+    "title": "Phase 7 unified target, position, cash and NAV account ledger",
+    "stage": "unified_accounting_and_reconciliation",
+    "model_version": "frozen_hgb_raw_primary_account_normalization_v1",
+    "registered_at_utc": "2026-10-20T11:57:12.091960+00:00",
+    "dataset_version": "8b8b88b93f28e6f1e8e900d0bbfed8680a004727a980ed96185d9890efeac713",
+    "immutable": true
   }
 ]
