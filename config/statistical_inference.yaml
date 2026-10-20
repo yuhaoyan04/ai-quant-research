@@ -1,0 +1,64 @@
+experiment_id: statistical_inference_protocol_v1
+source_experiments:
+  - factor_tear_sheet_v1
+  - incremental_alpha_test_v1
+  - portfolio_construction_comparison_v1
+evidence_class: post_historical_oos_adaptation
+research_selection_role: post_hoc_adaptation
+claims_independent_evidence: false
+historical_oos_used_for_selection: false
+
+confidence_level: 0.95
+false_discovery_rate: 0.05
+bootstrap_samples: 2000
+random_seed: 20261020
+
+families:
+  factor_rank_ic:
+    source: {table: factor_tear_sheet_weekly, key: v1}
+    pipeline: industry_size_neutralized
+    metric: oriented_rank_ic
+    frequency: weekly
+    annualization_scale: 1.0
+    hac_lags: [1, 4, 8, 13]
+    block_lengths: [4, 8, 13, 26]
+    primary_block_length: 13
+    economic_materiality_threshold: 0.01
+    hypothesis_role: exploratory_historical_diagnostic
+  factor_gross_spread:
+    source: {table: factor_tear_sheet_weekly, key: v1}
+    pipeline: industry_size_neutralized
+    metric: gross_top_minus_bottom
+    frequency: weekly
+    annualization_scale: 52.0
+    hac_lags: [1, 4, 8, 13]
+    block_lengths: [4, 8, 13, 26]
+    primary_block_length: 13
+    economic_materiality_threshold: 0.02
+    hypothesis_role: exploratory_historical_diagnostic
+  model_incremental_alpha:
+    source: {table: incremental_alpha_daily, key: v1}
+    frequency: daily
+    annualization_scale: 252.0
+    hac_lags: [5, 10, 20, 40]
+    block_lengths: [5, 10, 20, 40, 60]
+    primary_block_length: 20
+    economic_materiality_threshold: 0.01
+    hypothesis_role: prespecified_governance_hypothesis_nonindependent_history
+  portfolio_construction_increment:
+    source: {table: portfolio_construction_execution_daily, key: v1}
+    reference: P0_equal
+    frequency: daily
+    annualization_scale: 252.0
+    hac_lags: [5, 10, 20, 40]
+    block_lengths: [5, 10, 20, 40, 60]
+    primary_block_length: 20
+    economic_materiality_threshold: 0.01
+    hypothesis_role: exploratory_post_historical_oos_adaptation
+
+scope_note: >-
+  Phase 8 harmonizes inference on already observed historical-OOS results. It
+  does not select a new model, factor, block length or portfolio method. HAC
+  and circular-block results are diagnostics under explicit dependence
+  assumptions, not probabilities of future profitability. Families are kept
+  separate because they answer different research questions.

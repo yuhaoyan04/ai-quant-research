@@ -120,6 +120,7 @@ try {
             @{ Name = "PIT risk-free rate and excess-return attribution"; Program = "quant-risk-free-attribution"; Args = @() },
             @{ Name = "Phase 6 common-signal portfolio construction comparison"; Program = "quant-portfolio-construction-comparison"; Args = @("all") },
             @{ Name = "Phase 7 unified account ledger and reconciliation"; Program = "quant-unified-account-ledger"; Args = @("run") },
+            @{ Name = "Phase 8 statistical inference and multiple testing"; Program = "quant-statistical-inference"; Args = @("run") },
             @{ Name = "Official price and total-return benchmark attribution"; Program = "quant-market-benchmark-attribution"; Args = @() },
             @{ Name = "Multi-factor risk model and attribution"; Program = "quant-risk-attribution"; Args = @("all") },
             @{ Name = "Characteristic-matched incremental alpha test"; Program = "quant-incremental-alpha"; Args = @("all") },

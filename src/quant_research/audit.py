@@ -1106,6 +1106,102 @@ class ResearchAuditor:
             "unified_account_max_share_error": max_shares,
         })
 
+    def audit_statistical_inference(self) -> None:
+        """Gate Phase-8 paired inference, dependence sensitivity and FDR families."""
+        protocol = self.require_table("statistical_inference_protocol", "v1")
+        series = self.require_table("statistical_inference_series", "v1")
+        alignment = self.require_table("statistical_inference_alignment", "v1")
+        hac = self.require_table("statistical_inference_hac", "v1")
+        bootstrap = self.require_table("statistical_inference_block_bootstrap", "v1")
+        fdr = self.require_table("statistical_inference_fdr", "v1")
+        family = self.require_table("statistical_inference_family_summary", "v1")
+        sensitivity = self.require_table("statistical_inference_block_sensitivity", "v1")
+        trials = self.require_table("statistical_trial_registry", "v1")
+        checks = self.require_table("statistical_inference_checks", "v1")
+        failures = self.require_table("statistical_inference_failed_assertions", "v1")
+        if any(frame.empty for frame in (
+            protocol, series, alignment, hac, bootstrap, fdr, family,
+            sensitivity, trials, checks, failures,
+        )):
+            return
+        row = protocol.iloc[0]
+        self.add(
+            "statistical_inference_protocol_discloses_post_oos_status",
+            str(row["evidence_class"]) == "post_historical_oos_adaptation"
+            and str(row["research_selection_role"]) == "post_hoc_adaptation"
+            and not bool(row["claims_independent_evidence"])
+            and not bool(row["historical_oos_used_for_selection"])
+            and not bool(row["block_length_selected_from_results"])
+            and not bool(row["future_success_probability_claimed"]),
+            "harmonized inference is post-historical-OOS and does not claim future probability",
+        )
+        self.add(
+            "statistical_inference_all_protocol_checks_pass",
+            checks["status"].eq("PASS").all() and len(checks) == 10,
+            f"checks={len(checks)}, failures={int(checks['status'].eq('FAIL').sum())}",
+        )
+        expected = {
+            "factor_rank_ic": 15, "factor_gross_spread": 15,
+            "model_incremental_alpha": 4, "portfolio_construction_increment": 3,
+        }
+        counts = fdr.groupby("family_id")["hypothesis_id"].nunique().to_dict()
+        self.add(
+            "statistical_inference_fdr_families_not_pooled",
+            counts == expected and fdr["family_test_count"].eq(
+                fdr["family_id"].map(expected)
+            ).all(),
+            f"family_hypotheses={counts}",
+        )
+        paired = alignment["family_id"].isin([
+            "model_incremental_alpha", "portfolio_construction_increment",
+        ])
+        self.add(
+            "statistical_inference_paired_daily_clocks",
+            alignment.loc[paired, "missing_observations"].eq(0).all()
+            and alignment.loc[paired, "duplicate_dates"].eq(0).all()
+            and alignment.loc[paired, "complete_observations"].eq(1387).all(),
+            f"paired_hypotheses={int(paired.sum())}, observations="
+            f"{sorted(alignment.loc[paired, 'complete_observations'].unique())}",
+        )
+        self.add(
+            "statistical_inference_dependence_sensitivity_complete",
+            len(hac) == 148 and len(bootstrap) == 155 and len(sensitivity) == 37,
+            f"hac={len(hac)}, block_bootstrap={len(bootstrap)}, sensitivity={len(sensitivity)}",
+        )
+        self.add(
+            "statistical_trial_registry_complete",
+            len(trials) == 172 and trials["trial_category"].nunique() == 11
+            and not trials["included_in_cross_category_fdr"].astype(bool).any(),
+            f"trials={len(trials)}, categories={trials['trial_category'].nunique()}",
+        )
+        primary = fdr.loc[
+            fdr["family_id"].eq("model_incremental_alpha")
+            & fdr["hypothesis_id"].eq("hgb_shallow15_locked__raw")
+        ]
+        self.add(
+            "statistical_primary_incremental_alpha_not_overclaimed",
+            len(primary) == 1 and not bool(primary.iloc[0]["survives_bh_fdr"])
+            and float(primary.iloc[0]["ci_low"]) <= 0
+            and str(primary.iloc[0]["claim_status"])
+            == "positive_value_not_established_after_family_fdr",
+            primary[["point_estimate", "ci_low", "ci_high", "bh_fdr_adjusted_p",
+                     "claim_status"]].to_dict(orient="records").__str__(),
+        )
+        self.add(
+            "statistical_inference_assertion_log_clean",
+            len(failures) == 1
+            and str(failures.iloc[0]["check_name"]) == "NO_FAILED_ASSERTIONS",
+            failures.to_dict(orient="records").__str__(),
+        )
+        self.findings.update({
+            "statistical_inference_hypotheses": len(fdr),
+            "statistical_trial_registry_rows": len(trials),
+            "hgb_raw_incremental_return_point_estimate": float(primary.iloc[0]["point_estimate"]),
+            "hgb_raw_incremental_return_ci_low": float(primary.iloc[0]["ci_low"]),
+            "hgb_raw_incremental_return_ci_high": float(primary.iloc[0]["ci_high"]),
+            "hgb_raw_incremental_return_fdr_q": float(primary.iloc[0]["bh_fdr_adjusted_p"]),
+        })
+
     def audit_incremental_alpha_test(self) -> None:
         """Gate the characteristic-matched executable incremental-alpha test."""
         protocol = self.require_table("incremental_alpha_protocol", "v1")
@@ -2040,6 +2136,7 @@ class ResearchAuditor:
         self.audit_constrained_portfolio_daily_execution()
         self.audit_institutional_execution()
         self.audit_unified_account_ledger()
+        self.audit_statistical_inference()
         self.audit_incremental_alpha_test()
         self.audit_multi_factor_risk_attribution()
         self.audit_risk_aware_portfolio_optimization()

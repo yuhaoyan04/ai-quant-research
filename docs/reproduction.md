@@ -99,6 +99,7 @@ quant-constrained-daily-execution all
 quant-institutional-execution all
 quant-portfolio-construction-comparison all
 quant-unified-account-ledger run
+quant-statistical-inference run
 quant-transaction-costs run
 quant-risk-attribution all
 quant-incremental-alpha all
@@ -146,8 +147,9 @@ powershell -ExecutionPolicy Bypass -File scripts/rebuild_all.ps1 -SkipDownload -
 9. Top-N、inverse-vol、fill 级 C0/C1/C2 成本协议、因子分布与滚动相关诊断；
 10. 同一 HGB 信号下的 P0/P1/P2/P4 权重比较、账户执行与 2500 万/1 亿/5 亿容量重跑；
 11. 冻结主账户的目标/实际权重、现金、订单、成交、公司行动与 NAV 统一账本及独立回放；
-12. 结论证据矩阵、BH-FDR 多重检验、研究生命周期审计；
-13. 离线 dashboard、publication audit 与最终 PDF。
+12. 四个独立检验族的 HAC、多块长 bootstrap、BH-FDR 与完整 trial registry；
+13. 结论证据矩阵、研究生命周期审计；
+14. 离线 dashboard、publication audit 与最终 PDF。
 
 如果需要手工定位失败步骤，可打开 [rebuild_all.ps1](../scripts/rebuild_all.ps1) 查看完全展开、
 可逐条复制的命令序列。脚本默认不删除、不覆盖 `data/`；多数上游阶段通过 `--missing` 或文件
@@ -193,6 +195,8 @@ quant-research-dashboard
 `quant-portfolio-construction-comparison all` 会重建冻结 raw HGB 全截面分数，生成 Top-200/400 缓冲下的四种目标权重，扩展执行市场并真实重跑三个资金规模。该步骤计算量和产物体积都较大；其 2021–2026 结果属于 post-OOS adaptation/诊断，不得用于宣称新的独立样本外最优方法。
 
 `quant-unified-account-ledger run` 不重跑信号或策略，只读 Phase 5 的冻结主账户输出，生成目标/实际权重、现金、订单、成交、公司行动与 NAV 的统一账本并执行独立对账。它要求上游 institutional execution 表已经存在；任何硬对账失败都会以非零状态退出。
+
+`quant-statistical-inference run` 从已冻结的因子、增量 Alpha 和 Phase 6 日收益读取原序列，生成 HAC、多块长 circular bootstrap、族内 BH-FDR 和 trial registry。该命令不重新选择任何模型或块长；结果属于 post-historical-OOS adaptation。
 
 ## 8. 常见故障
 

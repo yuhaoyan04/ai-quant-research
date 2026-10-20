@@ -1609,3 +1609,46 @@ experiments:
       - {table: unified_account_daily_reconciliation, key: v1}
       - {table: unified_account_failed_assertions, key: v1}
     figures: []
+
+  statistical_inference_protocol_v1:
+    title: Phase 8 paired inference, dependence sensitivity and multiplicity protocol
+    stage: statistical_inference_and_multiple_testing
+    model_version: four_prespecified_families_hac_multiblock_bh_fdr_v1
+    dataset_version_method: sha256_of_registered_inputs_and_ingestion_manifest
+    historical_oos_used_for_selection: false
+    evidence_class: post_historical_oos_adaptation
+    research_selection_role: post_hoc_adaptation
+    claims_independent_evidence: false
+    config_files:
+      - statistical_inference.yaml
+      - research_governance.yaml
+      - incremental_alpha_test.yaml
+      - portfolio_construction_comparison.yaml
+    input_tables:
+      - {table: factor_tear_sheet_weekly, key: v1}
+      - {table: incremental_alpha_daily, key: v1}
+      - {table: portfolio_construction_execution_daily, key: v1}
+      - {table: model_benchmark_validation_grid, key: v1}
+      - {table: hgb_hyperparameter_summary, key: v1}
+      - {table: rf_hyperparameter_validation_summary, key: v1}
+      - {table: factor_preprocessing_ablation_grid, key: v2}
+      - {table: label_horizon_validation_grid, key: v1}
+      - {table: factor_registry, key: v1}
+      - {table: portfolio_sensitivity_summary, key: v1}
+      - {table: portfolio_construction_execution_summary, key: v1}
+      - {table: transaction_cost_protocol, key: v1}
+      - {table: incremental_alpha_comparison, key: v1}
+      - {table: risk_aware_portfolio_summary, key: v2}
+      - {table: statistical_inference_series, key: v1}
+      - {table: statistical_inference_hac, key: v1}
+      - {table: statistical_inference_block_bootstrap, key: v1}
+      - {table: statistical_trial_registry, key: v1}
+    metric_tables:
+      - {table: statistical_inference_protocol, key: v1}
+      - {table: statistical_inference_alignment, key: v1}
+      - {table: statistical_inference_fdr, key: v1}
+      - {table: statistical_inference_family_summary, key: v1}
+      - {table: statistical_inference_block_sensitivity, key: v1}
+      - {table: statistical_inference_checks, key: v1}
+      - {table: statistical_inference_failed_assertions, key: v1}
+    figures: []
