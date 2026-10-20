@@ -14,10 +14,10 @@ import os
 import shutil
 import subprocess
 import tempfile
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Callable
-from zoneinfo import ZoneInfo
+from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 import joblib
 import numpy as np
@@ -81,6 +81,18 @@ def validate_config(cfg: dict[str, Any]) -> None:
 
 def _relative(path: Path) -> str:
     return path.resolve().relative_to(ROOT.resolve()).as_posix()
+
+
+def _configured_timezone(name: str) -> timezone | ZoneInfo:
+    try:
+        return ZoneInfo(name)
+    except ZoneInfoNotFoundError:
+        if name != "Asia/Shanghai":
+            raise
+        # China Standard Time has had no DST transitions since 1991. This
+        # narrow fallback keeps live-date enforcement working in minimal
+        # containers while pyproject declares tzdata for normal deployment.
+        return timezone(timedelta(hours=8), name="Asia/Shanghai")
 
 
 def _path(cfg: dict[str, Any], key: str) -> Path:
@@ -554,7 +566,7 @@ def _publish_run(
     runs.mkdir(parents=True, exist_ok=True)
     prior = verify_operations_log(_path(cfg, "operations_log"))
     attempt = 1 + sum(str(event.get("trade_date")) == trade_date for event in prior)
-    stamp = started.replace("-", "").replace(":", "").replace("+00:00", "Z").replace(".", "")
+    stamp = started.replace("+00:00", "Z").replace("-", "").replace(":", "").replace(".", "")
     run_id = f"{stamp}__{trade_date.replace('-', '')}__a{attempt:02d}"
     target = runs / run_id
     temporary = Path(tempfile.mkdtemp(prefix=f".{run_id}_", dir=runs))
@@ -642,8 +654,9 @@ def run_daily(
     lake = lake or Lake()
     cfg = load_config()
     validate_config(cfg)
-    current = now or datetime.now(ZoneInfo(str(cfg["timezone"])))
-    local_date = current.astimezone(ZoneInfo(str(cfg["timezone"]))).date().isoformat()
+    local_timezone = _configured_timezone(str(cfg["timezone"]))
+    current = now or datetime.now(local_timezone)
+    local_date = current.astimezone(local_timezone).date().isoformat()
     requested = trade_date or local_date
     started = datetime.now(timezone.utc).isoformat()
     if requested != local_date:

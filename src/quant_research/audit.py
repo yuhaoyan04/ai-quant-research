@@ -14,7 +14,7 @@ import pandas as pd
 import yaml
 
 from quant_research.ingest import ROOT, Lake
-from quant_research.experiment_registry import ExperimentRegistry, load_specs
+from quant_research.experiment_registry import ExperimentRegistry, load_specs, sha256_file
 from quant_research.leave_one_factor_out import benjamini_hochberg
 from quant_research.portfolio import performance_summary
 
@@ -1532,6 +1532,84 @@ class ResearchAuditor:
             ).sum()),
         })
 
+    def audit_paper_trading(self) -> None:
+        """Gate the forward-only runner without opening lockbox performance."""
+        protocol = self.require_table("paper_trading_protocol", "v1")
+        contracts = self.require_table("paper_trading_source_contracts", "v1")
+        status = self.require_table("paper_trading_status", "v1")
+        checks = self.require_table("paper_trading_checks", "v1")
+        failures = self.require_table("paper_trading_failed_assertions", "v1")
+        if any(frame.empty for frame in (protocol, contracts, status, checks, failures)):
+            return
+        row = protocol.iloc[0]
+        self.add(
+            "paper_pipeline_does_not_claim_forward_evidence",
+            str(row["evidence_class"]) == "governance_only"
+            and not bool(row["claims_independent_evidence"])
+            and not bool(row["ready_for_live_capital"]),
+            f"observations={row['successful_forward_observations']}",
+        )
+        self.add(
+            "paper_pipeline_contract_is_complete",
+            {"signal_input", "model_bundle", "target", "account", "operations_log"}
+            <= set(contracts["artifact"].astype(str))
+            and contracts["required"].astype(bool).all(),
+            f"contracts={len(contracts)}",
+        )
+        self.add(
+            "paper_pipeline_checks_all_pass",
+            len(checks) == 7 and checks["status"].eq("PASS").all(),
+            f"checks={len(checks)}",
+        )
+        from quant_research.paper_trading import (
+            load_config as load_paper_config,
+            verify_model_bundle,
+            verify_operations_log,
+        )
+        paper_cfg = load_paper_config()
+        model_manifest = verify_model_bundle(paper_cfg)
+        events = verify_operations_log(ROOT / paper_cfg["storage"]["operations_log"])
+        success = [event for event in events if event["status"] == "SUCCESS"]
+        success_dates = [str(event["trade_date"]) for event in success]
+        self.add(
+            "paper_model_bundle_is_commit_and_hash_anchored",
+            len(str(model_manifest["freeze_commit"])) == 40
+            and len(str(model_manifest["model_sha256"])) == 64
+            and int(model_manifest["fit_observations"]) > 0
+            and model_manifest["performance_results_included"] is False,
+            f"commit={model_manifest['freeze_commit']}, observations={model_manifest['fit_observations']}",
+        )
+        self.add(
+            "paper_operations_log_and_run_manifests_are_immutable",
+            all(
+                (ROOT / event["run_directory"] / "run.json").exists()
+                and sha256_file(ROOT / event["run_directory"] / "run.json")
+                == event["run_manifest_sha256"]
+                for event in events
+            ),
+            f"events={len(events)}",
+        )
+        self.add(
+            "paper_observations_are_forward_only_and_unique",
+            len(success_dates) == len(set(success_dates))
+            and all(date >= str(paper_cfg["activation_not_before"]) for date in success_dates),
+            f"success_dates={success_dates}",
+        )
+        status_row = status.iloc[0]
+        self.add(
+            "paper_status_matches_append_only_log",
+            int(status_row["attempts"]) == len(events)
+            and int(status_row["successful_observations"]) == len(success)
+            and not bool(status_row["performance_validated"]),
+            f"attempts={len(events)}, successes={len(success)}",
+        )
+        self.findings.update({
+            "paper_trading_attempts": len(events),
+            "paper_trading_successful_observations": len(success),
+            "future_lockbox_interim_performance_sealed": True,
+            "paper_trading_performance_validated": False,
+        })
+
     def audit_multi_factor_risk_attribution(self) -> None:
         """Gate PIT style coverage, exact attribution, and lagged risk forecasts."""
         protocol = self.require_table("risk_model_protocol", "v1")
@@ -2342,6 +2420,7 @@ class ResearchAuditor:
         self.audit_incremental_alpha_test()
         self.audit_alpha_evidence_matrix()
         self.audit_engineering_quality()
+        self.audit_paper_trading()
         self.audit_multi_factor_risk_attribution()
         self.audit_risk_aware_portfolio_optimization()
         self.audit_weekly_identity(

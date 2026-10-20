@@ -13,7 +13,7 @@
 
 Phase 3 在不重新选模的前提下完成五类冻结候选的 expanding/10 年 rolling walk-forward、RF 三 seed 汇总、逐年失败诊断和五折标签区间 Purged CV。验证期 rolling 的部分组合收益差为正，但在已被查看的 2021–2026 historical OOS 上，ElasticNet/HGB 的 rolling-minus-expanding RankIC 与净收益置信区间转为负；因此不采用事后窗口切换，继续保留 expanding 基线。
 
-Phase 4 将 2021–2026 永久标记为 consumed historical OOS，冻结 HGB 主候选及 Ridge/HGB 次级假设、成本与执行口径、BH-FDR 检验族，并建立 future lockbox、不可回填的 paper-trading 协议和 hash-chained 访问日志。当前 future lockbox 尚无结果，paper trading 尚无观测，项目仍不具备实盘资金部署证据。
+Phase 4 将 2021–2026 永久标记为 consumed historical OOS，冻结 HGB 主候选及 Ridge/HGB 次级假设、成本与执行口径、BH-FDR 检验族，并建立 future lockbox、不可回填的 paper-trading 协议和 hash-chained 访问日志。Phase 11 已进一步序列化冻结主候选并实现日度PIT输入、信号、目标、订单、成交、现金、持仓与NAV的不可变运行链；当前只有一次激活前`NOT_ACTIVE`记录、0个成功前瞻观测，项目仍不具备实盘资金部署证据。
 
 Phase 5 把冻结 raw HGB 目标接入人民币股数订单状态机和现金/持仓/NAV 账本，加入 T+1、整手、10% 日成交量参与率、部分成交、替换/过期事件与公司行动价值保持代理。账户级受限执行年化 20.66%、Sharpe 0.93、最大回撤 -33.31%，移除市场约束的同账本上界为 22.08%；全部现金、持仓、费用、T+1 和 NAV 不变量通过。
 

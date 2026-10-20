@@ -15,6 +15,7 @@ dependencies = [
   "akshare>=1.18",
   "scikit-learn>=1.5",
   "joblib>=1.4",
+  "tzdata>=2024.1",
   "scipy>=1.13",
   "tabulate>=0.9",
   "reportlab>=4.2",

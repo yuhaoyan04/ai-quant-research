@@ -179,6 +179,7 @@ quant-experiment verify rf_daily_retry_execution_v1
 quant-conclusion-audit
 quant-audit
 quant-research-dashboard
+quant-paper-trading status
 ```
 
 当前验收记录为 205 tests passed；研究审计为 482 PASS / 46 WARN / 0 FAIL（WARN 保留历史版本漂移与已知边界）。新下载数据应至少
@@ -204,6 +205,8 @@ quant-research-dashboard
 `quant-incremental-alpha-fill all` 先复用 Phase 5 股数级市场并补齐风格复制组合新增证券，再将4条ML与4条风格复制目标统一通过1亿元账户执行器。运行完成后再执行 `quant-alpha-evidence run`，v2会用股数级净收益重算配对bootstrap、风险调整Alpha与FDR。该步骤计算和落盘量较大，但不会覆盖Phase 5或Phase 9 v1冻结产物。
 
 `quant-engineering-quality run` 扫描共同实现、随机seed、五层测试和Phase 5–9输出契约。它是治理检查，不重跑模型或选择历史结果；任何唯一实现、协议版本或冻结快照门禁失败都会返回非零状态。
+
+`quant-paper-trading freeze-model` 只在候选代码提交且工作区干净时执行一次；它用截至冻结日且完成5日标签隔离的PIT周频数据拟合已经选定的HGB规格，写入不可覆盖模型包及依赖哈希。正常日度任务使用 `quant-paper-trading run-daily`，不得传入历史日期回填；每个真实日期的成功、失败、非交易日或未激活状态都会写入不可变运行目录和SHA-256链。`quant-paper-trading build-protocol` 只更新运营协议与健康状态，不读取或发布future lockbox中途绩效。当前模型包已冻结，成功前瞻观测仍为0。
 
 ## 8. 常见故障
 

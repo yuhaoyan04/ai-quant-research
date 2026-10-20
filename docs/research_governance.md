@@ -25,6 +25,17 @@ quant-research-governance initialize
 quant-research-governance status
 ```
 
+Phase 11 的生产候选模型也只冻结一次。日度命令不接受历史日期成功回填：
+
+```bash
+quant-paper-trading freeze-model   # 仅干净提交上首次执行
+quant-paper-trading run-daily      # 使用 Asia/Shanghai 当日
+quant-paper-trading status         # 只显示运营状态，不显示 lockbox 绩效
+quant-paper-trading build-protocol
+```
+
+每个运行目录保存输入版本、模型哈希、信号、目标、订单、模拟成交、现金、持仓、NAV与对账结果；失败和缺数日期同样保存。基于paper结果修改策略时，旧paper阶段必须转为开发/验证证据，产生新的候选ID、模型包和激活日。
+
 访问任何研究证据时追加事件：
 
 ```bash

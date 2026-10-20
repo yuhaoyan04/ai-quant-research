@@ -1787,3 +1787,27 @@ experiments:
       - {table: engineering_quality_checks, key: v1}
       - {table: engineering_failed_assertions, key: v1}
     figures: []
+
+  paper_trading_pipeline_v1:
+    title: Phase 11 forward-only paper trading and future-lockbox operations
+    stage: paper_trading_and_future_lockbox
+    model_version: candidate_bundle_v1_hgb_raw_p4_constrained_forward_only
+    dataset_version_method: sha256_of_registered_inputs_and_ingestion_manifest
+    historical_oos_used_for_selection: false
+    evidence_class: governance_only
+    research_selection_role: operational_tracking
+    claims_independent_evidence: false
+    config_files: [paper_trading.yaml, preprocessing.yaml, research_governance.yaml, portfolio_construction_comparison.yaml, constrained_portfolio_daily_execution.yaml]
+    input_tables:
+      - {table: research_candidate_freeze, key: v1}
+      - {table: research_lockbox_registry, key: v1}
+      - {table: research_paper_trading_registry, key: v1}
+    metric_tables:
+      - {table: paper_trading_protocol, key: v1}
+      - {table: paper_trading_source_contracts, key: v1}
+      - {table: paper_trading_status, key: v1}
+      - {table: paper_trading_checks, key: v1}
+      - {table: paper_trading_failed_assertions, key: v1}
+    figures:
+      - reports/governance/paper_candidate_bundle_v1_manifest.json
+      - reports/paper_trading.md
