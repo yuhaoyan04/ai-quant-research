@@ -1,0 +1,438 @@
+{
+  "research_governance_protocol__v1": [
+    {
+      "experiment_id": "research_governance_v1",
+      "policy_version": 1,
+      "purpose": "phase4_historical_oos_contamination_and_future_evidence_governance",
+      "current_data_cutoff": "2026-09-30",
+      "historical_oos_classification": "consumed_descriptive_not_pristine",
+      "future_lockbox_id": "future_lockbox_2026q4_2027q3_v1",
+      "paper_trading_id": "paper_candidate_bundle_v1",
+      "candidate_freeze_commit": "978aedf9615482e79cbca9670c458e8663b5ebcc",
+      "historical_oos_used_for_selection": false,
+      "future_results_available_at_freeze": false,
+      "paper_observations_available_at_freeze": false,
+      "local_access_control_limitation": "hash_chained_audit_not_cryptographic_secrecy"
+    }
+  ],
+  "research_evidence_registry__v1": [
+    {
+      "period_name": "training",
+      "evidence_class": "training",
+      "start_date": "2006-01-01",
+      "end_date": "2015-12-31",
+      "already_observed_at_freeze": true,
+      "consumed_at_freeze": false,
+      "selection_allowed": true,
+      "disclosure": ""
+    },
+    {
+      "period_name": "validation_selection",
+      "evidence_class": "validation_selection",
+      "start_date": "2016-01-01",
+      "end_date": "2020-12-31",
+      "already_observed_at_freeze": true,
+      "consumed_at_freeze": false,
+      "selection_allowed": true,
+      "disclosure": ""
+    },
+    {
+      "period_name": "historical_oos",
+      "evidence_class": "historical_oos",
+      "start_date": "2021-01-01",
+      "end_date": "2026-09-30",
+      "already_observed_at_freeze": true,
+      "consumed_at_freeze": true,
+      "selection_allowed": false,
+      "disclosure": "inspected_repeatedly_during_research_not_a_pristine_lockbox"
+    },
+    {
+      "period_name": "future_lockbox",
+      "evidence_class": "future_lockbox",
+      "start_date": "2026-10-01",
+      "end_date": "2027-09-30",
+      "already_observed_at_freeze": false,
+      "consumed_at_freeze": false,
+      "selection_allowed": false,
+      "disclosure": ""
+    },
+    {
+      "period_name": "paper_trading",
+      "evidence_class": "paper_trading",
+      "start_date": null,
+      "end_date": null,
+      "already_observed_at_freeze": false,
+      "consumed_at_freeze": false,
+      "selection_allowed": false,
+      "disclosure": ""
+    }
+  ],
+  "research_candidate_freeze__v1": [
+    {
+      "experiment_id": "research_governance_v1",
+      "bundle_id": "candidate_bundle_v1",
+      "freeze_commit": "978aedf9615482e79cbca9670c458e8663b5ebcc",
+      "working_tree_dirty_at_freeze": false,
+      "source_tree_sha256": "ab3ed285efb03ada31073211dbc6d1431d1de5410f4a7483d190e462af8024db",
+      "dependency_snapshot_sha256": "5421cbd1021acebd533e40e88aec3a47aae72688d515dd6b27f970dfaa0cf3b1",
+      "config_bundle_sha256": "2ca3c8127a8f15790ef431294060ae1f1b84950369380e78ab02c3ab847ce8e1",
+      "primary_model": "hgb_shallow15_locked",
+      "primary_alpha_pipeline": "raw",
+      "primary_portfolio_construction": "risk_constrained",
+      "selection_source": "validation_2016_2020_only",
+      "target": "fwd_return_5d_lag1",
+      "training_window": "expanding_from_2006",
+      "primary_cost_scenario": "C0_fixed_020bp",
+      "primary_round_trip_cost_bps": 20.0,
+      "execution_convention": "returns_accrue_before_close_trade_blocked_orders_retry_daily",
+      "historical_oos_used_for_selection": false,
+      "new_model_selected_in_phase4": false,
+      "freeze_status": "FROZEN_FOR_FUTURE_EVIDENCE"
+    }
+  ],
+  "research_lockbox_registry__v1": [
+    {
+      "lockbox_id": "future_lockbox_2026q4_2027q3_v1",
+      "state": "SEALED_EMPTY",
+      "start_date": "2026-10-01",
+      "planned_end_date": "2027-09-30",
+      "minimum_daily_observations": 252,
+      "minimum_weekly_signal_observations": 52,
+      "minimum_calendar_months": 12,
+      "minimum_coverage_fraction": 0.95,
+      "interim_performance_access_allowed": false,
+      "operational_health_access_allowed": true,
+      "consumed": false,
+      "first_result_access_utc": null,
+      "open_rule": "planned_end_date_and_all_minimum_observation_gates",
+      "cryptographic_access_control_implemented": false
+    }
+  ],
+  "research_paper_trading_registry__v1": [
+    {
+      "paper_id": "paper_candidate_bundle_v1",
+      "state": "FROZEN_NOT_STARTED",
+      "activation_rule": "first_eligible_signal_strictly_after_candidate_freeze_commit",
+      "retroactive_backfill_allowed": false,
+      "recorded_observations": 0,
+      "performance_reporting_frequency": "monthly",
+      "operational_health_reporting_frequency": "daily",
+      "outcome_driven_change_requires_new_version": true,
+      "is_live_capital": false
+    }
+  ],
+  "research_hypothesis_registry__v1": [
+    {
+      "hypothesis_order": 1,
+      "hypothesis": "hgb_raw_incremental_net_return_vs_style_matched_benchmark_positive",
+      "is_primary": true,
+      "metric": "incremental_net_return_annualized_arithmetic",
+      "paired_clock": "common_daily_dates",
+      "bootstrap": "circular_block_bootstrap",
+      "block_length_trading_days": 20,
+      "bootstrap_samples": 2000,
+      "multiplicity_control": "benjamini_hochberg",
+      "false_discovery_rate": 0.05,
+      "frozen_before_future_data": true
+    },
+    {
+      "hypothesis_order": 2,
+      "hypothesis": "hgb_industry_size_neutralized_incremental_net_return_positive",
+      "is_primary": false,
+      "metric": "incremental_net_return_annualized_arithmetic",
+      "paired_clock": "common_daily_dates",
+      "bootstrap": "circular_block_bootstrap",
+      "block_length_trading_days": 20,
+      "bootstrap_samples": 2000,
+      "multiplicity_control": "benjamini_hochberg",
+      "false_discovery_rate": 0.05,
+      "frozen_before_future_data": true
+    },
+    {
+      "hypothesis_order": 3,
+      "hypothesis": "ridge_raw_incremental_net_return_positive",
+      "is_primary": false,
+      "metric": "incremental_net_return_annualized_arithmetic",
+      "paired_clock": "common_daily_dates",
+      "bootstrap": "circular_block_bootstrap",
+      "block_length_trading_days": 20,
+      "bootstrap_samples": 2000,
+      "multiplicity_control": "benjamini_hochberg",
+      "false_discovery_rate": 0.05,
+      "frozen_before_future_data": true
+    },
+    {
+      "hypothesis_order": 4,
+      "hypothesis": "ridge_industry_size_neutralized_incremental_net_return_positive",
+      "is_primary": false,
+      "metric": "incremental_net_return_annualized_arithmetic",
+      "paired_clock": "common_daily_dates",
+      "bootstrap": "circular_block_bootstrap",
+      "block_length_trading_days": 20,
+      "bootstrap_samples": 2000,
+      "multiplicity_control": "benjamini_hochberg",
+      "false_discovery_rate": 0.05,
+      "frozen_before_future_data": true
+    }
+  ],
+  "research_governance_dependency_hashes__v1": [
+    {
+      "name": "model_benchmark_selection",
+      "key": "v1",
+      "rows": 1.0,
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/model_benchmark_selection/key=v1/data.parquet",
+      "sha256": "c3dc46ec54c4f1e309de7f8ff58b39852576344cbeab748b996658ff1389460b",
+      "dependency_type": "data_artifact"
+    },
+    {
+      "name": "model_stability_protocol",
+      "key": "v1",
+      "rows": 1.0,
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/model_stability_protocol/key=v1/data.parquet",
+      "sha256": "ce7afe61c987bee793e19cd782dddf99d348d402da3b86a43f365a11e63e590d",
+      "dependency_type": "data_artifact"
+    },
+    {
+      "name": "constrained_portfolio_protocol",
+      "key": "v1",
+      "rows": 1.0,
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/constrained_portfolio_protocol/key=v1/data.parquet",
+      "sha256": "9d03bccbd7a0f4bb46c5a41b9eb874e8f8da0e018d24db9331609484857da67b",
+      "dependency_type": "data_artifact"
+    },
+    {
+      "name": "constrained_daily_execution_protocol",
+      "key": "v1",
+      "rows": 1.0,
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/constrained_daily_execution_protocol/key=v1/data.parquet",
+      "sha256": "c080607c3419ecd3b9e3dccb7e2dd7bc6d56800117be55b0ae29d903812f5ddf",
+      "dependency_type": "data_artifact"
+    },
+    {
+      "name": "transaction_cost_protocol",
+      "key": "v1",
+      "rows": 10.0,
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/transaction_cost_protocol/key=v1/data.parquet",
+      "sha256": "8d70ba54c99d5239845c5326c59d2fa4384474a1a682af74711eee01b32ffb6f",
+      "dependency_type": "data_artifact"
+    },
+    {
+      "name": "incremental_alpha_protocol",
+      "key": "v1",
+      "rows": 1.0,
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/incremental_alpha_protocol/key=v1/data.parquet",
+      "sha256": "0b6d404df8781f733879380d727e56122fbcb6b1f30defbf5caf0e7c3c858183",
+      "dependency_type": "data_artifact"
+    },
+    {
+      "name": "market_benchmark_protocol",
+      "key": "v1",
+      "rows": 9.0,
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/market_benchmark_protocol/key=v1/data.parquet",
+      "sha256": "e5a912acf31f195461874dd9251052eff2d393e79ff3325f3409476ad2060568",
+      "dependency_type": "data_artifact"
+    },
+    {
+      "name": "risk_free_rate_attribution_protocol",
+      "key": "v1",
+      "rows": 3.0,
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/risk_free_rate_attribution_protocol/key=v1/data.parquet",
+      "sha256": "8c28f177b956f343cc562bb70390a9b81843ff7ccd5a66bcff70136c3e37b7c3",
+      "dependency_type": "data_artifact"
+    },
+    {
+      "name": "research_conclusion_decisions",
+      "key": "v2",
+      "rows": 6.0,
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/research_conclusion_decisions/key=v2/data.parquet",
+      "sha256": "f4d15cb2528bb297b9e8242a8062b2e1c6cd9b81341f7cae568d534c7c7c6a71",
+      "dependency_type": "data_artifact"
+    },
+    {
+      "name": "research_governance.yaml",
+      "key": null,
+      "rows": null,
+      "path": null,
+      "sha256": "e59c412a9478d86c7c6ca132ff53f7604f6b9b879b04c8eff3b67973f1773c49",
+      "dependency_type": "config"
+    },
+    {
+      "name": "model_benchmark.yaml",
+      "key": null,
+      "rows": null,
+      "path": null,
+      "sha256": "a2af54fc61b19bfbc072117b71012ccddd1b8b162e01ac7261e6d4e24d6aadd7",
+      "dependency_type": "config"
+    },
+    {
+      "name": "model_stability_validation.yaml",
+      "key": null,
+      "rows": null,
+      "path": null,
+      "sha256": "377a9d6cd68f6741c61bbc4fde2a3cb85c696a5fba0d35ca84e9526d4ccadde7",
+      "dependency_type": "config"
+    },
+    {
+      "name": "constrained_portfolio_neutralization.yaml",
+      "key": null,
+      "rows": null,
+      "path": null,
+      "sha256": "6f748cb8eeebac3891237763da169c5d780cd7b4dbed1613a65f44bc81e91cb6",
+      "dependency_type": "config"
+    },
+    {
+      "name": "constrained_portfolio_daily_execution.yaml",
+      "key": null,
+      "rows": null,
+      "path": null,
+      "sha256": "cb37451fbe78948acd23c32270e858e888be58469b1500208c3817b179f44956",
+      "dependency_type": "config"
+    },
+    {
+      "name": "transaction_cost_model.yaml",
+      "key": null,
+      "rows": null,
+      "path": null,
+      "sha256": "9b14862ac953943935313d12f50661fa867090fe710f7d7aa84bf549491a5040",
+      "dependency_type": "config"
+    },
+    {
+      "name": "incremental_alpha_test.yaml",
+      "key": null,
+      "rows": null,
+      "path": null,
+      "sha256": "3d1b4b90990d5468bed5e7d122f00e243e3ea06c72cc8f3dcddac079e360f849",
+      "dependency_type": "config"
+    },
+    {
+      "name": "market_benchmark_attribution.yaml",
+      "key": null,
+      "rows": null,
+      "path": null,
+      "sha256": "33b2e2e3e769e3b4d4bee4c97541ab2a0c8f91d26773a15fbe36c0c397511ee0",
+      "dependency_type": "config"
+    },
+    {
+      "name": "risk_free_rate_attribution.yaml",
+      "key": null,
+      "rows": null,
+      "path": null,
+      "sha256": "709d5a2037747abbd83688befbf582c9ba87c3ef162ca2d5896f126a4c0e2691",
+      "dependency_type": "config"
+    },
+    {
+      "name": "research_conclusion_audit.yaml",
+      "key": null,
+      "rows": null,
+      "path": null,
+      "sha256": "9b0d253663222df78b633e334c278b321751ab8155da50b5a7cb86e98f409687",
+      "dependency_type": "config"
+    }
+  ],
+  "research_access_log_snapshot__v1": [
+    {
+      "action": "PRIOR_ACCESS_DISCLOSED",
+      "actor": "research_governance",
+      "event_hash": "44e728a44bc8608802780367fb1c7861d5452308ccf8553aea358c94d9637016",
+      "evidence_class": "historical_oos",
+      "lockbox_id": null,
+      "occurred_at_utc": "2026-10-20T00:00:00+00:00",
+      "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+      "reason": "2021-2026 results were repeatedly inspected during development",
+      "result_accessed": true,
+      "sequence": 1,
+      "used_for_change": true
+    },
+    {
+      "action": "CANDIDATE_BUNDLE_FROZEN",
+      "actor": "research_governance",
+      "event_hash": "32d327c27d849c38b3ba00c20776c5a058ae10d22707e453ec0fcd97ad64cd62",
+      "evidence_class": "governance_only",
+      "lockbox_id": null,
+      "occurred_at_utc": "2026-10-20T00:00:00+00:00",
+      "previous_hash": "44e728a44bc8608802780367fb1c7861d5452308ccf8553aea358c94d9637016",
+      "reason": "freeze validation-selected candidate before future evidence",
+      "result_accessed": false,
+      "sequence": 2,
+      "used_for_change": false
+    },
+    {
+      "action": "LOCKBOX_SEALED",
+      "actor": "research_governance",
+      "event_hash": "62cc39e00dd0d0ecdeeb9810a36e0013edff61ef47563162abdea3e00bb17b9a",
+      "evidence_class": "future_lockbox",
+      "lockbox_id": "future_lockbox_2026q4_2027q3_v1",
+      "occurred_at_utc": "2026-10-20T00:00:00+00:00",
+      "previous_hash": "32d327c27d849c38b3ba00c20776c5a058ae10d22707e453ec0fcd97ad64cd62",
+      "reason": "create empty future lockbox before loading post-cutoff data",
+      "result_accessed": false,
+      "sequence": 3,
+      "used_for_change": false
+    },
+    {
+      "action": "PAPER_PROTOCOL_FROZEN",
+      "actor": "research_governance",
+      "event_hash": "c7e123988c58c443735e90efda967e0ab50b211dff1599fedb8283d2c5f8d29d",
+      "evidence_class": "paper_trading",
+      "lockbox_id": null,
+      "occurred_at_utc": "2026-10-20T00:00:00+00:00",
+      "previous_hash": "62cc39e00dd0d0ecdeeb9810a36e0013edff61ef47563162abdea3e00bb17b9a",
+      "reason": "paper observations may begin only after candidate freeze commit",
+      "result_accessed": false,
+      "sequence": 4,
+      "used_for_change": false
+    }
+  ],
+  "research_governance_checks__v1": [
+    {
+      "check": "historical_oos_explicitly_consumed",
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "check": "historical_oos_reselection_prohibited",
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "check": "candidate_commit_recorded",
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "check": "candidate_source_tree_clean_at_freeze",
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "check": "dependency_hashes_complete",
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "check": "future_lockbox_unconsumed",
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "check": "future_lockbox_interim_performance_sealed",
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "check": "paper_trading_not_backfilled",
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "check": "access_log_hash_chain_valid",
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "check": "phase4_did_not_select_new_model",
+      "status": "PASS",
+      "passed": true
+    }
+  ]
+}

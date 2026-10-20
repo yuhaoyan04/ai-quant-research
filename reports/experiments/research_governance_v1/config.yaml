@@ -1,0 +1,814 @@
+experiment_id: research_governance_v1
+registry_version: 1
+selection_policy: validation_only
+historical_oos_disclosure: The 2021-2026 block has already been inspected during project
+  development. It is historical out-of-sample evidence, not a pristine production
+  lockbox.
+governance_required_for_new_registrations: true
+governance_policy: research_governance.yaml
+experiment:
+  title: Phase 4 historical-OOS contamination and future-evidence governance
+  stage: evidence_governance_and_candidate_freeze
+  model_version: candidate_bundle_v1_future_lockbox_2026q4_2027q3
+  dataset_version_method: sha256_of_registered_inputs_and_ingestion_manifest
+  historical_oos_used_for_selection: false
+  evidence_class: governance_only
+  research_selection_role: governance
+  claims_independent_evidence: false
+  lockbox_id: future_lockbox_2026q4_2027q3_v1
+  config_files:
+  - research_governance.yaml
+  - model_benchmark.yaml
+  - model_stability_validation.yaml
+  - constrained_portfolio_neutralization.yaml
+  - constrained_portfolio_daily_execution.yaml
+  - transaction_cost_model.yaml
+  - incremental_alpha_test.yaml
+  - market_benchmark_attribution.yaml
+  - risk_free_rate_attribution.yaml
+  - research_conclusion_audit.yaml
+  input_tables:
+  - table: model_benchmark_selection
+    key: v1
+  - table: model_stability_protocol
+    key: v1
+  - table: constrained_portfolio_protocol
+    key: v1
+  - table: constrained_daily_execution_protocol
+    key: v1
+  - table: transaction_cost_protocol
+    key: v1
+  - table: incremental_alpha_protocol
+    key: v1
+  - table: market_benchmark_protocol
+    key: v1
+  - table: risk_free_rate_attribution_protocol
+    key: v1
+  - table: research_conclusion_decisions
+    key: v2
+  metric_tables:
+  - table: research_governance_protocol
+    key: v1
+  - table: research_evidence_registry
+    key: v1
+  - table: research_candidate_freeze
+    key: v1
+  - table: research_lockbox_registry
+    key: v1
+  - table: research_paper_trading_registry
+    key: v1
+  - table: research_hypothesis_registry
+    key: v1
+  - table: research_governance_dependency_hashes
+    key: v1
+  - table: research_access_log_snapshot
+    key: v1
+  - table: research_governance_checks
+    key: v1
+  figures: []
+resolved_configs:
+  research_governance.yaml:
+    experiment_id: research_governance_v1
+    policy_version: 1
+    purpose: phase4_historical_oos_contamination_and_future_evidence_governance
+    policy_frozen_date_utc: '2026-10-20'
+    current_data_cutoff: '2026-09-30'
+    historical_oos_used_for_selection: false
+    new_model_selected: false
+    evidence_periods:
+      training:
+        start_date: '2006-01-01'
+        end_date: '2015-12-31'
+        evidence_class: training
+        selection_allowed: true
+        already_observed: true
+      validation_selection:
+        start_date: '2016-01-01'
+        end_date: '2020-12-31'
+        evidence_class: validation_selection
+        selection_allowed: true
+        already_observed: true
+      historical_oos:
+        start_date: '2021-01-01'
+        end_date: '2026-09-30'
+        evidence_class: historical_oos
+        selection_allowed_for_new_revisions: false
+        already_observed: true
+        consumed: true
+        disclosure: inspected_repeatedly_during_research_not_a_pristine_lockbox
+      future_lockbox:
+        lockbox_id: future_lockbox_2026q4_2027q3_v1
+        start_date: '2026-10-01'
+        planned_end_date: '2027-09-30'
+        evidence_class: future_lockbox
+        selection_allowed: false
+        already_observed: false
+        initial_state: SEALED_EMPTY
+        minimum_daily_observations: 252
+        minimum_weekly_signal_observations: 52
+        minimum_calendar_months: 12
+        minimum_coverage_fraction: 0.95
+        open_rule: planned_end_date_and_all_minimum_observation_gates
+        interim_performance_access_allowed: false
+        operational_health_access_allowed: true
+        local_enforcement_is_cryptographic: false
+      paper_trading:
+        paper_id: paper_candidate_bundle_v1
+        activation_rule: first_eligible_signal_strictly_after_candidate_freeze_commit
+        retroactive_backfill_allowed: false
+        evidence_class: paper_trading
+        selection_allowed_for_same_version: false
+        performance_reporting_frequency: monthly
+        operational_health_reporting_frequency: daily
+        modification_rule: any_outcome_driven_change_creates_new_candidate_version
+    candidate_bundle:
+      bundle_id: candidate_bundle_v1
+      primary:
+        model: hgb_shallow15_locked
+        alpha_pipeline: raw
+        portfolio_construction: risk_constrained
+        selection_source: validation_2016_2020_only
+      secondary:
+      - model: hgb_shallow15_locked
+        alpha_pipeline: industry_size_neutralized
+        portfolio_construction: risk_constrained
+      - model: ridge_locked
+        alpha_pipeline: raw
+        portfolio_construction: risk_constrained
+      - model: ridge_locked
+        alpha_pipeline: industry_size_neutralized
+        portfolio_construction: risk_constrained
+      benchmark: pit_industry_style_matched_peer_replica
+      market_benchmarks:
+      - CSI500_price
+      - CSI500_total_return
+      model_training_window: expanding_from_2006
+      target: fwd_return_5d_lag1
+      rebalance_frequency: weekly
+      historical_oos_used_for_selection: false
+    cost_and_execution:
+      primary_cost_scenario: C0_fixed_020bp
+      secondary_cost_scenario: C2_public_levies_commission_scenario
+      primary_round_trip_cost_bps: 20.0
+      execution_convention: returns_accrue_before_close_trade_blocked_orders_retry_daily
+      limitations:
+      - daily_bar_execution_approximation
+      - no_bid_ask_quote_history
+      - no_broker_calibrated_market_impact
+      - incomplete_intraday_limit_queue_and_ipo_no_limit_windows
+    statistical_plan:
+      primary_hypothesis: hgb_raw_incremental_net_return_vs_style_matched_benchmark_positive
+      secondary_hypotheses:
+      - hgb_industry_size_neutralized_incremental_net_return_positive
+      - ridge_raw_incremental_net_return_positive
+      - ridge_industry_size_neutralized_incremental_net_return_positive
+      paired_clock: common_daily_dates
+      bootstrap: circular_block_bootstrap
+      block_length_trading_days: 20
+      bootstrap_samples: 2000
+      bootstrap_seed: 20261020
+      familywise_strategy_count: 4
+      multiplicity_control: benjamini_hochberg
+      false_discovery_rate: 0.05
+      primary_metrics:
+      - incremental_net_return_annualized_arithmetic
+      - mean_rank_ic
+      secondary_metrics:
+      - risk_free_adjusted_sharpe
+      - maximum_drawdown
+      - turnover
+      - return_per_turnover
+      - target_tracking_error
+      - cash_weight
+      decision_rule: no_parameter_or_strategy_change_from_lockbox_or_paper_results_without_new_version
+    source_artifacts:
+    - table: model_benchmark_selection
+      key: v1
+    - table: model_stability_protocol
+      key: v1
+    - table: constrained_portfolio_protocol
+      key: v1
+    - table: constrained_daily_execution_protocol
+      key: v1
+    - table: transaction_cost_protocol
+      key: v1
+    - table: incremental_alpha_protocol
+      key: v1
+    - table: market_benchmark_protocol
+      key: v1
+    - table: risk_free_rate_attribution_protocol
+      key: v1
+    - table: research_conclusion_decisions
+      key: v2
+    access_log:
+      path: reports/governance/research_access_log.jsonl
+      hash_chained: true
+      append_only_policy: true
+      required_fields:
+      - actor
+      - evidence_class
+      - action
+      - reason
+      - result_accessed
+      - used_for_change
+      consume_actions:
+      - VIEW_RESULTS
+      - EXPORT_RESULTS
+      - USE_FOR_CHANGE
+  model_benchmark.yaml:
+    experiment_id: model_benchmark_v1
+    historical_oos_used_for_selection: false
+    train:
+      start_year: 2006
+      end_year: 2015
+    validation:
+      start_year: 2016
+      end_year: 2020
+    historical_oos:
+      start_year: 2021
+      end_year: 2026
+    target: fwd_return_5d_lag1
+    label_horizon_trading_days: 5
+    minimum_cross_section_size: 100
+    annualization_periods: 52
+    sample_per_training_date: 300
+    random_state: 20261016
+    quantile_limits:
+    - 0.01
+    - 0.99
+    mad_multiplier: 5.0
+    include_missing_indicators: true
+    selection_metric: mean_rank_ic
+    selection_tiebreakers:
+    - portfolio_sharpe_zero_rate
+    - portfolio_annualized_return
+    portfolio:
+      top_n: 200
+      round_trip_cost_bps: 20.0
+      minimum_realized_weight_fraction: 0.95
+    bootstrap:
+      block_length_weeks: 13
+      samples: 2000
+      random_seed: 20261016
+    candidates:
+    - candidate: naive_directional
+      family: naive
+      kind: naive
+    - candidate: ols
+      family: ols
+      kind: ols
+    - candidate: ridge_0.0001
+      family: ridge
+      kind: ridge
+      penalty: 0.0001
+    - candidate: ridge_0.001
+      family: ridge
+      kind: ridge
+      penalty: 0.001
+    - candidate: ridge_0.01
+      family: ridge
+      kind: ridge
+      penalty: 0.01
+    - candidate: ridge_0.1
+      family: ridge
+      kind: ridge
+      penalty: 0.1
+    - candidate: ridge_1
+      family: ridge
+      kind: ridge
+      penalty: 1.0
+    - candidate: elastic_a0.0001_l10.1
+      family: elastic_net
+      kind: elastic_net
+      alpha: 0.0001
+      l1_ratio: 0.1
+    - candidate: elastic_a0.001_l10.1
+      family: elastic_net
+      kind: elastic_net
+      alpha: 0.001
+      l1_ratio: 0.1
+    - candidate: elastic_a0.001_l10.5
+      family: elastic_net
+      kind: elastic_net
+      alpha: 0.001
+      l1_ratio: 0.5
+    - candidate: elastic_a0.01_l10.5
+      family: elastic_net
+      kind: elastic_net
+      alpha: 0.01
+      l1_ratio: 0.5
+    - candidate: elastic_a0.01_l10.9
+      family: elastic_net
+      kind: elastic_net
+      alpha: 0.01
+      l1_ratio: 0.9
+    - candidate: random_forest_depth6
+      family: random_forest
+      kind: random_forest
+      n_estimators: 100
+      max_depth: 6
+      min_samples_leaf: 100
+      max_features: 0.7
+    - candidate: hgb_shallow15
+      family: hgb
+      kind: hgb
+      learning_rate: 0.05
+      max_iter: 120
+      max_leaf_nodes: 15
+      min_samples_leaf: 100
+      l2_regularization: 1.0
+    - candidate: hgb_regularized31
+      family: hgb
+      kind: hgb
+      learning_rate: 0.04
+      max_iter: 150
+      max_leaf_nodes: 31
+      min_samples_leaf: 150
+      l2_regularization: 10.0
+    - candidate: hgb_flexible63
+      family: hgb
+      kind: hgb
+      learning_rate: 0.03
+      max_iter: 180
+      max_leaf_nodes: 63
+      min_samples_leaf: 200
+      l2_regularization: 20.0
+    unavailable_models:
+      lightgbm: dependency_not_installed
+      xgboost: dependency_not_installed
+  model_stability_validation.yaml:
+    experiment_id: model_stability_validation_v1
+    purpose: phase3_model_stability_time_aware_validation_without_reselection
+    historical_oos_used_for_selection: false
+    parameter_promotion_allowed: false
+    train_pool:
+      start_year: 2006
+      end_year: 2020
+    evaluation:
+      start_year: 2016
+      end_year: 2026
+    validation:
+      start_year: 2016
+      end_year: 2020
+    historical_oos:
+      start_year: 2021
+      end_year: 2026
+    target: fwd_return_5d_lag1
+    label_horizon_trading_days: 5
+    minimum_cross_section_size: 100
+    annualization_periods: 52
+    sample_per_training_date: 300
+    random_state: 20261016
+    quantile_limits:
+    - 0.01
+    - 0.99
+    mad_multiplier: 5.0
+    include_missing_indicators: true
+    portfolio:
+      top_n: 200
+      round_trip_cost_bps: 20.0
+      minimum_realized_weight_fraction: 0.95
+    window_comparison:
+      expanding_start_year: 2006
+      rolling_years: 10
+      policies:
+      - expanding
+      - rolling_10y
+    purged_cv:
+      purpose: supplemental_cross_period_generalization_not_trading_simulation
+      test_years:
+      - 2016
+      - 2017
+      - 2018
+      - 2019
+      - 2020
+      training_pool_start_year: 2006
+      training_pool_end_year: 2020
+      future_training_samples_allowed: true
+      label_interval_purge_required: true
+      promotion_allowed: false
+    failure_rules:
+      mean_rank_ic_nonpositive: 0.0
+      annualized_net_return_nonpositive: 0.0
+    score_distribution_quantiles:
+    - 0.01
+    - 0.05
+    - 0.5
+    - 0.95
+    - 0.99
+    bootstrap:
+      block_length_weeks: 13
+      samples: 2000
+      random_seed: 20261020
+    candidates:
+    - candidate: naive_directional
+      family: naive
+      kind: naive
+    - candidate: ridge_1
+      family: ridge
+      kind: ridge
+      penalty: 1.0
+    - candidate: elastic_a0.01_l10.5
+      family: elastic_net
+      kind: elastic_net
+      alpha: 0.01
+      l1_ratio: 0.5
+    - candidate: random_forest_depth6
+      family: random_forest
+      kind: random_forest
+      n_estimators: 100
+      max_depth: 6
+      min_samples_leaf: 100
+      max_features: 0.7
+      random_state: 20261016
+    - candidate: hgb_shallow15
+      family: hgb
+      kind: hgb
+      learning_rate: 0.05
+      max_iter: 120
+      max_leaf_nodes: 15
+      min_samples_leaf: 100
+      l2_regularization: 1.0
+    evidence_sources:
+      M0: model_benchmark_v1
+      M1_hgb: hgb_hyperparameter_stability_v1
+      M1_rf: rf_hyperparameter_stability_v1
+      M2: rf_hyperparameter_stability_v1_random_state_axis
+      M6: incremental_alpha_test_v1
+  constrained_portfolio_neutralization.yaml:
+    experiment_id: constrained_portfolio_neutralization_v1
+    historical_oos_used_for_selection: false
+    source_experiment: model_portfolio_neutralization_v2
+    target: fwd_return_5d_lag1
+    label_horizon_trading_days: 5
+    train:
+      start_year: 2006
+      end_year: 2015
+    historical_oos:
+      start_year: 2021
+      end_year: 2026
+    alpha_pipelines:
+    - raw
+    - industry_size_neutralized
+    models:
+      ridge_locked:
+        kind: ridge
+        penalty_per_observation: 1.0
+      hgb_shallow15_locked:
+        kind: hgb
+        learning_rate: 0.05
+        max_iter: 120
+        max_leaf_nodes: 15
+        min_samples_leaf: 100
+        l2_regularization: 1.0
+    minimum_industry_group_size: 5
+    minimum_cross_section_size: 100
+    sample_per_training_date: 300
+    random_state: 20261016
+    annualization_periods: 52
+    quantile_limits:
+    - 0.01
+    - 0.99
+    mad_multiplier: 5.0
+    include_missing_indicators: true
+    portfolio:
+      constructions:
+      - top200_equal
+      - risk_constrained
+      baseline_top_n: 200
+      round_trip_cost_bps: 20.0
+      minimum_realized_weight_fraction: 0.95
+    optimizer:
+      method: scipy_highs_linear_program
+      objective: maximize_cross_sectional_score_rank
+      maximum_stock_weight: 0.005
+      industry_active_weight_bound: 0.03
+      absolute_size_z_bound: 0.1
+      weekly_turnover_limit: 0.3
+      turnover_feasibility_relaxation:
+      - 0.3
+      - 0.4
+      - 0.5
+      - 0.75
+      - 1.0
+      candidate_top_n: 800
+      industry_capacity_buffer_names: 10
+      size_tail_candidates_each_side: 100
+      minimum_reported_weight: 1.0e-08
+    bootstrap:
+      block_length_weeks: 13
+      samples: 2000
+      random_seed: 20261017
+    interpretation: Prespecified policy experiment. Constraint values are not selected
+      on the 2021-2026 historical OOS. Turnover is relaxed only when required for
+      LP feasibility and every relaxation is reported.
+  constrained_portfolio_daily_execution.yaml:
+    experiment_id: constrained_portfolio_daily_execution_v1
+    historical_oos_used_for_selection: false
+    source_experiment: constrained_portfolio_neutralization_v1
+    source_holdings:
+      table: constrained_portfolio_oos_holdings
+      key: v1
+    target_construction: risk_constrained
+    round_trip_cost_bps: 20.0
+    annualization_periods: 252
+    label_horizon_trading_days: 5
+    limit_detection_tolerance_percentage_points: 0.2
+    bootstrap:
+      block_length_trading_days: 20
+      samples: 2000
+      random_seed: 20261017
+    rules:
+      st_limit_pct: 5.0
+      main_board_limit_pct: 10.0
+      star_limit_pct: 20.0
+      chinext_limit_pct_before_2020_08_24: 10.0
+      chinext_limit_pct_after_2020_08_24: 20.0
+    execution_convention: returns_accrue_before_close_trade_blocked_orders_retry_daily
+    scope_note: conservative_close_limit_rule_intraday_queue_and_ipo_no_limit_windows_not_modeled
+  transaction_cost_model.yaml:
+    experiment_id: transaction_cost_model_v1
+    source_experiment: constrained_portfolio_daily_execution_v1
+    historical_oos_used_for_selection: false
+    source_targets:
+      table: constrained_execution_targets
+      key: v1
+    source_market:
+      table: constrained_daily_execution_market
+      key: v1
+    source_daily_baseline:
+      table: constrained_daily_execution_daily
+      key: v1
+    primary_execution_scenario: daily_retry_limit_and_suspension_constrained
+    annualization_periods: 252
+    baseline_round_trip_cost_bps: 20.0
+    c0_regression_tolerance: 1.0e-12
+    cost_path_policy: fixed_c0_fill_path_no_fee_feedback
+    notional_unit: normalized_portfolio_nav_not_cny
+    fixed_scenarios:
+    - scenario_id: C1_fixed_000bp
+      scenario_group: C1
+      mode: fixed_round_trip
+      round_trip_cost_bps: 0.0
+      evidence_status: research_scenario
+    - scenario_id: C1_fixed_010bp
+      scenario_group: C1
+      mode: fixed_round_trip
+      round_trip_cost_bps: 10.0
+      evidence_status: research_scenario
+    - scenario_id: C0_fixed_020bp
+      scenario_group: C0_C1
+      mode: fixed_round_trip
+      round_trip_cost_bps: 20.0
+      evidence_status: existing_research_baseline
+    - scenario_id: C1_fixed_040bp
+      scenario_group: C1
+      mode: fixed_round_trip
+      round_trip_cost_bps: 40.0
+      evidence_status: research_scenario
+    - scenario_id: C1_fixed_060bp
+      scenario_group: C1
+      mode: fixed_round_trip
+      round_trip_cost_bps: 60.0
+      evidence_status: research_scenario
+    - scenario_id: C1_fixed_100bp
+      scenario_group: C1
+      mode: fixed_round_trip
+      round_trip_cost_bps: 100.0
+      evidence_status: research_scenario
+    component_scenarios:
+    - scenario_id: C2_public_levies_commission_scenario
+      scenario_group: C2
+      mode: components
+      evidence_status: documented_public_levies_plus_explicit_broker_commission_assumption
+      description: Date-effective public stamp-duty and transfer-fee rules plus a
+        symmetric 3bp commission scenario. This is not a historical broker statement
+        and does not include a minimum commission because the research ledger uses
+        normalized NAV rather than CNY account notionals.
+      components:
+        commission:
+          minimum_fee_per_fill: 0.0
+          evidence_status: explicit_scenario_not_historical_broker_truth
+          rules:
+          - start_date: '2021-01-01'
+            end_date: null
+            buy_bps: 3.0
+            sell_bps: 3.0
+        stamp_duty:
+          minimum_fee_per_fill: 0.0
+          evidence_status: official_tax_schedule
+          sources:
+          - https://www.mof.gov.cn/zhengwuxinxi/caizhengxinwen/200809/t20080919_76432.htm
+          - https://fgk.chinatax.gov.cn/zcfgk/c102416/c5211343/content.html
+          rules:
+          - start_date: '2021-01-01'
+            end_date: '2023-08-27'
+            buy_bps: 0.0
+            sell_bps: 10.0
+          - start_date: '2023-08-28'
+            end_date: null
+            buy_bps: 0.0
+            sell_bps: 5.0
+        transfer_fee:
+          minimum_fee_per_fill: 0.0
+          evidence_status: official_or_officially_reported_clearing_schedule
+          sources:
+          - https://big5.sse.com.cn/site/cht/www.sse.com.cn/aboutus/mediacenter/hotandd/c/c_20150912_3988866.shtml
+          - https://www.chinaclear.cn/zdjs/editor_file/20220701154723234.pdf
+          rules:
+          - start_date: '2021-01-01'
+            end_date: '2022-04-28'
+            buy_bps: 0.2
+            sell_bps: 0.2
+          - start_date: '2022-04-29'
+            end_date: null
+            buy_bps: 0.1
+            sell_bps: 0.1
+        spread:
+          minimum_fee_per_fill: 0.0
+          evidence_status: omitted_no_quote_data
+          rules:
+          - start_date: '2021-01-01'
+            end_date: null
+            buy_bps: 0.0
+            sell_bps: 0.0
+        market_impact:
+          minimum_fee_per_fill: 0.0
+          evidence_status: omitted_no_broker_calibration
+          rules:
+          - start_date: '2021-01-01'
+            end_date: null
+            buy_bps: 0.0
+            sell_bps: 0.0
+    scope_note: C0 and C1 hold the C0 executed-share path fixed and only reprice its
+      fills. C2 is an auditable scenario, not a claim of historical account-level
+      fees. C3-C5 remain blocked pending bid-ask, ADV and broker-calibrated impact
+      data.
+  incremental_alpha_test.yaml:
+    experiment_id: incremental_alpha_test_v1
+    historical_oos_used_for_selection: false
+    source_experiment: constrained_portfolio_daily_execution_v1
+    source_targets:
+      table: constrained_execution_targets
+      key: v1
+    source_market:
+      table: constrained_daily_execution_market
+      key: v1
+    portfolio_construction: risk_constrained
+    benchmark_name: pit_industry_style_matched_peer_replica
+    industry_level: csrc_broad_section
+    styles:
+    - size
+    - beta
+    - volatility
+    - liquidity
+    - value
+    - momentum
+    style_winsor_quantiles:
+    - 0.01
+    - 0.99
+    matching:
+      exclude_ml_holdings_when_feasible: true
+      unique_peer_per_source_holding: true
+      previous_peer_cost_multiplier: 0.0
+      held_peer_fallback_penalty: 1000.0
+      self_match_penalty: 1000000.0
+      weekly_one_way_turnover_limit: 0.3
+      maximum_stock_weight: 0.005
+      minimum_reported_weight: 1.0e-08
+    round_trip_cost_bps: 20.0
+    annualization_periods: 252
+    limit_detection_tolerance_percentage_points: 0.2
+    bootstrap:
+      block_length_trading_days: 20
+      samples: 2000
+      random_seed: 20261018
+    false_discovery_rate: 0.05
+    rules:
+      st_limit_pct: 5.0
+      main_board_limit_pct: 10.0
+      star_limit_pct: 20.0
+      chinext_limit_pct_before_2020_08_24: 10.0
+      chinext_limit_pct_after_2020_08_24: 20.0
+    execution_convention: returns_accrue_before_close_trade_blocked_orders_retry_daily
+    inference_note: paired_circular_block_bootstrap_on_common_daily_clock
+    volatility_matching_note: ex_post_diagnostic_only_not_an_investable_leverage_policy
+  market_benchmark_attribution.yaml:
+    experiment_id: market_benchmark_attribution_v1
+    source_experiment: risk_free_rate_attribution_v1
+    period: historical_oos_2021_2026
+    historical_oos_used_for_selection: false
+    download:
+      provider: China Securities Index Co., Ltd. (CSI)
+      provider_short: CSIndex
+      source_name: CSIndex official index performance history
+      source_url: https://www.csindex.com.cn/zh-CN/indices
+      api_url: https://www.csindex.com.cn/csindex-home/perf/index-perf
+      referer: https://www.csindex.com.cn/
+      start_date: '2020-12-01'
+      end_date: '2026-09-30'
+      request_retries: 3
+      timeout_seconds: 60
+      publication_timestamp_status: exact_intraday_timestamp_not_provided_by_history_endpoint
+      availability_lag_calendar_days: 1
+    indices:
+    - benchmark: CSI300
+      legacy_price_instrument: sh.000300
+      official_price_code: '000300'
+      official_total_return_code: H00300
+    - benchmark: CSI500
+      legacy_price_instrument: sh.000905
+      official_price_code: 000905
+      official_total_return_code: H00905
+    - benchmark: CSI1000
+      legacy_price_instrument: sh.000852
+      official_price_code: 000852
+      official_total_return_code: H00852
+    benchmark_variants:
+    - variant_id: legacy_baostock_price
+      return_type: price_return
+      role: retained_legacy_control
+    - variant_id: official_csindex_price
+      return_type: price_return
+      role: same_provider_price_control
+    - variant_id: official_csindex_total_return
+      return_type: total_return
+      role: primary_dividend_reinvestment_benchmark
+    primary_benchmark: CSI500
+    primary_rate_scenario: R1_ccdc_cgb_3m
+    primary_execution_scenario: daily_retry_limit_and_suspension_constrained
+    primary_total_return_variant: official_csindex_total_return
+    same_provider_price_variant: official_csindex_price
+    legacy_price_variant: legacy_baostock_price
+    annualization_days: 252
+    newey_west_lags: 5
+    confidence_level: 0.95
+    regression_tolerance: 1.0e-12
+    official_change_pct_tolerance: 6.0e-05
+    material_daily_total_minus_price_threshold: 0.0001
+    scope_note: Descriptive benchmark-definition sensitivity on already inspected
+      historical OOS. Official price and total-return comparisons use the same CSIndex
+      provider. No model, signal, portfolio, transaction-cost, or execution selection
+      is performed.
+  risk_free_rate_attribution.yaml:
+    experiment_id: risk_free_rate_attribution_v1
+    source_experiments:
+    - capm_attribution_v1
+    - style_factor_attribution_v1
+    period: historical_oos_2021_2026
+    historical_oos_used_for_selection: false
+    download:
+      provider: China Central Depository & Clearing Co., Ltd. (CCDC)
+      provider_short: CCDC
+      source_name: ChinaBond Government Bond Yield Curve
+      source_url: https://yield.chinabond.com.cn/cbweb-pbc-web/pbc/showHistory?locale=en_US
+      api_url: https://yield.chinabond.com.cn/cbweb-pbc-web/pbc/historyQuery
+      curve_name: 中债国债收益率曲线
+      start_date: '2020-12-01'
+      end_date: '2026-09-30'
+      maximum_window_days: 330
+      request_retries: 3
+      raw_quote_unit: percent_per_annum
+      annual_quote_convention: published_yield_to_maturity_curve_annual_percent
+      publication_timestamp_status: exact_intraday_timestamp_not_provided_by_history_endpoint
+      availability_lag_calendar_days: 1
+    rate_scenarios:
+    - scenario_id: R0_zero_rate
+      tenor: zero
+      source_column: null
+      role: retained_legacy_control
+    - scenario_id: R1_ccdc_cgb_3m
+      tenor: 3M
+      source_column: 3月
+      role: primary_real_rate_baseline
+    - scenario_id: R2_ccdc_cgb_1y
+      tenor: 1Y
+      source_column: 1年
+      role: reliable_same_source_alternative_tenor_sensitivity
+    primary_rate_scenario: R1_ccdc_cgb_3m
+    zero_rate_scenario: R0_zero_rate
+    day_count_convention: ACT/365
+    annual_to_holding_period_conversion: (1+annual_rate_decimal)^(calendar_days/365)-1
+    maximum_staleness_calendar_days: 10
+    annualization_days: 252
+    newey_west_lags: 5
+    confidence_level: 0.95
+    primary_benchmark: CSI500
+    primary_execution_scenario: daily_retry_limit_and_suspension_constrained
+    market_benchmark_return_type: price_return_excluding_dividends
+    style_factor_return_convention: self_financing_long_short_gross_of_cost_no_rf_subtraction
+    regression_tolerance: 1.0e-12
+    scope_note: Descriptive risk-free-rate and attribution correction on already inspected
+      historical OOS. No model, signal, portfolio, cost, execution, or benchmark selection
+      is performed.
+  research_conclusion_audit.yaml:
+    experiment_id: research_conclusion_audit_v2
+    period: historical_oos_2021_2026
+    false_discovery_rate: 0.05
+    primary_model: hgb_shallow15_locked
+    primary_alpha_pipeline: raw
+    primary_execution_scenario: daily_retry_limit_and_suspension_constrained
+    model_increment_candidate: hgb_shallow15
+    model_increment_reference: ridge_1
+    deployment_requires_paper_or_live_evidence: true
+    interpretation: evidence_hierarchy_without_historical_oos_reselection

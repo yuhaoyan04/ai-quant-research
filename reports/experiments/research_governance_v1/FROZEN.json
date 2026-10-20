@@ -1,0 +1,20 @@
+{
+  "experiment_id": "research_governance_v1",
+  "frozen_at_utc": "2026-10-20T08:55:48.132664+00:00",
+  "content_sha256": "4776760a1e719f16e1786f1417dbee6a83220e19584e74dc49d64abd214baab0",
+  "files": {
+    "config.yaml": "429099e1dd4b1e1a2cbb8893de3a552128913f0c82c5724aeb9823acd46cc069",
+    "metadata.json": "a0fd246c1aa60623fcf2da5c2ab2ceab75e052dd449d27f857b46263e69f35b3",
+    "metrics.json": "1e41e0f6feba67dc0bb5ce9a9000bee006d480efee87d837cc4f2cf3467bcc25",
+    "notes.md": "e15ed14abd42716db9696eaa2dace6bdeca290d427ef00c6d75acb123becaec1",
+    "tables/research_access_log_snapshot__v1.csv": "0836b4f052a62c18acf942c03e9e921a6a7ee0f7207f77476564b773f6baa0cf",
+    "tables/research_candidate_freeze__v1.csv": "a6e613487b8162e03d8e4bcf2df9e628bf70385b3e5141f4fc979de7ef72ce38",
+    "tables/research_evidence_registry__v1.csv": "d4e09a44e163bef61f73ac3850e4ffc993e170535826e10c202ab16a30a41a1f",
+    "tables/research_governance_checks__v1.csv": "4869b6527483cbc6e43040c0fd1f4d5ec965496a4157c763cadf64868dccfbf5",
+    "tables/research_governance_dependency_hashes__v1.csv": "bae081d43dc135e63dc9e61256b92869f8f81f4155febd675bcd38969e0a7fcf",
+    "tables/research_governance_protocol__v1.csv": "7e4c9c9d5775550b81bd1eb36af8c0dddf31ee70b3ee259b5b0029f155085389",
+    "tables/research_hypothesis_registry__v1.csv": "1f9e2f227584e5308d496b12374cd1bd3713f2249a333a43d7364f985caf0b5f",
+    "tables/research_lockbox_registry__v1.csv": "d1d493b44c023e9794aabad3575156d3194e3bdfc9efc41aec9d55091d0ee697",
+    "tables/research_paper_trading_registry__v1.csv": "ab20c02c77311a27ddd1b470663be903bd5a3523de9ecf0dc4fcef1bf5838b2e"
+  }
+}

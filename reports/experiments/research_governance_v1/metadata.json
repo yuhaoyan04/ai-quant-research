@@ -1,0 +1,171 @@
+{
+  "experiment_id": "research_governance_v1",
+  "title": "Phase 4 historical-OOS contamination and future-evidence governance",
+  "stage": "evidence_governance_and_candidate_freeze",
+  "model_version": "candidate_bundle_v1_future_lockbox_2026q4_2027q3",
+  "registered_at_utc": "2026-10-20T08:55:48.132664+00:00",
+  "immutable": true,
+  "selection_policy": "validation_only",
+  "historical_oos_used_for_selection": false,
+  "historical_oos_disclosure": "The 2021-2026 block has already been inspected during project development. It is historical out-of-sample evidence, not a pristine production lockbox.",
+  "evidence_class": "governance_only",
+  "research_selection_role": "governance",
+  "claims_independent_evidence": false,
+  "lockbox_id": "future_lockbox_2026q4_2027q3_v1",
+  "dataset_version": "2b80114bd94950ec8764e29d6ca7118717646d0612abb17e73bf8bd1a55ea261",
+  "dataset_manifest": {
+    "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/manifests/ingestion.jsonl",
+    "size_bytes": 19322898,
+    "sha256": "b03afb94e526ba5b67cca47e80587bcc1ebb9206babb886404a2e8a5123640de"
+  },
+  "input_artifacts": [
+    {
+      "table": "model_benchmark_selection",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/model_benchmark_selection/key=v1/data.parquet",
+      "size_bytes": 4532,
+      "sha256": "c3dc46ec54c4f1e309de7f8ff58b39852576344cbeab748b996658ff1389460b"
+    },
+    {
+      "table": "model_stability_protocol",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/model_stability_protocol/key=v1/data.parquet",
+      "size_bytes": 11977,
+      "sha256": "ce7afe61c987bee793e19cd782dddf99d348d402da3b86a43f365a11e63e590d"
+    },
+    {
+      "table": "constrained_portfolio_protocol",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/constrained_portfolio_protocol/key=v1/data.parquet",
+      "size_bytes": 4178,
+      "sha256": "9d03bccbd7a0f4bb46c5a41b9eb874e8f8da0e018d24db9331609484857da67b"
+    },
+    {
+      "table": "constrained_daily_execution_protocol",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/constrained_daily_execution_protocol/key=v1/data.parquet",
+      "size_bytes": 4080,
+      "sha256": "c080607c3419ecd3b9e3dccb7e2dd7bc6d56800117be55b0ae29d903812f5ddf"
+    },
+    {
+      "table": "transaction_cost_protocol",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/transaction_cost_protocol/key=v1/data.parquet",
+      "size_bytes": 13418,
+      "sha256": "8d70ba54c99d5239845c5326c59d2fa4384474a1a682af74711eee01b32ffb6f"
+    },
+    {
+      "table": "incremental_alpha_protocol",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/incremental_alpha_protocol/key=v1/data.parquet",
+      "size_bytes": 5893,
+      "sha256": "0b6d404df8781f733879380d727e56122fbcb6b1f30defbf5caf0e7c3c858183"
+    },
+    {
+      "table": "market_benchmark_protocol",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/market_benchmark_protocol/key=v1/data.parquet",
+      "size_bytes": 11675,
+      "sha256": "e5a912acf31f195461874dd9251052eff2d393e79ff3325f3409476ad2060568"
+    },
+    {
+      "table": "risk_free_rate_attribution_protocol",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/risk_free_rate_attribution_protocol/key=v1/data.parquet",
+      "size_bytes": 12503,
+      "sha256": "8c28f177b956f343cc562bb70390a9b81843ff7ccd5a66bcff70136c3e37b7c3"
+    },
+    {
+      "table": "research_conclusion_decisions",
+      "key": "v2",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/research_conclusion_decisions/key=v2/data.parquet",
+      "size_bytes": 5572,
+      "sha256": "f4d15cb2528bb297b9e8242a8062b2e1c6cd9b81341f7cae568d534c7c7c6a71"
+    }
+  ],
+  "metric_artifacts": [
+    {
+      "table": "research_governance_protocol",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/research_governance_protocol/key=v1/data.parquet",
+      "size_bytes": 9340,
+      "sha256": "8a736cb1b5f31ed982cf2d86ef8a55a298737911dc40f9185c5e6e40df3e7449"
+    },
+    {
+      "table": "research_evidence_registry",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/research_evidence_registry/key=v1/data.parquet",
+      "size_bytes": 5514,
+      "sha256": "085e934d25431c666652018235d06383d09d790b103b2f77d52102f808ae75cf"
+    },
+    {
+      "table": "research_candidate_freeze",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/research_candidate_freeze/key=v1/data.parquet",
+      "size_bytes": 14133,
+      "sha256": "aa9e76e4d500041aa738ed8b1742a00337dd88892b9c3dfd2a4da54a42ebe3d6"
+    },
+    {
+      "table": "research_lockbox_registry",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/research_lockbox_registry/key=v1/data.parquet",
+      "size_bytes": 9786,
+      "sha256": "f889d0b8b481c941109a718548bf0f1daf3fa6e945d0a9ed899244c760bb6697"
+    },
+    {
+      "table": "research_paper_trading_registry",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/research_paper_trading_registry/key=v1/data.parquet",
+      "size_bytes": 6703,
+      "sha256": "3f0a63ebc7ee7b6ce9d74eb031e68c1f2ce65608ad19c81eef60dfddf7e78709"
+    },
+    {
+      "table": "research_hypothesis_registry",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/research_hypothesis_registry/key=v1/data.parquet",
+      "size_bytes": 7874,
+      "sha256": "b9189f5f84439d78b38f5cbc3cc95bfed3d376d6838d5a321e5c5554f1af14e5"
+    },
+    {
+      "table": "research_governance_dependency_hashes",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/research_governance_dependency_hashes/key=v1/data.parquet",
+      "size_bytes": 5893,
+      "sha256": "0da3ed83ef6003411c5214cafebd2ebddb23951ced984d825e1d1d72d2103b15"
+    },
+    {
+      "table": "research_access_log_snapshot",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/research_access_log_snapshot/key=v1/data.parquet",
+      "size_bytes": 8252,
+      "sha256": "833533cb54b9147b7c590b53df8f374897d4496bff380dfc45339dda101b0547"
+    },
+    {
+      "table": "research_governance_checks",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/research_governance_checks/key=v1/data.parquet",
+      "size_bytes": 2412,
+      "sha256": "c37079f0ff67619317cc1b966a93082318435bb02943b5afb005e05e1544aa33"
+    }
+  ],
+  "figures": [],
+  "source_tree_sha256": "ab3ed285efb03ada31073211dbc6d1431d1de5410f4a7483d190e462af8024db",
+  "git": {
+    "commit": "978aedf9615482e79cbca9670c458e8663b5ebcc",
+    "dirty": true,
+    "status_sha256": "234893b0fa8bff74cf665cd5f28f0712406f94e7165193ee9bf3e41e62ece183"
+  },
+  "environment": {
+    "python": "3.11.16",
+    "implementation": "CPython",
+    "platform": "Linux-5.15.0-92-generic-x86_64-with-glibc2.35",
+    "packages": {
+      "pandas": "3.0.6",
+      "pyarrow": "25.0.1",
+      "PyYAML": "6.0.3",
+      "scikit-learn": "1.9.1",
+      "numpy": "2.4.6",
+      "scipy": "1.17.1"
+    }
+  }
+}

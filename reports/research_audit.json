@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-10-18T07:18:16.215492+00:00",
+  "generated_at_utc": "2026-10-20T08:57:43.752423+00:00",
   "checks": [
     {
       "name": "chronological_split_order",
@@ -380,6 +380,61 @@
       "name": "frozen_live_inputs:final_research_baseline_v3",
       "status": "PASS",
       "detail": "all registered inputs match their SHA-256 hashes"
+    },
+    {
+      "name": "frozen_snapshot_integrity:transaction_cost_model_v1",
+      "status": "PASS",
+      "detail": "all frozen files match FROZEN.json"
+    },
+    {
+      "name": "frozen_live_inputs:transaction_cost_model_v1",
+      "status": "PASS",
+      "detail": "all registered inputs match their SHA-256 hashes"
+    },
+    {
+      "name": "frozen_snapshot_integrity:risk_free_rate_attribution_v1",
+      "status": "PASS",
+      "detail": "all frozen files match FROZEN.json"
+    },
+    {
+      "name": "frozen_live_inputs:risk_free_rate_attribution_v1",
+      "status": "PASS",
+      "detail": "all registered inputs match their SHA-256 hashes"
+    },
+    {
+      "name": "frozen_snapshot_integrity:market_benchmark_attribution_v1",
+      "status": "PASS",
+      "detail": "all frozen files match FROZEN.json"
+    },
+    {
+      "name": "frozen_live_inputs:market_benchmark_attribution_v1",
+      "status": "PASS",
+      "detail": "all registered inputs match their SHA-256 hashes"
+    },
+    {
+      "name": "frozen_snapshot_integrity:model_stability_validation_v1",
+      "status": "PASS",
+      "detail": "all frozen files match FROZEN.json"
+    },
+    {
+      "name": "frozen_live_inputs:model_stability_validation_v1",
+      "status": "PASS",
+      "detail": "all registered inputs match their SHA-256 hashes"
+    },
+    {
+      "name": "frozen_snapshot_integrity:research_governance_v1",
+      "status": "PASS",
+      "detail": "all frozen files match FROZEN.json"
+    },
+    {
+      "name": "frozen_live_inputs:research_governance_v1",
+      "status": "PASS",
+      "detail": "all registered inputs match their SHA-256 hashes"
+    },
+    {
+      "name": "invalidated_experiment:portfolio_sensitivity_v1",
+      "status": "WARN",
+      "detail": "severity=cost_stress_repricing_formula_superseded; superseded_by=transaction_cost_model_v1; reason=The v1 fixed-fill execution cost stress subtracted turnover times the fee rate directly from gross return. The daily executor defines turnover over pre-trade NAV while return is measured over previous NAV, so exact C0 reproduction additionally requires the pre-trade-to-previous-NAV ratio. The difference is small but the v1 stress grid is not an exact 20bp regression of the executable baseline."
     },
     {
       "name": "invalidated_experiment:factor_preprocessing_ablation_v1",
@@ -1897,14 +1952,94 @@
       "detail": "missing_phrases=[]"
     },
     {
+      "name": "artifact:research_governance_protocol/v1",
+      "status": "PASS",
+      "detail": "rows=1"
+    },
+    {
+      "name": "artifact:research_evidence_registry/v1",
+      "status": "PASS",
+      "detail": "rows=5"
+    },
+    {
+      "name": "artifact:research_candidate_freeze/v1",
+      "status": "PASS",
+      "detail": "rows=1"
+    },
+    {
+      "name": "artifact:research_lockbox_registry/v1",
+      "status": "PASS",
+      "detail": "rows=1"
+    },
+    {
+      "name": "artifact:research_paper_trading_registry/v1",
+      "status": "PASS",
+      "detail": "rows=1"
+    },
+    {
+      "name": "artifact:research_hypothesis_registry/v1",
+      "status": "PASS",
+      "detail": "rows=4"
+    },
+    {
+      "name": "artifact:research_governance_checks/v1",
+      "status": "PASS",
+      "detail": "rows=10"
+    },
+    {
+      "name": "artifact:research_access_log_snapshot/v1",
+      "status": "PASS",
+      "detail": "rows=4"
+    },
+    {
+      "name": "evidence_classes_complete",
+      "status": "PASS",
+      "detail": "classes=['future_lockbox', 'historical_oos', 'paper_trading', 'training', 'validation_selection']"
+    },
+    {
+      "name": "historical_oos_consumed_and_not_selectable",
+      "status": "PASS",
+      "detail": "consumed=True, selection_allowed=False"
+    },
+    {
+      "name": "future_lockbox_is_sealed_and_unconsumed",
+      "status": "PASS",
+      "detail": "state=SEALED_EMPTY, consumed=False"
+    },
+    {
+      "name": "paper_tracking_is_forward_only",
+      "status": "PASS",
+      "detail": "state=FROZEN_NOT_STARTED, observations=0"
+    },
+    {
+      "name": "candidate_freeze_is_commit_anchored",
+      "status": "PASS",
+      "detail": "commit=978aedf9615482e79cbca9670c458e8663b5ebcc, dirty=False"
+    },
+    {
+      "name": "governance_checks_all_pass",
+      "status": "PASS",
+      "detail": "checks=10, failures=0"
+    },
+    {
+      "name": "future_hypothesis_family_frozen",
+      "status": "PASS",
+      "detail": "hypotheses=4"
+    },
+    {
+      "name": "access_log_hash_chain_matches_snapshot",
+      "status": "PASS",
+      "detail": "live_events=4, snapshot_events=4"
+    },
+    {
       "name": "known_scope_limitations",
       "status": "WARN",
       "detail": "Industry neutralization uses monthly-sampled historical CSRC broad sections rather than Shenwan membership; there is no official historical CSI membership and no broker-calibrated market-impact model."
     }
   ],
   "findings": {
-    "registered_frozen_experiments": 37,
-    "invalidated_experiments": 21,
+    "registered_frozen_experiments": 42,
+    "invalidated_experiments": 22,
     "common_oos_weeks": 291,
     "ridge_annualized_return_20bp": 0.2005894880405501,
     "challenger_annualized_return_20bp": 0.2507876712519381,
@@ -1991,6 +2126,9 @@
     "factor_registry_count": 15,
     "neutral_factor_spreads_surviving_bh_fdr_5pct": 14,
     "research_backtest_chain_complete": true,
-    "ready_for_live_capital": false
+    "ready_for_live_capital": false,
+    "future_lockbox_state": "SEALED_EMPTY",
+    "future_lockbox_consumed": false,
+    "paper_trading_state": "FROZEN_NOT_STARTED"
   }
 }

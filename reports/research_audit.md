@@ -1,8 +1,8 @@
 # Research artifact audit
 
-Generated at `2026-10-18T07:18:16.215492+00:00`.
+Generated at `2026-10-20T08:57:43.752423+00:00`.
 
-Summary: **337 PASS / 43 WARN / 0 FAIL**
+Summary: **363 PASS / 44 WARN / 0 FAIL**
 
 | Status | Check | Detail |
 |---|---|---|
@@ -82,6 +82,17 @@ Summary: **337 PASS / 43 WARN / 0 FAIL**
 | PASS | `frozen_live_inputs:research_conclusion_audit_v1` | all registered inputs match their SHA-256 hashes |
 | PASS | `frozen_snapshot_integrity:final_research_baseline_v3` | all frozen files match FROZEN.json |
 | PASS | `frozen_live_inputs:final_research_baseline_v3` | all registered inputs match their SHA-256 hashes |
+| PASS | `frozen_snapshot_integrity:transaction_cost_model_v1` | all frozen files match FROZEN.json |
+| PASS | `frozen_live_inputs:transaction_cost_model_v1` | all registered inputs match their SHA-256 hashes |
+| PASS | `frozen_snapshot_integrity:risk_free_rate_attribution_v1` | all frozen files match FROZEN.json |
+| PASS | `frozen_live_inputs:risk_free_rate_attribution_v1` | all registered inputs match their SHA-256 hashes |
+| PASS | `frozen_snapshot_integrity:market_benchmark_attribution_v1` | all frozen files match FROZEN.json |
+| PASS | `frozen_live_inputs:market_benchmark_attribution_v1` | all registered inputs match their SHA-256 hashes |
+| PASS | `frozen_snapshot_integrity:model_stability_validation_v1` | all frozen files match FROZEN.json |
+| PASS | `frozen_live_inputs:model_stability_validation_v1` | all registered inputs match their SHA-256 hashes |
+| PASS | `frozen_snapshot_integrity:research_governance_v1` | all frozen files match FROZEN.json |
+| PASS | `frozen_live_inputs:research_governance_v1` | all registered inputs match their SHA-256 hashes |
+| WARN | `invalidated_experiment:portfolio_sensitivity_v1` | severity=cost_stress_repricing_formula_superseded; superseded_by=transaction_cost_model_v1; reason=The v1 fixed-fill execution cost stress subtracted turnover times the fee rate directly from gross return. The daily executor defines turnover over pre-trade NAV while return is measured over previous NAV, so exact C0 reproduction additionally requires the pre-trade-to-previous-NAV ratio. The difference is small but the v1 stress grid is not an exact 20bp regression of the executable baseline. |
 | WARN | `invalidated_experiment:factor_preprocessing_ablation_v1` | severity=portfolio_metrics_invalid; superseded_by=factor_preprocessing_ablation_v2; reason=Validation portfolios were formed after filtering rows with non-null future returns. RankIC and model-selection metrics used the correct realized subset, but Top-200 portfolio metrics had outcome-availability leakage. |
 | WARN | `invalidated_experiment:model_benchmark_v1` | severity=portfolio_metrics_execution_idealized; superseded_by=rf_daily_retry_execution_v1; reason=Model ranking and RankIC are valid, but the benchmark Top-200 portfolio assumes every next-day rebalance is filled. RandomForest disproportionately selected stocks blocked by next-day price limits or suspensions, materially inflating validation returns and modestly inflating historical-OOS returns. |
 | WARN | `invalidated_experiment:rf_execution_forensics_v1` | severity=execution_timing_incomplete; superseded_by=rf_daily_retry_execution_v1; reason=The weekly constrained simulator applied a blocked next-day order only at the following weekly rebalance. It also evaluated every signal with a full five-day label even when holiday-week signal dates were fewer than five trading days apart, creating overlapping portfolio return intervals. The price-limit diagnosis remains valid, but its 19.09% validation and 24.19% historical-OOS returns are not the final executable estimates. |
@@ -385,12 +396,28 @@ Summary: **337 PASS / 43 WARN / 0 FAIL**
 | PASS | `research_and_deployment_scope_separated` | historical research chain is complete; paper/live evidence remains a separate gate |
 | PASS | `price_and_return_convention_explicit` | price_convention=baostock_unadjusted_ohlc_and_ex_right_reference_pct_chg |
 | PASS | `final_report_states_decision_boundaries` | missing_phrases=[] |
+| PASS | `artifact:research_governance_protocol/v1` | rows=1 |
+| PASS | `artifact:research_evidence_registry/v1` | rows=5 |
+| PASS | `artifact:research_candidate_freeze/v1` | rows=1 |
+| PASS | `artifact:research_lockbox_registry/v1` | rows=1 |
+| PASS | `artifact:research_paper_trading_registry/v1` | rows=1 |
+| PASS | `artifact:research_hypothesis_registry/v1` | rows=4 |
+| PASS | `artifact:research_governance_checks/v1` | rows=10 |
+| PASS | `artifact:research_access_log_snapshot/v1` | rows=4 |
+| PASS | `evidence_classes_complete` | classes=['future_lockbox', 'historical_oos', 'paper_trading', 'training', 'validation_selection'] |
+| PASS | `historical_oos_consumed_and_not_selectable` | consumed=True, selection_allowed=False |
+| PASS | `future_lockbox_is_sealed_and_unconsumed` | state=SEALED_EMPTY, consumed=False |
+| PASS | `paper_tracking_is_forward_only` | state=FROZEN_NOT_STARTED, observations=0 |
+| PASS | `candidate_freeze_is_commit_anchored` | commit=978aedf9615482e79cbca9670c458e8663b5ebcc, dirty=False |
+| PASS | `governance_checks_all_pass` | checks=10, failures=0 |
+| PASS | `future_hypothesis_family_frozen` | hypotheses=4 |
+| PASS | `access_log_hash_chain_matches_snapshot` | live_events=4, snapshot_events=4 |
 | WARN | `known_scope_limitations` | Industry neutralization uses monthly-sampled historical CSRC broad sections rather than Shenwan membership; there is no official historical CSI membership and no broker-calibrated market-impact model. |
 
 ## Headline findings
 
-- `registered_frozen_experiments`: 37
-- `invalidated_experiments`: 21
+- `registered_frozen_experiments`: 42
+- `invalidated_experiments`: 22
 - `common_oos_weeks`: 291
 - `ridge_annualized_return_20bp`: 0.2005894880405501
 - `challenger_annualized_return_20bp`: 0.2507876712519381
@@ -478,3 +505,6 @@ Summary: **337 PASS / 43 WARN / 0 FAIL**
 - `neutral_factor_spreads_surviving_bh_fdr_5pct`: 14
 - `research_backtest_chain_complete`: True
 - `ready_for_live_capital`: False
+- `future_lockbox_state`: SEALED_EMPTY
+- `future_lockbox_consumed`: False
+- `paper_trading_state`: FROZEN_NOT_STARTED

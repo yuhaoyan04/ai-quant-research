@@ -1,0 +1,11 @@
+check,status,passed
+historical_oos_explicitly_consumed,PASS,True
+historical_oos_reselection_prohibited,PASS,True
+candidate_commit_recorded,PASS,True
+candidate_source_tree_clean_at_freeze,PASS,True
+dependency_hashes_complete,PASS,True
+future_lockbox_unconsumed,PASS,True
+future_lockbox_interim_performance_sealed,PASS,True
+paper_trading_not_backfilled,PASS,True
+access_log_hash_chain_valid,PASS,True
+phase4_did_not_select_new_model,PASS,True

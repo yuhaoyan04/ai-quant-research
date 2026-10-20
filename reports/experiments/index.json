@@ -288,6 +288,15 @@
     "immutable": true
   },
   {
+    "experiment_id": "research_governance_v1",
+    "title": "Phase 4 historical-OOS contamination and future-evidence governance",
+    "stage": "evidence_governance_and_candidate_freeze",
+    "model_version": "candidate_bundle_v1_future_lockbox_2026q4_2027q3",
+    "registered_at_utc": "2026-10-20T08:55:48.132664+00:00",
+    "dataset_version": "2b80114bd94950ec8764e29d6ca7118717646d0612abb17e73bf8bd1a55ea261",
+    "immutable": true
+  },
+  {
     "experiment_id": "rf_daily_retry_execution_v1",
     "title": "Random-forest non-overlapping daily retry execution audit",
     "stage": "daily_execution_and_timing_forensics",

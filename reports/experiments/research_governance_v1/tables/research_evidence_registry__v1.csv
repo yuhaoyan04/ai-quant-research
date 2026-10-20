@@ -1,0 +1,6 @@
+period_name,evidence_class,start_date,end_date,already_observed_at_freeze,consumed_at_freeze,selection_allowed,disclosure
+training,training,2006-01-01,2015-12-31,True,False,True,
+validation_selection,validation_selection,2016-01-01,2020-12-31,True,False,True,
+historical_oos,historical_oos,2021-01-01,2026-09-30,True,True,False,inspected_repeatedly_during_research_not_a_pristine_lockbox
+future_lockbox,future_lockbox,2026-10-01,2027-09-30,False,False,False,
+paper_trading,paper_trading,,,False,False,False,
