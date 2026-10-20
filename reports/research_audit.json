@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-10-20T11:58:01.839952+00:00",
+  "generated_at_utc": "2026-10-20T12:15:41.849300+00:00",
   "checks": [
     {
       "name": "chronological_split_order",
@@ -468,6 +468,16 @@
     },
     {
       "name": "frozen_live_inputs:unified_account_ledger_v1",
+      "status": "PASS",
+      "detail": "all registered inputs match their SHA-256 hashes"
+    },
+    {
+      "name": "frozen_snapshot_integrity:statistical_inference_protocol_v1",
+      "status": "PASS",
+      "detail": "all frozen files match FROZEN.json"
+    },
+    {
+      "name": "frozen_live_inputs:statistical_inference_protocol_v1",
       "status": "PASS",
       "detail": "all registered inputs match their SHA-256 hashes"
     },
@@ -1597,6 +1607,101 @@
       "detail": "The frozen Phase 5 corporate-action table concatenated two scenarios without a scenario key. Phase 7 preserves it and reconstructs account-specific actions from prior actual holdings plus frozen market action fields."
     },
     {
+      "name": "artifact:statistical_inference_protocol/v1",
+      "status": "PASS",
+      "detail": "rows=1"
+    },
+    {
+      "name": "artifact:statistical_inference_series/v1",
+      "status": "PASS",
+      "detail": "rows=18,499"
+    },
+    {
+      "name": "artifact:statistical_inference_alignment/v1",
+      "status": "PASS",
+      "detail": "rows=37"
+    },
+    {
+      "name": "artifact:statistical_inference_hac/v1",
+      "status": "PASS",
+      "detail": "rows=148"
+    },
+    {
+      "name": "artifact:statistical_inference_block_bootstrap/v1",
+      "status": "PASS",
+      "detail": "rows=155"
+    },
+    {
+      "name": "artifact:statistical_inference_fdr/v1",
+      "status": "PASS",
+      "detail": "rows=37"
+    },
+    {
+      "name": "artifact:statistical_inference_family_summary/v1",
+      "status": "PASS",
+      "detail": "rows=4"
+    },
+    {
+      "name": "artifact:statistical_inference_block_sensitivity/v1",
+      "status": "PASS",
+      "detail": "rows=37"
+    },
+    {
+      "name": "artifact:statistical_trial_registry/v1",
+      "status": "PASS",
+      "detail": "rows=172"
+    },
+    {
+      "name": "artifact:statistical_inference_checks/v1",
+      "status": "PASS",
+      "detail": "rows=10"
+    },
+    {
+      "name": "artifact:statistical_inference_failed_assertions/v1",
+      "status": "PASS",
+      "detail": "rows=1"
+    },
+    {
+      "name": "statistical_inference_protocol_discloses_post_oos_status",
+      "status": "PASS",
+      "detail": "harmonized inference is post-historical-OOS and does not claim future probability"
+    },
+    {
+      "name": "statistical_inference_all_protocol_checks_pass",
+      "status": "PASS",
+      "detail": "checks=10, failures=0"
+    },
+    {
+      "name": "statistical_inference_fdr_families_not_pooled",
+      "status": "PASS",
+      "detail": "family_hypotheses={'factor_gross_spread': 15, 'factor_rank_ic': 15, 'model_incremental_alpha': 4, 'portfolio_construction_increment': 3}"
+    },
+    {
+      "name": "statistical_inference_paired_daily_clocks",
+      "status": "PASS",
+      "detail": "paired_hypotheses=7, observations=[np.int64(1387)]"
+    },
+    {
+      "name": "statistical_inference_dependence_sensitivity_complete",
+      "status": "PASS",
+      "detail": "hac=148, block_bootstrap=155, sensitivity=37"
+    },
+    {
+      "name": "statistical_trial_registry_complete",
+      "status": "PASS",
+      "detail": "trials=172, categories=11"
+    },
+    {
+      "name": "statistical_primary_incremental_alpha_not_overclaimed",
+      "status": "PASS",
+      "detail": "[{'point_estimate': 0.02870154626718977, 'ci_low': -0.004378561383624404, 'ci_high': 0.06472945903992583, 'bh_fdr_adjusted_p': 0.10294852573713144, 'claim_status': 'positive_value_not_established_after_family_fdr'}]"
+    },
+    {
+      "name": "statistical_inference_assertion_log_clean",
+      "status": "PASS",
+      "detail": "[{'check_name': 'NO_FAILED_ASSERTIONS', 'status': 'PASS', 'observed': 'all Phase 8 inference protocol assertions passed'}]"
+    },
+    {
       "name": "artifact:incremental_alpha_protocol/v1",
       "status": "PASS",
       "detail": "rows=1"
@@ -2278,7 +2383,7 @@
     }
   ],
   "findings": {
-    "registered_frozen_experiments": 46,
+    "registered_frozen_experiments": 47,
     "invalidated_experiments": 23,
     "common_oos_weeks": 291,
     "ridge_annualized_return_20bp": 0.2005894880405501,
@@ -2332,6 +2437,12 @@
     "unified_account_max_cash_error_cny": 1.1851079761981964e-07,
     "unified_account_max_nav_error_cny": 1.1920928955078125e-07,
     "unified_account_max_share_error": 0.0,
+    "statistical_inference_hypotheses": 37,
+    "statistical_trial_registry_rows": 172,
+    "hgb_raw_incremental_return_point_estimate": 0.02870154626718977,
+    "hgb_raw_incremental_return_ci_low": -0.004378561383624404,
+    "hgb_raw_incremental_return_ci_high": 0.06472945903992583,
+    "hgb_raw_incremental_return_fdr_q": 0.10294852573713144,
     "incremental_alpha_individual_intervals_above_zero": 1,
     "incremental_alpha_bh_fdr_survivors": 0,
     "hgb_neutral_incremental_return_annualized_arithmetic": 0.03646786854268133,

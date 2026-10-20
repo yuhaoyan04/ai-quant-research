@@ -1,0 +1,11 @@
+check_name,status,observed
+raw_series_keys_unique,PASS,18499
+paired_daily_clocks_complete,PASS,1387
+families_separate_and_complete,PASS,"{'factor_gross_spread': 15, 'factor_rank_ic': 15, 'model_incremental_alpha': 4, 'portfolio_construction_increment': 3}"
+block_length_sensitivity_complete,PASS,"[np.int64(4), np.int64(5), np.int64(8), np.int64(10), np.int64(13), np.int64(20), np.int64(26), np.int64(40), np.int64(60)]"
+hac_lag_sensitivity_complete,PASS,"[np.int64(1), np.int64(4), np.int64(5), np.int64(8), np.int64(10), np.int64(13), np.int64(20), np.int64(40)]"
+p_values_and_q_values_valid,PASS,37
+point_estimates_recompute_from_raw,PASS,37
+trial_registry_covers_major_search_space,PASS,"{'factor_family': 15, 'hgb_hyperparameter_grid': 9, 'incremental_alpha': 4, 'label_grid': 30, 'model_family_grid': 16, 'portfolio_construction': 4, 'portfolio_sensitivity': 16, 'preprocessing_grid': 45, 'rf_hyperparameter_grid': 11, 'risk_aware_portfolio': 12, 'transaction_cost': 10}"
+primary_incremental_alpha_not_overclaimed,PASS,"[{'point_estimate': 0.02870154626718977, 'ci_low': -0.004378561383624404, 'ci_high': 0.06472945903992583, 'bh_fdr_adjusted_p': 0.10294852573713144, 'claim_status': 'positive_value_not_established_after_family_fdr'}]"
+historical_oos_not_claimed_independent,PASS,"Phase 8 harmonizes inference on already observed historical-OOS results. It does not select a new model, factor, block length or portfolio method. HAC and circular-block results are diagnostics under explicit dependence assumptions, not probabilities of future profitability. Families are kept separate because they answer different research questions."

@@ -1,0 +1,5 @@
+family_id,hypotheses,individually_positive,survives_family_bh_fdr,economically_material_positive,minimum_q_value
+factor_gross_spread,15,14,14,15,0.0009370314842578711
+factor_rank_ic,15,15,15,15,0.0004997501249375312
+model_incremental_alpha,4,1,0,4,0.07196401799100449
+portfolio_construction_increment,3,0,0,0,1.0

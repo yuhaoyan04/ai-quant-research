@@ -1,0 +1,18 @@
+{
+  "experiment_id": "statistical_inference_protocol_v1",
+  "frozen_at_utc": "2026-10-20T12:14:51.938434+00:00",
+  "content_sha256": "2cfeaea4c84faef92548d6d17184433bf90a52fbc1f27179612878e8285e0053",
+  "files": {
+    "config.yaml": "28f0e6b94e6a7e547c836a99658f614e3b66b601aa0e87774f29186ef0c80c3c",
+    "metadata.json": "8468d503453103e7042b0e6b8dea251082d755655a1f2e4008eb23a4201f09ac",
+    "metrics.json": "68c0fd2f7f6dc08f31143ac34b2e8220f20a29cf033fc07a75c6b4a3a760422d",
+    "notes.md": "0a91a132bd0ef63923f2854775e10edf07de60d623ce7f8cdbba539ca0650f8c",
+    "tables/statistical_inference_alignment__v1.csv": "4e7d054f0bd17de569ac52c8b3132d0bd958243febfb506ab6fae6459af5fdec",
+    "tables/statistical_inference_block_sensitivity__v1.csv": "52a9139cf55a308b26b4eb1c11abdf07c2b61c4441f1c0e942c64eaa86fd3305",
+    "tables/statistical_inference_checks__v1.csv": "f37ce505e763ebb4a56b02cac7667ee57b15ee33e36361411a52589d53e53541",
+    "tables/statistical_inference_failed_assertions__v1.csv": "24e724dd72d5692d2f3279783de4f9d35e9b53e14f6059ad985679f2587c94a7",
+    "tables/statistical_inference_family_summary__v1.csv": "5698dfbb4260a865ff809fbee1ddd1ccd5f92aab90a849800e3a886f1788d35e",
+    "tables/statistical_inference_fdr__v1.csv": "0c6223f93ec06155206ec5edcdbe1a5afb8a6046ace2916ea9ce55562970f1c7",
+    "tables/statistical_inference_protocol__v1.csv": "5baee750245e0807e38f558f133defd8fad131ca4229487a88ddfd9e165a7943"
+  }
+}

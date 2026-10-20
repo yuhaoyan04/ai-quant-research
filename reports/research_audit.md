@@ -1,8 +1,8 @@
 # Research artifact audit
 
-Generated at `2026-10-20T11:58:01.839952+00:00`.
+Generated at `2026-10-20T12:15:41.849300+00:00`.
 
-Summary: **409 PASS / 46 WARN / 0 FAIL**
+Summary: **430 PASS / 46 WARN / 0 FAIL**
 
 | Status | Check | Detail |
 |---|---|---|
@@ -100,6 +100,8 @@ Summary: **409 PASS / 46 WARN / 0 FAIL**
 | PASS | `frozen_live_inputs:portfolio_construction_comparison_v1` | all registered inputs match their SHA-256 hashes |
 | PASS | `frozen_snapshot_integrity:unified_account_ledger_v1` | all frozen files match FROZEN.json |
 | PASS | `frozen_live_inputs:unified_account_ledger_v1` | all registered inputs match their SHA-256 hashes |
+| PASS | `frozen_snapshot_integrity:statistical_inference_protocol_v1` | all frozen files match FROZEN.json |
+| PASS | `frozen_live_inputs:statistical_inference_protocol_v1` | all registered inputs match their SHA-256 hashes |
 | WARN | `invalidated_experiment:institutional_execution_v1` | severity=registry_self_staging_dirty_flag; superseded_by=institutional_execution_v2; reason=The research outputs and hashes are valid, but the experiment registry created its temporary snapshot directory inside the repository before capturing Git status. That self-created untracked directory caused the metadata to report dirty=true even though registration began from clean commit d1b00aedd5b3dcbc660733fa64288c550a83e446. |
 | WARN | `invalidated_experiment:portfolio_sensitivity_v1` | severity=cost_stress_repricing_formula_superseded; superseded_by=transaction_cost_model_v1; reason=The v1 fixed-fill execution cost stress subtracted turnover times the fee rate directly from gross return. The daily executor defines turnover over pre-trade NAV while return is measured over previous NAV, so exact C0 reproduction additionally requires the pre-trade-to-previous-NAV ratio. The difference is small but the v1 stress grid is not an exact 20bp regression of the executable baseline. |
 | WARN | `invalidated_experiment:factor_preprocessing_ablation_v1` | severity=portfolio_metrics_invalid; superseded_by=factor_preprocessing_ablation_v2; reason=Validation portfolios were formed after filtering rows with non-null future returns. RankIC and model-selection metrics used the correct realized subset, but Top-200 portfolio metrics had outcome-availability leakage. |
@@ -325,6 +327,25 @@ Summary: **409 PASS / 46 WARN / 0 FAIL**
 | PASS | `unified_account_cash_nav_position_replay` | cash_error_cny=1.185e-07, nav_error_cny=1.192e-07, share_error=0.000e+00 |
 | PASS | `unified_account_assertion_log_clean` | [{'check_name': 'NO_FAILED_ASSERTIONS', 'status': 'PASS', 'observed': 'all hard Phase 7 accounting assertions passed'}] |
 | WARN | `legacy_corporate_action_scenario_key_missing` | The frozen Phase 5 corporate-action table concatenated two scenarios without a scenario key. Phase 7 preserves it and reconstructs account-specific actions from prior actual holdings plus frozen market action fields. |
+| PASS | `artifact:statistical_inference_protocol/v1` | rows=1 |
+| PASS | `artifact:statistical_inference_series/v1` | rows=18,499 |
+| PASS | `artifact:statistical_inference_alignment/v1` | rows=37 |
+| PASS | `artifact:statistical_inference_hac/v1` | rows=148 |
+| PASS | `artifact:statistical_inference_block_bootstrap/v1` | rows=155 |
+| PASS | `artifact:statistical_inference_fdr/v1` | rows=37 |
+| PASS | `artifact:statistical_inference_family_summary/v1` | rows=4 |
+| PASS | `artifact:statistical_inference_block_sensitivity/v1` | rows=37 |
+| PASS | `artifact:statistical_trial_registry/v1` | rows=172 |
+| PASS | `artifact:statistical_inference_checks/v1` | rows=10 |
+| PASS | `artifact:statistical_inference_failed_assertions/v1` | rows=1 |
+| PASS | `statistical_inference_protocol_discloses_post_oos_status` | harmonized inference is post-historical-OOS and does not claim future probability |
+| PASS | `statistical_inference_all_protocol_checks_pass` | checks=10, failures=0 |
+| PASS | `statistical_inference_fdr_families_not_pooled` | family_hypotheses={'factor_gross_spread': 15, 'factor_rank_ic': 15, 'model_incremental_alpha': 4, 'portfolio_construction_increment': 3} |
+| PASS | `statistical_inference_paired_daily_clocks` | paired_hypotheses=7, observations=[np.int64(1387)] |
+| PASS | `statistical_inference_dependence_sensitivity_complete` | hac=148, block_bootstrap=155, sensitivity=37 |
+| PASS | `statistical_trial_registry_complete` | trials=172, categories=11 |
+| PASS | `statistical_primary_incremental_alpha_not_overclaimed` | [{'point_estimate': 0.02870154626718977, 'ci_low': -0.004378561383624404, 'ci_high': 0.06472945903992583, 'bh_fdr_adjusted_p': 0.10294852573713144, 'claim_status': 'positive_value_not_established_after_family_fdr'}] |
+| PASS | `statistical_inference_assertion_log_clean` | [{'check_name': 'NO_FAILED_ASSERTIONS', 'status': 'PASS', 'observed': 'all Phase 8 inference protocol assertions passed'}] |
 | PASS | `artifact:incremental_alpha_protocol/v1` | rows=1 |
 | PASS | `artifact:incremental_alpha_style_targets/v1` | rows=674,443 |
 | PASS | `artifact:incremental_alpha_exposure_audit/v1` | rows=1,172 |
@@ -464,7 +485,7 @@ Summary: **409 PASS / 46 WARN / 0 FAIL**
 
 ## Headline findings
 
-- `registered_frozen_experiments`: 46
+- `registered_frozen_experiments`: 47
 - `invalidated_experiments`: 23
 - `common_oos_weeks`: 291
 - `ridge_annualized_return_20bp`: 0.2005894880405501
@@ -518,6 +539,12 @@ Summary: **409 PASS / 46 WARN / 0 FAIL**
 - `unified_account_max_cash_error_cny`: 1.1851079761981964e-07
 - `unified_account_max_nav_error_cny`: 1.1920928955078125e-07
 - `unified_account_max_share_error`: 0.0
+- `statistical_inference_hypotheses`: 37
+- `statistical_trial_registry_rows`: 172
+- `hgb_raw_incremental_return_point_estimate`: 0.02870154626718977
+- `hgb_raw_incremental_return_ci_low`: -0.004378561383624404
+- `hgb_raw_incremental_return_ci_high`: 0.06472945903992583
+- `hgb_raw_incremental_return_fdr_q`: 0.10294852573713144
 - `incremental_alpha_individual_intervals_above_zero`: 1
 - `incremental_alpha_bh_fdr_survivors`: 0
 - `hgb_neutral_incremental_return_annualized_arithmetic`: 0.03646786854268133

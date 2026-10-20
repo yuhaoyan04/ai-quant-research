@@ -90,7 +90,7 @@ flowchart LR
 - 250 个历史证监会行业快照；PIT 周度行业暴露最低年度覆盖率 98.55%。
 - 训练、验证、年度扩展窗口样本外预测，以及持仓级结果。
 - 成本、换手、流动性、规模、ADV 容量、市场冲击和 t+1 涨跌停/停牌压力测试。
-- 193 个单元/回归测试；当前自动产物审计为 409 PASS / 46 WARN / 0 FAIL。
+- 196 个单元/回归测试；当前自动产物审计为 430 PASS / 46 WARN / 0 FAIL。
 
 ## 快速验证已提交结果
 
@@ -125,7 +125,7 @@ quant-final-report
 
 ### 冻结实验与可复现性
 
-当前 46 个实验版本已登记为不可覆盖快照。每个快照包含解析后的配置、指标表、图表、环境版本、代码树哈希、输入数据 SHA-256 与 historical OOS 使用声明；失败与被替代实验同样保留。Phase 3 保留 expanding/10 年 rolling、逐年失败标记、RF 多 seed 分布和非因果 Purged CV 补充诊断；Phase 4 将 2021–2026 标记为已消耗历史证据，并冻结 future lockbox、paper-trading 协议和 hash-chained 访问日志。
+当前 47 个实验版本已登记为不可覆盖快照。每个快照包含解析后的配置、指标表、图表、环境版本、代码树哈希、输入数据 SHA-256 与 historical OOS 使用声明；失败与被替代实验同样保留。Phase 3 保留 expanding/10 年 rolling、逐年失败标记、RF 多 seed 分布和非因果 Purged CV 补充诊断；Phase 4 将 2021–2026 标记为已消耗历史证据，并冻结 future lockbox、paper-trading 协议和 hash-chained 访问日志。
 
 ```powershell
 # 查看已登记实验
