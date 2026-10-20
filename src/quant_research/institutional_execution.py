@@ -107,6 +107,7 @@ def simulate_execution(
     *,
     scenario: dict[str, Any],
     cancellation_requests: dict[str, set[str]] | None = None,
+    expire_open_orders_at_end: bool = True,
 ) -> ExecutionResult:
     """Run one portfolio through the daily close execution state machine."""
     required_market = {
@@ -507,11 +508,12 @@ def simulate_execution(
             })
         previous_nav = posttrade_nav
 
-    for order in list(open_orders.values()):
-        order["status"] = "EXPIRED"
-        order["terminal_reason"] = "end_of_simulation"
-        order["terminal_date"] = dates[-1]
-        add_event(order, dates[-1], "EXPIRED", "end_of_simulation")
+    if expire_open_orders_at_end:
+        for order in list(open_orders.values()):
+            order["status"] = "EXPIRED"
+            order["terminal_reason"] = "end_of_simulation"
+            order["terminal_date"] = dates[-1]
+            add_event(order, dates[-1], "EXPIRED", "end_of_simulation")
 
     order_columns = [
         "order_id", "target_date", "submitted_date", "instrument_id", "side",
