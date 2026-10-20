@@ -1,0 +1,24 @@
+pipeline_id: forward_data_v1
+experiment_id: forward_data_pipeline_v1
+evidence_class: governance_only
+claims_independent_evidence: false
+historical_cutoff: "2026-09-30"
+source: baostock
+timezone: Asia/Shanghai
+calendar_refresh_days: 10
+calendar_lookahead_days: 10
+bar_refresh_calendar_days: 10
+new_security_history_calendar_days: 240
+factor_lookback_rows: 150
+fail_on_vendor_error: true
+minimum_active_universe_rows: 100
+include_benchmark_indices: true
+lock_path: run_logs/forward_data.lock
+status_path: reports/paper_trading/forward_data_status.json
+
+scope_note: >-
+  Incremental forward-data supply for the frozen paper candidate. Existing raw
+  history is merged by natural key and never truncated. Derived factors are
+  recomputed only with an explicit trailing lookback; labels refresh a trailing
+  horizon but are not consumed by live signal generation. This pipeline does
+  not change the frozen model, portfolio, cost, or execution rules.

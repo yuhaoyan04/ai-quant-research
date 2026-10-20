@@ -34,6 +34,16 @@ quant-paper-trading status         # 只显示运营状态，不显示 lockbox �
 quant-paper-trading build-protocol
 ```
 
+每个真实交易日先运行增量数据供应，再运行 paper 账户：
+
+```bash
+quant-forward-data all             # 只向前合并行情、日历与PIT快照并增量物化
+quant-forward-data status          # 只显示数据健康信息
+quant-paper-trading run-daily      # 数据完成后才运行当日账户
+```
+
+`quant-forward-data` 不改写冻结的年度研究面板，也不改变模型、组合或成本参数。所有可变前瞻数据物理存放在独立的 `forward_*` 表；历史研究表固定于 2026-09-30，并继续接受冻结 SHA 审计。前瞻表按自然键保留旧原始记录，只刷新近期供应商窗口；逐证券质量、因子和标签文件仅对变更证券重算。日历会向前预取少量交易日用于判断一个 `W-FRI` 周是否已经结束，未来日历不是未来价格数据。paper 信号直接从这些逐证券前瞻文件、当时已可用的证券快照和行业快照组成，并要求 `available_date` 等于运行日；周中没有新信号且尚未建仓时记录 `NO_SIGNAL`，不伪造失败或收益观测。
+
 每个运行目录保存输入版本、模型哈希、信号、目标、订单、模拟成交、现金、持仓、NAV与对账结果；失败和缺数日期同样保存。基于paper结果修改策略时，旧paper阶段必须转为开发/验证证据，产生新的候选ID、模型包和激活日。
 
 访问任何研究证据时追加事件：

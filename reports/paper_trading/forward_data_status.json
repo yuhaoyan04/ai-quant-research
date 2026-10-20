@@ -1,0 +1,23 @@
+{
+  "pipeline_id": "forward_data_v1",
+  "stage": "validated_isolated",
+  "requested_end": "2026-10-20",
+  "historical_cutoff": "2026-09-30",
+  "calendar_max_date": "2026-10-30",
+  "latest_security_snapshot": "2026-10-16",
+  "requested_codes": 5227,
+  "changed_code_count": 5224,
+  "refreshed_code_count": 5224,
+  "active_a_shares": 5224,
+  "active_raw_at_end": 5222,
+  "suspended_without_end_print": ["sh.601059", "sh.601198"],
+  "weekly_signal_input_rows": 4983,
+  "weekly_scored_rows": 4978,
+  "weekly_signal_asof_date": "2026-10-16",
+  "midweek_signal_rows": 0,
+  "model_sha256": "6ae5ef99d7f4b7a53da79dfdc146d9d968f55b03d088096677eb028d9d924849",
+  "historical_frozen_audit": "496 PASS / 46 WARN / 0 FAIL",
+  "errors": [],
+  "lock_present": false,
+  "performance_results_included": false
+}

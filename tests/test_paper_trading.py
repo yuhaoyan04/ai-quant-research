@@ -85,6 +85,21 @@ def test_signal_scoring_uses_only_pit_cross_section() -> None:
     assert "fwd_return_5d_lag1" not in scored
 
 
+def test_weekly_signal_gate_rejects_midweek_and_accepts_next_session(
+    tmp_path: Path,
+) -> None:
+    from quant_research.ingest import Lake
+
+    lake = Lake(tmp_path / "lake")
+    days = pd.bdate_range("2026-10-12", "2026-10-30")
+    calendar = pd.DataFrame({
+        "cal_date": days.strftime("%Y-%m-%d"), "is_open": "1", "exchange": "SSE",
+    })
+    lake.write("calendar", calendar, key="SSE", source="test", request={})
+    assert paper._signal_asof_date(lake, "2026-10-21") is None
+    assert paper._signal_asof_date(lake, "2026-10-26") == "2026-10-23"
+
+
 def test_primary_target_is_long_only_fully_invested_and_audited() -> None:
     cfg = load_config()
     rows = 500

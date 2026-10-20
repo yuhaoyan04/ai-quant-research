@@ -94,6 +94,7 @@ quant-alpha-evidence = "quant_research.alpha_evidence_matrix:main"
 quant-incremental-alpha-fill = "quant_research.incremental_alpha_fill_execution:main"
 quant-engineering-quality = "quant_research.engineering_quality:main"
 quant-paper-trading = "quant_research.paper_trading:main"
+quant-forward-data = "quant_research.forward_data:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]

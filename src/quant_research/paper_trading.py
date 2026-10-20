@@ -27,6 +27,7 @@ import yaml
 from quant_research.execution_market import read_execution_market_rows
 from quant_research.experiment_registry import sha256_file, source_tree_hash, stable_json_hash
 from quant_research.factor_neutralization import _read_year
+from quant_research.forward_data import forward_table, read_forward
 from quant_research.ingest import ROOT, Lake
 from quant_research.institutional_execution import simulate_execution
 from quant_research.model_baseline import purged_end_date
@@ -45,13 +46,15 @@ from quant_research.portfolio_construction_comparison import (
 )
 from quant_research.preprocessing import load_config as load_preprocessing_config
 from quant_research.research_governance import append_access_event
+from quant_research.risk_exposure import float_cap_proxy, normalize_csrc_industry
 
 
 CONFIG_PATH = ROOT / "config" / "paper_trading.yaml"
 REPORT_PATH = ROOT / "reports" / "paper_trading.md"
 GENESIS_HASH = "0" * 64
 TERMINAL_ATTEMPT_STATUSES = {
-    "SUCCESS", "FAILED", "NOT_ACTIVE", "NON_TRADING_DAY", "REJECTED_BACKFILL",
+    "SUCCESS", "FAILED", "NO_SIGNAL", "NOT_ACTIVE", "NON_TRADING_DAY",
+    "REJECTED_BACKFILL",
 }
 
 
@@ -344,10 +347,136 @@ def _latest_state(cfg: dict[str, Any]) -> tuple[pd.DataFrame, pd.DataFrame]:
     return target, positions
 
 
+def _signal_asof_date(lake: Lake, trade_date: str) -> str | None:
+    """Return the prior weekly signal close for a t+1 execution date."""
+    calendar = read_forward(lake, "calendar", "SSE")
+    open_days = pd.to_datetime(
+        calendar.loc[calendar["is_open"].astype(str).eq("1"), "cal_date"]
+    ).sort_values().drop_duplicates()
+    execution = pd.Timestamp(trade_date)
+    prior = open_days.loc[open_days.lt(execution)]
+    if prior.empty:
+        return None
+    asof = prior.iloc[-1]
+    same_week = open_days.loc[open_days.dt.to_period("W-FRI").eq(asof.to_period("W-FRI"))]
+    # The forward calendar is intentionally fetched past today, so a Tuesday
+    # cannot masquerade as the last session of an unfinished week.
+    if same_week.empty or same_week.max() != asof:
+        return None
+    return asof.strftime("%Y-%m-%d")
+
+
+def _latest_snapshot_path(lake: Lake, table: str, on_or_before: str) -> tuple[str, Path]:
+    candidates: list[tuple[str, Path]] = []
+    for path in (lake.curated / table).glob("key=*/data.parquet"):
+        day = path.parent.name.removeprefix("key=")
+        if day <= on_or_before:
+            candidates.append((day, path))
+    if not candidates:
+        raise FileNotFoundError(f"no {table} snapshot on or before {on_or_before}")
+    return max(candidates, key=lambda item: item[0])
+
+
+def _load_live_signal_universe(
+    lake: Lake, trade_date: str, asof: str, factors: list[str],
+) -> tuple[pd.DataFrame, list[dict[str, Any]]]:
+    """Build a current PIT cross-section from incrementally maintained files."""
+    calendar = read_forward(lake, "calendar", "SSE")
+    open_days = pd.to_datetime(
+        calendar.loc[calendar["is_open"].astype(str).eq("1"), "cal_date"]
+    ).sort_values().drop_duplicates()
+    next_day = {
+        day.strftime("%Y-%m-%d"): following.strftime("%Y-%m-%d")
+        for day, following in zip(open_days.iloc[:-1], open_days.iloc[1:])
+    }
+    available_snapshots: list[tuple[str, str]] = []
+    snapshot_table = forward_table("security_snapshot")
+    for path in (lake.curated / snapshot_table).glob("key=*/data.parquet"):
+        day = path.parent.name.removeprefix("key=")
+        available = next_day.get(day)
+        if available is not None and available <= trade_date:
+            available_snapshots.append((available, day))
+    if not available_snapshots:
+        raise RuntimeError(f"no security snapshot was available on {trade_date}")
+    snapshot_date = max(available_snapshots)[1]
+    snapshot_path = lake.table_path(snapshot_table, snapshot_date)
+    membership = set(
+        pd.read_parquet(snapshot_path, columns=["instrument_id"])["instrument_id"]
+        .dropna().astype(str)
+    )
+    industry_date, industry_path = _latest_snapshot_path(
+        lake, forward_table("industry_snapshot_baostock"), asof
+    )
+    industries = pd.read_parquet(industry_path)
+    if "update_date" in industries:
+        industries = industries.loc[
+            industries["update_date"].astype(str).le(industry_date)
+        ].copy()
+    industries["industry_broad_code"] = industries["industry_raw"].map(
+        lambda value: normalize_csrc_industry(value)[2]
+    )
+    industry_map = (
+        industries.drop_duplicates("instrument_id", keep="last")
+        .set_index("instrument_id")["industry_broad_code"].to_dict()
+    )
+
+    rows: list[dict[str, Any]] = []
+    factor_paths = sorted(
+        (lake.curated / forward_table("factors_raw")).glob("key=*/data.parquet")
+    )
+    columns = ["instrument_id", "asof_date", "available_date", "is_tradable", *factors]
+    for path in factor_paths:
+        code = path.parent.name.removeprefix("key=").replace("_", ".")
+        if code not in membership:
+            continue
+        selected = pd.read_parquet(
+            path, columns=columns,
+            filters=[("asof_date", "==", asof), ("available_date", "==", trade_date)],
+        )
+        if selected.empty or not bool(selected.iloc[-1]["is_tradable"]):
+            continue
+        bar_path = lake.table_path(forward_table("daily_bars_validated"), code)
+        if not bar_path.exists():
+            continue
+        bar = pd.read_parquet(
+            bar_path, columns=["trade_date", "amount", "turn", "quality_status"],
+            filters=[("trade_date", "==", asof)],
+        )
+        if bar.empty or str(bar.iloc[-1]["quality_status"]) == "fail":
+            continue
+        cap = float_cap_proxy(bar["amount"], bar["turn"]).iloc[-1]
+        record = selected.iloc[-1].to_dict()
+        record["float_cap_proxy_cny"] = cap
+        record["industry_broad_code"] = industry_map.get(code)
+        rows.append(record)
+    result = pd.DataFrame(rows)
+    if not result.empty:
+        result = result.sort_values("instrument_id").reset_index(drop=True)
+    dependencies = [
+        {"source": "security_snapshot", "snapshot_date": snapshot_date,
+         "path": _relative(snapshot_path), "sha256": sha256_file(snapshot_path)},
+        {"source": "industry_snapshot_baostock", "snapshot_date": industry_date,
+         "path": _relative(industry_path), "sha256": sha256_file(industry_path)},
+        {"source": "live_per_security_signal_snapshot", "asof_date": asof,
+         "available_date": trade_date, "rows": len(result),
+         "sha256": stable_json_hash(result.to_dict(orient="records"))},
+    ]
+    return result, dependencies
+
+
 def _load_signal_universe(
     lake: Lake, cfg: dict[str, Any], trade_date: str,
 ) -> tuple[pd.DataFrame, list[dict[str, Any]]]:
     factors = list(load_preprocessing_config()["factor_columns"])
+    asof = _signal_asof_date(lake, trade_date)
+    calendar_path = lake.table_path("calendar", "SSE")
+    if asof is None:
+        return pd.DataFrame(), [{
+            "source": "calendar", "path": _relative(calendar_path),
+            "sha256": sha256_file(calendar_path), "signal_due": False,
+        }]
+    if trade_date > str(cfg["model"]["training_data_cutoff"]):
+        return _load_live_signal_universe(lake, trade_date, asof, factors)
     year = str(pd.Timestamp(trade_date).year)
     source_paths = {
         "factor": lake.table_path(str(cfg["signal"]["factor_table"]), year),
@@ -361,7 +490,10 @@ def _load_signal_universe(
         source_paths["factor"],
         columns=["instrument_id", "asof_date", "available_date", *factors],
     )
-    panel = panel.loc[panel["available_date"].astype(str).eq(trade_date)].copy()
+    panel = panel.loc[
+        panel["available_date"].astype(str).eq(trade_date)
+        & panel["asof_date"].astype(str).eq(asof)
+    ].copy()
     if panel.empty:
         return panel, [
             {"source": name, "path": _relative(path), "sha256": sha256_file(path)}
@@ -517,6 +649,7 @@ def _market_snapshot(
                 cfg["execution"]["corporate_action_proxy"]["activation_absolute_deviation"]
             ),
             start_date=trade_date, end_date=trade_date,
+            table=forward_table("daily_bars_validated"),
         )
         if not rows.empty:
             frames.append(rows)
@@ -604,7 +737,7 @@ def _attempted_dates(cfg: dict[str, Any]) -> set[str]:
 
 
 def _assert_no_silent_dates(lake: Lake, cfg: dict[str, Any], trade_date: str) -> None:
-    calendar = lake.read("calendar", "SSE")
+    calendar = read_forward(lake, "calendar", "SSE")
     if calendar.empty:
         raise RuntimeError("SSE calendar is unavailable")
     cal = calendar.copy()
@@ -620,7 +753,7 @@ def _assert_no_silent_dates(lake: Lake, cfg: dict[str, Any], trade_date: str) ->
 
 
 def _is_open_date(lake: Lake, trade_date: str) -> bool:
-    calendar = lake.read("calendar", "SSE")
+    calendar = read_forward(lake, "calendar", "SSE")
     if calendar.empty:
         raise RuntimeError("SSE calendar is unavailable")
     dates = pd.to_datetime(calendar["cal_date"]).dt.strftime("%Y-%m-%d")
@@ -676,6 +809,21 @@ def run_daily(
         universe, signal_dependencies = _load_signal_universe(lake, cfg, requested)
         signal = score_signal_universe(universe, cfg, estimator)
         previous_target, previous_positions = _latest_state(cfg)
+        if signal.empty and previous_target.empty and previous_positions.empty:
+            return _record_terminal(
+                cfg, requested, "NO_SIGNAL", started,
+                frames={"signal_input": universe, "signals": signal},
+                metadata={
+                    "model_bundle_sha256": manifest["model_sha256"],
+                    "model_freeze_commit": manifest["freeze_commit"],
+                    "config_sha256": sha256_file(CONFIG_PATH),
+                    "input_dependencies": signal_dependencies,
+                    "input_dependency_snapshot_sha256": stable_json_hash(signal_dependencies),
+                    "new_target": False,
+                    "reason": "awaiting_first_frozen_weekly_signal",
+                    "performance_claim_allowed": False,
+                },
+            )
         target, target_audit = construct_primary_target(
             signal, cfg, previous_target, previous_positions
         )

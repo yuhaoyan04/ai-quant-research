@@ -1811,3 +1811,22 @@ experiments:
     figures:
       - reports/governance/paper_candidate_bundle_v1_manifest.json
       - reports/paper_trading.md
+
+  forward_data_pipeline_v1:
+    title: Phase 11.1 isolated incremental forward-data supply controls
+    stage: forward_data_operations
+    model_version: forward_data_v1_isolated_namespace
+    dataset_version_method: sha256_of_registered_inputs_and_ingestion_manifest
+    historical_oos_used_for_selection: false
+    evidence_class: governance_only
+    research_selection_role: operational_tracking
+    claims_independent_evidence: false
+    config_files: [forward_data.yaml, paper_trading.yaml]
+    input_tables:
+      - {table: paper_trading_protocol, key: v1}
+    metric_tables:
+      - {table: forward_data_protocol, key: v1}
+      - {table: forward_data_implementation_checks, key: v1}
+      - {table: forward_data_failed_assertions, key: v1}
+    figures:
+      - reports/forward_data.md

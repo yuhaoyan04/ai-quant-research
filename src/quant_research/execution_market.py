@@ -70,9 +70,10 @@ def read_execution_market_rows(
     start_date: str,
     end_date: str,
     limit_tolerance_percentage_points: float = 0.20,
+    table: str = "daily_bars_validated",
 ) -> pd.DataFrame:
     bars = pd.read_parquet(
-        lake.table_path("daily_bars_validated", instrument_id.replace(".", "_")),
+        lake.table_path(table, instrument_id.replace(".", "_")),
         columns=[
             "instrument_id", "trade_date", "close", "volume", "pct_chg",
             "trade_status", "is_st",
