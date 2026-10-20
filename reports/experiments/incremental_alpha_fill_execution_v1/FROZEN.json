@@ -1,0 +1,17 @@
+{
+  "experiment_id": "incremental_alpha_fill_execution_v1",
+  "frozen_at_utc": "2026-10-20T13:18:30.765928+00:00",
+  "content_sha256": "85eacf8c789d1f53f5f2227b7080c9a2677e2922eeec057e0a8f2186bd721c5a",
+  "files": {
+    "config.yaml": "c8af7262a934296163468f7e503ab6a3ea4b8aa79409a51da363d43fc2b67916",
+    "metadata.json": "9a59284e5068bfb794317524b64c26fbfdb58505dab3eae9e5070430ba5fe910",
+    "metrics.json": "a2fe4f3cc944b16badef0e4489827c502ba0040f4a747dd0b860278663a9ea30",
+    "notes.md": "09db0d3e058415f4cb3298692a19c92c5f30770a8a2cd6f1844750b446a7a81a",
+    "tables/incremental_alpha_fill_checks__v1.csv": "c7e1de653853d3056e7f936afcb603e8ba4737ca76c3d9ac89d1acd46420c1a1",
+    "tables/incremental_alpha_fill_comparison__v1.csv": "eaced5b751977e65ba1e0d07214e688719ad15e5392a6bdae1456cd75b652666",
+    "tables/incremental_alpha_fill_failed_assertions__v1.csv": "4181a5e11e736d0f5a1841613c031a578d4ea2d6d1f9898b4a2f8d4e6b24a5d8",
+    "tables/incremental_alpha_fill_invariants__v1.csv": "56f4f31cc21e572db00d07a056f0953e9599c6b602d1d9406cbcdb0421996f7e",
+    "tables/incremental_alpha_fill_protocol__v1.csv": "4c8c2f562cae97b5a8f4e9f9d2f2c028a50fbd2915d2a091f2a609b1dd506722",
+    "tables/incremental_alpha_fill_summary__v1.csv": "19589027f2d076a369e433d8332b23a7fa1dc1d14765655f811c86c60dc8921b"
+  }
+}

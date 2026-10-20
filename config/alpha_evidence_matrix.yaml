@@ -1,4 +1,4 @@
-experiment_id: alpha_evidence_matrix_v1
+experiment_id: alpha_evidence_matrix_v2
 source_experiments:
   - risk_free_rate_attribution_v1
   - market_benchmark_attribution_v1
@@ -23,6 +23,9 @@ false_discovery_rate: 0.05
 hac_lags: [5, 10, 20, 40]
 primary_hac_lags: 5
 expected_trading_days: 1387
+bootstrap_samples: 2000
+primary_block_length: 20
+random_seed: 20261021
 
 return_definitions:
   portfolio_annual_return: geometric_compound_return_annualized
@@ -34,7 +37,7 @@ return_definitions:
     regressed on CSI500 excess return and six local PIT self-financing style factors,
     times 252
 
-fill_evidence_status: unavailable_incremental_alpha_v1_has_no_share_level_fill_ledger
+fill_evidence_status: available_from_incremental_alpha_fill_execution_v1
 style_model_status: local_research_proxy_not_commercial_risk_model
 scope_note: >-
   Phase 9 consolidates already inspected 2021-2026 historical-OOS evidence. It

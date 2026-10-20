@@ -1,0 +1,24 @@
+{
+  "experiment_id": "alpha_evidence_matrix_v2",
+  "frozen_at_utc": "2026-10-20T13:18:34.017281+00:00",
+  "content_sha256": "0c2eaa3f0e618b69a111491747e5b631af7c6221fae176b44d53df516011ee2d",
+  "files": {
+    "config.yaml": "676d6b6c548da0c5d687a2c65ec06a9635fa8d50aa3ba226b882300b31c60ad8",
+    "metadata.json": "d46b5789d3d64f9dcc6dd05cb5174ed35693bda0302af0a566b2e9928307ec5b",
+    "metrics.json": "d4dbcb7fb6ee9eb8e4b99ccce93bfa7bd13c4d38c053a0ac3f4c4c90ec1e2861",
+    "notes.md": "51cd7da7cad3b636ec3ddc57b33a97bdff4f156851e3e4e7b9ff4a40415894ba",
+    "tables/alpha_evidence_alignment__v2.csv": "eb2f2980b94d4bef9ff453282636a3776a40a748fe3b799c9ca7d321b3947983",
+    "tables/alpha_evidence_candidate_matrix__v2.csv": "e8f4e112f98e1bccb43d55bbea93b5a1b76a56352b46934be17b88ebf20ee5b5",
+    "tables/alpha_evidence_checks__v2.csv": "5b849845250b9d91bbd71856efd3a23612f17c90f26f72719fc613fce226b580",
+    "tables/alpha_evidence_execution_comparison__v2.csv": "a4f0ce1f0eb3edabd151d00f9771f944d7ad6acdfe7803473a9a1528f3d75217",
+    "tables/alpha_evidence_exposure_match__v2.csv": "cf9e1062c10a2c5a493d237427ec40abf864c026bddebccab5198dbda146b2f9",
+    "tables/alpha_evidence_failed_assertions__v2.csv": "e9e8b6507e5d376bae844d44f9afa36efb366cedfbc0d5562b71e69e459d8c40",
+    "tables/alpha_evidence_gap_register__v2.csv": "3650aa3e02e91ab4179f267d6cfceb952c6ec90e1b9582b8de747843fc284ba2",
+    "tables/alpha_evidence_measure_definitions__v2.csv": "9d9dec156150403b11cfd6454eaaa9f9c0ed8bf469ef2455616da1e83a3b9a76",
+    "tables/alpha_evidence_protocol__v2.csv": "92db0f588eaab4e04bd9e13ed0da117bb7b29856e59907f5f93c01c464d69800",
+    "tables/alpha_evidence_risk_adjusted_fdr__v2.csv": "d86def2afdf32fd3b9bb19f322ba69a2248ec874a309b46ac6625e6bcb062a99",
+    "tables/alpha_evidence_risk_adjusted_regression__v2.csv": "3b72cef9eef1552a81761bdc598299ad41fcad7b28fc60311183d8699d3a1ed8",
+    "tables/alpha_evidence_risk_sensitivity__v2.csv": "1fbcf1b9fce734c47b5ea6880ce300a068f29d3fab5ad360fb6341edc90744db",
+    "tables/alpha_evidence_share_level_raw_fdr__v2.csv": "ac557ce48e8ada633ddcd2c40b626d4a5fd89048b6bf487fe6f6df22e83c18e9"
+  }
+}

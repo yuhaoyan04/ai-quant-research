@@ -9,6 +9,15 @@
     "immutable": true
   },
   {
+    "experiment_id": "alpha_evidence_matrix_v2",
+    "title": "Phase 9 share-level market, style and incremental-alpha evidence",
+    "stage": "risk_benchmark_and_incremental_alpha_hierarchy",
+    "model_version": "csi500_total_return_six_style_share_fill_increment_v2",
+    "registered_at_utc": "2026-10-20T13:18:34.017281+00:00",
+    "dataset_version": "13628c377b4ee1253abbcdd605657f5b4b05db0efe93e597f78ce4c9a837a9af",
+    "immutable": true
+  },
+  {
     "experiment_id": "baseline_ridge_v1",
     "title": "Frozen Ridge factor-model baseline",
     "stage": "model_and_portfolio_baseline",
@@ -186,6 +195,15 @@
     "model_version": "locked_quantile_zscore_ridge",
     "registered_at_utc": "2026-10-14T15:51:08.639857+00:00",
     "dataset_version": "d78ba046e049240e18e2ec900d06952e327a0f7f0afa51e41684d2efae58f1c9",
+    "immutable": true
+  },
+  {
+    "experiment_id": "incremental_alpha_fill_execution_v1",
+    "title": "Phase 9 eight-path share-order and realized-fill comparison",
+    "stage": "incremental_alpha_share_level_execution",
+    "model_version": "eight_frozen_paths_common_share_order_ledger_v1",
+    "registered_at_utc": "2026-10-20T13:18:30.765928+00:00",
+    "dataset_version": "a6c4e0c413e0bdea4c3f70bc324da58597ad1e75292e8afaea9a63e924cee205",
     "immutable": true
   },
   {

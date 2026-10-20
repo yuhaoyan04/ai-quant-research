@@ -1,0 +1,5 @@
+priority,gap,status,impact,required_action
+P0,share_level_fill_comparison,CLOSED,eight paths replayed through the common share-order ledger,retain the frozen fill ledger and common execution protocol
+P1,commercial_risk_model_validation,OPEN,local PIT styles and broad CSRC industry are research proxies,validate exposures against a licensed point-in-time commercial model if available
+P1,benchmark_replica_exposure_error,DISCLOSED,"style matching is approximate, especially volatility/liquidity/momentum",retain exposure-error table and test tighter feasible matching without OOS selection
+P2,intraday_publication_timestamp,OPEN,official history endpoints do not expose exact intraday publication timestamps,retain one-calendar-day attribution availability lag

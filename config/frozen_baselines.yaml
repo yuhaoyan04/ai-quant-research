@@ -1695,3 +1695,68 @@ experiments:
       - {table: alpha_evidence_checks, key: v1}
       - {table: alpha_evidence_failed_assertions, key: v1}
     figures: []
+
+  incremental_alpha_fill_execution_v1:
+    title: Phase 9 eight-path share-order and realized-fill comparison
+    stage: incremental_alpha_share_level_execution
+    model_version: eight_frozen_paths_common_share_order_ledger_v1
+    dataset_version_method: sha256_of_registered_inputs_and_ingestion_manifest
+    historical_oos_used_for_selection: false
+    evidence_class: post_historical_oos_adaptation
+    research_selection_role: post_hoc_adaptation
+    claims_independent_evidence: false
+    config_files: [incremental_alpha_fill_execution.yaml, institutional_execution.yaml, incremental_alpha_test.yaml, research_governance.yaml]
+    input_tables:
+      - {table: constrained_execution_targets, key: v1}
+      - {table: incremental_alpha_style_targets, key: v1}
+      - {table: incremental_alpha_fill_market, key: v1}
+      - {table: incremental_alpha_fill_daily, key: v1}
+      - {table: incremental_alpha_fill_orders, key: v1}
+      - {table: incremental_alpha_fill_events, key: v1}
+      - {table: incremental_alpha_fill_fills, key: v1}
+      - {table: incremental_alpha_fill_positions, key: v1}
+      - {table: incremental_alpha_fill_corporate_actions, key: v1}
+    metric_tables:
+      - {table: incremental_alpha_fill_protocol, key: v1}
+      - {table: incremental_alpha_fill_summary, key: v1}
+      - {table: incremental_alpha_fill_invariants, key: v1}
+      - {table: incremental_alpha_fill_comparison, key: v1}
+      - {table: incremental_alpha_fill_checks, key: v1}
+      - {table: incremental_alpha_fill_failed_assertions, key: v1}
+    figures: []
+
+  alpha_evidence_matrix_v2:
+    title: Phase 9 share-level market, style and incremental-alpha evidence
+    stage: risk_benchmark_and_incremental_alpha_hierarchy
+    model_version: csi500_total_return_six_style_share_fill_increment_v2
+    dataset_version_method: sha256_of_registered_inputs_and_ingestion_manifest
+    historical_oos_used_for_selection: false
+    evidence_class: post_historical_oos_adaptation
+    research_selection_role: post_hoc_adaptation
+    claims_independent_evidence: false
+    config_files: [alpha_evidence_matrix.yaml, incremental_alpha_fill_execution.yaml, market_benchmark_attribution.yaml, risk_free_rate_attribution.yaml, incremental_alpha_test.yaml, statistical_inference.yaml, research_governance.yaml]
+    input_tables:
+      - {table: risk_free_rate_daily, key: v1}
+      - {table: market_benchmark_daily, key: v1}
+      - {table: market_benchmark_capm_summary, key: v1}
+      - {table: market_benchmark_style_summary, key: v1}
+      - {table: style_factor_daily_returns, key: v1}
+      - {table: incremental_alpha_fill_daily, key: v1}
+      - {table: incremental_alpha_fill_summary, key: v1}
+      - {table: incremental_alpha_exposure_audit, key: v1}
+      - {table: alpha_evidence_aligned_daily, key: v2}
+    metric_tables:
+      - {table: alpha_evidence_protocol, key: v2}
+      - {table: alpha_evidence_alignment, key: v2}
+      - {table: alpha_evidence_risk_adjusted_regression, key: v2}
+      - {table: alpha_evidence_risk_adjusted_fdr, key: v2}
+      - {table: alpha_evidence_share_level_raw_fdr, key: v2}
+      - {table: alpha_evidence_risk_sensitivity, key: v2}
+      - {table: alpha_evidence_execution_comparison, key: v2}
+      - {table: alpha_evidence_exposure_match, key: v2}
+      - {table: alpha_evidence_candidate_matrix, key: v2}
+      - {table: alpha_evidence_measure_definitions, key: v2}
+      - {table: alpha_evidence_gap_register, key: v2}
+      - {table: alpha_evidence_checks, key: v2}
+      - {table: alpha_evidence_failed_assertions, key: v2}
+    figures: []

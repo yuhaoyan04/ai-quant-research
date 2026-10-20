@@ -1,8 +1,8 @@
 # Research artifact audit
 
-Generated at `2026-10-20T12:45:20.575763+00:00`.
+Generated at `2026-10-20T13:19:32.173294+00:00`.
 
-Summary: **454 PASS / 47 WARN / 0 FAIL**
+Summary: **465 PASS / 46 WARN / 0 FAIL**
 
 | Status | Check | Detail |
 |---|---|---|
@@ -104,6 +104,10 @@ Summary: **454 PASS / 47 WARN / 0 FAIL**
 | PASS | `frozen_live_inputs:statistical_inference_protocol_v1` | all registered inputs match their SHA-256 hashes |
 | PASS | `frozen_snapshot_integrity:alpha_evidence_matrix_v1` | all frozen files match FROZEN.json |
 | PASS | `frozen_live_inputs:alpha_evidence_matrix_v1` | all registered inputs match their SHA-256 hashes |
+| PASS | `frozen_snapshot_integrity:incremental_alpha_fill_execution_v1` | all frozen files match FROZEN.json |
+| PASS | `frozen_live_inputs:incremental_alpha_fill_execution_v1` | all registered inputs match their SHA-256 hashes |
+| PASS | `frozen_snapshot_integrity:alpha_evidence_matrix_v2` | all frozen files match FROZEN.json |
+| PASS | `frozen_live_inputs:alpha_evidence_matrix_v2` | all registered inputs match their SHA-256 hashes |
 | WARN | `invalidated_experiment:institutional_execution_v1` | severity=registry_self_staging_dirty_flag; superseded_by=institutional_execution_v2; reason=The research outputs and hashes are valid, but the experiment registry created its temporary snapshot directory inside the repository before capturing Git status. That self-created untracked directory caused the metadata to report dirty=true even though registration began from clean commit d1b00aedd5b3dcbc660733fa64288c550a83e446. |
 | WARN | `invalidated_experiment:portfolio_sensitivity_v1` | severity=cost_stress_repricing_formula_superseded; superseded_by=transaction_cost_model_v1; reason=The v1 fixed-fill execution cost stress subtracted turnover times the fee rate directly from gross return. The daily executor defines turnover over pre-trade NAV while return is measured over previous NAV, so exact C0 reproduction additionally requires the pre-trade-to-previous-NAV ratio. The difference is small but the v1 stress grid is not an exact 20bp regression of the executable baseline. |
 | WARN | `invalidated_experiment:factor_preprocessing_ablation_v1` | severity=portfolio_metrics_invalid; superseded_by=factor_preprocessing_ablation_v2; reason=Validation portfolios were formed after filtering rows with non-null future returns. RankIC and model-selection metrics used the correct realized subset, but Top-200 portfolio metrics had outcome-availability leakage. |
@@ -362,29 +366,35 @@ Summary: **454 PASS / 47 WARN / 0 FAIL**
 | PASS | `artifact:constrained_daily_execution_summary/v1` | rows=8 |
 | PASS | `incremental_alpha_reproduces_frozen_ml_path` | strategies=4, max_annual_return_error=5.329e-15 |
 | PASS | `incremental_alpha_inference_and_multiplicity_complete` | comparisons=4, metrics=6 |
-| PASS | `artifact:alpha_evidence_protocol/v1` | rows=1 |
-| PASS | `artifact:alpha_evidence_aligned_daily/v1` | rows=33,288 |
-| PASS | `artifact:alpha_evidence_alignment/v1` | rows=24 |
-| PASS | `artifact:alpha_evidence_risk_adjusted_regression/v1` | rows=96 |
-| PASS | `artifact:alpha_evidence_risk_adjusted_fdr/v1` | rows=4 |
-| PASS | `artifact:alpha_evidence_risk_sensitivity/v1` | rows=4 |
-| PASS | `artifact:alpha_evidence_execution_comparison/v1` | rows=8 |
-| PASS | `artifact:alpha_evidence_exposure_match/v1` | rows=4 |
-| PASS | `artifact:alpha_evidence_candidate_matrix/v1` | rows=4 |
-| PASS | `artifact:alpha_evidence_measure_definitions/v1` | rows=5 |
-| PASS | `artifact:alpha_evidence_gap_register/v1` | rows=4 |
-| PASS | `artifact:alpha_evidence_checks/v1` | rows=12 |
-| PASS | `artifact:alpha_evidence_failed_assertions/v1` | rows=1 |
-| PASS | `alpha_evidence_protocol_discloses_nonindependent_history` | phase_status=PARTIAL_SHARE_LEVEL_FILL_COMPARISON_OPEN |
+| PASS | `artifact:alpha_evidence_protocol/v2` | rows=1 |
+| PASS | `artifact:alpha_evidence_aligned_daily/v2` | rows=33,288 |
+| PASS | `artifact:alpha_evidence_alignment/v2` | rows=24 |
+| PASS | `artifact:alpha_evidence_risk_adjusted_regression/v2` | rows=96 |
+| PASS | `artifact:alpha_evidence_risk_adjusted_fdr/v2` | rows=4 |
+| PASS | `artifact:alpha_evidence_risk_sensitivity/v2` | rows=4 |
+| PASS | `artifact:alpha_evidence_execution_comparison/v2` | rows=8 |
+| PASS | `artifact:alpha_evidence_exposure_match/v2` | rows=4 |
+| PASS | `artifact:alpha_evidence_candidate_matrix/v2` | rows=4 |
+| PASS | `artifact:alpha_evidence_measure_definitions/v2` | rows=5 |
+| PASS | `artifact:alpha_evidence_gap_register/v2` | rows=4 |
+| PASS | `artifact:alpha_evidence_checks/v2` | rows=12 |
+| PASS | `artifact:alpha_evidence_failed_assertions/v2` | rows=1 |
+| PASS | `artifact:incremental_alpha_fill_protocol/v1` | rows=1 |
+| PASS | `artifact:incremental_alpha_fill_summary/v1` | rows=8 |
+| PASS | `artifact:incremental_alpha_fill_invariants/v1` | rows=8 |
+| PASS | `artifact:incremental_alpha_fill_comparison/v1` | rows=4 |
+| PASS | `artifact:incremental_alpha_fill_checks/v1` | rows=10 |
+| PASS | `artifact:incremental_alpha_fill_failed_assertions/v1` | rows=1 |
+| PASS | `alpha_evidence_protocol_discloses_nonindependent_history` | phase_status=COMPLETE_SHARE_LEVEL_FILL_COMPARISON |
 | PASS | `alpha_evidence_all_implemented_scope_checks_pass` | checks=12, failures=0 |
 | PASS | `alpha_evidence_common_clock_complete` | alignment_rows=24, aligned_rows=33288 |
 | PASS | `alpha_evidence_risk_model_sensitivity_complete` | regressions=96, rf=3, return_types=['price_return', 'total_return'] |
-| PASS | `alpha_evidence_four_candidate_fdr_family` | survivors=0, q=[0.598883, 0.598883, 0.598883, 0.598883] |
+| PASS | `alpha_evidence_four_candidate_fdr_family` | survivors=0, q=[0.597059, 0.597059, 0.597059, 0.597059] |
 | PASS | `alpha_evidence_does_not_call_capm_pure_alpha` | [{'model': 'hgb_shallow15_locked', 'alpha_pipeline': 'industry_size_neutralized', 'evidence_verdict': 'incremental_alpha_not_established_after_multiplicity_and_risk_adjustment'}, {'model': 'hgb_shallow15_locked', 'alpha_pipeline': 'raw', 'evidence_verdict': 'incremental_alpha_not_established_after_multiplicity_and_risk_adjustment'}, {'model': 'ridge_locked', 'alpha_pipeline': 'industry_size_neutralized', 'evidence_verdict': 'incremental_alpha_not_established_after_multiplicity_and_risk_adjustment'}, {'model': 'ridge_locked', 'alpha_pipeline': 'raw', 'evidence_verdict': 'incremental_alpha_not_established_after_multiplicity_and_risk_adjustment'}] |
 | PASS | `alpha_evidence_local_proxy_and_exposure_error_disclosed` | exposure_rows=4 |
-| PASS | `alpha_evidence_assertion_log_clean` | [{'check_name': 'NO_FAILED_ASSERTIONS', 'status': 'PASS', 'observed': 'all Phase 9 implemented-scope assertions passed; P0 fill gap remains open'}] |
-| WARN | `alpha_evidence_share_level_fill_comparison_open` | Phase 9 uses the same constrained weight-level execution and cost protocol, but incremental_alpha_v1 has no share-order fill ledger. Fill-rate differences are explicitly unavailable; Phase 9 remains partial until all eight paths are replayed. |
-| PASS | `alpha_evidence_fill_gap_registered` | [{'priority': 'P0', 'gap': 'share_level_fill_comparison', 'status': 'OPEN', 'impact': 'realized fill-rate difference cannot be reported from incremental_alpha_v1', 'required_action': 'replay all four ML and four style targets through the share-order ledger'}] |
+| PASS | `alpha_evidence_assertion_log_clean` | [{'check_name': 'NO_FAILED_ASSERTIONS', 'status': 'PASS', 'observed': 'all Phase 9 assertions passed; share-level fill comparison is complete'}] |
+| PASS | `alpha_evidence_share_level_fill_comparison_complete` | paths=8, ratios=[0.987309, 0.931394, 0.988337, 0.891164, 0.860965, 0.954013, 0.756205, 0.99485] |
+| PASS | `alpha_evidence_fill_accounting_invariants_pass` | paths=8, checks=10 |
 | PASS | `artifact:risk_model_protocol/v1` | rows=1 |
 | PASS | `artifact:pit_beta_exposure_index/v1` | rows=19 |
 | PASS | `artifact:risk_model_factor_returns/v1` | rows=26,028 |
@@ -510,7 +520,7 @@ Summary: **454 PASS / 47 WARN / 0 FAIL**
 
 ## Headline findings
 
-- `registered_frozen_experiments`: 48
+- `registered_frozen_experiments`: 50
 - `invalidated_experiments`: 23
 - `common_oos_weeks`: 291
 - `ridge_annualized_return_20bp`: 0.2005894880405501
@@ -576,11 +586,11 @@ Summary: **454 PASS / 47 WARN / 0 FAIL**
 - `hgb_neutral_incremental_return_ci_low`: 0.0024438912915467014
 - `hgb_neutral_incremental_return_ci_high`: 0.07164682883394921
 - `ridge_raw_turnover_value_survives_multiplicity`: True
-- `alpha_evidence_phase_status`: PARTIAL_SHARE_LEVEL_FILL_COMPARISON_OPEN
+- `alpha_evidence_phase_status`: COMPLETE_SHARE_LEVEL_FILL_COMPARISON
 - `alpha_evidence_regression_specifications`: 96
 - `alpha_evidence_risk_adjusted_fdr_survivors`: 0
-- `hgb_raw_risk_adjusted_incremental_alpha`: 0.002321097434078179
-- `hgb_neutral_risk_adjusted_incremental_alpha`: 0.012205542552745004
+- `hgb_raw_risk_adjusted_incremental_alpha`: 0.0016893221338765405
+- `hgb_neutral_risk_adjusted_incremental_alpha`: 0.01220379692104986
 - `pit_beta_minimum_coverage`: 0.914180582483791
 - `hgb_raw_annualized_style_contribution_arithmetic`: 0.13613172549903055
 - `hgb_raw_annualized_specific_selection_contribution_arithmetic`: -0.004344077537185444

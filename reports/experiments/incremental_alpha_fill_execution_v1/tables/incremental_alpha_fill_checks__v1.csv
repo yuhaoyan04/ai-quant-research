@@ -1,0 +1,11 @@
+check_name,status,observed
+eight_frozen_paths_present,PASS,8
+four_candidate_pairs_present,PASS,4
+target_weights_normalized,PASS,919910
+market_covers_every_target_code,PASS,5119
+common_1387_day_clock,PASS,"{('hgb_shallow15_locked', 'industry_size_neutralized', 'industry_size_neutralized__risk_constrained', 'ml_model'): 1387, ('hgb_shallow15_locked', 'industry_size_neutralized', 'industry_size_neutralized__risk_constrained', 'style_matched_benchmark'): 1387, ('hgb_shallow15_locked', 'raw', 'raw__risk_constrained', 'ml_model'): 1387, ('hgb_shallow15_locked', 'raw', 'raw__risk_constrained', 'style_matched_benchmark'): 1387, ('ridge_locked', 'industry_size_neutralized', 'industry_size_neutralized__risk_constrained', 'ml_model'): 1387, ('ridge_locked', 'industry_size_neutralized', 'industry_size_neutralized__risk_constrained', 'style_matched_benchmark'): 1387, ('ridge_locked', 'raw', 'raw__risk_constrained', 'ml_model'): 1387, ('ridge_locked', 'raw', 'raw__risk_constrained', 'style_matched_benchmark'): 1387}"
+all_accounting_invariants_pass,PASS,{True: 8}
+share_fill_ratios_available,PASS,"[0.987309, 0.931394, 0.988337, 0.891164, 0.860965, 0.954013, 0.756205, 0.99485]"
+no_t_plus_one_violations,PASS,0
+cash_and_nav_reconcile,PASS,2.384185791015625e-07
+same_cost_and_execution_configuration,PASS,20.0

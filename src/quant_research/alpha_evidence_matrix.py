@@ -14,6 +14,7 @@ import yaml
 from quant_research.capm_attribution import newey_west_ols
 from quant_research.ingest import ROOT, Lake
 from quant_research.leave_one_factor_out import benjamini_hochberg
+from quant_research.statistical_inference import _stable_seed, bootstrap_mean_record
 
 
 CONFIG_PATH = ROOT / "config" / "alpha_evidence_matrix.yaml"
@@ -29,11 +30,13 @@ def load_config(path: Path = CONFIG_PATH) -> dict[str, Any]:
 
 def paired_execution_panel(lake: Lake, cfg: dict[str, Any]) -> pd.DataFrame:
     """Join ML/style returns, local factors, market variants and rf on one clock."""
-    daily = lake.read("incremental_alpha_daily", "v1")
+    daily = lake.read("incremental_alpha_fill_daily", "v1").copy()
+    daily["turnover"] = daily["one_way_turnover"]
+    daily["blocked_buy_weight"] = daily["blocked_buy_notional"] / daily["pretrade_nav"]
+    daily["blocked_sell_weight"] = daily["blocked_sell_notional"] / daily["pretrade_nav"]
     metrics = [
         "net_return", "transaction_cost", "turnover", "blocked_buy_weight",
         "blocked_sell_weight", "target_tracking_l1", "cash_weight",
-        "actual_names", "pending_order_names", "submitted_order_names",
     ]
     index = [*KEYS, "trade_date"]
     if daily.duplicated([*index, "portfolio_type"]).any():
@@ -153,8 +156,35 @@ def risk_adjusted_inference(
     return regressions, primary, pd.DataFrame(alignment)
 
 
+def raw_share_level_inference(
+    panel: pd.DataFrame, cfg: dict[str, Any],
+) -> pd.DataFrame:
+    selected = panel.loc[
+        panel["rate_scenario"].eq(str(cfg["primary_rate_scenario"]))
+        & panel["variant_id"].eq(str(cfg["primary_benchmark_variant"]))
+    ]
+    rows = []
+    for values, group in selected.groupby(KEYS, sort=True):
+        seed = _stable_seed(int(cfg["random_seed"]), *map(str, values), "share_fill_raw")
+        record = bootstrap_mean_record(
+            group.sort_values("trade_date")["paired_incremental_net_return"],
+            scale=float(cfg["annualization_days"]),
+            block_length=int(cfg["primary_block_length"]),
+            samples=int(cfg["bootstrap_samples"]), seed=seed,
+        )
+        rows.append({**dict(zip(KEYS, values)), **record})
+    result = pd.DataFrame(rows)
+    result["bh_fdr_adjusted_p"] = benjamini_hochberg(result["one_sided_p_value"])
+    result["survives_bh_fdr"] = (
+        result["bh_fdr_adjusted_p"].le(float(cfg["false_discovery_rate"]))
+        & result["point_estimate"].gt(0)
+    )
+    return result
+
+
 def execution_comparison(lake: Lake, cfg: dict[str, Any]) -> pd.DataFrame:
-    daily = lake.read("incremental_alpha_daily", "v1")
+    daily = lake.read("incremental_alpha_fill_daily", "v1")
+    fill_summary = lake.read("incremental_alpha_fill_summary", "v1")
     annualization = int(cfg["annualization_days"])
     rows = []
     for values, group in daily.groupby([*KEYS, "portfolio_type"], sort=True):
@@ -169,21 +199,23 @@ def execution_comparison(lake: Lake, cfg: dict[str, Any]) -> pd.DataFrame:
             "annualized_transaction_cost_arithmetic": float(
                 group["transaction_cost"].mean() * annualization
             ),
-            "mean_daily_turnover": float(group["turnover"].mean()),
-            "annualized_turnover_arithmetic": float(group["turnover"].mean() * annualization),
-            "mean_blocked_buy_weight": float(group["blocked_buy_weight"].mean()),
-            "mean_blocked_sell_weight": float(group["blocked_sell_weight"].mean()),
+            "mean_daily_turnover": float(group["one_way_turnover"].mean()),
+            "annualized_turnover_arithmetic": float(group["one_way_turnover"].mean() * annualization),
+            "mean_blocked_buy_weight": float((group["blocked_buy_notional"] / group["pretrade_nav"]).mean()),
+            "mean_blocked_sell_weight": float((group["blocked_sell_notional"] / group["pretrade_nav"]).mean()),
             "mean_target_tracking_l1": float(group["target_tracking_l1"].mean()),
             "mean_cash_weight": float(group["cash_weight"].mean()),
-            "mean_actual_names": float(group["actual_names"].mean()),
-            "mean_pending_order_names": float(group["pending_order_names"].mean()),
-            "days_with_pending_orders": int(group["pending_order_names"].gt(0).sum()),
-            "mean_submitted_order_names": float(group["submitted_order_names"].mean()),
-            "share_level_fill_ratio_available": False,
-            "share_level_fill_ratio": np.nan,
+            "mean_open_order_count": float(group["open_order_count"].mean()),
+            "days_with_open_orders": int(group["open_order_count"].gt(0).sum()),
             "fill_evidence_status": str(cfg["fill_evidence_status"]),
         })
-    return pd.DataFrame(rows)
+    result = pd.DataFrame(rows)
+    result = result.merge(fill_summary[[
+        *KEYS, "portfolio_type", "fill_ratio_by_shares", "total_orders", "total_fills",
+    ]], on=[*KEYS, "portfolio_type"], validate="one_to_one")
+    result["share_level_fill_ratio_available"] = True
+    result = result.rename(columns={"fill_ratio_by_shares": "share_level_fill_ratio"})
+    return result
 
 
 def exposure_match_summary(lake: Lake, cfg: dict[str, Any]) -> pd.DataFrame:
@@ -241,22 +273,17 @@ def _attribution_wide(
 
 
 def candidate_evidence_matrix(
-    lake: Lake, primary: pd.DataFrame, execution: pd.DataFrame,
+    lake: Lake, primary: pd.DataFrame, raw: pd.DataFrame, execution: pd.DataFrame,
     exposure: pd.DataFrame, cfg: dict[str, Any],
 ) -> pd.DataFrame:
     comparison = lake.read("incremental_alpha_comparison", "v1")
-    phase8 = lake.read("statistical_inference_fdr", "v1")
-    phase8 = phase8.loc[
-        phase8["family_id"].eq("model_incremental_alpha"),
-        ["hypothesis_id", "point_estimate", "ci_low", "ci_high",
-         "bh_fdr_adjusted_p", "survives_bh_fdr", "claim_status"],
-    ].rename(columns={
+    phase8 = raw[[*KEYS, "point_estimate", "ci_low", "ci_high",
+                  "bh_fdr_adjusted_p", "survives_bh_fdr"]].rename(columns={
         "point_estimate": "raw_incremental_return_annualized_arithmetic",
         "ci_low": "raw_incremental_return_ci_low",
         "ci_high": "raw_incremental_return_ci_high",
         "bh_fdr_adjusted_p": "raw_incremental_return_fdr_q",
         "survives_bh_fdr": "raw_incremental_return_survives_fdr",
-        "claim_status": "raw_incremental_return_claim_status",
     })
     comparison["hypothesis_id"] = (
         comparison["model"].astype(str) + "__" + comparison["alpha_pipeline"].astype(str)
@@ -265,7 +292,9 @@ def candidate_evidence_matrix(
         *KEYS, "hypothesis_id", "annualized_return_model", "annualized_return_style",
         "sharpe_zero_rate_model", "sharpe_zero_rate_style",
         "maximum_drawdown_model", "maximum_drawdown_style",
-    ]].merge(phase8, on="hypothesis_id", validate="one_to_one")
+    ]].drop(columns=["annualized_return_model", "annualized_return_style"]).merge(
+        phase8, on=KEYS, validate="one_to_one"
+    )
 
     risk = primary[[
         *KEYS, "annualized_alpha_arithmetic", "annualized_alpha_ci_low",
@@ -292,13 +321,18 @@ def candidate_evidence_matrix(
 
     execution_wide = execution.pivot(
         index=KEYS, columns="portfolio_type",
-        values=["annualized_transaction_cost_arithmetic", "mean_daily_turnover",
-                "mean_target_tracking_l1", "mean_pending_order_names"],
+        values=["annualized_return_geometric", "annualized_transaction_cost_arithmetic",
+                "mean_daily_turnover", "mean_target_tracking_l1", "mean_open_order_count",
+                "share_level_fill_ratio"],
     )
     role = {"ml_model": "model", "style_matched_benchmark": "style"}
     execution_wide.columns = [f"{role[p]}_{metric}" for metric, p in execution_wide.columns]
     execution_wide = execution_wide.reset_index()
     result = result.merge(execution_wide, on=KEYS, validate="one_to_one")
+    result = result.rename(columns={
+        "model_annualized_return_geometric": "annualized_return_model",
+        "style_annualized_return_geometric": "annualized_return_style",
+    })
     result["transaction_cost_difference_arithmetic"] = (
         result["model_annualized_transaction_cost_arithmetic"]
         - result["style_annualized_transaction_cost_arithmetic"]
@@ -307,7 +341,10 @@ def candidate_evidence_matrix(
         result["model_mean_daily_turnover"] - result["style_mean_daily_turnover"]
     )
     result = result.merge(exposure, on=KEYS, validate="one_to_one")
-    result["share_level_fill_difference_available"] = False
+    result["share_level_fill_ratio_difference"] = (
+        result["model_share_level_fill_ratio"] - result["style_share_level_fill_ratio"]
+    )
+    result["share_level_fill_difference_available"] = True
     result["style_model_status"] = str(cfg["style_model_status"])
     result["pure_stock_selection_alpha_identified"] = False
     result["evidence_verdict"] = np.where(
@@ -337,8 +374,8 @@ def definitions(cfg: dict[str, Any]) -> pd.DataFrame:
 def gap_register(cfg: dict[str, Any]) -> pd.DataFrame:
     return pd.DataFrame([
         {"priority": "P0", "gap": "share_level_fill_comparison",
-         "status": "OPEN", "impact": "realized fill-rate difference cannot be reported from incremental_alpha_v1",
-         "required_action": "replay all four ML and four style targets through the share-order ledger"},
+         "status": "CLOSED", "impact": "eight paths replayed through the common share-order ledger",
+         "required_action": "retain the frozen fill ledger and common execution protocol"},
         {"priority": "P1", "gap": "commercial_risk_model_validation",
          "status": "OPEN", "impact": "local PIT styles and broad CSRC industry are research proxies",
          "required_action": "validate exposures against a licensed point-in-time commercial model if available"},
@@ -380,8 +417,9 @@ def acceptance_checks(
          and bool(incremental_protocol["industry_matched"]), incremental_protocol.to_dict()),
         ("execution_cost_turnover_tracking_reported", len(execution) == 8
          and execution["observations"].eq(expected_days).all(), len(execution)),
-        ("missing_fill_ledger_is_explicit_not_imputed", not execution["share_level_fill_ratio_available"].any()
-         and matrix["share_level_fill_difference_available"].eq(False).all(), cfg["fill_evidence_status"]),
+        ("share_level_fill_ledger_is_complete", execution["share_level_fill_ratio_available"].all()
+         and matrix["share_level_fill_difference_available"].all()
+         and execution["share_level_fill_ratio"].between(0, 1).all(), cfg["fill_evidence_status"]),
         ("arithmetic_and_geometric_definitions_separated", cfg["return_definitions"]["portfolio_annual_return"].startswith("geometric")
          and cfg["return_definitions"]["risk_adjusted_incremental_alpha"].startswith("arithmetic"), cfg["return_definitions"]),
         ("capm_is_not_labelled_pure_alpha", matrix["pure_stock_selection_alpha_identified"].eq(False).all(), len(matrix)),
@@ -399,9 +437,10 @@ def run(lake: Lake | None = None) -> pd.DataFrame:
     cfg = load_config()
     panel = paired_execution_panel(lake, cfg)
     regressions, primary, alignment = risk_adjusted_inference(panel, cfg)
+    raw = raw_share_level_inference(panel, cfg)
     execution = execution_comparison(lake, cfg)
     exposure = exposure_match_summary(lake, cfg)
-    matrix = candidate_evidence_matrix(lake, primary, execution, exposure, cfg)
+    matrix = candidate_evidence_matrix(lake, primary, raw, execution, exposure, cfg)
     measure_definitions = definitions(cfg)
     gaps = gap_register(cfg)
     checks = acceptance_checks(
@@ -425,19 +464,19 @@ def run(lake: Lake | None = None) -> pd.DataFrame:
         "research_selection_role": cfg["research_selection_role"],
         "claims_independent_evidence": cfg["claims_independent_evidence"],
         "historical_oos_used_for_selection": cfg["historical_oos_used_for_selection"],
-        "phase_status": "PARTIAL_SHARE_LEVEL_FILL_COMPARISON_OPEN",
+        "phase_status": "COMPLETE_SHARE_LEVEL_FILL_COMPARISON",
         "primary_rate_scenario": cfg["primary_rate_scenario"],
         "primary_benchmark_variant": cfg["primary_benchmark_variant"],
         "primary_hac_lags": cfg["primary_hac_lags"],
         "style_model_status": cfg["style_model_status"],
-        "share_level_fill_difference_available": False,
+        "share_level_fill_difference_available": True,
         "pure_stock_selection_alpha_claim_allowed": False,
     }])
     failures = checks.loc[checks["status"].eq("FAIL")].copy()
     if failures.empty:
         failures = pd.DataFrame([{
             "check_name": "NO_FAILED_ASSERTIONS", "status": "PASS",
-            "observed": "all Phase 9 implemented-scope assertions passed; P0 fill gap remains open",
+            "observed": "all Phase 9 assertions passed; share-level fill comparison is complete",
         }])
     tables = {
         "alpha_evidence_protocol": protocol,
@@ -445,6 +484,7 @@ def run(lake: Lake | None = None) -> pd.DataFrame:
         "alpha_evidence_alignment": alignment,
         "alpha_evidence_risk_adjusted_regression": regressions,
         "alpha_evidence_risk_adjusted_fdr": primary,
+        "alpha_evidence_share_level_raw_fdr": raw,
         "alpha_evidence_risk_sensitivity": sensitivity,
         "alpha_evidence_execution_comparison": execution,
         "alpha_evidence_exposure_match": exposure,
@@ -455,7 +495,7 @@ def run(lake: Lake | None = None) -> pd.DataFrame:
         "alpha_evidence_failed_assertions": failures,
     }
     for table, frame in tables.items():
-        lake.write(table, frame, key="v1", source="alpha_evidence_matrix.v1", request=cfg)
+        lake.write(table, frame, key="v2", source="alpha_evidence_matrix.v2", request=cfg)
 
     TABLE_ROOT.mkdir(parents=True, exist_ok=True)
     matrix.to_csv(TABLE_ROOT / "alpha_evidence_candidate_matrix.csv", index=False)
@@ -478,12 +518,12 @@ def run(lake: Lake | None = None) -> pd.DataFrame:
         "## 候选证据矩阵", "", display.to_markdown(index=False, floatfmt=".6f"), "",
         "## 风险模型敏感性", "", sensitivity.to_markdown(index=False, floatfmt=".6f"), "",
         "## 执行与成交证据", "",
-        "ML 与风格复制组合使用同一日度权重执行器、20bp 成本、停牌/涨跌停重试和 30% 周换手目标。现有 incremental-alpha v1 没有人民币股数级 fill ledger，因此只报告成本、换手、阻塞、目标偏离、现金和 pending orders；不得把这些代理字段称为 realized fill ratio。", "",
+        "ML 与风格复制组合已全部接入同一人民币股数级订单执行器，使用1亿元账户、20bp成本、T+1、整手、10% ADV、停牌/涨跌停重试。八条路径均保存订单、成交、持仓、现金和NAV，并报告按股数成交率。", "",
         "## 暴露匹配", "", exposure.to_markdown(index=False, floatfmt=".6f"), "",
         "风格因子与证监会宽行业均为本项目本地 PIT 代理，不是商业风险模型。匹配误差已完整保留，因此风格基准是可审计研究基准，而不是对所有风险暴露的完美复制。", "",
         "## 未完成差距", "", gaps.to_markdown(index=False), "",
         "## 机器验收", "", checks.to_markdown(index=False), "",
-        "> 本阶段属于已查看 historical OOS 上的 post-hoc consolidation；最终独立证据仍需冻结方案后的 future lockbox 或 paper trading。",
+        "> Phase 9 实现范围已完成，但仍属于已查看 historical OOS 上的 post-hoc consolidation；最终独立证据仍需冻结方案后的 future lockbox 或 paper trading。",
     ]
     REPORT_PATH.write_text("\n".join(lines) + "\n", encoding="utf-8")
     print(display.to_string(index=False), flush=True)

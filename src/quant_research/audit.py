@@ -1204,22 +1204,30 @@ class ResearchAuditor:
 
     def audit_alpha_evidence_matrix(self) -> None:
         """Gate Phase-9 benchmark hierarchy and risk-adjusted incremental evidence."""
-        protocol = self.require_table("alpha_evidence_protocol", "v1")
-        aligned = self.require_table("alpha_evidence_aligned_daily", "v1")
-        alignment = self.require_table("alpha_evidence_alignment", "v1")
-        regressions = self.require_table("alpha_evidence_risk_adjusted_regression", "v1")
-        fdr = self.require_table("alpha_evidence_risk_adjusted_fdr", "v1")
-        sensitivity = self.require_table("alpha_evidence_risk_sensitivity", "v1")
-        execution = self.require_table("alpha_evidence_execution_comparison", "v1")
-        exposure = self.require_table("alpha_evidence_exposure_match", "v1")
-        matrix = self.require_table("alpha_evidence_candidate_matrix", "v1")
-        definitions = self.require_table("alpha_evidence_measure_definitions", "v1")
-        gaps = self.require_table("alpha_evidence_gap_register", "v1")
-        checks = self.require_table("alpha_evidence_checks", "v1")
-        failures = self.require_table("alpha_evidence_failed_assertions", "v1")
+        protocol = self.require_table("alpha_evidence_protocol", "v2")
+        aligned = self.require_table("alpha_evidence_aligned_daily", "v2")
+        alignment = self.require_table("alpha_evidence_alignment", "v2")
+        regressions = self.require_table("alpha_evidence_risk_adjusted_regression", "v2")
+        fdr = self.require_table("alpha_evidence_risk_adjusted_fdr", "v2")
+        sensitivity = self.require_table("alpha_evidence_risk_sensitivity", "v2")
+        execution = self.require_table("alpha_evidence_execution_comparison", "v2")
+        exposure = self.require_table("alpha_evidence_exposure_match", "v2")
+        matrix = self.require_table("alpha_evidence_candidate_matrix", "v2")
+        definitions = self.require_table("alpha_evidence_measure_definitions", "v2")
+        gaps = self.require_table("alpha_evidence_gap_register", "v2")
+        checks = self.require_table("alpha_evidence_checks", "v2")
+        failures = self.require_table("alpha_evidence_failed_assertions", "v2")
+        fill_protocol = self.require_table("incremental_alpha_fill_protocol", "v1")
+        fill_summary = self.require_table("incremental_alpha_fill_summary", "v1")
+        fill_invariants = self.require_table("incremental_alpha_fill_invariants", "v1")
+        fill_comparison = self.require_table("incremental_alpha_fill_comparison", "v1")
+        fill_checks = self.require_table("incremental_alpha_fill_checks", "v1")
+        fill_failures = self.require_table("incremental_alpha_fill_failed_assertions", "v1")
         if any(frame.empty for frame in (
             protocol, aligned, alignment, regressions, fdr, sensitivity,
             execution, exposure, matrix, definitions, gaps, checks, failures,
+            fill_protocol, fill_summary, fill_invariants, fill_comparison,
+            fill_checks, fill_failures,
         )):
             return
         row = protocol.iloc[0]
@@ -1283,18 +1291,25 @@ class ResearchAuditor:
             failures.to_dict(orient="records").__str__(),
         )
         fill_gap = gaps.loc[gaps["gap"].eq("share_level_fill_comparison")]
-        self.warn(
-            "alpha_evidence_share_level_fill_comparison_open",
-            "Phase 9 uses the same constrained weight-level execution and cost protocol, but "
-            "incremental_alpha_v1 has no share-order fill ledger. Fill-rate differences are "
-            "explicitly unavailable; Phase 9 remains partial until all eight paths are replayed.",
+        self.add(
+            "alpha_evidence_share_level_fill_comparison_complete",
+            len(fill_gap) == 1 and str(fill_gap.iloc[0]["priority"]) == "P0"
+            and str(fill_gap.iloc[0]["status"]) == "CLOSED"
+            and execution["share_level_fill_ratio_available"].astype(bool).all()
+            and len(fill_summary) == 8 and len(fill_comparison) == 4
+            and fill_summary["fill_ratio_by_shares"].between(0, 1).all(),
+            f"paths={len(fill_summary)}, ratios="
+            f"{fill_summary['fill_ratio_by_shares'].round(6).tolist()}",
         )
         self.add(
-            "alpha_evidence_fill_gap_registered",
-            len(fill_gap) == 1 and str(fill_gap.iloc[0]["priority"]) == "P0"
-            and str(fill_gap.iloc[0]["status"]) == "OPEN"
-            and not execution["share_level_fill_ratio_available"].astype(bool).any(),
-            fill_gap.to_dict(orient="records").__str__(),
+            "alpha_evidence_fill_accounting_invariants_pass",
+            len(fill_invariants) == 8
+            and fill_invariants["all_invariants_pass"].astype(bool).all()
+            and fill_invariants["t_plus_one_violation_count"].eq(0).all()
+            and fill_checks["status"].eq("PASS").all()
+            and len(fill_failures) == 1
+            and str(fill_failures.iloc[0]["check_name"]) == "NO_FAILED_ASSERTIONS",
+            f"paths={len(fill_invariants)}, checks={len(fill_checks)}",
         )
         hgb_raw = matrix.loc[
             matrix["model"].eq("hgb_shallow15_locked")

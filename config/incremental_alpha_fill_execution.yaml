@@ -1,0 +1,50 @@
+experiment_id: incremental_alpha_fill_execution_v1
+source_experiment: incremental_alpha_test_v1
+evidence_class: post_historical_oos_adaptation
+research_selection_role: post_hoc_adaptation
+claims_independent_evidence: false
+historical_oos_used_for_selection: false
+
+model_targets: {table: constrained_execution_targets, key: v1}
+style_targets: {table: incremental_alpha_style_targets, key: v1}
+base_market: {table: institutional_execution_market, key: v1}
+
+initial_cash_cny: 100000000.0
+execution_price: unadjusted_close
+marking_price: unadjusted_close
+execution_time: close
+return_timing: mark_to_market_then_close_execution
+round_trip_cost_bps: 20.0
+max_volume_participation: 0.10
+max_pending_trading_days: 5
+enforce_t_plus_one: true
+allow_margin: false
+allow_short_sales: false
+
+order_quantity_rules:
+  main_board_buy_lot: 100
+  main_board_sell_lot: 100
+  star_market_minimum_order: 200
+  star_market_increment: 1
+  odd_lot_liquidation_allowed: true
+
+corporate_action_proxy:
+  method: inferred_value_preserving_share_factor_from_vendor_pct_chg_and_raw_close
+  activation_absolute_deviation: 0.005
+  evidence_status: proxy_not_official_corporate_action_record
+
+scenario:
+  scenario: daily_close_institutional_constraints
+  enforce_trade_flags: true
+  enforce_volume_participation: true
+  enforce_order_quantity_rules: true
+  enforce_t_plus_one: true
+
+annualization_periods: 252
+expected_candidates: 4
+expected_portfolio_paths: 8
+expected_trading_days: 1387
+scope_note: >-
+  Share-order replay of the already frozen ML and local style-replica targets.
+  No signal, peer matching, model, cost or portfolio parameter is reselected.
+  Daily close fills are an auditable simulation, not broker or exchange records.

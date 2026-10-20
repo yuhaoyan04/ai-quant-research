@@ -1,0 +1,6 @@
+measure,interpretation,annualization,may_be_called_pure_stock_alpha,evidence_class
+portfolio_annual_return,absolute_portfolio_performance,geometric,False,post_historical_oos_adaptation
+raw_paired_increment,ML minus executable local style replica,arithmetic,False,post_historical_oos_adaptation
+CAPM_alpha,intercept after CSI500 market excess return,arithmetic,False,post_historical_oos_adaptation
+CSI500_plus_six_style_alpha,portfolio intercept after local market and six styles,arithmetic,False,post_historical_oos_adaptation
+risk_adjusted_paired_increment,paired ML-minus-style intercept after market and six styles,arithmetic,False,post_historical_oos_adaptation

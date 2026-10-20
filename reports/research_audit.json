@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-10-20T12:45:20.575763+00:00",
+  "generated_at_utc": "2026-10-20T13:19:32.173294+00:00",
   "checks": [
     {
       "name": "chronological_split_order",
@@ -488,6 +488,26 @@
     },
     {
       "name": "frozen_live_inputs:alpha_evidence_matrix_v1",
+      "status": "PASS",
+      "detail": "all registered inputs match their SHA-256 hashes"
+    },
+    {
+      "name": "frozen_snapshot_integrity:incremental_alpha_fill_execution_v1",
+      "status": "PASS",
+      "detail": "all frozen files match FROZEN.json"
+    },
+    {
+      "name": "frozen_live_inputs:incremental_alpha_fill_execution_v1",
+      "status": "PASS",
+      "detail": "all registered inputs match their SHA-256 hashes"
+    },
+    {
+      "name": "frozen_snapshot_integrity:alpha_evidence_matrix_v2",
+      "status": "PASS",
+      "detail": "all frozen files match FROZEN.json"
+    },
+    {
+      "name": "frozen_live_inputs:alpha_evidence_matrix_v2",
       "status": "PASS",
       "detail": "all registered inputs match their SHA-256 hashes"
     },
@@ -1782,74 +1802,104 @@
       "detail": "comparisons=4, metrics=6"
     },
     {
-      "name": "artifact:alpha_evidence_protocol/v1",
+      "name": "artifact:alpha_evidence_protocol/v2",
       "status": "PASS",
       "detail": "rows=1"
     },
     {
-      "name": "artifact:alpha_evidence_aligned_daily/v1",
+      "name": "artifact:alpha_evidence_aligned_daily/v2",
       "status": "PASS",
       "detail": "rows=33,288"
     },
     {
-      "name": "artifact:alpha_evidence_alignment/v1",
+      "name": "artifact:alpha_evidence_alignment/v2",
       "status": "PASS",
       "detail": "rows=24"
     },
     {
-      "name": "artifact:alpha_evidence_risk_adjusted_regression/v1",
+      "name": "artifact:alpha_evidence_risk_adjusted_regression/v2",
       "status": "PASS",
       "detail": "rows=96"
     },
     {
-      "name": "artifact:alpha_evidence_risk_adjusted_fdr/v1",
+      "name": "artifact:alpha_evidence_risk_adjusted_fdr/v2",
       "status": "PASS",
       "detail": "rows=4"
     },
     {
-      "name": "artifact:alpha_evidence_risk_sensitivity/v1",
+      "name": "artifact:alpha_evidence_risk_sensitivity/v2",
       "status": "PASS",
       "detail": "rows=4"
     },
     {
-      "name": "artifact:alpha_evidence_execution_comparison/v1",
+      "name": "artifact:alpha_evidence_execution_comparison/v2",
       "status": "PASS",
       "detail": "rows=8"
     },
     {
-      "name": "artifact:alpha_evidence_exposure_match/v1",
+      "name": "artifact:alpha_evidence_exposure_match/v2",
       "status": "PASS",
       "detail": "rows=4"
     },
     {
-      "name": "artifact:alpha_evidence_candidate_matrix/v1",
+      "name": "artifact:alpha_evidence_candidate_matrix/v2",
       "status": "PASS",
       "detail": "rows=4"
     },
     {
-      "name": "artifact:alpha_evidence_measure_definitions/v1",
+      "name": "artifact:alpha_evidence_measure_definitions/v2",
       "status": "PASS",
       "detail": "rows=5"
     },
     {
-      "name": "artifact:alpha_evidence_gap_register/v1",
+      "name": "artifact:alpha_evidence_gap_register/v2",
       "status": "PASS",
       "detail": "rows=4"
     },
     {
-      "name": "artifact:alpha_evidence_checks/v1",
+      "name": "artifact:alpha_evidence_checks/v2",
       "status": "PASS",
       "detail": "rows=12"
     },
     {
-      "name": "artifact:alpha_evidence_failed_assertions/v1",
+      "name": "artifact:alpha_evidence_failed_assertions/v2",
+      "status": "PASS",
+      "detail": "rows=1"
+    },
+    {
+      "name": "artifact:incremental_alpha_fill_protocol/v1",
+      "status": "PASS",
+      "detail": "rows=1"
+    },
+    {
+      "name": "artifact:incremental_alpha_fill_summary/v1",
+      "status": "PASS",
+      "detail": "rows=8"
+    },
+    {
+      "name": "artifact:incremental_alpha_fill_invariants/v1",
+      "status": "PASS",
+      "detail": "rows=8"
+    },
+    {
+      "name": "artifact:incremental_alpha_fill_comparison/v1",
+      "status": "PASS",
+      "detail": "rows=4"
+    },
+    {
+      "name": "artifact:incremental_alpha_fill_checks/v1",
+      "status": "PASS",
+      "detail": "rows=10"
+    },
+    {
+      "name": "artifact:incremental_alpha_fill_failed_assertions/v1",
       "status": "PASS",
       "detail": "rows=1"
     },
     {
       "name": "alpha_evidence_protocol_discloses_nonindependent_history",
       "status": "PASS",
-      "detail": "phase_status=PARTIAL_SHARE_LEVEL_FILL_COMPARISON_OPEN"
+      "detail": "phase_status=COMPLETE_SHARE_LEVEL_FILL_COMPARISON"
     },
     {
       "name": "alpha_evidence_all_implemented_scope_checks_pass",
@@ -1869,7 +1919,7 @@
     {
       "name": "alpha_evidence_four_candidate_fdr_family",
       "status": "PASS",
-      "detail": "survivors=0, q=[0.598883, 0.598883, 0.598883, 0.598883]"
+      "detail": "survivors=0, q=[0.597059, 0.597059, 0.597059, 0.597059]"
     },
     {
       "name": "alpha_evidence_does_not_call_capm_pure_alpha",
@@ -1884,17 +1934,17 @@
     {
       "name": "alpha_evidence_assertion_log_clean",
       "status": "PASS",
-      "detail": "[{'check_name': 'NO_FAILED_ASSERTIONS', 'status': 'PASS', 'observed': 'all Phase 9 implemented-scope assertions passed; P0 fill gap remains open'}]"
+      "detail": "[{'check_name': 'NO_FAILED_ASSERTIONS', 'status': 'PASS', 'observed': 'all Phase 9 assertions passed; share-level fill comparison is complete'}]"
     },
     {
-      "name": "alpha_evidence_share_level_fill_comparison_open",
-      "status": "WARN",
-      "detail": "Phase 9 uses the same constrained weight-level execution and cost protocol, but incremental_alpha_v1 has no share-order fill ledger. Fill-rate differences are explicitly unavailable; Phase 9 remains partial until all eight paths are replayed."
-    },
-    {
-      "name": "alpha_evidence_fill_gap_registered",
+      "name": "alpha_evidence_share_level_fill_comparison_complete",
       "status": "PASS",
-      "detail": "[{'priority': 'P0', 'gap': 'share_level_fill_comparison', 'status': 'OPEN', 'impact': 'realized fill-rate difference cannot be reported from incremental_alpha_v1', 'required_action': 'replay all four ML and four style targets through the share-order ledger'}]"
+      "detail": "paths=8, ratios=[0.987309, 0.931394, 0.988337, 0.891164, 0.860965, 0.954013, 0.756205, 0.99485]"
+    },
+    {
+      "name": "alpha_evidence_fill_accounting_invariants_pass",
+      "status": "PASS",
+      "detail": "paths=8, checks=10"
     },
     {
       "name": "artifact:risk_model_protocol/v1",
@@ -2508,7 +2558,7 @@
     }
   ],
   "findings": {
-    "registered_frozen_experiments": 48,
+    "registered_frozen_experiments": 50,
     "invalidated_experiments": 23,
     "common_oos_weeks": 291,
     "ridge_annualized_return_20bp": 0.2005894880405501,
@@ -2574,11 +2624,11 @@
     "hgb_neutral_incremental_return_ci_low": 0.0024438912915467014,
     "hgb_neutral_incremental_return_ci_high": 0.07164682883394921,
     "ridge_raw_turnover_value_survives_multiplicity": true,
-    "alpha_evidence_phase_status": "PARTIAL_SHARE_LEVEL_FILL_COMPARISON_OPEN",
+    "alpha_evidence_phase_status": "COMPLETE_SHARE_LEVEL_FILL_COMPARISON",
     "alpha_evidence_regression_specifications": 96,
     "alpha_evidence_risk_adjusted_fdr_survivors": 0,
-    "hgb_raw_risk_adjusted_incremental_alpha": 0.002321097434078179,
-    "hgb_neutral_risk_adjusted_incremental_alpha": 0.012205542552745004,
+    "hgb_raw_risk_adjusted_incremental_alpha": 0.0016893221338765405,
+    "hgb_neutral_risk_adjusted_incremental_alpha": 0.01220379692104986,
     "pit_beta_minimum_coverage": 0.914180582483791,
     "hgb_raw_annualized_style_contribution_arithmetic": 0.13613172549903055,
     "hgb_raw_annualized_specific_selection_contribution_arithmetic": -0.004344077537185444,
