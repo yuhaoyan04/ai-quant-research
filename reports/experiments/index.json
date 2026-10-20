@@ -1,5 +1,14 @@
 [
   {
+    "experiment_id": "alpha_evidence_matrix_v1",
+    "title": "Phase 9 unified market, style and tradable incremental-alpha evidence",
+    "stage": "risk_benchmark_and_incremental_alpha_hierarchy",
+    "model_version": "csi500_total_return_six_style_paired_increment_v1",
+    "registered_at_utc": "2026-10-20T12:44:18.633760+00:00",
+    "dataset_version": "6cc292086fa5e0fae9bb58195c480da1e8307547e43dabd4da9577c4d6835890",
+    "immutable": true
+  },
+  {
     "experiment_id": "baseline_ridge_v1",
     "title": "Frozen Ridge factor-model baseline",
     "stage": "model_and_portfolio_baseline",

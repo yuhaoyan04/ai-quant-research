@@ -148,8 +148,9 @@ powershell -ExecutionPolicy Bypass -File scripts/rebuild_all.ps1 -SkipDownload -
 10. 同一 HGB 信号下的 P0/P1/P2/P4 权重比较、账户执行与 2500 万/1 亿/5 亿容量重跑；
 11. 冻结主账户的目标/实际权重、现金、订单、成交、公司行动与 NAV 统一账本及独立回放；
 12. 四个独立检验族的 HAC、多块长 bootstrap、BH-FDR 与完整 trial registry；
-13. 结论证据矩阵、研究生命周期审计；
-14. 离线 dashboard、publication audit 与最终 PDF。
+13. 市场/CAPM/六风格/可交易风格基准的统一 Alpha 证据矩阵与风险模型敏感性；
+14. 结论证据矩阵、研究生命周期审计；
+15. 离线 dashboard、publication audit 与最终 PDF。
 
 如果需要手工定位失败步骤，可打开 [rebuild_all.ps1](../scripts/rebuild_all.ps1) 查看完全展开、
 可逐条复制的命令序列。脚本默认不删除、不覆盖 `data/`；多数上游阶段通过 `--missing` 或文件
@@ -165,7 +166,7 @@ powershell -ExecutionPolicy Bypass -File scripts/rebuild_all.ps1 -SkipDownload -
 | `data/lake/curated/` 其他表 | 质量表、因子、标签、模型特征、预测、持仓、成交 | 否 |
 | `data/lake/manifests/` | 请求、schema、行数、内容哈希 | 否 |
 | `config/` | 数据、因子、模型、组合和实验配置 | 是 |
-| `reports/experiments/` | 47 个不可变实验版本与输入哈希 | 是 |
+| `reports/experiments/` | 48 个不可变实验版本与输入哈希 | 是 |
 | `reports/tables/`、`reports/figures/` | 求职展示所需结果 | 是 |
 | `reports/research_dashboard.html` | 离线交互面板 | 是 |
 
@@ -180,7 +181,7 @@ quant-audit
 quant-research-dashboard
 ```
 
-当前验收记录为 196 tests passed；研究审计为 430 PASS / 46 WARN / 0 FAIL（WARN 保留历史版本漂移与已知边界）。新下载数据应至少
+当前验收记录为 198 tests passed；研究审计为 454 PASS / 47 WARN / 0 FAIL（WARN 保留历史版本漂移与已知边界）。新下载数据应至少
 满足：测试通过、schema/唯一键/日期门禁无 FAIL、模型比较使用共同日期、持仓权重和收益恒等式
 通过。
 
@@ -197,6 +198,8 @@ quant-research-dashboard
 `quant-unified-account-ledger run` 不重跑信号或策略，只读 Phase 5 的冻结主账户输出，生成目标/实际权重、现金、订单、成交、公司行动与 NAV 的统一账本并执行独立对账。它要求上游 institutional execution 表已经存在；任何硬对账失败都会以非零状态退出。
 
 `quant-statistical-inference run` 从已冻结的因子、增量 Alpha 和 Phase 6 日收益读取原序列，生成 HAC、多块长 circular bootstrap、族内 BH-FDR 和 trial registry。该命令不重新选择任何模型或块长；结果属于 post-historical-OOS adaptation。
+
+`quant-alpha-evidence run` 将无风险利率、CSI500 官方价格/全收益指数、本地六风格、ML/风格复制组合和 Phase 8 配对推断统一到 1,387 日证据矩阵。它固定全收益指数、3 个月国债和 HAC(5) 为主规格，保存 96 个风险模型敏感性回归，并把缺少股数级 fill ledger 登记为 P0，而不是估算成交率。
 
 ## 8. 常见故障
 

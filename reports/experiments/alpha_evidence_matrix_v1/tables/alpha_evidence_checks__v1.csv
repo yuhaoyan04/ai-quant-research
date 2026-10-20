@@ -1,0 +1,13 @@
+check_name,status,observed
+paired_clocks_are_complete,PASS,24
+rf_market_style_frequency_and_dates_unified,PASS,"(33288, 38)"
+price_and_total_return_benchmarks_both_retained,PASS,"['price_return', 'total_return']"
+risk_model_sensitivity_complete,PASS,96
+primary_specification_is_unique,PASS,4
+multiple_testing_is_within_four_candidate_family,PASS,"[{'model': 'hgb_shallow15_locked', 'alpha_pipeline': 'industry_size_neutralized', 'bh_fdr_adjusted_p': 0.5988826721698468}, {'model': 'hgb_shallow15_locked', 'alpha_pipeline': 'raw', 'bh_fdr_adjusted_p': 0.5988826721698468}, {'model': 'ridge_locked', 'alpha_pipeline': 'industry_size_neutralized', 'bh_fdr_adjusted_p': 0.5988826721698468}, {'model': 'ridge_locked', 'alpha_pipeline': 'raw', 'bh_fdr_adjusted_p': 0.5988826721698468}]"
+same_execution_and_cost_protocol,PASS,"{'experiment_id': 'incremental_alpha_test_v1', 'historical_oos_used_for_selection': False, 'source_experiment': 'constrained_portfolio_daily_execution_v1', 'pit_style_exposures_only': True, 'same_daily_execution_and_cost': True, 'industry_matched': True, 'weekly_turnover_limit': 0.3, 'volatility_matching_is_ex_post_diagnostic': True}"
+execution_cost_turnover_tracking_reported,PASS,8
+missing_fill_ledger_is_explicit_not_imputed,PASS,unavailable_incremental_alpha_v1_has_no_share_level_fill_ledger
+arithmetic_and_geometric_definitions_separated,PASS,"{'portfolio_annual_return': 'geometric_compound_return_annualized', 'raw_incremental_return': 'arithmetic_mean_of_paired_daily_net_return_difference_times_252', 'capm_alpha': 'arithmetic_daily_intercept_times_252', 'six_style_alpha': 'arithmetic_daily_intercept_times_252', 'risk_adjusted_incremental_alpha': 'arithmetic intercept from paired ML-minus-style-benchmark daily net return regressed on CSI500 excess return and six local PIT self-financing style factors, times 252'}"
+capm_is_not_labelled_pure_alpha,PASS,4
+local_style_proxy_is_disclosed,PASS,local_research_proxy_not_commercial_risk_model

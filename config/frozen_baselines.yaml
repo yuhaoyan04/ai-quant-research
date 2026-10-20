@@ -1652,3 +1652,46 @@ experiments:
       - {table: statistical_inference_checks, key: v1}
       - {table: statistical_inference_failed_assertions, key: v1}
     figures: []
+
+  alpha_evidence_matrix_v1:
+    title: Phase 9 unified market, style and tradable incremental-alpha evidence
+    stage: risk_benchmark_and_incremental_alpha_hierarchy
+    model_version: csi500_total_return_six_style_paired_increment_v1
+    dataset_version_method: sha256_of_registered_inputs_and_ingestion_manifest
+    historical_oos_used_for_selection: false
+    evidence_class: post_historical_oos_adaptation
+    research_selection_role: post_hoc_adaptation
+    claims_independent_evidence: false
+    config_files:
+      - alpha_evidence_matrix.yaml
+      - market_benchmark_attribution.yaml
+      - risk_free_rate_attribution.yaml
+      - incremental_alpha_test.yaml
+      - statistical_inference.yaml
+      - research_governance.yaml
+    input_tables:
+      - {table: risk_free_rate_daily, key: v1}
+      - {table: market_benchmark_daily, key: v1}
+      - {table: market_benchmark_capm_summary, key: v1}
+      - {table: market_benchmark_style_summary, key: v1}
+      - {table: style_factor_daily_returns, key: v1}
+      - {table: incremental_alpha_protocol, key: v1}
+      - {table: incremental_alpha_daily, key: v1}
+      - {table: incremental_alpha_comparison, key: v1}
+      - {table: incremental_alpha_exposure_audit, key: v1}
+      - {table: statistical_inference_fdr, key: v1}
+    metric_tables:
+      - {table: alpha_evidence_protocol, key: v1}
+      - {table: alpha_evidence_aligned_daily, key: v1}
+      - {table: alpha_evidence_alignment, key: v1}
+      - {table: alpha_evidence_risk_adjusted_regression, key: v1}
+      - {table: alpha_evidence_risk_adjusted_fdr, key: v1}
+      - {table: alpha_evidence_risk_sensitivity, key: v1}
+      - {table: alpha_evidence_execution_comparison, key: v1}
+      - {table: alpha_evidence_exposure_match, key: v1}
+      - {table: alpha_evidence_candidate_matrix, key: v1}
+      - {table: alpha_evidence_measure_definitions, key: v1}
+      - {table: alpha_evidence_gap_register, key: v1}
+      - {table: alpha_evidence_checks, key: v1}
+      - {table: alpha_evidence_failed_assertions, key: v1}
+    figures: []

@@ -1,0 +1,24 @@
+{
+  "experiment_id": "alpha_evidence_matrix_v1",
+  "frozen_at_utc": "2026-10-20T12:44:18.633760+00:00",
+  "content_sha256": "a8cf8881c82a75f9f98feea8626987ba3c4fb06646869adeb0e8cbe233f515d5",
+  "files": {
+    "config.yaml": "92d80cd55735f6c32cd72acdd5bec4214fd8f3c3ce50348b2266fcde52edd4ab",
+    "metadata.json": "ff5cf018bc534ffe22fb2b964f4eefa081462b34bbd72c0cc45cf8424cddd743",
+    "metrics.json": "4c231970c9b0bb44fe297b2c2504321992f2c8c0e72205799df8f5a9c0cae444",
+    "notes.md": "63630e6add82640b58f04606eadf8fb54312410cbdb2bcf78a5ae4ab24fcddd0",
+    "tables/alpha_evidence_aligned_daily__v1.csv": "18413ac6321fd9a1879a90730e4139b15911923fa6e0f9f74138630b20fe68ed",
+    "tables/alpha_evidence_alignment__v1.csv": "eb2f2980b94d4bef9ff453282636a3776a40a748fe3b799c9ca7d321b3947983",
+    "tables/alpha_evidence_candidate_matrix__v1.csv": "e8ba28d9b7107d0dcac306761b2b6d1320931b7dc1c69d5cec08a7da62e83041",
+    "tables/alpha_evidence_checks__v1.csv": "16bc38d15f46fab821d0ccf848050aeded771bce2e343889528771ea9bc2c84e",
+    "tables/alpha_evidence_execution_comparison__v1.csv": "33a0cfe34423e4774f81c8f78372ec64214c26bf650196925c583ce8ab4817fd",
+    "tables/alpha_evidence_exposure_match__v1.csv": "cf9e1062c10a2c5a493d237427ec40abf864c026bddebccab5198dbda146b2f9",
+    "tables/alpha_evidence_failed_assertions__v1.csv": "77cd3f99761b5183bd3ee21948a16182b711bc9da087f1be9979afa1a2448913",
+    "tables/alpha_evidence_gap_register__v1.csv": "f01b7009f25b42ac63b5bdb01a1e1de3cbb7b6b39e31c06be532695659ab6f5f",
+    "tables/alpha_evidence_measure_definitions__v1.csv": "9d9dec156150403b11cfd6454eaaa9f9c0ed8bf469ef2455616da1e83a3b9a76",
+    "tables/alpha_evidence_protocol__v1.csv": "35e0e811b5a23e0692b4c2b61f11a2cdc1288eece0716860403f0c5d8414792a",
+    "tables/alpha_evidence_risk_adjusted_fdr__v1.csv": "16842e04cbe97fd77b0478dedf07aa639c5f11aaaa77bc96e76e85e6c83111c3",
+    "tables/alpha_evidence_risk_adjusted_regression__v1.csv": "935c380672ef6310d66bfb1cc5d4da54c62c1a290d10c79d30a3af91bc0d4d1c",
+    "tables/alpha_evidence_risk_sensitivity__v1.csv": "5ef84d897b49b885795b7cadfaf8afcb650ddc237fc7ac8a46ce245404868dac"
+  }
+}

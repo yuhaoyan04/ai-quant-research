@@ -1202,6 +1202,122 @@ class ResearchAuditor:
             "hgb_raw_incremental_return_fdr_q": float(primary.iloc[0]["bh_fdr_adjusted_p"]),
         })
 
+    def audit_alpha_evidence_matrix(self) -> None:
+        """Gate Phase-9 benchmark hierarchy and risk-adjusted incremental evidence."""
+        protocol = self.require_table("alpha_evidence_protocol", "v1")
+        aligned = self.require_table("alpha_evidence_aligned_daily", "v1")
+        alignment = self.require_table("alpha_evidence_alignment", "v1")
+        regressions = self.require_table("alpha_evidence_risk_adjusted_regression", "v1")
+        fdr = self.require_table("alpha_evidence_risk_adjusted_fdr", "v1")
+        sensitivity = self.require_table("alpha_evidence_risk_sensitivity", "v1")
+        execution = self.require_table("alpha_evidence_execution_comparison", "v1")
+        exposure = self.require_table("alpha_evidence_exposure_match", "v1")
+        matrix = self.require_table("alpha_evidence_candidate_matrix", "v1")
+        definitions = self.require_table("alpha_evidence_measure_definitions", "v1")
+        gaps = self.require_table("alpha_evidence_gap_register", "v1")
+        checks = self.require_table("alpha_evidence_checks", "v1")
+        failures = self.require_table("alpha_evidence_failed_assertions", "v1")
+        if any(frame.empty for frame in (
+            protocol, aligned, alignment, regressions, fdr, sensitivity,
+            execution, exposure, matrix, definitions, gaps, checks, failures,
+        )):
+            return
+        row = protocol.iloc[0]
+        self.add(
+            "alpha_evidence_protocol_discloses_nonindependent_history",
+            str(row["evidence_class"]) == "post_historical_oos_adaptation"
+            and str(row["research_selection_role"]) == "post_hoc_adaptation"
+            and not bool(row["claims_independent_evidence"])
+            and not bool(row["historical_oos_used_for_selection"]),
+            f"phase_status={row['phase_status']}",
+        )
+        self.add(
+            "alpha_evidence_all_implemented_scope_checks_pass",
+            len(checks) == 12 and checks["status"].eq("PASS").all(),
+            f"checks={len(checks)}, failures={int(checks['status'].eq('FAIL').sum())}",
+        )
+        self.add(
+            "alpha_evidence_common_clock_complete",
+            len(alignment) == 24
+            and alignment["complete_observations"].eq(1387).all()
+            and alignment["missing_observations"].eq(0).all()
+            and alignment["duplicate_dates"].eq(0).all()
+            and aligned["trade_date"].nunique() == 1387,
+            f"alignment_rows={len(alignment)}, aligned_rows={len(aligned)}",
+        )
+        self.add(
+            "alpha_evidence_risk_model_sensitivity_complete",
+            len(regressions) == 96 and len(sensitivity) == 4
+            and set(regressions["newey_west_lags"].astype(int)) == {5, 10, 20, 40}
+            and set(regressions["return_type"]) == {"price_return", "total_return"}
+            and regressions["rate_scenario"].nunique() == 3,
+            f"regressions={len(regressions)}, rf={regressions['rate_scenario'].nunique()}, "
+            f"return_types={sorted(regressions['return_type'].unique())}",
+        )
+        self.add(
+            "alpha_evidence_four_candidate_fdr_family",
+            len(fdr) == 4 and fdr["bh_fdr_adjusted_p"].between(0, 1).all()
+            and not fdr["survives_bh_fdr"].astype(bool).any(),
+            f"survivors={int(fdr['survives_bh_fdr'].astype(bool).sum())}, "
+            f"q={fdr['bh_fdr_adjusted_p'].round(6).tolist()}",
+        )
+        self.add(
+            "alpha_evidence_does_not_call_capm_pure_alpha",
+            len(matrix) == 4
+            and not matrix["pure_stock_selection_alpha_identified"].astype(bool).any()
+            and not definitions["may_be_called_pure_stock_alpha"].astype(bool).any(),
+            matrix[["model", "alpha_pipeline", "evidence_verdict"]]
+            .to_dict(orient="records").__str__(),
+        )
+        self.add(
+            "alpha_evidence_local_proxy_and_exposure_error_disclosed",
+            len(exposure) == 4 and matrix["style_model_status"].eq(
+                "local_research_proxy_not_commercial_risk_model"
+            ).all(),
+            f"exposure_rows={len(exposure)}",
+        )
+        self.add(
+            "alpha_evidence_assertion_log_clean",
+            len(failures) == 1
+            and str(failures.iloc[0]["check_name"]) == "NO_FAILED_ASSERTIONS",
+            failures.to_dict(orient="records").__str__(),
+        )
+        fill_gap = gaps.loc[gaps["gap"].eq("share_level_fill_comparison")]
+        self.warn(
+            "alpha_evidence_share_level_fill_comparison_open",
+            "Phase 9 uses the same constrained weight-level execution and cost protocol, but "
+            "incremental_alpha_v1 has no share-order fill ledger. Fill-rate differences are "
+            "explicitly unavailable; Phase 9 remains partial until all eight paths are replayed.",
+        )
+        self.add(
+            "alpha_evidence_fill_gap_registered",
+            len(fill_gap) == 1 and str(fill_gap.iloc[0]["priority"]) == "P0"
+            and str(fill_gap.iloc[0]["status"]) == "OPEN"
+            and not execution["share_level_fill_ratio_available"].astype(bool).any(),
+            fill_gap.to_dict(orient="records").__str__(),
+        )
+        hgb_raw = matrix.loc[
+            matrix["model"].eq("hgb_shallow15_locked")
+            & matrix["alpha_pipeline"].eq("raw")
+        ].iloc[0]
+        hgb_neutral = matrix.loc[
+            matrix["model"].eq("hgb_shallow15_locked")
+            & matrix["alpha_pipeline"].eq("industry_size_neutralized")
+        ].iloc[0]
+        self.findings.update({
+            "alpha_evidence_phase_status": str(row["phase_status"]),
+            "alpha_evidence_regression_specifications": len(regressions),
+            "alpha_evidence_risk_adjusted_fdr_survivors": int(
+                fdr["survives_bh_fdr"].astype(bool).sum()
+            ),
+            "hgb_raw_risk_adjusted_incremental_alpha": float(
+                hgb_raw["risk_adjusted_incremental_alpha_arithmetic"]
+            ),
+            "hgb_neutral_risk_adjusted_incremental_alpha": float(
+                hgb_neutral["risk_adjusted_incremental_alpha_arithmetic"]
+            ),
+        })
+
     def audit_incremental_alpha_test(self) -> None:
         """Gate the characteristic-matched executable incremental-alpha test."""
         protocol = self.require_table("incremental_alpha_protocol", "v1")
@@ -2138,6 +2254,7 @@ class ResearchAuditor:
         self.audit_unified_account_ledger()
         self.audit_statistical_inference()
         self.audit_incremental_alpha_test()
+        self.audit_alpha_evidence_matrix()
         self.audit_multi_factor_risk_attribution()
         self.audit_risk_aware_portfolio_optimization()
         self.audit_weekly_identity(

@@ -88,6 +88,7 @@ quant-institutional-execution = "quant_research.institutional_execution:main"
 quant-portfolio-construction-comparison = "quant_research.portfolio_construction_comparison:main"
 quant-unified-account-ledger = "quant_research.unified_account_ledger:main"
 quant-statistical-inference = "quant_research.statistical_inference:main"
+quant-alpha-evidence = "quant_research.alpha_evidence_matrix:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]

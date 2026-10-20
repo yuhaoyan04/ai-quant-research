@@ -1,0 +1,44 @@
+experiment_id: alpha_evidence_matrix_v1
+source_experiments:
+  - risk_free_rate_attribution_v1
+  - market_benchmark_attribution_v1
+  - incremental_alpha_test_v1
+  - statistical_inference_protocol_v1
+evidence_class: post_historical_oos_adaptation
+research_selection_role: post_hoc_adaptation
+claims_independent_evidence: false
+historical_oos_used_for_selection: false
+
+primary_execution_scenario: daily_retry_limit_and_suspension_constrained
+primary_rate_scenario: R1_ccdc_cgb_3m
+primary_benchmark: CSI500
+primary_benchmark_variant: official_csindex_total_return
+comparison_benchmark_variants:
+  - official_csindex_price
+  - official_csindex_total_return
+styles: [size, beta, volatility, liquidity, value, momentum]
+annualization_days: 252
+confidence_level: 0.95
+false_discovery_rate: 0.05
+hac_lags: [5, 10, 20, 40]
+primary_hac_lags: 5
+expected_trading_days: 1387
+
+return_definitions:
+  portfolio_annual_return: geometric_compound_return_annualized
+  raw_incremental_return: arithmetic_mean_of_paired_daily_net_return_difference_times_252
+  capm_alpha: arithmetic_daily_intercept_times_252
+  six_style_alpha: arithmetic_daily_intercept_times_252
+  risk_adjusted_incremental_alpha: >-
+    arithmetic intercept from paired ML-minus-style-benchmark daily net return
+    regressed on CSI500 excess return and six local PIT self-financing style factors,
+    times 252
+
+fill_evidence_status: unavailable_incremental_alpha_v1_has_no_share_level_fill_ledger
+style_model_status: local_research_proxy_not_commercial_risk_model
+scope_note: >-
+  Phase 9 consolidates already inspected 2021-2026 historical-OOS evidence. It
+  does not select a model, benchmark, risk-free tenor, HAC lag or portfolio.
+  The total-return CSI500, 3M CCDC government-bond rate and HAC(5) specification
+  are declared primary before this consolidation run. Price index, alternative
+  risk-free rates and HAC lags are retained as sensitivity settings.
