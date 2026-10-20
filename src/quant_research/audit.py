@@ -1694,6 +1694,81 @@ class ResearchAuditor:
             "ready_for_live_capital": False,
         })
 
+    def audit_research_governance(self) -> None:
+        """Gate evidence classification, candidate freeze, and lockbox consumption state."""
+        protocol = self.require_table("research_governance_protocol", "v1")
+        evidence = self.require_table("research_evidence_registry", "v1")
+        freeze = self.require_table("research_candidate_freeze", "v1")
+        lockbox = self.require_table("research_lockbox_registry", "v1")
+        paper = self.require_table("research_paper_trading_registry", "v1")
+        hypotheses = self.require_table("research_hypothesis_registry", "v1")
+        checks = self.require_table("research_governance_checks", "v1")
+        access = self.require_table("research_access_log_snapshot", "v1")
+        if any(frame.empty for frame in (
+            protocol, evidence, freeze, lockbox, paper, hypotheses, checks, access
+        )):
+            return
+        roles = set(evidence["evidence_class"].astype(str))
+        self.add(
+            "evidence_classes_complete",
+            {"training", "validation_selection", "historical_oos",
+             "future_lockbox", "paper_trading"}.issubset(roles),
+            f"classes={sorted(roles)}",
+        )
+        historical = evidence.loc[evidence["evidence_class"].eq("historical_oos")].iloc[0]
+        self.add(
+            "historical_oos_consumed_and_not_selectable",
+            bool(historical["consumed_at_freeze"]) and not bool(historical["selection_allowed"]),
+            f"consumed={historical['consumed_at_freeze']}, "
+            f"selection_allowed={historical['selection_allowed']}",
+        )
+        current_lockbox = lockbox.iloc[0]
+        self.add(
+            "future_lockbox_is_sealed_and_unconsumed",
+            current_lockbox["state"] in {"SEALED_EMPTY", "COLLECTING", "READY_SEALED"}
+            and not bool(current_lockbox["consumed"]),
+            f"state={current_lockbox['state']}, consumed={current_lockbox['consumed']}",
+        )
+        current_paper = paper.iloc[0]
+        self.add(
+            "paper_tracking_is_forward_only",
+            not bool(current_paper["retroactive_backfill_allowed"]),
+            f"state={current_paper['state']}, observations={current_paper['recorded_observations']}",
+        )
+        self.add(
+            "candidate_freeze_is_commit_anchored",
+            freeze["freeze_commit"].astype(str).str.len().eq(40).all()
+            and freeze["working_tree_dirty_at_freeze"].eq(False).all(),
+            f"commit={freeze.iloc[0]['freeze_commit']}, "
+            f"dirty={freeze.iloc[0]['working_tree_dirty_at_freeze']}",
+        )
+        self.add(
+            "governance_checks_all_pass",
+            checks["status"].eq("PASS").all(),
+            f"checks={len(checks)}, failures={int(checks['status'].ne('PASS').sum())}",
+        )
+        self.add(
+            "future_hypothesis_family_frozen",
+            len(hypotheses) == 4
+            and hypotheses["frozen_before_future_data"].astype(bool).all()
+            and hypotheses["multiplicity_control"].eq("benjamini_hochberg").all(),
+            f"hypotheses={len(hypotheses)}",
+        )
+        from quant_research.research_governance import load_config, verify_access_log
+        governance_cfg = load_config()
+        live_events = verify_access_log(ROOT / governance_cfg["access_log"]["path"])
+        self.add(
+            "access_log_hash_chain_matches_snapshot",
+            len(live_events) == len(access)
+            and live_events[-1]["event_hash"] == access.iloc[-1]["event_hash"],
+            f"live_events={len(live_events)}, snapshot_events={len(access)}",
+        )
+        self.findings.update({
+            "future_lockbox_state": str(current_lockbox["state"]),
+            "future_lockbox_consumed": bool(current_lockbox["consumed"]),
+            "paper_trading_state": str(current_paper["state"]),
+        })
+
     def run(self) -> tuple[list[AuditCheck], dict]:
         self.audit_configs()
         self.audit_frozen_experiments()
@@ -1772,6 +1847,7 @@ class ResearchAuditor:
         self.audit_rf_daily_retry_execution()
         self.audit_final_research_extensions()
         self.audit_research_conclusions()
+        self.audit_research_governance()
         self.warn(
             "known_scope_limitations",
             "Industry neutralization uses monthly-sampled historical CSRC broad sections rather "

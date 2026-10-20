@@ -1,7 +1,7 @@
 import pandas as pd
 import pytest
 
-from quant_research.daily_execution import simulate_daily_retry
+from quant_research.daily_execution import simulate_daily_retry, simulate_daily_retry_with_fills
 
 
 def market(rows: list[tuple]) -> pd.DataFrame:
@@ -78,3 +78,31 @@ def test_natural_price_drift_does_not_trigger_daily_rebalancing() -> None:
     result = simulate_daily_retry(data, targets, 0)
     assert result["net_return"].tolist() == pytest.approx([0.0, 0.05, 0.0])
     assert result["turnover"].tolist() == pytest.approx([1.0, 0.0, 0.0])
+
+
+def test_fill_ledger_and_standard_turnover_fields_reconcile() -> None:
+    data = market([
+        ("2024-01-02", "A", 0.00, True, True),
+        ("2024-01-02", "B", 0.00, True, True),
+        ("2024-01-03", "A", 0.00, True, True),
+        ("2024-01-03", "B", 0.00, True, True),
+    ])
+    targets = pd.DataFrame([
+        {"execution_date": "2024-01-02", "instrument_id": "A", "target_weight": 0.6},
+        {"execution_date": "2024-01-02", "instrument_id": "B", "target_weight": 0.4},
+    ])
+
+    daily, fills = simulate_daily_retry_with_fills(data, targets, 20)
+
+    first = daily.iloc[0]
+    assert first["buy_notional"] == pytest.approx(fills["notional"].sum())
+    assert first["sell_notional"] == 0.0
+    assert first["gross_two_way_turnover"] == pytest.approx(first["buy_turnover"])
+    assert first["one_way_turnover"] == pytest.approx(first["turnover"])
+    assert first["transaction_cost"] == pytest.approx(
+        fills["total_cost"].sum() / first["previous_nav"]
+    )
+    assert fills["total_cost"].sum() == pytest.approx(
+        fills["fixed_round_trip_cost"].sum()
+    )
+    assert daily.loc[1, "gross_two_way_turnover"] == 0.0

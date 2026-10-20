@@ -9,7 +9,11 @@
 - 5,521 只历史 A 股，日频数据覆盖率 100%，约 1,479 万行模型特征。
 - 15 个量价/流动性/估值因子；250 个历史证监会行业快照。
 - 2006–2015 训练，2016–2020 验证，2021–2026 historical OOS。
-- 37 个不可变实验版本；代码、输入哈希、负面结果和替代关系均纳入自动审计。
+- 41 个不可变实验版本；代码、输入哈希、负面结果和替代关系均纳入自动审计。
+
+Phase 3 在不重新选模的前提下完成五类冻结候选的 expanding/10 年 rolling walk-forward、RF 三 seed 汇总、逐年失败诊断和五折标签区间 Purged CV。验证期 rolling 的部分组合收益差为正，但在已被查看的 2021–2026 historical OOS 上，ElasticNet/HGB 的 rolling-minus-expanding RankIC 与净收益置信区间转为负；因此不采用事后窗口切换，继续保留 expanding 基线。
+
+Phase 4 将 2021–2026 永久标记为 consumed historical OOS，冻结 HGB 主候选及 Ridge/HGB 次级假设、成本与执行口径、BH-FDR 检验族，并建立 future lockbox、不可回填的 paper-trading 协议和 hash-chained 访问日志。当前 future lockbox 尚无结果，paper trading 尚无观测，项目仍不具备实盘资金部署证据。
 
 ## 最终结果
 
@@ -23,7 +27,7 @@
 | Ridge neutral constrained | 15.87% | 0.79 | -31.71% |
 
 - raw HGB 相对理想成交的年化折损 95% 区间为 [-1.66%, -0.68%]。
-- CAPM 相对 CSI500 的 Alpha 为 13.60%–17.92%，但加入六个本地 PIT 自融资风格后，残余 Alpha 仅 -2.55%–+1.07%，区间全部跨零。
+- 使用3个月中债国债rf和中证官方CSI500全收益指数后，CAPM Alpha为11.87%–16.19%；加入六个本地PIT自融资风格后，残余Alpha为-4.24%至-0.63%，区间仍全部跨零。
 - raw HGB 周频风格贡献约 13.61%，股票特异贡献约 -0.43% 且区间跨零。
 - 第一版风险感知优化显著损害收益，已登记为失败实验，不采用。
 - 同行业、规模与六风格匹配的可成交基准下，HGB neutral 年化算术增量 3.65%，单项 95% 区间 [0.24%, 7.16%]；但四策略 BH-FDR 后 0/4 通过。Ridge raw 收益不显著，但换手改善通过对应检验族。
@@ -43,9 +47,9 @@
 - Ridge / ElasticNet / RF / HGB 统一 benchmark；HGB 二维参数稳定面。
 - 单股、行业主动权重、规模、换手约束的线性规划组合。
 - 股数订单、唯一日频净值时钟、失败订单逐日重试。
-- Block bootstrap、Newey–West、风险模型和本地风格时间序列归因。
+- Block bootstrap、Newey–West、人民币国债rf、CSI价格/全收益双基准和本地风格时间序列归因。
 - 数据截断、标签重叠和理想成交偏差均保留取证与 invalidation 记录。
 
 ## 结论边界
 
-这是 historical OOS 研究，不是实盘；宽行业不是申万细分行业；指数不含股息；成本和冲击没有券商订单校准。下一项真正高价值工作是未来数据/paper trading 验证，而不是继续在已查看样本上调参。
+这是 historical OOS 研究，不是实盘；宽行业不是申万细分行业；全收益指数是理论基准而非ETF可交易收益；成本和冲击没有券商订单校准。下一项真正高价值工作是未来数据/paper trading 验证，而不是继续在已查看样本上调参。

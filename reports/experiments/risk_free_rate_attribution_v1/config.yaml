@@ -1,0 +1,155 @@
+experiment_id: risk_free_rate_attribution_v1
+registry_version: 1
+selection_policy: validation_only
+historical_oos_disclosure: The 2021-2026 block has already been inspected during project
+  development. It is historical out-of-sample evidence, not a pristine production
+  lockbox.
+experiment:
+  title: PIT-aligned CCDC government-bond risk-free rate and excess-return attribution
+  stage: risk_free_rate_and_return_attribution
+  model_version: ccdc_cgb_act365_hac_attribution_v1
+  dataset_version_method: sha256_of_registered_inputs_and_ingestion_manifest
+  historical_oos_used_for_selection: false
+  config_files:
+  - risk_free_rate_attribution.yaml
+  - capm_attribution.yaml
+  - style_factor_attribution.yaml
+  input_tables:
+  - table: risk_free_rate_observations
+    key: v1
+  - table: risk_free_rate_daily
+    key: v1
+  - table: capm_aligned_daily
+    key: v1
+  - table: style_factor_daily_returns
+    key: v1
+  metric_tables:
+  - table: risk_free_rate_coverage
+    key: v1
+  - table: risk_free_rate_attribution_protocol
+    key: v1
+  - table: risk_free_rate_performance_summary
+    key: v1
+  - table: risk_free_rate_capm_summary
+    key: v1
+  - table: risk_free_rate_style_summary
+    key: v1
+  - table: risk_free_rate_regression_checks
+    key: v1
+  figures: []
+resolved_configs:
+  risk_free_rate_attribution.yaml:
+    experiment_id: risk_free_rate_attribution_v1
+    source_experiments:
+    - capm_attribution_v1
+    - style_factor_attribution_v1
+    period: historical_oos_2021_2026
+    historical_oos_used_for_selection: false
+    download:
+      provider: China Central Depository & Clearing Co., Ltd. (CCDC)
+      provider_short: CCDC
+      source_name: ChinaBond Government Bond Yield Curve
+      source_url: https://yield.chinabond.com.cn/cbweb-pbc-web/pbc/showHistory?locale=en_US
+      api_url: https://yield.chinabond.com.cn/cbweb-pbc-web/pbc/historyQuery
+      curve_name: 中债国债收益率曲线
+      start_date: '2020-12-01'
+      end_date: '2026-09-30'
+      maximum_window_days: 330
+      request_retries: 3
+      raw_quote_unit: percent_per_annum
+      annual_quote_convention: published_yield_to_maturity_curve_annual_percent
+      publication_timestamp_status: exact_intraday_timestamp_not_provided_by_history_endpoint
+      availability_lag_calendar_days: 1
+    rate_scenarios:
+    - scenario_id: R0_zero_rate
+      tenor: zero
+      source_column: null
+      role: retained_legacy_control
+    - scenario_id: R1_ccdc_cgb_3m
+      tenor: 3M
+      source_column: 3月
+      role: primary_real_rate_baseline
+    - scenario_id: R2_ccdc_cgb_1y
+      tenor: 1Y
+      source_column: 1年
+      role: reliable_same_source_alternative_tenor_sensitivity
+    primary_rate_scenario: R1_ccdc_cgb_3m
+    zero_rate_scenario: R0_zero_rate
+    day_count_convention: ACT/365
+    annual_to_holding_period_conversion: (1+annual_rate_decimal)^(calendar_days/365)-1
+    maximum_staleness_calendar_days: 10
+    annualization_days: 252
+    newey_west_lags: 5
+    confidence_level: 0.95
+    primary_benchmark: CSI500
+    primary_execution_scenario: daily_retry_limit_and_suspension_constrained
+    market_benchmark_return_type: price_return_excluding_dividends
+    style_factor_return_convention: self_financing_long_short_gross_of_cost_no_rf_subtraction
+    regression_tolerance: 1.0e-12
+    scope_note: Descriptive risk-free-rate and attribution correction on already inspected
+      historical OOS. No model, signal, portfolio, cost, execution, or benchmark selection
+      is performed.
+  capm_attribution.yaml:
+    experiment_id: capm_attribution_v1
+    source_experiment: constrained_portfolio_daily_execution_v1
+    period: historical_oos_2021_2026
+    historical_oos_used_for_selection: false
+    strategy_return: daily_net_return
+    risk_free_rate_convention: zero_daily_rate
+    annualization_days: 252
+    newey_west_lags: 5
+    confidence_level: 0.95
+    benchmarks:
+    - name: CSI300
+      instrument_id: sh.000300
+    - name: CSI500
+      instrument_id: sh.000905
+    - name: CSI1000
+      instrument_id: sh.000852
+    primary_benchmark: CSI500
+    primary_scenario: daily_retry_limit_and_suspension_constrained
+    rolling:
+      window_trading_days: 252
+      step_trading_days: 21
+    subperiod: calendar_year
+    interpretation: descriptive_historical_oos_jensen_alpha_without_model_reselection
+    scope_note: benchmark_price_returns_exclude_dividends_and_risk_free_rate_is_zero
+  style_factor_attribution.yaml:
+    experiment_id: style_factor_attribution_v1
+    source_experiment: capm_attribution_v1
+    period: historical_oos_2021_2026
+    historical_oos_used_for_selection: false
+    primary_scenario: daily_retry_limit_and_suspension_constrained
+    market_factor: CSI500
+    risk_free_rate_convention: zero_daily_rate
+    annualization_days: 252
+    newey_west_lags: 5
+    confidence_level: 0.95
+    styles:
+    - size
+    - beta
+    - volatility
+    - liquidity
+    - value
+    - momentum
+    factor_orientation:
+      size: large_minus_small
+      beta: high_minus_low
+      volatility: high_minus_low
+      liquidity: liquid_minus_illiquid
+      value: cheap_minus_expensive
+      momentum: winner_minus_loser
+    factor_portfolio:
+      construction: residual_proportional_self_financing
+      controls: full_csrc_broad_industry_and_other_five_styles
+      long_gross_exposure: 1.0
+      short_gross_exposure: 1.0
+      transaction_cost_bps: 0.0
+      execution: signal_next_trading_day_close
+    style_winsor_quantiles:
+    - 0.01
+    - 0.99
+    rolling:
+      window_trading_days: 252
+      step_trading_days: 21
+    scope_note: explanatory_style_factors_are_gross_of_cost_and_not_directly_tradable

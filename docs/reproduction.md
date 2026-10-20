@@ -2,9 +2,9 @@
 
 ## 1. 复现边界
 
-GitHub 仓库保存代码、配置、测试、文档、图表、结果表和 37 个冻结实验版本，**不保存完整
-`data/` 数据湖**。新机器从 BaoStock 下载主数据，AKShare 只做独立抽样核对，不参与拼接或
-静默覆盖。
+GitHub 仓库保存代码、配置、测试、文档、图表、结果表和 42 个冻结实验版本，**不保存完整
+`data/` 数据湖**。新机器从 BaoStock 下载股票主数据；AKShare 承担股票抽样核对和中债官方
+历史接口适配，市场归因从中证指数公司官方接口取得价格/全收益序列。不同来源不静默互相覆盖。
 
 这提供的是“研究流程可复现”，不是“供应商字节级快照可复现”。免费数据源可能修订历史记录、
 改变接口或停止提供退市证券，因此重新下载后的行数、哈希和末位指标可能与 2026-09-30 冻结
@@ -89,9 +89,14 @@ quant-factor-neutralization
 quant-factor-tear-sheet
 quant-capm-attribution
 quant-style-factor-attribution
+quant-risk-free-attribution
+quant-market-benchmark-attribution
+quant-model-stability-validation
+quant-research-governance status
 quant-model-portfolio-neutralization
 quant-constrained-portfolio-neutralization
 quant-constrained-daily-execution all
+quant-transaction-costs run
 quant-risk-attribution all
 quant-incremental-alpha all
 quant-risk-aware-portfolio
@@ -135,7 +140,7 @@ powershell -ExecutionPolicy Bypass -File scripts/rebuild_all.ps1 -SkipDownload -
 6. PIT 规模/行业暴露，以及 raw、size、industry、industry+size 因子和锁定模型/组合中性化；
 7. 显式单股、行业主动权重、规模和换手约束组合、日频可成交审计及多因子收益归因；
 8. 统一模型 benchmark、RF/HGB 参数稳定性、收益取证和日频成交重试；
-9. Top-N、inverse-vol、50/100bp 成本、因子分布与滚动相关诊断；
+9. Top-N、inverse-vol、fill 级 C0/C1/C2 成本协议、因子分布与滚动相关诊断；
 10. 结论证据矩阵、BH-FDR 多重检验、研究生命周期审计；
 11. 离线 dashboard、publication audit 与最终 PDF。
 
@@ -153,7 +158,7 @@ powershell -ExecutionPolicy Bypass -File scripts/rebuild_all.ps1 -SkipDownload -
 | `data/lake/curated/` 其他表 | 质量表、因子、标签、模型特征、预测、持仓、成交 | 否 |
 | `data/lake/manifests/` | 请求、schema、行数、内容哈希 | 否 |
 | `config/` | 数据、因子、模型、组合和实验配置 | 是 |
-| `reports/experiments/` | 37 个不可变实验版本与输入哈希 | 是 |
+| `reports/experiments/` | 42 个不可变实验版本与输入哈希 | 是 |
 | `reports/tables/`、`reports/figures/` | 求职展示所需结果 | 是 |
 | `reports/research_dashboard.html` | 离线交互面板 | 是 |
 
@@ -168,7 +173,7 @@ quant-audit
 quant-research-dashboard
 ```
 
-当前验收记录为 148 tests passed、研究审计 337 PASS / 43 WARN / 0 FAIL（WARN 保留历史版本漂移与已知边界）。新下载数据应至少
+当前验收记录为 174 tests passed；Phase 0 研究审计基线为 337 PASS / 43 WARN / 0 FAIL（WARN 保留历史版本漂移与已知边界）。新下载数据应至少
 满足：测试通过、schema/唯一键/日期门禁无 FAIL、模型比较使用共同日期、持仓权重和收益恒等式
 通过。
 
@@ -176,10 +181,14 @@ quant-research-dashboard
 修订后出现哈希不一致是预期的数据版本漂移，不应通过修改旧快照来消除。正确做法是保留旧版本，
 为新数据生成新的 experiment ID，并在报告中并列说明差异。
 
+`quant-research-governance initialize` 不是普通重建步骤：它只在形成新候选 Git commit 后执行一次，创建空 future lockbox 和零观测 paper record。已有候选使用 `status` 验证访问日志哈希链；不得为了让重建脚本通过而删除日志或重复初始化。
+
 ## 8. 常见故障
 
 - BaoStock 单只证券长时间无响应：加 `--isolate-bars --request-timeout 180`，然后原命令续跑。
 - AKShare 抽样失败：先确认版本和网络；它是独立质量核对，不能拿它静默替换 BaoStock 主表。
+- ChinaBond 利率下载失败：重跑 `quant-risk-free-attribution`；若已有经 manifest 固定的完整官方快照，可用 `--reuse-observations` 重算，但不得把缺口前向填充。历史接口要求不足一年的分段请求，配置已固定到 2026-09-30。
+- CSIndex 基准下载失败：重跑 `quant-market-benchmark-attribution`；已有完整官方快照时可用 `--reuse-observations`。价格/全收益比较必须保持同一官方来源，不能拿供应商差异冒充股息收益。
 - 内存不足：先用 `-CoreOnly`；关闭其他进程，再单独运行模型 benchmark 与 RF 系列。
 - 命令不存在：确认已激活正确环境，并重新执行 `pip install -e ".[dev]"`。
 - 审计哈希 FAIL：先区分 frozen artifact 自身损坏与 live input 漂移；不要覆盖冻结实验目录。

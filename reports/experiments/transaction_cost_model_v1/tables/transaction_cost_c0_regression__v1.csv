@@ -1,0 +1,13 @@
+metric,observations_expected,observations_actual,key_mismatches,maximum_absolute_error,tolerance,passed
+gross_return,5548,5548,0,8.659739592076221e-15,1e-12,True
+transaction_cost,5548,5548,0,4.0115480381963664e-18,1e-12,True
+net_return,5548,5548,0,8.659739592076221e-15,1e-12,True
+nav,5548,5548,0,1.1302070390684094e-13,1e-12,True
+buy_weight,5548,5548,0,1.7763568394002505e-15,1e-12,True
+sell_weight,5548,5548,0,1.4988010832439613e-15,1e-12,True
+turnover,5548,5548,0,1.609823385706477e-15,1e-12,True
+blocked_buy_weight,5548,5548,0,2.0513105103425744e-15,1e-12,True
+blocked_sell_weight,5548,5548,0,1.0434361708000495e-15,1e-12,True
+target_tracking_l1,5548,5548,0,7.858297346174936e-15,1e-12,True
+cash_weight,5548,5548,0,1.6106907474444654e-15,1e-12,True
+accounting_weight_sum,5548,5548,0,1.354472090042691e-14,1e-12,True

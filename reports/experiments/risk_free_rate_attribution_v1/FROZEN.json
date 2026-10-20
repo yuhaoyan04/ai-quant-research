@@ -1,0 +1,17 @@
+{
+  "experiment_id": "risk_free_rate_attribution_v1",
+  "frozen_at_utc": "2026-10-20T06:29:41.913181+00:00",
+  "content_sha256": "40d682376c6d7c5ed8b5f7e276789d30185bad21ff0b23f8d9b04afee7e84ddf",
+  "files": {
+    "config.yaml": "145953ee9671872b6b75858d00b41ed4ff81d7a5b02ea6c9fe60ce706e40b96a",
+    "metadata.json": "b78cfbbef291bce4694edb7c43a0fc5038a7632d104f08e6085c56ef2def3bc3",
+    "metrics.json": "15ec1b49c19b08c2fc3627e875db14395aaa79aa828209e33e9b5f99067b9266",
+    "notes.md": "0f6ef0a46debe19d6c737f1605671758b111c24b3a8db36d3775822eee5c8380",
+    "tables/risk_free_rate_attribution_protocol__v1.csv": "de3f1e954f125e8520f7cdf7c4f2d9cb7297c82fbf7ec1a95d08c37ed25a2dc1",
+    "tables/risk_free_rate_capm_summary__v1.csv": "ac677c183552985ac2bbcdfd911bd1b0a7680eb8a5d35746a1e34acd0f1345b8",
+    "tables/risk_free_rate_coverage__v1.csv": "07f3ce55594240ef3f3691f39b6cd026db761b3e6f2d7a3074d655ab021bacc5",
+    "tables/risk_free_rate_performance_summary__v1.csv": "17126a83c47139d0deb5d9ee901d334f71e4e4cd6a817660dc4f60bd5985ca9b",
+    "tables/risk_free_rate_regression_checks__v1.csv": "ac5d6f16e6a141f4cc7b9847e0fce3132d8789526f220f77764e627bfb76e351",
+    "tables/risk_free_rate_style_summary__v1.csv": "ce74e851c1f9c7773d8c3b8017dad2fefce29d6f2e9a5a22a22d9bdc837a1950"
+  }
+}

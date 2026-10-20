@@ -1,0 +1,4 @@
+benchmark,observations,official_price_vs_legacy_correlation,official_price_vs_legacy_mean_error,official_price_vs_legacy_mean_abs_error,official_price_vs_legacy_max_abs_error,official_close_return_vs_published_change_pct_max_abs_error,published_change_pct_rounding_tolerance,published_change_pct_crosscheck_passed
+CSI1000,1387,0.9999999990627659,-1.3977590722553323e-10,5.469005559556059e-07,1.9570868647691975e-06,5.118625300685499e-05,6e-05,True
+CSI300,1387,0.9999999961867436,7.747374611132271e-10,8.096149649710779e-07,2.7740995521483014e-06,5.1568314726301544e-05,6e-05,True
+CSI500,1387,0.9999999988453683,-5.058616025251037e-10,5.371926007581785e-07,1.8206462248024358e-06,5.104660148501708e-05,6e-05,True

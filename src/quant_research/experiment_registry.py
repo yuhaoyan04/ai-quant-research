@@ -29,6 +29,15 @@ SAFE_ID = re.compile(r"^[a-z0-9][a-z0-9_-]{2,79}$")
 TEXT_ARTIFACT_SUFFIXES = {
     ".csv", ".html", ".json", ".md", ".py", ".svg", ".toml", ".txt", ".yaml", ".yml",
 }
+EVIDENCE_CLASSES = {
+    "validation_selection", "historical_oos_descriptive",
+    "post_historical_oos_adaptation", "future_lockbox", "paper_trading",
+    "governance_only", "mixed_disclosed",
+}
+RESEARCH_SELECTION_ROLES = {
+    "selection", "diagnostic", "final_evaluation", "operational_tracking",
+    "post_hoc_adaptation", "governance",
+}
 
 
 def sha256_file(path: Path, chunk_size: int = 1024 * 1024) -> str:
@@ -91,11 +100,42 @@ def source_tree_hash(project_root: Path) -> str:
     return digest.hexdigest()
 
 
+def validate_governance_declaration(global_spec: dict[str, Any],
+                                    spec: dict[str, Any]) -> None:
+    """Require an explicit evidence role for experiments registered after Phase 4."""
+    if not global_spec.get("governance_required_for_new_registrations", False):
+        return
+    required = {
+        "evidence_class", "research_selection_role", "claims_independent_evidence",
+        "historical_oos_used_for_selection",
+    }
+    missing = sorted(required - set(spec))
+    if missing:
+        raise ValueError(f"governance declaration missing fields: {missing}")
+    evidence_class = str(spec["evidence_class"])
+    role = str(spec["research_selection_role"])
+    if evidence_class not in EVIDENCE_CLASSES:
+        raise ValueError(f"unsupported evidence_class: {evidence_class}")
+    if role not in RESEARCH_SELECTION_ROLES:
+        raise ValueError(f"unsupported research_selection_role: {role}")
+    if evidence_class == "future_lockbox" and not spec.get("lockbox_id"):
+        raise ValueError("future_lockbox experiments require lockbox_id")
+    if evidence_class in {"historical_oos_descriptive", "post_historical_oos_adaptation"}:
+        if spec.get("claims_independent_evidence") is not False:
+            raise ValueError("historical-OOS experiments cannot claim independent evidence")
+    if spec.get("historical_oos_used_for_selection") is True:
+        if evidence_class != "post_historical_oos_adaptation" or role != "post_hoc_adaptation":
+            raise ValueError(
+                "historical-OOS selection must be declared as post_historical_oos_adaptation"
+            )
+
+
 def git_state(project_root: Path) -> dict[str, Any]:
     def call(*args: str) -> str | None:
         try:
             result = subprocess.run(
-                ["git", *args], cwd=project_root, check=True, capture_output=True,
+                ["git", "-c", f"safe.directory={project_root}", *args],
+                cwd=project_root, check=True, capture_output=True,
                 text=True, timeout=15,
             )
             return result.stdout.strip()
@@ -204,6 +244,10 @@ class ExperimentRegistry:
             "registry_version": global_spec.get("registry_version", 1),
             "selection_policy": global_spec.get("selection_policy"),
             "historical_oos_disclosure": global_spec.get("historical_oos_disclosure"),
+            "governance_required_for_new_registrations": global_spec.get(
+                "governance_required_for_new_registrations", False
+            ),
+            "governance_policy": global_spec.get("governance_policy"),
             "experiment": spec,
             "resolved_configs": configs,
         }
@@ -218,6 +262,7 @@ class ExperimentRegistry:
 
     def register(self, experiment_id: str, global_spec: dict, spec: dict) -> Path:
         self._validate_id(experiment_id)
+        validate_governance_declaration(global_spec, spec)
         self.registry_root.mkdir(parents=True, exist_ok=True)
         target = self.registry_root / experiment_id
         if target.exists():
@@ -286,6 +331,10 @@ class ExperimentRegistry:
                 "historical_oos_used_for_selection": bool(
                     spec.get("historical_oos_used_for_selection", False)),
                 "historical_oos_disclosure": global_spec.get("historical_oos_disclosure"),
+                "evidence_class": spec.get("evidence_class"),
+                "research_selection_role": spec.get("research_selection_role"),
+                "claims_independent_evidence": spec.get("claims_independent_evidence"),
+                "lockbox_id": spec.get("lockbox_id"),
                 "dataset_version": dataset_version,
                 "dataset_manifest": manifest_record,
                 "input_artifacts": inputs,

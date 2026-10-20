@@ -1,0 +1,39 @@
+PHASE 1 TEST BASELINE
+=====================
+
+Run date (UTC): 2026-10-20
+Repository HEAD: db5cd282d05f0da61047d2ebf2bd9c09e9165032
+Scope: transaction-cost protocol implementation plus full repository regression suite
+
+Command
+-------
+PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m pytest -q -ra -p no:cacheprovider
+
+Result
+------
+Passed: 155
+Failed: 0
+Errors: 0
+Skipped: 0
+Exit code: 0
+Runtime: 8.42s
+
+Exact terminal summary
+----------------------
+........................................................................................................................................................... [100%]
+155 passed in 8.42s
+
+Phase 1 acceptance checks represented in the suite
+--------------------------------------------------
+- fixed round-trip cost is charged once on one-way notional;
+- zero-cost fills produce exactly zero fees;
+- component fees are side- and effective-date-aware;
+- minimum commission behavior is covered with synthetic CNY-like test notionals;
+- fixed and component modes cannot be double-counted;
+- overlapping effective-date rules are rejected;
+- fill costs reconcile to the daily cost and standardized turnover fields;
+- C0 repricing uses fill cost divided by previous NAV without fee feedback.
+
+Research-run gates are additionally recorded in:
+- reports/tables/transaction_cost_c0_regression.csv
+- reports/tables/transaction_cost_reconciliation.csv

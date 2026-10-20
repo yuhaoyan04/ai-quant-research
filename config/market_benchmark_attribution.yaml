@@ -1,0 +1,58 @@
+experiment_id: market_benchmark_attribution_v1
+source_experiment: risk_free_rate_attribution_v1
+period: historical_oos_2021_2026
+historical_oos_used_for_selection: false
+download:
+  provider: China Securities Index Co., Ltd. (CSI)
+  provider_short: CSIndex
+  source_name: CSIndex official index performance history
+  source_url: https://www.csindex.com.cn/zh-CN/indices
+  api_url: https://www.csindex.com.cn/csindex-home/perf/index-perf
+  referer: https://www.csindex.com.cn/
+  start_date: '2020-12-01'
+  end_date: '2026-09-30'
+  request_retries: 3
+  timeout_seconds: 60
+  publication_timestamp_status: exact_intraday_timestamp_not_provided_by_history_endpoint
+  availability_lag_calendar_days: 1
+indices:
+  - benchmark: CSI300
+    legacy_price_instrument: sh.000300
+    official_price_code: '000300'
+    official_total_return_code: H00300
+  - benchmark: CSI500
+    legacy_price_instrument: sh.000905
+    official_price_code: '000905'
+    official_total_return_code: H00905
+  - benchmark: CSI1000
+    legacy_price_instrument: sh.000852
+    official_price_code: '000852'
+    official_total_return_code: H00852
+benchmark_variants:
+  - variant_id: legacy_baostock_price
+    return_type: price_return
+    role: retained_legacy_control
+  - variant_id: official_csindex_price
+    return_type: price_return
+    role: same_provider_price_control
+  - variant_id: official_csindex_total_return
+    return_type: total_return
+    role: primary_dividend_reinvestment_benchmark
+primary_benchmark: CSI500
+primary_rate_scenario: R1_ccdc_cgb_3m
+primary_execution_scenario: daily_retry_limit_and_suspension_constrained
+primary_total_return_variant: official_csindex_total_return
+same_provider_price_variant: official_csindex_price
+legacy_price_variant: legacy_baostock_price
+annualization_days: 252
+newey_west_lags: 5
+confidence_level: 0.95
+regression_tolerance: 1.0e-12
+# Official changePct is rounded to 0.01 percentage point and close levels to 0.01 index point.
+# A 0.60bp cross-check tolerance covers the combined published-field rounding only.
+official_change_pct_tolerance: 0.000060
+material_daily_total_minus_price_threshold: 0.0001
+scope_note: >-
+  Descriptive benchmark-definition sensitivity on already inspected historical OOS.
+  Official price and total-return comparisons use the same CSIndex provider. No model,
+  signal, portfolio, transaction-cost, or execution selection is performed.

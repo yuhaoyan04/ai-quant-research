@@ -1,4 +1,23 @@
 invalidations:
+  portfolio_sensitivity_v1:
+    invalidated_at_utc: "2026-10-20T06:10:00Z"
+    severity: cost_stress_repricing_formula_superseded
+    reason: >-
+      The v1 fixed-fill execution cost stress subtracted turnover times the fee
+      rate directly from gross return. The daily executor defines turnover over
+      pre-trade NAV while return is measured over previous NAV, so exact C0
+      reproduction additionally requires the pre-trade-to-previous-NAV ratio.
+      The difference is small but the v1 stress grid is not an exact 20bp
+      regression of the executable baseline.
+    unaffected_outputs:
+      - portfolio_sensitivity_protocol/v1 except the cost-stress method claim
+      - portfolio_sensitivity_weekly/v1
+      - portfolio_sensitivity_summary/v1
+      - qualitative conclusion that returns decline as fixed costs rise
+    invalid_outputs:
+      - exact values in execution_cost_stress/v1
+      - claims that execution_cost_stress/v1 exactly reproduces C0 at 20bp
+    superseded_by: transaction_cost_model_v1
   factor_preprocessing_ablation_v1:
     invalidated_at_utc: "2026-10-14T12:45:00Z"
     severity: portfolio_metrics_invalid

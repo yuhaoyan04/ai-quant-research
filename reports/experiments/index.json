@@ -207,6 +207,15 @@
     "immutable": true
   },
   {
+    "experiment_id": "market_benchmark_attribution_v1",
+    "title": "Official CSI price and total-return benchmark attribution",
+    "stage": "market_benchmark_and_return_attribution",
+    "model_version": "csindex_price_total_return_hac_attribution_v1",
+    "registered_at_utc": "2026-10-20T07:55:37.462865+00:00",
+    "dataset_version": "37558db55c26965de60a357dd53c8f55c66a51f6490576762df10daddb80b8e0",
+    "immutable": true
+  },
+  {
     "experiment_id": "model_benchmark_v1",
     "title": "Unified validation-first linear and tree model benchmark",
     "stage": "model_family_benchmark",
@@ -231,6 +240,15 @@
     "model_version": "locked_ridge_hgb_csrc_broad_log_size_v2",
     "registered_at_utc": "2026-10-17T04:30:19.428338+00:00",
     "dataset_version": "ac055d93e53f44c7b48684720650bd8b42d19f6c7888f33d8b0db7b82069f002",
+    "immutable": true
+  },
+  {
+    "experiment_id": "model_stability_validation_v1",
+    "title": "Phase 3 model stability and time-aware validation",
+    "stage": "model_stability_randomness_and_time_validation",
+    "model_version": "frozen_five_family_expanding_rolling_purged_cv_v1",
+    "registered_at_utc": "2026-10-20T08:25:28.372660+00:00",
+    "dataset_version": "f6ec03b22c38daad1159dfecce51828a3c38bff05674a02486645b9b13398e00",
     "immutable": true
   },
   {
@@ -315,6 +333,15 @@
     "immutable": true
   },
   {
+    "experiment_id": "risk_free_rate_attribution_v1",
+    "title": "PIT-aligned CCDC government-bond risk-free rate and excess-return attribution",
+    "stage": "risk_free_rate_and_return_attribution",
+    "model_version": "ccdc_cgb_act365_hac_attribution_v1",
+    "registered_at_utc": "2026-10-20T06:29:41.913181+00:00",
+    "dataset_version": "887b9d75185e279bf3e3e6f181b8af2b12f908276c25f98d0ef19e2d7293acf1",
+    "immutable": true
+  },
+  {
     "experiment_id": "size_neutralization_v1",
     "title": "Point-in-time size-neutralized factor stress test",
     "stage": "risk_exposure_and_factor_neutralization",
@@ -330,6 +357,15 @@
     "model_version": "csrc_industry_residual_six_style_hac_v1",
     "registered_at_utc": "2026-10-17T11:41:41.832416+00:00",
     "dataset_version": "88a83b63809dd07522f5349246690b9421c8daa8b52a79cc75ae4a438092e39a",
+    "immutable": true
+  },
+  {
+    "experiment_id": "transaction_cost_model_v1",
+    "title": "Fill-reconciled fixed and date-effective transaction-cost protocol",
+    "stage": "transaction_cost_and_turnover_protocol",
+    "model_version": "fixed_c0_fill_path_component_cost_v1",
+    "registered_at_utc": "2026-10-20T06:03:20.545635+00:00",
+    "dataset_version": "d22ade8fbb24b2e32dc667b191d54722b9cf4697026fa738b631ba9dbd8fe47e",
     "immutable": true
   }
 ]

@@ -8,6 +8,7 @@ import pytest
 from quant_research.experiment_registry import (
     ExperimentRegistry,
     publish_immutable_directory,
+    validate_governance_declaration,
 )
 from quant_research.ingest import Lake
 
@@ -121,3 +122,28 @@ def test_publish_falls_back_when_directory_rename_is_denied(
     assert not source.exists()
     assert (target / "tables" / "metric.csv").is_file()
     assert (target / "FROZEN.json").is_file()
+
+
+def test_new_registration_requires_explicit_evidence_governance() -> None:
+    global_spec = {"governance_required_for_new_registrations": True}
+    with pytest.raises(ValueError, match="missing fields"):
+        validate_governance_declaration(global_spec, {})
+    valid = {
+        "evidence_class": "governance_only",
+        "research_selection_role": "governance",
+        "claims_independent_evidence": False,
+        "historical_oos_used_for_selection": False,
+    }
+    validate_governance_declaration(global_spec, valid)
+
+
+def test_historical_oos_selection_must_be_declared_post_hoc() -> None:
+    global_spec = {"governance_required_for_new_registrations": True}
+    invalid = {
+        "evidence_class": "historical_oos_descriptive",
+        "research_selection_role": "diagnostic",
+        "claims_independent_evidence": False,
+        "historical_oos_used_for_selection": True,
+    }
+    with pytest.raises(ValueError, match="post_historical_oos_adaptation"):
+        validate_governance_declaration(global_spec, invalid)

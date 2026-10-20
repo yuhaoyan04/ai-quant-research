@@ -1,0 +1,104 @@
+{
+  "experiment_id": "transaction_cost_model_v1",
+  "title": "Fill-reconciled fixed and date-effective transaction-cost protocol",
+  "stage": "transaction_cost_and_turnover_protocol",
+  "model_version": "fixed_c0_fill_path_component_cost_v1",
+  "registered_at_utc": "2026-10-20T06:03:20.545635+00:00",
+  "immutable": true,
+  "selection_policy": "validation_only",
+  "historical_oos_used_for_selection": false,
+  "historical_oos_disclosure": "The 2021-2026 block has already been inspected during project development. It is historical out-of-sample evidence, not a pristine production lockbox.",
+  "dataset_version": "d22ade8fbb24b2e32dc667b191d54722b9cf4697026fa738b631ba9dbd8fe47e",
+  "dataset_manifest": {
+    "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/manifests/ingestion.jsonl",
+    "size_bytes": 19052339,
+    "sha256": "30deb4baabde29c5c087e504660920db95314fac3b68df69aaf501692e51821c"
+  },
+  "input_artifacts": [
+    {
+      "table": "constrained_execution_targets",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/constrained_execution_targets/key=v1/data.parquet",
+      "size_bytes": 1283200,
+      "sha256": "bb88888f8d5b83433429bf85953c967f82eb2acf597f1ec08874617b7b30e362"
+    },
+    {
+      "table": "constrained_daily_execution_market",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/constrained_daily_execution_market/key=v1/data.parquet",
+      "size_bytes": 27849803,
+      "sha256": "c5b937742a943fcabdc82440003d363f7652644bc1ffef75b87acc9436ccb9b6"
+    },
+    {
+      "table": "constrained_daily_execution_daily",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/constrained_daily_execution_daily/key=v1/data.parquet",
+      "size_bytes": 775172,
+      "sha256": "ea04c7d4b7777899dc0bf3ec9834c29130dcae72b10746c126653bdfe322760f"
+    },
+    {
+      "table": "transaction_cost_fill_detail",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/transaction_cost_fill_detail/key=v1/data.parquet",
+      "size_bytes": 131423713,
+      "sha256": "03790a476bad117cf5bf75210a529c4d4a23fc5450a0a4c0d41380dba27dc13a"
+    },
+    {
+      "table": "transaction_cost_daily",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/transaction_cost_daily/key=v1/data.parquet",
+      "size_bytes": 2453886,
+      "sha256": "0e1a9aeae4104d884d863bac2a170794c79dee480cbb646b1572c3d93f3a9ac0"
+    }
+  ],
+  "metric_artifacts": [
+    {
+      "table": "transaction_cost_protocol",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/transaction_cost_protocol/key=v1/data.parquet",
+      "size_bytes": 13418,
+      "sha256": "8d70ba54c99d5239845c5326c59d2fa4384474a1a682af74711eee01b32ffb6f"
+    },
+    {
+      "table": "transaction_cost_summary",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/transaction_cost_summary/key=v1/data.parquet",
+      "size_bytes": 23776,
+      "sha256": "d626d7b313ed5e2e101a36ed6a5cb0d3740637dcf2fc602056d93e9481916e63"
+    },
+    {
+      "table": "transaction_cost_reconciliation",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/transaction_cost_reconciliation/key=v1/data.parquet",
+      "size_bytes": 6554,
+      "sha256": "c4b64c8d045729b5774d7af67ec464dc211664b3c56d1053b71d23c976f13133"
+    },
+    {
+      "table": "transaction_cost_c0_regression",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/transaction_cost_c0_regression/key=v1/data.parquet",
+      "size_bytes": 5099,
+      "sha256": "a0cd40e7243c3c930acb021d3d3f4ed933eaa8cd78600500429c2f95dffdb131"
+    }
+  ],
+  "figures": [],
+  "source_tree_sha256": "bcfb0cad972ace10c4ab97228f1e9569c3bdac4af56c88929b1f256b0bf49be8",
+  "git": {
+    "commit": "db5cd282d05f0da61047d2ebf2bd9c09e9165032",
+    "dirty": true,
+    "status_sha256": "67ba9e9af9559c43d495f20269a6129944f8c46253696caebc99cbdca53344e0"
+  },
+  "environment": {
+    "python": "3.11.16",
+    "implementation": "CPython",
+    "platform": "Linux-5.15.0-92-generic-x86_64-with-glibc2.35",
+    "packages": {
+      "pandas": "3.0.6",
+      "pyarrow": "25.0.1",
+      "PyYAML": "6.0.3",
+      "scikit-learn": "1.9.1",
+      "numpy": "2.4.6",
+      "scipy": "1.17.1"
+    }
+  }
+}

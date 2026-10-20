@@ -1,0 +1,4 @@
+scenario_id,dates,start_date,end_date,missing_dates,missing_rate,interpolated_dates,stale_dates,maximum_staleness_calendar_days,minimum_annual_rate_percent,maximum_annual_rate_percent
+R0_zero_rate,1387,2021-01-11,2026-09-29,0,0.0,0,0,,0.0,0.0
+R1_ccdc_cgb_3m,1387,2021-01-11,2026-09-29,0,0.0,0,0,10.0,0.7819,2.6999
+R2_ccdc_cgb_1y,1387,2021-01-11,2026-09-29,0,0.0,0,0,10.0,0.9307,2.7155

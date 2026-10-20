@@ -1,0 +1,111 @@
+{
+  "experiment_id": "risk_free_rate_attribution_v1",
+  "title": "PIT-aligned CCDC government-bond risk-free rate and excess-return attribution",
+  "stage": "risk_free_rate_and_return_attribution",
+  "model_version": "ccdc_cgb_act365_hac_attribution_v1",
+  "registered_at_utc": "2026-10-20T06:29:41.913181+00:00",
+  "immutable": true,
+  "selection_policy": "validation_only",
+  "historical_oos_used_for_selection": false,
+  "historical_oos_disclosure": "The 2021-2026 block has already been inspected during project development. It is historical out-of-sample evidence, not a pristine production lockbox.",
+  "dataset_version": "887b9d75185e279bf3e3e6f181b8af2b12f908276c25f98d0ef19e2d7293acf1",
+  "dataset_manifest": {
+    "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/manifests/ingestion.jsonl",
+    "size_bytes": 19101421,
+    "sha256": "f7c223b8c176cb43f7edf4b2f1ec2cf03607ecc9607ae88e07a6bd0537fc6859"
+  },
+  "input_artifacts": [
+    {
+      "table": "risk_free_rate_observations",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/risk_free_rate_observations/key=v1/data.parquet",
+      "size_bytes": 71012,
+      "sha256": "48aefb4d5d818d90558090b67712a9f398e492fd8a5206aa47ebd8e42d01f81a"
+    },
+    {
+      "table": "risk_free_rate_daily",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/risk_free_rate_daily/key=v1/data.parquet",
+      "size_bytes": 108616,
+      "sha256": "14dd8a4bc41a43e93692a3936b0eeded922102648652a36bd9ceb95ce2ca7c39"
+    },
+    {
+      "table": "capm_aligned_daily",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/capm_aligned_daily/key=v1/data.parquet",
+      "size_bytes": 854620,
+      "sha256": "045c5bc06b3318ab910a7311c038e55dd820e442bda98f9d6f1f691aa369a94e"
+    },
+    {
+      "table": "style_factor_daily_returns",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/style_factor_daily_returns/key=v1/data.parquet",
+      "size_bytes": 295402,
+      "sha256": "6e85be98c55920bc5c733ad0167b2c28e29e38718e4588e96eb0713448c66540"
+    }
+  ],
+  "metric_artifacts": [
+    {
+      "table": "risk_free_rate_coverage",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/risk_free_rate_coverage/key=v1/data.parquet",
+      "size_bytes": 7681,
+      "sha256": "0fbaf37908922bf8d9d3259b8663a8de02a0ca73bdf4909df4988986785cd7aa"
+    },
+    {
+      "table": "risk_free_rate_attribution_protocol",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/risk_free_rate_attribution_protocol/key=v1/data.parquet",
+      "size_bytes": 12503,
+      "sha256": "8c28f177b956f343cc562bb70390a9b81843ff7ccd5a66bcff70136c3e37b7c3"
+    },
+    {
+      "table": "risk_free_rate_performance_summary",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/risk_free_rate_performance_summary/key=v1/data.parquet",
+      "size_bytes": 11378,
+      "sha256": "7cae1a7e9bf38d979bb6740e00ccbd5c966a1411e8f23c612aea2b92dfd06765"
+    },
+    {
+      "table": "risk_free_rate_capm_summary",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/risk_free_rate_capm_summary/key=v1/data.parquet",
+      "size_bytes": 24498,
+      "sha256": "37d8c134d9e0e82e4d4ae654ec769c01fecced3a9e061d7371150912cea2700a"
+    },
+    {
+      "table": "risk_free_rate_style_summary",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/risk_free_rate_style_summary/key=v1/data.parquet",
+      "size_bytes": 42480,
+      "sha256": "4ebb2dbcf5e7fdbb5f6b91bf269a393cd4707fda6b1dfa72fd1833441414a000"
+    },
+    {
+      "table": "risk_free_rate_regression_checks",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/risk_free_rate_regression_checks/key=v1/data.parquet",
+      "size_bytes": 4966,
+      "sha256": "56f34b09cc6d0c3d3fcae71582e132fb80814b093f99db058097298e0dec1f29"
+    }
+  ],
+  "figures": [],
+  "source_tree_sha256": "332efdd198a4b60a29d1c634d32c1745eb660f45bb27cf6cee12f6e5b03dba34",
+  "git": {
+    "commit": "db5cd282d05f0da61047d2ebf2bd9c09e9165032",
+    "dirty": true,
+    "status_sha256": "0cfd17d353a1d787259ebf87888f9b182f3f037084369fac6dead47640f8313c"
+  },
+  "environment": {
+    "python": "3.11.16",
+    "implementation": "CPython",
+    "platform": "Linux-5.15.0-92-generic-x86_64-with-glibc2.35",
+    "packages": {
+      "pandas": "3.0.6",
+      "pyarrow": "25.0.1",
+      "PyYAML": "6.0.3",
+      "scikit-learn": "1.9.1",
+      "numpy": "2.4.6",
+      "scipy": "1.17.1"
+    }
+  }
+}

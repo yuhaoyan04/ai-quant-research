@@ -1,0 +1,8 @@
+experiment,status,evidence,interpretation
+M0,COMPLETE,model_benchmark_v1,validation-selected frozen family baselines
+M1,COMPLETE_WITH_INSTABILITY,hgb_hyperparameter_stability_v1; rf_hyperparameter_stability_v1,RF neighbor pass fraction 0.700 vs floor 0.750; HGB RankIC range 0.0971..0.0998
+M2,COMPLETE,three preregistered RF seeds,mean/std/range reported; no best-seed selection
+M3,COMPLETE,expanding vs rolling_10y,paired validation and descriptive historical-OOS comparison
+M4,COMPLETE,annual RankIC and portfolio metrics,nonpositive RankIC/return years explicitly flagged
+M5,COMPLETE_SUPPLEMENTAL,five label-interval-purged validation-year folds,noncausal generalization diagnostic; not trading performance
+M6,COMPLETE_MIXED,incremental_alpha_test_v1,positive significant raw intervals=1/4; no model promotion

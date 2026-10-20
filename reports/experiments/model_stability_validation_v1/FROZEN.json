@@ -1,0 +1,27 @@
+{
+  "experiment_id": "model_stability_validation_v1",
+  "frozen_at_utc": "2026-10-20T08:25:28.372660+00:00",
+  "content_sha256": "241a0effdc6d313c5497917a7d474129011669546abcfcdfab3c205e9b127aed",
+  "files": {
+    "config.yaml": "64f66cddcad6be61e98f2c177112fd01f622e5bda05bf4868dc80860c6b40679",
+    "metadata.json": "4c17a787dd7d98ca4bdb3098921e995ddebcd24a074f5fb184e576e92a4269b4",
+    "metrics.json": "356d16d010aff3e739136d8b7a664dec8b456b178c5e57692cd20865d97f1721",
+    "notes.md": "d773bae3da34360c6883e0e63a3f313ac8b1f87c71c1e122abac2f27a7d1c78d",
+    "tables/model_stability_alignment_audit__v1.csv": "dead212a27b25c8ae47a6c2a80053d2e8c0dbbc44894550230104e02c997a404",
+    "tables/model_stability_evidence_matrix__v1.csv": "38c1b686956cdba147880a281459fe04ebdf41b178e1c6da15b9d41a11cc0d04",
+    "tables/model_stability_hyperparameter_range__v1.csv": "bf90e177a270022bdf5ec9f5ba2a3f6b39462759b49b644b9b7b02752634d5dd",
+    "tables/model_stability_protocol__v1.csv": "958418b68f45857592680f35f4605b7af9a3ad8bd224052b5e555fc3dba6e4a4",
+    "tables/model_stability_purged_cv_annual__v1.csv": "025f106a6c04c515f0c6a72f238fab52d599d33c68aa13320633224edc81b2d6",
+    "tables/model_stability_purged_cv_fit_audit__v1.csv": "d380d8c09bc9bdddc903a18607f9d1cacddb27dc42af15ac17f649089e9ac560",
+    "tables/model_stability_purged_cv_pairwise__v1.csv": "49346c307b6d67836b761965b52738e7706654d61757ba01a2ef1840328dd699",
+    "tables/model_stability_purged_cv_purge_audit__v1.csv": "5a63015d36e78ab9b523819f061bbaccf8c4b7189016d99fdf4f590c18839fb1",
+    "tables/model_stability_purged_cv_score_distribution__v1.csv": "a41504643ee653f186d649628545d1326f16dc762cb571ee9b5cc97470c43135",
+    "tables/model_stability_purged_cv_summary__v1.csv": "3b1a4d1459bc04d88011d7b7ffca792a99ba26a3ff6804c7eb41509014cc51a5",
+    "tables/model_stability_score_distribution__v1.csv": "8a5ed226d89b4cc82616ab6dce80a5659339443d3f4105497721453f4b4247c9",
+    "tables/model_stability_seed_summary__v1.csv": "348448ed51d43e03e63bd91a32ce14fb36ef8f32f18aa22c2ad6021cb90e1c06",
+    "tables/model_stability_window_annual__v1.csv": "e48e2bf2b1ef5164d87d52fc03a47ac38ed77ca9ea8c2ddc8c0fbb3aa84932c7",
+    "tables/model_stability_window_fit_audit__v1.csv": "037446fd3aa2a29380066af9402ba266789d9c29ba024102a3da351450c99f2e",
+    "tables/model_stability_window_pairwise__v1.csv": "458aa77e2baebad83fb37b26cd12ab1cfe4d02bf47e347e6b3e63ce0d9a3f152",
+    "tables/model_stability_window_summary__v1.csv": "8652efe344bde90f900f2a4cd4706619c4ac7a6208de24f1d566580a449f925d"
+  }
+}

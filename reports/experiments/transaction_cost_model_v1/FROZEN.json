@@ -1,0 +1,15 @@
+{
+  "experiment_id": "transaction_cost_model_v1",
+  "frozen_at_utc": "2026-10-20T06:03:20.545635+00:00",
+  "content_sha256": "0368768109a9a2c18ca61b0fd7e2cc723d80be34ea987e2197e570c446cd27af",
+  "files": {
+    "config.yaml": "7c2e2a01422dbd16a4de797447829385ea48a4cae6bd78a194c4ce59b7d84fc9",
+    "metadata.json": "7d107cf074bc881048047270fcb63bd60ed411b32df1d9e9f9eaa2526adb2c36",
+    "metrics.json": "206b3a3296a86c681afdc30f100da27f722f22787ecf63d5c6de395e051d8ebe",
+    "notes.md": "5ab37694075a9f227a8492fb5b56c860c59006f83e4f449a94b03018e2f42eef",
+    "tables/transaction_cost_c0_regression__v1.csv": "068e2a7c90d35b9adac28176db369f1960e7398f0d0f63ca56796c98982a8e95",
+    "tables/transaction_cost_protocol__v1.csv": "82125011062385c6d9f929e0a6c4291ecbef18502f42158a34aa45c05aa9b0e1",
+    "tables/transaction_cost_reconciliation__v1.csv": "567bfd8e79557540fa6369aad593260d94847e5a4d863fd9c67e2aa4cefaf515",
+    "tables/transaction_cost_summary__v1.csv": "f72e8b49f0c3d533d3891fc20f0e1bd871b4a09e745cd860f72100fbce218a60"
+  }
+}

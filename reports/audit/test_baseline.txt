@@ -1,0 +1,60 @@
+PHASE 0 TEST BASELINE
+=====================
+
+Run timestamp (UTC): 2026-10-20
+Repository HEAD: db5cd282d05f0da61047d2ebf2bd9c09e9165032
+Repository tree: 10ca49c33a18a9259c4dbca48bcf3b811885a625
+Scope: existing repository test suite; no Phase 1 code or configuration changes
+
+Command
+-------
+PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m pytest -q -ra -p no:cacheprovider
+
+Environment
+-----------
+Python: 3.11.16
+pytest: 9.1.1
+Platform: Linux-5.15.0-92-generic-x86_64-with-glibc2.35
+pandas: 3.0.6
+numpy: 2.4.6
+scipy: 1.17.1
+scikit-learn: 1.9.1
+pyarrow: 25.0.1
+PyYAML: 6.0.3
+
+Collection
+----------
+Test files discovered: 48
+Tests collected: 148
+Collection time: 3.98s
+
+Result
+------
+Passed: 148
+Failed: 0
+Errors: 0
+Skipped: 0
+Xfailed: 0
+Xpassed: 0
+Warnings emitted by pytest: 0
+Exit code: 0
+Runtime: 79.72s (0:01:19)
+
+Exact terminal summary
+----------------------
+........................................................................ [ 48%]
+........................................................................ [ 97%]
+....                                                                     [100%]
+148 passed in 79.72s (0:01:19)
+
+Failure details
+---------------
+None.
+
+Interpretation boundary
+-----------------------
+This is a regression-test baseline, not a code-coverage claim. The passing suite
+does not establish a durable order/fill/position ledger, real-lot and T+1
+execution, explicit corporate-action accounting, historical component fee rules,
+a non-zero risk-free-rate product, or a pristine future lockbox. Those gaps are
+recorded in docs/audit/PROJECT_ARCHITECTURE_AUDIT.md.

@@ -68,9 +68,26 @@ def _execute_share_orders(
     return post_positions, post_cash, remaining, executed, cost
 
 
-def simulate_daily_retry(
+FILL_COLUMNS = [
+    "fill_id", "order_id", "trade_date", "active_target_date", "instrument_id",
+    "venue", "side", "executed_shares", "synthetic_price", "notional",
+    "commission_cost", "stamp_duty_cost", "transfer_fee_cost", "spread_cost",
+    "market_impact_cost", "fixed_round_trip_cost", "total_cost",
+]
+
+
+def _venue(instrument_id: str) -> str:
+    value = str(instrument_id).lower()
+    if value.startswith("sh."):
+        return "SSE"
+    if value.startswith("sz."):
+        return "SZSE"
+    return "UNKNOWN"
+
+
+def _simulate_daily_retry(
     market: pd.DataFrame, targets: pd.DataFrame, round_trip_cost_bps: float,
-) -> pd.DataFrame:
+) -> tuple[pd.DataFrame, pd.DataFrame]:
     """Submit weekly target-share orders and retry only their unfilled remainder.
 
     Returns accrue before close execution. A new weekly target cancels stale
@@ -106,6 +123,7 @@ def simulate_daily_retry(
     nav = 1.0
     cost_rate = float(round_trip_cost_bps) / 10_000.0
     records = []
+    fill_records = []
     first_target_date = min(target_groups)
 
     for raw_date, raw_group in market.groupby("trade_date", sort=True):
@@ -132,12 +150,21 @@ def simulate_daily_retry(
         earning_target_date = target_date
 
         new_target = date in target_groups
+        weight_based_one_way_turnover = np.nan
         if new_target:
             active_target = target_groups[date]
             target_date = date
             target_age = 0
             for code in active_target:
                 prices.setdefault(code, 1.0)
+            pretrade_weights = {
+                code: shares * prices.get(code, 1.0) / pretrade_nav
+                for code, shares in positions.items()
+            }
+            weight_based_one_way_turnover = 0.5 * sum(
+                abs(active_target.get(code, 0.0) - pretrade_weights.get(code, 0.0))
+                for code in set(active_target) | set(pretrade_weights)
+            )
             pending = {
                 code: (
                     pretrade_nav * active_target.get(code, 0.0)
@@ -174,6 +201,42 @@ def simulate_daily_retry(
         sell_notional = -sum(
             shares * prices[code] for code, shares in executed.items() if shares < 0
         )
+        gross_fill_notional = buy_notional + sell_notional
+        ordered_fills = []
+        for code, shares in sorted(executed.items()):
+            notional = abs(shares * prices[code])
+            if notional <= 0:
+                continue
+            ordered_fills.append((code, shares, notional))
+        allocated_fees = [
+            cost * notional / gross_fill_notional if gross_fill_notional > 0 else 0.0
+            for _, _, notional in ordered_fills
+        ]
+        if allocated_fees:
+            allocated_fees[-1] += cost - sum(allocated_fees)
+        for (code, shares, notional), allocated_fee in zip(
+            ordered_fills, allocated_fees, strict=True
+        ):
+            side = "buy" if shares > 0 else "sell"
+            fill_records.append({
+                "fill_id": f"{date}:{target_date}:{code}",
+                "order_id": f"{target_date}:{code}",
+                "trade_date": date,
+                "active_target_date": target_date,
+                "instrument_id": code,
+                "venue": _venue(code),
+                "side": side,
+                "executed_shares": abs(float(shares)),
+                "synthetic_price": float(prices[code]),
+                "notional": float(notional),
+                "commission_cost": 0.0,
+                "stamp_duty_cost": 0.0,
+                "transfer_fee_cost": 0.0,
+                "spread_cost": 0.0,
+                "market_impact_cost": 0.0,
+                "fixed_round_trip_cost": float(allocated_fee),
+                "total_cost": float(allocated_fee),
+            })
         blocked_buy = sum(
             shares * prices[code] for code, shares in pending.items() if shares > 0
         ) / pretrade_nav
@@ -193,6 +256,18 @@ def simulate_daily_retry(
             "target_age_trading_days": target_age,
             "gross_return": gross_return, "transaction_cost": cost / previous_nav,
             "net_return": net_return, "nav": nav,
+            "previous_nav": previous_nav, "pretrade_nav": pretrade_nav,
+            "posttrade_nav": nav,
+            "buy_notional": buy_notional, "sell_notional": sell_notional,
+            "buy_turnover": buy_notional / pretrade_nav,
+            "sell_turnover": sell_notional / pretrade_nav,
+            "gross_two_way_turnover": (buy_notional + sell_notional) / pretrade_nav,
+            "one_way_turnover": max(buy_notional, sell_notional) / pretrade_nav,
+            "weight_based_one_way_turnover": weight_based_one_way_turnover,
+            "commission_cost": 0.0, "stamp_duty_cost": 0.0,
+            "transfer_fee_cost": 0.0, "spread_cost": 0.0,
+            "market_impact_cost": 0.0, "fixed_round_trip_cost": cost,
+            "total_cost": cost,
             "buy_weight": buy_notional / pretrade_nav,
             "sell_weight": sell_notional / pretrade_nav,
             "turnover": max(buy_notional, sell_notional) / pretrade_nav,
@@ -204,7 +279,22 @@ def simulate_daily_retry(
             "pretrade_cash_weight": pretrade_cash / pretrade_nav,
             "submitted_order_names": submitted_order_names,
         })
-    return pd.DataFrame(records)
+    return pd.DataFrame(records), pd.DataFrame(fill_records, columns=FILL_COLUMNS)
+
+
+def simulate_daily_retry(
+    market: pd.DataFrame, targets: pd.DataFrame, round_trip_cost_bps: float,
+) -> pd.DataFrame:
+    """Run the legacy-compatible daily retry simulation and return daily rows."""
+    daily, _ = _simulate_daily_retry(market, targets, round_trip_cost_bps)
+    return daily
+
+
+def simulate_daily_retry_with_fills(
+    market: pd.DataFrame, targets: pd.DataFrame, round_trip_cost_bps: float,
+) -> tuple[pd.DataFrame, pd.DataFrame]:
+    """Run daily retry execution and retain its synthetic fill-level audit rows."""
+    return _simulate_daily_retry(market, targets, round_trip_cost_bps)
 
 
 def daily_performance_summary(daily: pd.DataFrame, annualization_periods: int = 252) -> dict:

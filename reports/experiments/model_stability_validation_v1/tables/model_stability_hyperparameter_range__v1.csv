@@ -1,0 +1,3 @@
+family,candidate_count,mean_rank_ic_minimum,mean_rank_ic_maximum,mean_rank_ic_range,portfolio_sharpe_minimum,portfolio_sharpe_maximum,local_robustness_pass,interpretation
+hgb,9,0.09713976299008095,0.09980789470340727,0.002668131713326319,1.8273210756208336,2.7960132919228293,,RankIC surface narrow; portfolio outcomes materially wider
+random_forest,11,0.0922194831499425,0.10001082583333323,0.0077913426833907395,0.7901006347612033,2.1185759467164083,False,predeclared neighbor robustness floor failed; no point promoted

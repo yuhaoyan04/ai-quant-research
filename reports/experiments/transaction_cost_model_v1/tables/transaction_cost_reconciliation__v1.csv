@@ -1,0 +1,8 @@
+scenario_id,cost_mode,daily_rows,fill_rows,maximum_daily_minus_fill_cost_error,maximum_fill_component_sum_error,negative_fill_cost_rows,no_fill_nonzero_cost_days,passed
+C1_fixed_000bp,fixed_round_trip,5548,440126,0.0,0.0,0,0,True
+C1_fixed_010bp,fixed_round_trip,5548,440126,0.0,0.0,0,0,True
+C0_fixed_020bp,fixed_round_trip,5548,440126,0.0,0.0,0,0,True
+C1_fixed_040bp,fixed_round_trip,5548,440126,0.0,0.0,0,0,True
+C1_fixed_060bp,fixed_round_trip,5548,440126,0.0,0.0,0,0,True
+C1_fixed_100bp,fixed_round_trip,5548,440126,0.0,0.0,0,0,True
+C2_public_levies_commission_scenario,components,5548,440126,0.0,0.0,0,0,True

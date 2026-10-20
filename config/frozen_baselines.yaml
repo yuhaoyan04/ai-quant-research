@@ -3,6 +3,8 @@ selection_policy: validation_only
 historical_oos_disclosure: >-
   The 2021-2026 block has already been inspected during project development.
   It is historical out-of-sample evidence, not a pristine production lockbox.
+governance_required_for_new_registrations: true
+governance_policy: research_governance.yaml
 
 experiments:
   baseline_ridge_v1:
@@ -1299,3 +1301,179 @@ experiments:
       - reports/figures/annual_returns.svg
       - reports/figures/factor_correlation_heatmap.svg
       - reports/figures/factor_distributions.svg
+
+  transaction_cost_model_v1:
+    title: Fill-reconciled fixed and date-effective transaction-cost protocol
+    stage: transaction_cost_and_turnover_protocol
+    model_version: fixed_c0_fill_path_component_cost_v1
+    dataset_version_method: sha256_of_registered_inputs_and_ingestion_manifest
+    historical_oos_used_for_selection: false
+    config_files:
+      - constrained_portfolio_daily_execution.yaml
+      - transaction_cost_model.yaml
+      - experiment_invalidations.yaml
+    input_tables:
+      - {table: constrained_execution_targets, key: v1}
+      - {table: constrained_daily_execution_market, key: v1}
+      - {table: constrained_daily_execution_daily, key: v1}
+      - {table: transaction_cost_fill_detail, key: v1}
+      - {table: transaction_cost_daily, key: v1}
+    metric_tables:
+      - {table: transaction_cost_protocol, key: v1}
+      - {table: transaction_cost_summary, key: v1}
+      - {table: transaction_cost_reconciliation, key: v1}
+      - {table: transaction_cost_c0_regression, key: v1}
+    figures: []
+
+  risk_free_rate_attribution_v1:
+    title: PIT-aligned CCDC government-bond risk-free rate and excess-return attribution
+    stage: risk_free_rate_and_return_attribution
+    model_version: ccdc_cgb_act365_hac_attribution_v1
+    dataset_version_method: sha256_of_registered_inputs_and_ingestion_manifest
+    historical_oos_used_for_selection: false
+    config_files:
+      - risk_free_rate_attribution.yaml
+      - capm_attribution.yaml
+      - style_factor_attribution.yaml
+    input_tables:
+      - {table: risk_free_rate_observations, key: v1}
+      - {table: risk_free_rate_daily, key: v1}
+      - {table: capm_aligned_daily, key: v1}
+      - {table: style_factor_daily_returns, key: v1}
+    metric_tables:
+      - {table: risk_free_rate_coverage, key: v1}
+      - {table: risk_free_rate_attribution_protocol, key: v1}
+      - {table: risk_free_rate_performance_summary, key: v1}
+      - {table: risk_free_rate_capm_summary, key: v1}
+      - {table: risk_free_rate_style_summary, key: v1}
+      - {table: risk_free_rate_regression_checks, key: v1}
+    figures: []
+
+  market_benchmark_attribution_v1:
+    title: Official CSI price and total-return benchmark attribution
+    stage: market_benchmark_and_return_attribution
+    model_version: csindex_price_total_return_hac_attribution_v1
+    dataset_version_method: sha256_of_registered_inputs_and_ingestion_manifest
+    historical_oos_used_for_selection: false
+    config_files:
+      - market_benchmark_attribution.yaml
+      - risk_free_rate_attribution.yaml
+      - style_factor_attribution.yaml
+    input_tables:
+      - {table: market_benchmark_observations, key: v1}
+      - {table: market_benchmark_daily, key: v1}
+      - {table: risk_free_rate_attribution_daily, key: v1}
+      - {table: style_factor_daily_returns, key: v1}
+    metric_tables:
+      - {table: market_benchmark_coverage, key: v1}
+      - {table: market_benchmark_comparison, key: v1}
+      - {table: market_benchmark_reconciliation, key: v1}
+      - {table: market_benchmark_protocol, key: v1}
+      - {table: market_benchmark_relative_performance, key: v1}
+      - {table: market_benchmark_capm_summary, key: v1}
+      - {table: market_benchmark_style_summary, key: v1}
+      - {table: market_benchmark_regression_checks, key: v1}
+    figures: []
+
+  model_stability_validation_v1:
+    title: Phase 3 model stability and time-aware validation
+    stage: model_stability_randomness_and_time_validation
+    model_version: frozen_five_family_expanding_rolling_purged_cv_v1
+    dataset_version_method: sha256_of_registered_inputs_and_ingestion_manifest
+    historical_oos_used_for_selection: false
+    config_files:
+      - model_stability_validation.yaml
+      - model_benchmark.yaml
+      - hgb_hyperparameter_stability.yaml
+      - rf_hyperparameter_stability.yaml
+    input_tables:
+      - {table: multi_horizon_factor_panel, key: "2006"}
+      - {table: multi_horizon_factor_panel, key: "2007"}
+      - {table: multi_horizon_factor_panel, key: "2008"}
+      - {table: multi_horizon_factor_panel, key: "2009"}
+      - {table: multi_horizon_factor_panel, key: "2010"}
+      - {table: multi_horizon_factor_panel, key: "2011"}
+      - {table: multi_horizon_factor_panel, key: "2012"}
+      - {table: multi_horizon_factor_panel, key: "2013"}
+      - {table: multi_horizon_factor_panel, key: "2014"}
+      - {table: multi_horizon_factor_panel, key: "2015"}
+      - {table: multi_horizon_factor_panel, key: "2016"}
+      - {table: multi_horizon_factor_panel, key: "2017"}
+      - {table: multi_horizon_factor_panel, key: "2018"}
+      - {table: multi_horizon_factor_panel, key: "2019"}
+      - {table: multi_horizon_factor_panel, key: "2020"}
+      - {table: multi_horizon_factor_panel, key: "2021"}
+      - {table: multi_horizon_factor_panel, key: "2022"}
+      - {table: multi_horizon_factor_panel, key: "2023"}
+      - {table: multi_horizon_factor_panel, key: "2024"}
+      - {table: multi_horizon_factor_panel, key: "2025"}
+      - {table: multi_horizon_factor_panel, key: "2026"}
+      - {table: model_benchmark_family_selection, key: v1}
+      - {table: hgb_hyperparameter_summary, key: v1}
+      - {table: rf_hyperparameter_validation_summary, key: v1}
+      - {table: incremental_alpha_comparison, key: v1}
+      - {table: model_stability_window_daily, key: v1}
+      - {table: model_stability_window_portfolio, key: v1}
+      - {table: model_stability_purged_cv_daily, key: v1}
+      - {table: model_stability_purged_cv_portfolio, key: v1}
+    metric_tables:
+      - {table: model_stability_protocol, key: v1}
+      - {table: model_stability_evidence_matrix, key: v1}
+      - {table: model_stability_hyperparameter_range, key: v1}
+      - {table: model_stability_seed_summary, key: v1}
+      - {table: model_stability_alignment_audit, key: v1}
+      - {table: model_stability_window_summary, key: v1}
+      - {table: model_stability_window_annual, key: v1}
+      - {table: model_stability_window_pairwise, key: v1}
+      - {table: model_stability_window_fit_audit, key: v1}
+      - {table: model_stability_score_distribution, key: v1}
+      - {table: model_stability_purged_cv_summary, key: v1}
+      - {table: model_stability_purged_cv_annual, key: v1}
+      - {table: model_stability_purged_cv_pairwise, key: v1}
+      - {table: model_stability_purged_cv_purge_audit, key: v1}
+      - {table: model_stability_purged_cv_fit_audit, key: v1}
+      - {table: model_stability_purged_cv_score_distribution, key: v1}
+    figures: []
+
+  research_governance_v1:
+    title: Phase 4 historical-OOS contamination and future-evidence governance
+    stage: evidence_governance_and_candidate_freeze
+    model_version: candidate_bundle_v1_future_lockbox_2026q4_2027q3
+    dataset_version_method: sha256_of_registered_inputs_and_ingestion_manifest
+    historical_oos_used_for_selection: false
+    evidence_class: governance_only
+    research_selection_role: governance
+    claims_independent_evidence: false
+    lockbox_id: future_lockbox_2026q4_2027q3_v1
+    config_files:
+      - research_governance.yaml
+      - model_benchmark.yaml
+      - model_stability_validation.yaml
+      - constrained_portfolio_neutralization.yaml
+      - constrained_portfolio_daily_execution.yaml
+      - transaction_cost_model.yaml
+      - incremental_alpha_test.yaml
+      - market_benchmark_attribution.yaml
+      - risk_free_rate_attribution.yaml
+      - research_conclusion_audit.yaml
+    input_tables:
+      - {table: model_benchmark_selection, key: v1}
+      - {table: model_stability_protocol, key: v1}
+      - {table: constrained_portfolio_protocol, key: v1}
+      - {table: constrained_daily_execution_protocol, key: v1}
+      - {table: transaction_cost_protocol, key: v1}
+      - {table: incremental_alpha_protocol, key: v1}
+      - {table: market_benchmark_protocol, key: v1}
+      - {table: risk_free_rate_attribution_protocol, key: v1}
+      - {table: research_conclusion_decisions, key: v2}
+    metric_tables:
+      - {table: research_governance_protocol, key: v1}
+      - {table: research_evidence_registry, key: v1}
+      - {table: research_candidate_freeze, key: v1}
+      - {table: research_lockbox_registry, key: v1}
+      - {table: research_paper_trading_registry, key: v1}
+      - {table: research_hypothesis_registry, key: v1}
+      - {table: research_governance_dependency_hashes, key: v1}
+      - {table: research_access_log_snapshot, key: v1}
+      - {table: research_governance_checks, key: v1}
+    figures: []

@@ -1,0 +1,121 @@
+experiment_id: research_governance_v1
+policy_version: 1
+purpose: phase4_historical_oos_contamination_and_future_evidence_governance
+policy_frozen_date_utc: "2026-10-20"
+current_data_cutoff: "2026-09-30"
+historical_oos_used_for_selection: false
+new_model_selected: false
+evidence_periods:
+  training:
+    start_date: "2006-01-01"
+    end_date: "2015-12-31"
+    evidence_class: training
+    selection_allowed: true
+    already_observed: true
+  validation_selection:
+    start_date: "2016-01-01"
+    end_date: "2020-12-31"
+    evidence_class: validation_selection
+    selection_allowed: true
+    already_observed: true
+  historical_oos:
+    start_date: "2021-01-01"
+    end_date: "2026-09-30"
+    evidence_class: historical_oos
+    selection_allowed_for_new_revisions: false
+    already_observed: true
+    consumed: true
+    disclosure: inspected_repeatedly_during_research_not_a_pristine_lockbox
+  future_lockbox:
+    lockbox_id: future_lockbox_2026q4_2027q3_v1
+    start_date: "2026-10-01"
+    planned_end_date: "2027-09-30"
+    evidence_class: future_lockbox
+    selection_allowed: false
+    already_observed: false
+    initial_state: SEALED_EMPTY
+    minimum_daily_observations: 252
+    minimum_weekly_signal_observations: 52
+    minimum_calendar_months: 12
+    minimum_coverage_fraction: 0.95
+    open_rule: planned_end_date_and_all_minimum_observation_gates
+    interim_performance_access_allowed: false
+    operational_health_access_allowed: true
+    local_enforcement_is_cryptographic: false
+  paper_trading:
+    paper_id: paper_candidate_bundle_v1
+    activation_rule: first_eligible_signal_strictly_after_candidate_freeze_commit
+    retroactive_backfill_allowed: false
+    evidence_class: paper_trading
+    selection_allowed_for_same_version: false
+    performance_reporting_frequency: monthly
+    operational_health_reporting_frequency: daily
+    modification_rule: any_outcome_driven_change_creates_new_candidate_version
+candidate_bundle:
+  bundle_id: candidate_bundle_v1
+  primary:
+    model: hgb_shallow15_locked
+    alpha_pipeline: raw
+    portfolio_construction: risk_constrained
+    selection_source: validation_2016_2020_only
+  secondary:
+    - {model: hgb_shallow15_locked, alpha_pipeline: industry_size_neutralized, portfolio_construction: risk_constrained}
+    - {model: ridge_locked, alpha_pipeline: raw, portfolio_construction: risk_constrained}
+    - {model: ridge_locked, alpha_pipeline: industry_size_neutralized, portfolio_construction: risk_constrained}
+  benchmark: pit_industry_style_matched_peer_replica
+  market_benchmarks: [CSI500_price, CSI500_total_return]
+  model_training_window: expanding_from_2006
+  target: fwd_return_5d_lag1
+  rebalance_frequency: weekly
+  historical_oos_used_for_selection: false
+cost_and_execution:
+  primary_cost_scenario: C0_fixed_020bp
+  secondary_cost_scenario: C2_public_levies_commission_scenario
+  primary_round_trip_cost_bps: 20.0
+  execution_convention: returns_accrue_before_close_trade_blocked_orders_retry_daily
+  limitations:
+    - daily_bar_execution_approximation
+    - no_bid_ask_quote_history
+    - no_broker_calibrated_market_impact
+    - incomplete_intraday_limit_queue_and_ipo_no_limit_windows
+statistical_plan:
+  primary_hypothesis: hgb_raw_incremental_net_return_vs_style_matched_benchmark_positive
+  secondary_hypotheses:
+    - hgb_industry_size_neutralized_incremental_net_return_positive
+    - ridge_raw_incremental_net_return_positive
+    - ridge_industry_size_neutralized_incremental_net_return_positive
+  paired_clock: common_daily_dates
+  bootstrap: circular_block_bootstrap
+  block_length_trading_days: 20
+  bootstrap_samples: 2000
+  bootstrap_seed: 20261020
+  familywise_strategy_count: 4
+  multiplicity_control: benjamini_hochberg
+  false_discovery_rate: 0.05
+  primary_metrics:
+    - incremental_net_return_annualized_arithmetic
+    - mean_rank_ic
+  secondary_metrics:
+    - risk_free_adjusted_sharpe
+    - maximum_drawdown
+    - turnover
+    - return_per_turnover
+    - target_tracking_error
+    - cash_weight
+  decision_rule: no_parameter_or_strategy_change_from_lockbox_or_paper_results_without_new_version
+source_artifacts:
+  - {table: model_benchmark_selection, key: v1}
+  - {table: model_stability_protocol, key: v1}
+  - {table: constrained_portfolio_protocol, key: v1}
+  - {table: constrained_daily_execution_protocol, key: v1}
+  - {table: transaction_cost_protocol, key: v1}
+  - {table: incremental_alpha_protocol, key: v1}
+  - {table: market_benchmark_protocol, key: v1}
+  - {table: risk_free_rate_attribution_protocol, key: v1}
+  - {table: research_conclusion_decisions, key: v2}
+access_log:
+  path: reports/governance/research_access_log.jsonl
+  hash_chained: true
+  append_only_policy: true
+  required_fields: [actor, evidence_class, action, reason, result_accessed, used_for_change]
+  consume_actions: [VIEW_RESULTS, EXPORT_RESULTS, USE_FOR_CHANGE]

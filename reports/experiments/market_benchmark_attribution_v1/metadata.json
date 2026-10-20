@@ -1,0 +1,125 @@
+{
+  "experiment_id": "market_benchmark_attribution_v1",
+  "title": "Official CSI price and total-return benchmark attribution",
+  "stage": "market_benchmark_and_return_attribution",
+  "model_version": "csindex_price_total_return_hac_attribution_v1",
+  "registered_at_utc": "2026-10-20T07:55:37.462865+00:00",
+  "immutable": true,
+  "selection_policy": "validation_only",
+  "historical_oos_used_for_selection": false,
+  "historical_oos_disclosure": "The 2021-2026 block has already been inspected during project development. It is historical out-of-sample evidence, not a pristine production lockbox.",
+  "dataset_version": "37558db55c26965de60a357dd53c8f55c66a51f6490576762df10daddb80b8e0",
+  "dataset_manifest": {
+    "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/manifests/ingestion.jsonl",
+    "size_bytes": 19184250,
+    "sha256": "f63c6ed7bcc40b50b757c035d6cc51107550e6ba1babed9a01504f1e9e92ff9d"
+  },
+  "input_artifacts": [
+    {
+      "table": "market_benchmark_observations",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/market_benchmark_observations/key=v1/data.parquet",
+      "size_bytes": 236496,
+      "sha256": "f139f006df4702050167fe31c13b4283a30a3f110190c5e95251e4e95cde6d62"
+    },
+    {
+      "table": "market_benchmark_daily",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/market_benchmark_daily/key=v1/data.parquet",
+      "size_bytes": 358896,
+      "sha256": "20675dd482042584d5c82e67eee19e338806cfe029b1b369b605756e3c541ad0"
+    },
+    {
+      "table": "risk_free_rate_attribution_daily",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/risk_free_rate_attribution_daily/key=v1/data.parquet",
+      "size_bytes": 2796477,
+      "sha256": "fdc1a0101a2a26b7a6743b92d0fd9758587dd5550291134ebe0da88f80b80ee6"
+    },
+    {
+      "table": "style_factor_daily_returns",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/style_factor_daily_returns/key=v1/data.parquet",
+      "size_bytes": 295402,
+      "sha256": "6e85be98c55920bc5c733ad0167b2c28e29e38718e4588e96eb0713448c66540"
+    }
+  ],
+  "metric_artifacts": [
+    {
+      "table": "market_benchmark_coverage",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/market_benchmark_coverage/key=v1/data.parquet",
+      "size_bytes": 6727,
+      "sha256": "c9134f7c7a5e0ad6d440f42989578e4c338d69198ae47e115a4aa4b26c94cb89"
+    },
+    {
+      "table": "market_benchmark_comparison",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/market_benchmark_comparison/key=v1/data.parquet",
+      "size_bytes": 7819,
+      "sha256": "61bcb2b16f4bab802af3629353556f92654118cafc0b309d3337c5a5268c4d8f"
+    },
+    {
+      "table": "market_benchmark_reconciliation",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/market_benchmark_reconciliation/key=v1/data.parquet",
+      "size_bytes": 7673,
+      "sha256": "6017d93916865d34491acb508ad73606f1d4be16a467b6fd9c1f24279752593a"
+    },
+    {
+      "table": "market_benchmark_protocol",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/market_benchmark_protocol/key=v1/data.parquet",
+      "size_bytes": 11675,
+      "sha256": "e5a912acf31f195461874dd9251052eff2d393e79ff3325f3409476ad2060568"
+    },
+    {
+      "table": "market_benchmark_relative_performance",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/market_benchmark_relative_performance/key=v1/data.parquet",
+      "size_bytes": 13061,
+      "sha256": "bfcfa133085dd978f28737104d9249372e3ab7393cbf058577ed1c7950a52e22"
+    },
+    {
+      "table": "market_benchmark_capm_summary",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/market_benchmark_capm_summary/key=v1/data.parquet",
+      "size_bytes": 42345,
+      "sha256": "799258270a9b057b3f894a97c5eaa003987aaf16ca97c05aeab0f1f018d55c7b"
+    },
+    {
+      "table": "market_benchmark_style_summary",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/market_benchmark_style_summary/key=v1/data.parquet",
+      "size_bytes": 63397,
+      "sha256": "7c86a7901306bf7a06bf3f25e1eb32227f5d4ccccc3768eb5c931991ae3ac399"
+    },
+    {
+      "table": "market_benchmark_regression_checks",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/market_benchmark_regression_checks/key=v1/data.parquet",
+      "size_bytes": 4993,
+      "sha256": "699ab7652d30ac3cb42f3706f0c931b31aae2c69af2014d24d90137a2ea58368"
+    }
+  ],
+  "figures": [],
+  "source_tree_sha256": "96905c9fadc18e46fffb26aea6824215af1661348ed72d95a422deaa4315f1e5",
+  "git": {
+    "commit": "db5cd282d05f0da61047d2ebf2bd9c09e9165032",
+    "dirty": true,
+    "status_sha256": "926212d5332bb58d192e6d953a94de46f1fa69ef257ea3868ace7f3992442bee"
+  },
+  "environment": {
+    "python": "3.11.16",
+    "implementation": "CPython",
+    "platform": "Linux-5.15.0-92-generic-x86_64-with-glibc2.35",
+    "packages": {
+      "pandas": "3.0.6",
+      "pyarrow": "25.0.1",
+      "PyYAML": "6.0.3",
+      "scikit-learn": "1.9.1",
+      "numpy": "2.4.6",
+      "scipy": "1.17.1"
+    }
+  }
+}

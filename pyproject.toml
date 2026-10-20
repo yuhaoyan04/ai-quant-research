@@ -17,6 +17,7 @@ dependencies = [
   "scipy>=1.13",
   "tabulate>=0.9",
   "reportlab>=4.2",
+  "requests>=2.32",
 ]
 
 [project.optional-dependencies]
@@ -78,6 +79,11 @@ quant-rf-oos-execution-audit = "quant_research.rf_oos_execution_audit:run"
 quant-rf-target-holdings = "quant_research.rf_target_holdings:run"
 quant-rf-daily-retry = "quant_research.rf_daily_retry_execution:main"
 quant-incremental-alpha = "quant_research.incremental_alpha_test:main"
+quant-transaction-costs = "quant_research.transaction_cost_analysis:main"
+quant-risk-free-attribution = "quant_research.risk_free_rate_attribution:main"
+quant-market-benchmark-attribution = "quant_research.market_benchmark_attribution:main"
+quant-model-stability-validation = "quant_research.model_stability_validation:run"
+quant-research-governance = "quant_research.research_governance:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]

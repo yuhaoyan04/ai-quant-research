@@ -1,0 +1,19 @@
+{
+  "experiment_id": "market_benchmark_attribution_v1",
+  "frozen_at_utc": "2026-10-20T07:55:37.462865+00:00",
+  "content_sha256": "8e2d4e2751c78457f084de8bb960bcc9f511b4ffd79ee73a2f0f37794224d96d",
+  "files": {
+    "config.yaml": "31982b56fac4d77821f8929c314a9a4f05be8b5b9afac974b292807870db0b55",
+    "metadata.json": "aa1df8942fa8aef17b853ec311d514319c975b396012e8e94294742fa582ba81",
+    "metrics.json": "dc0f9d2af626e4197a1d2b9aa45a07e155f67672b6ca72852597db44904bd06d",
+    "notes.md": "8f38de25795cbc3720e943d5cca7434f5629986bcc6467ef1623b8f14317e9ee",
+    "tables/market_benchmark_capm_summary__v1.csv": "824c5913749d3b4215fea977aa086412964ebb0505974dfc46366f08e83021ce",
+    "tables/market_benchmark_comparison__v1.csv": "c41d3a0f029a39d545ce0c076f322e9dadc586e67f0476216b9bde085050f691",
+    "tables/market_benchmark_coverage__v1.csv": "d3a0242030b7c1d3875ade8afd27813f40f5d656d9e64884bfe4bf651c99b75f",
+    "tables/market_benchmark_protocol__v1.csv": "620eadf1f38c8be256632e01b77ebd7e9f236fcb1dcfc524e8eb3aac738d95b2",
+    "tables/market_benchmark_reconciliation__v1.csv": "c24063d5aeb54a3446b1d2cd1aee6a3ea9a0d7439d8533744efe358403f41cb2",
+    "tables/market_benchmark_regression_checks__v1.csv": "d8bfd7675ee9422a5f142febaa942557a88ac4fc49a85f61241253d37ffd22d4",
+    "tables/market_benchmark_relative_performance__v1.csv": "f462070f0caf2bbf3c8806345f228d9223e33609b582d1d429a5e2a1a63b80a9",
+    "tables/market_benchmark_style_summary__v1.csv": "1934008bb121f698b720857886688a6dd91834559d3523145ae9d74741aefc91"
+  }
+}

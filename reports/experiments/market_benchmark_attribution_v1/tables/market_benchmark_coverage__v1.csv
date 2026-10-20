@@ -1,0 +1,10 @@
+benchmark,variant_id,return_type,index_code,source_provider,dates,start_date,end_date,missing_returns,interpolated_dates
+CSI1000,legacy_baostock_price,price_return,sh.000852,BaoStock,1387,2021-01-11,2026-09-29,0,0
+CSI1000,official_csindex_price,price_return,000852,"China Securities Index Co., Ltd. (CSI)",1387,2021-01-11,2026-09-29,0,0
+CSI1000,official_csindex_total_return,total_return,H00852,"China Securities Index Co., Ltd. (CSI)",1387,2021-01-11,2026-09-29,0,0
+CSI300,legacy_baostock_price,price_return,sh.000300,BaoStock,1387,2021-01-11,2026-09-29,0,0
+CSI300,official_csindex_price,price_return,000300,"China Securities Index Co., Ltd. (CSI)",1387,2021-01-11,2026-09-29,0,0
+CSI300,official_csindex_total_return,total_return,H00300,"China Securities Index Co., Ltd. (CSI)",1387,2021-01-11,2026-09-29,0,0
+CSI500,legacy_baostock_price,price_return,sh.000905,BaoStock,1387,2021-01-11,2026-09-29,0,0
+CSI500,official_csindex_price,price_return,000905,"China Securities Index Co., Ltd. (CSI)",1387,2021-01-11,2026-09-29,0,0
+CSI500,official_csindex_total_return,total_return,H00905,"China Securities Index Co., Ltd. (CSI)",1387,2021-01-11,2026-09-29,0,0

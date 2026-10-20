@@ -1,0 +1,513 @@
+experiment_id: model_stability_validation_v1
+registry_version: 1
+selection_policy: validation_only
+historical_oos_disclosure: The 2021-2026 block has already been inspected during project
+  development. It is historical out-of-sample evidence, not a pristine production
+  lockbox.
+experiment:
+  title: Phase 3 model stability and time-aware validation
+  stage: model_stability_randomness_and_time_validation
+  model_version: frozen_five_family_expanding_rolling_purged_cv_v1
+  dataset_version_method: sha256_of_registered_inputs_and_ingestion_manifest
+  historical_oos_used_for_selection: false
+  config_files:
+  - model_stability_validation.yaml
+  - model_benchmark.yaml
+  - hgb_hyperparameter_stability.yaml
+  - rf_hyperparameter_stability.yaml
+  input_tables:
+  - table: multi_horizon_factor_panel
+    key: '2006'
+  - table: multi_horizon_factor_panel
+    key: '2007'
+  - table: multi_horizon_factor_panel
+    key: '2008'
+  - table: multi_horizon_factor_panel
+    key: '2009'
+  - table: multi_horizon_factor_panel
+    key: '2010'
+  - table: multi_horizon_factor_panel
+    key: '2011'
+  - table: multi_horizon_factor_panel
+    key: '2012'
+  - table: multi_horizon_factor_panel
+    key: '2013'
+  - table: multi_horizon_factor_panel
+    key: '2014'
+  - table: multi_horizon_factor_panel
+    key: '2015'
+  - table: multi_horizon_factor_panel
+    key: '2016'
+  - table: multi_horizon_factor_panel
+    key: '2017'
+  - table: multi_horizon_factor_panel
+    key: '2018'
+  - table: multi_horizon_factor_panel
+    key: '2019'
+  - table: multi_horizon_factor_panel
+    key: '2020'
+  - table: multi_horizon_factor_panel
+    key: '2021'
+  - table: multi_horizon_factor_panel
+    key: '2022'
+  - table: multi_horizon_factor_panel
+    key: '2023'
+  - table: multi_horizon_factor_panel
+    key: '2024'
+  - table: multi_horizon_factor_panel
+    key: '2025'
+  - table: multi_horizon_factor_panel
+    key: '2026'
+  - table: model_benchmark_family_selection
+    key: v1
+  - table: hgb_hyperparameter_summary
+    key: v1
+  - table: rf_hyperparameter_validation_summary
+    key: v1
+  - table: incremental_alpha_comparison
+    key: v1
+  - table: model_stability_window_daily
+    key: v1
+  - table: model_stability_window_portfolio
+    key: v1
+  - table: model_stability_purged_cv_daily
+    key: v1
+  - table: model_stability_purged_cv_portfolio
+    key: v1
+  metric_tables:
+  - table: model_stability_protocol
+    key: v1
+  - table: model_stability_evidence_matrix
+    key: v1
+  - table: model_stability_hyperparameter_range
+    key: v1
+  - table: model_stability_seed_summary
+    key: v1
+  - table: model_stability_alignment_audit
+    key: v1
+  - table: model_stability_window_summary
+    key: v1
+  - table: model_stability_window_annual
+    key: v1
+  - table: model_stability_window_pairwise
+    key: v1
+  - table: model_stability_window_fit_audit
+    key: v1
+  - table: model_stability_score_distribution
+    key: v1
+  - table: model_stability_purged_cv_summary
+    key: v1
+  - table: model_stability_purged_cv_annual
+    key: v1
+  - table: model_stability_purged_cv_pairwise
+    key: v1
+  - table: model_stability_purged_cv_purge_audit
+    key: v1
+  - table: model_stability_purged_cv_fit_audit
+    key: v1
+  - table: model_stability_purged_cv_score_distribution
+    key: v1
+  figures: []
+resolved_configs:
+  model_stability_validation.yaml:
+    experiment_id: model_stability_validation_v1
+    purpose: phase3_model_stability_time_aware_validation_without_reselection
+    historical_oos_used_for_selection: false
+    parameter_promotion_allowed: false
+    train_pool:
+      start_year: 2006
+      end_year: 2020
+    evaluation:
+      start_year: 2016
+      end_year: 2026
+    validation:
+      start_year: 2016
+      end_year: 2020
+    historical_oos:
+      start_year: 2021
+      end_year: 2026
+    target: fwd_return_5d_lag1
+    label_horizon_trading_days: 5
+    minimum_cross_section_size: 100
+    annualization_periods: 52
+    sample_per_training_date: 300
+    random_state: 20261016
+    quantile_limits:
+    - 0.01
+    - 0.99
+    mad_multiplier: 5.0
+    include_missing_indicators: true
+    portfolio:
+      top_n: 200
+      round_trip_cost_bps: 20.0
+      minimum_realized_weight_fraction: 0.95
+    window_comparison:
+      expanding_start_year: 2006
+      rolling_years: 10
+      policies:
+      - expanding
+      - rolling_10y
+    purged_cv:
+      purpose: supplemental_cross_period_generalization_not_trading_simulation
+      test_years:
+      - 2016
+      - 2017
+      - 2018
+      - 2019
+      - 2020
+      training_pool_start_year: 2006
+      training_pool_end_year: 2020
+      future_training_samples_allowed: true
+      label_interval_purge_required: true
+      promotion_allowed: false
+    failure_rules:
+      mean_rank_ic_nonpositive: 0.0
+      annualized_net_return_nonpositive: 0.0
+    score_distribution_quantiles:
+    - 0.01
+    - 0.05
+    - 0.5
+    - 0.95
+    - 0.99
+    bootstrap:
+      block_length_weeks: 13
+      samples: 2000
+      random_seed: 20261020
+    candidates:
+    - candidate: naive_directional
+      family: naive
+      kind: naive
+    - candidate: ridge_1
+      family: ridge
+      kind: ridge
+      penalty: 1.0
+    - candidate: elastic_a0.01_l10.5
+      family: elastic_net
+      kind: elastic_net
+      alpha: 0.01
+      l1_ratio: 0.5
+    - candidate: random_forest_depth6
+      family: random_forest
+      kind: random_forest
+      n_estimators: 100
+      max_depth: 6
+      min_samples_leaf: 100
+      max_features: 0.7
+      random_state: 20261016
+    - candidate: hgb_shallow15
+      family: hgb
+      kind: hgb
+      learning_rate: 0.05
+      max_iter: 120
+      max_leaf_nodes: 15
+      min_samples_leaf: 100
+      l2_regularization: 1.0
+    evidence_sources:
+      M0: model_benchmark_v1
+      M1_hgb: hgb_hyperparameter_stability_v1
+      M1_rf: rf_hyperparameter_stability_v1
+      M2: rf_hyperparameter_stability_v1_random_state_axis
+      M6: incremental_alpha_test_v1
+  model_benchmark.yaml:
+    experiment_id: model_benchmark_v1
+    historical_oos_used_for_selection: false
+    train:
+      start_year: 2006
+      end_year: 2015
+    validation:
+      start_year: 2016
+      end_year: 2020
+    historical_oos:
+      start_year: 2021
+      end_year: 2026
+    target: fwd_return_5d_lag1
+    label_horizon_trading_days: 5
+    minimum_cross_section_size: 100
+    annualization_periods: 52
+    sample_per_training_date: 300
+    random_state: 20261016
+    quantile_limits:
+    - 0.01
+    - 0.99
+    mad_multiplier: 5.0
+    include_missing_indicators: true
+    selection_metric: mean_rank_ic
+    selection_tiebreakers:
+    - portfolio_sharpe_zero_rate
+    - portfolio_annualized_return
+    portfolio:
+      top_n: 200
+      round_trip_cost_bps: 20.0
+      minimum_realized_weight_fraction: 0.95
+    bootstrap:
+      block_length_weeks: 13
+      samples: 2000
+      random_seed: 20261016
+    candidates:
+    - candidate: naive_directional
+      family: naive
+      kind: naive
+    - candidate: ols
+      family: ols
+      kind: ols
+    - candidate: ridge_0.0001
+      family: ridge
+      kind: ridge
+      penalty: 0.0001
+    - candidate: ridge_0.001
+      family: ridge
+      kind: ridge
+      penalty: 0.001
+    - candidate: ridge_0.01
+      family: ridge
+      kind: ridge
+      penalty: 0.01
+    - candidate: ridge_0.1
+      family: ridge
+      kind: ridge
+      penalty: 0.1
+    - candidate: ridge_1
+      family: ridge
+      kind: ridge
+      penalty: 1.0
+    - candidate: elastic_a0.0001_l10.1
+      family: elastic_net
+      kind: elastic_net
+      alpha: 0.0001
+      l1_ratio: 0.1
+    - candidate: elastic_a0.001_l10.1
+      family: elastic_net
+      kind: elastic_net
+      alpha: 0.001
+      l1_ratio: 0.1
+    - candidate: elastic_a0.001_l10.5
+      family: elastic_net
+      kind: elastic_net
+      alpha: 0.001
+      l1_ratio: 0.5
+    - candidate: elastic_a0.01_l10.5
+      family: elastic_net
+      kind: elastic_net
+      alpha: 0.01
+      l1_ratio: 0.5
+    - candidate: elastic_a0.01_l10.9
+      family: elastic_net
+      kind: elastic_net
+      alpha: 0.01
+      l1_ratio: 0.9
+    - candidate: random_forest_depth6
+      family: random_forest
+      kind: random_forest
+      n_estimators: 100
+      max_depth: 6
+      min_samples_leaf: 100
+      max_features: 0.7
+    - candidate: hgb_shallow15
+      family: hgb
+      kind: hgb
+      learning_rate: 0.05
+      max_iter: 120
+      max_leaf_nodes: 15
+      min_samples_leaf: 100
+      l2_regularization: 1.0
+    - candidate: hgb_regularized31
+      family: hgb
+      kind: hgb
+      learning_rate: 0.04
+      max_iter: 150
+      max_leaf_nodes: 31
+      min_samples_leaf: 150
+      l2_regularization: 10.0
+    - candidate: hgb_flexible63
+      family: hgb
+      kind: hgb
+      learning_rate: 0.03
+      max_iter: 180
+      max_leaf_nodes: 63
+      min_samples_leaf: 200
+      l2_regularization: 20.0
+    unavailable_models:
+      lightgbm: dependency_not_installed
+      xgboost: dependency_not_installed
+  hgb_hyperparameter_stability.yaml:
+    experiment_id: hgb_hyperparameter_stability_v1
+    purpose: validation_only_two_dimensional_surface_not_model_reselection
+    historical_oos_used_for_selection: false
+    train:
+      start_year: 2006
+      end_year: 2015
+    validation:
+      start_year: 2016
+      end_year: 2020
+    target: fwd_return_5d_lag1
+    label_horizon_trading_days: 5
+    minimum_cross_section_size: 100
+    annualization_periods: 52
+    sample_per_training_date: 300
+    random_state: 20261016
+    quantile_limits:
+    - 0.01
+    - 0.99
+    mad_multiplier: 5.0
+    include_missing_indicators: true
+    portfolio:
+      top_n: 200
+      round_trip_cost_bps: 20.0
+      minimum_realized_weight_fraction: 0.95
+    fixed_parameters:
+      learning_rate: 0.05
+      max_iter: 120
+      min_samples_leaf: 100
+    surface:
+      max_leaf_nodes:
+      - 7
+      - 15
+      - 31
+      l2_regularization:
+      - 0.1
+      - 1.0
+      - 10.0
+    baseline:
+      max_leaf_nodes: 15
+      l2_regularization: 1.0
+  rf_hyperparameter_stability.yaml:
+    experiment_id: rf_hyperparameter_stability_v1
+    historical_oos_used_for_selection: false
+    purpose: validation_only_local_sensitivity_not_model_selection
+    train:
+      start_year: 2006
+      end_year: 2015
+    validation:
+      start_year: 2016
+      end_year: 2020
+    target: fwd_return_5d_lag1
+    label_horizon_trading_days: 5
+    minimum_cross_section_size: 100
+    annualization_periods: 52
+    sample_per_training_date: 300
+    random_state: 20261016
+    quantile_limits:
+    - 0.01
+    - 0.99
+    mad_multiplier: 5.0
+    include_missing_indicators: true
+    portfolio:
+      top_n: 200
+      round_trip_cost_bps: 20.0
+      minimum_realized_weight_fraction: 0.95
+    robustness_thresholds:
+      maximum_rank_ic_drop: 0.005
+      maximum_sharpe_drop: 0.25
+      minimum_neighbor_pass_fraction: 0.75
+    baseline_candidate: rf_baseline_d6_l100_f0.7_t100_s20261016
+    candidates:
+    - candidate: rf_baseline_d6_l100_f0.7_t100_s20261016
+      axis: baseline
+      value: 0
+      family: random_forest
+      kind: random_forest
+      n_estimators: 100
+      max_depth: 6
+      min_samples_leaf: 100
+      max_features: 0.7
+      random_state: 20261016
+    - candidate: rf_depth4
+      axis: max_depth
+      value: 4
+      family: random_forest
+      kind: random_forest
+      n_estimators: 100
+      max_depth: 4
+      min_samples_leaf: 100
+      max_features: 0.7
+      random_state: 20261016
+    - candidate: rf_depth8
+      axis: max_depth
+      value: 8
+      family: random_forest
+      kind: random_forest
+      n_estimators: 100
+      max_depth: 8
+      min_samples_leaf: 100
+      max_features: 0.7
+      random_state: 20261016
+    - candidate: rf_leaf50
+      axis: min_samples_leaf
+      value: 50
+      family: random_forest
+      kind: random_forest
+      n_estimators: 100
+      max_depth: 6
+      min_samples_leaf: 50
+      max_features: 0.7
+      random_state: 20261016
+    - candidate: rf_leaf200
+      axis: min_samples_leaf
+      value: 200
+      family: random_forest
+      kind: random_forest
+      n_estimators: 100
+      max_depth: 6
+      min_samples_leaf: 200
+      max_features: 0.7
+      random_state: 20261016
+    - candidate: rf_features0.5
+      axis: max_features
+      value: 0.5
+      family: random_forest
+      kind: random_forest
+      n_estimators: 100
+      max_depth: 6
+      min_samples_leaf: 100
+      max_features: 0.5
+      random_state: 20261016
+    - candidate: rf_features1.0
+      axis: max_features
+      value: 1.0
+      family: random_forest
+      kind: random_forest
+      n_estimators: 100
+      max_depth: 6
+      min_samples_leaf: 100
+      max_features: 1.0
+      random_state: 20261016
+    - candidate: rf_trees50
+      axis: n_estimators
+      value: 50
+      family: random_forest
+      kind: random_forest
+      n_estimators: 50
+      max_depth: 6
+      min_samples_leaf: 100
+      max_features: 0.7
+      random_state: 20261016
+    - candidate: rf_trees200
+      axis: n_estimators
+      value: 200
+      family: random_forest
+      kind: random_forest
+      n_estimators: 200
+      max_depth: 6
+      min_samples_leaf: 100
+      max_features: 0.7
+      random_state: 20261016
+    - candidate: rf_seed20261017
+      axis: random_state
+      value: 20261017
+      family: random_forest
+      kind: random_forest
+      n_estimators: 100
+      max_depth: 6
+      min_samples_leaf: 100
+      max_features: 0.7
+      random_state: 20261017
+    - candidate: rf_seed20261018
+      axis: random_state
+      value: 20261018
+      family: random_forest
+      kind: random_forest
+      n_estimators: 100
+      max_depth: 6
+      min_samples_leaf: 100
+      max_features: 0.7
+      random_state: 20261018
