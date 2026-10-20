@@ -1,0 +1,2 @@
+experiment_id,pipeline_id,evidence_class,claims_independent_evidence,historical_cutoff,source,forward_table_prefix,natural_key_merge,historical_namespace_mutation_allowed,strategy_logic_changed,performance_results_included
+forward_data_pipeline_v1,forward_data_v1,governance_only,False,2026-09-30,baostock,forward_,True,False,False,False

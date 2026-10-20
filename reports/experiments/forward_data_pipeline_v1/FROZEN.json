@@ -1,0 +1,15 @@
+{
+  "experiment_id": "forward_data_pipeline_v1",
+  "frozen_at_utc": "2026-10-20T17:18:27.255089+00:00",
+  "content_sha256": "4605571c091997f7dc0a29ab1843be11d7dcf3495e6175010b16c50183686b9c",
+  "files": {
+    "config.yaml": "02792213ad5c8f3b2035099cb98dde654aafb75169276a8c56ba0cbdba9575a3",
+    "figures/forward_data.md": "4893419c58562238e2f21fbfd078b2199f3021397ecb40d634017ae9ab36130f",
+    "metadata.json": "4e09ebdce105f16aa67c090cd4507cb6564d2e93de69cd251d3e96a9be7d66b2",
+    "metrics.json": "b0d220d3621eff14f551419f0210a45b5a5aeb9763d6b95e754408829c05c021",
+    "notes.md": "652cbd09415c6f6b2047902e6eb03035848d9d6078cd6824a54b185f0e571c4d",
+    "tables/forward_data_failed_assertions__v1.csv": "d809834e095f2ee470b2de6769d88978d4ff7b7f27d0cdbb64d5a26d843db064",
+    "tables/forward_data_implementation_checks__v1.csv": "03e75608f90ef13d3afbe959a29340e935264d4f850ffa6911c2b82e2971e160",
+    "tables/forward_data_protocol__v1.csv": "b368ff24a2190914b54bfda0ecffade13cd1b967296c1ecaa1aed6fa99888e3e"
+  }
+}

@@ -1,0 +1,79 @@
+{
+  "experiment_id": "forward_data_pipeline_v1",
+  "title": "Phase 11.1 isolated incremental forward-data supply controls",
+  "stage": "forward_data_operations",
+  "model_version": "forward_data_v1_isolated_namespace",
+  "registered_at_utc": "2026-10-20T17:18:27.255089+00:00",
+  "immutable": true,
+  "selection_policy": "validation_only",
+  "historical_oos_used_for_selection": false,
+  "historical_oos_disclosure": "The 2021-2026 block has already been inspected during project development. It is historical out-of-sample evidence, not a pristine production lockbox.",
+  "evidence_class": "governance_only",
+  "research_selection_role": "operational_tracking",
+  "claims_independent_evidence": false,
+  "lockbox_id": null,
+  "dataset_version": "162120bfc5a9e4c31abf96c96a96abd6dd602972bf0bfb1a57b345c64f4d34e6",
+  "dataset_manifest": {
+    "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/manifests/ingestion.jsonl",
+    "size_bytes": 47881659,
+    "sha256": "87e215009612751c0946908bbbad560720fa379f758ffc20b1cfc18acd65f2c1"
+  },
+  "input_artifacts": [
+    {
+      "table": "paper_trading_protocol",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/paper_trading_protocol/key=v1/data.parquet",
+      "size_bytes": 9534,
+      "sha256": "906c3bbbfb5dc8bb54cb23b11fe8217a397e2567aa57318e73f1a9e0252af239"
+    }
+  ],
+  "metric_artifacts": [
+    {
+      "table": "forward_data_protocol",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/forward_data_protocol/key=v1/data.parquet",
+      "size_bytes": 7304,
+      "sha256": "72b9e3385eaf4f70bc15f79e408b8246613a53fc0daa142d7e93e3fc384de382"
+    },
+    {
+      "table": "forward_data_implementation_checks",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/forward_data_implementation_checks/key=v1/data.parquet",
+      "size_bytes": 2728,
+      "sha256": "d5e7297938ce23323af474012b20cfe9b8090ad8648292a9779f089ac48082a8"
+    },
+    {
+      "table": "forward_data_failed_assertions",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/forward_data_failed_assertions/key=v1/data.parquet",
+      "size_bytes": 2459,
+      "sha256": "79b6b9b3ae9eccb19b1794039eb569ee34a4cc2cb0ec64c9e49a1b641d5bb4f4"
+    }
+  ],
+  "figures": [
+    {
+      "source": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/reports/forward_data.md",
+      "snapshot": "forward_data.md",
+      "sha256": "4893419c58562238e2f21fbfd078b2199f3021397ecb40d634017ae9ab36130f"
+    }
+  ],
+  "source_tree_sha256": "ab55c25d9edcf71d1245a55f154e0df6021d7e681a41e910e5b9ef14d59dd3f8",
+  "git": {
+    "commit": "fd147423baec0adc3d09576f7510e3a293ca1e16",
+    "dirty": false,
+    "status_sha256": null
+  },
+  "environment": {
+    "python": "3.11.16",
+    "implementation": "CPython",
+    "platform": "Linux-5.15.0-92-generic-x86_64-with-glibc2.35",
+    "packages": {
+      "pandas": "3.0.6",
+      "pyarrow": "25.0.1",
+      "PyYAML": "6.0.3",
+      "scikit-learn": "1.9.1",
+      "numpy": "2.4.6",
+      "scipy": "1.17.1"
+    }
+  }
+}

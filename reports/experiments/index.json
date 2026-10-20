@@ -189,6 +189,15 @@
     "immutable": true
   },
   {
+    "experiment_id": "forward_data_pipeline_v1",
+    "title": "Phase 11.1 isolated incremental forward-data supply controls",
+    "stage": "forward_data_operations",
+    "model_version": "forward_data_v1_isolated_namespace",
+    "registered_at_utc": "2026-10-20T17:18:27.255089+00:00",
+    "dataset_version": "162120bfc5a9e4c31abf96c96a96abd6dd602972bf0bfb1a57b345c64f4d34e6",
+    "immutable": true
+  },
+  {
     "experiment_id": "hgb_hyperparameter_stability_v1",
     "title": "Validation-only HGB leaf-count by L2 stability surface",
     "stage": "model_hyperparameter_robustness",

@@ -1,8 +1,8 @@
 # Research artifact audit
 
-Generated at `2026-10-20T13:56:24.790412+00:00`.
+Generated at `2026-10-20T17:19:17.815164+00:00`.
 
-Summary: **496 PASS / 46 WARN / 0 FAIL**
+Summary: **498 PASS / 46 WARN / 0 FAIL**
 
 | Status | Check | Detail |
 |---|---|---|
@@ -112,6 +112,8 @@ Summary: **496 PASS / 46 WARN / 0 FAIL**
 | PASS | `frozen_live_inputs:engineering_quality_v1` | all registered inputs match their SHA-256 hashes |
 | PASS | `frozen_snapshot_integrity:paper_trading_pipeline_v1` | all frozen files match FROZEN.json |
 | PASS | `frozen_live_inputs:paper_trading_pipeline_v1` | all registered inputs match their SHA-256 hashes |
+| PASS | `frozen_snapshot_integrity:forward_data_pipeline_v1` | all frozen files match FROZEN.json |
+| PASS | `frozen_live_inputs:forward_data_pipeline_v1` | all registered inputs match their SHA-256 hashes |
 | WARN | `invalidated_experiment:institutional_execution_v1` | severity=registry_self_staging_dirty_flag; superseded_by=institutional_execution_v2; reason=The research outputs and hashes are valid, but the experiment registry created its temporary snapshot directory inside the repository before capturing Git status. That self-created untracked directory caused the metadata to report dirty=true even though registration began from clean commit d1b00aedd5b3dcbc660733fa64288c550a83e446. |
 | WARN | `invalidated_experiment:portfolio_sensitivity_v1` | severity=cost_stress_repricing_formula_superseded; superseded_by=transaction_cost_model_v1; reason=The v1 fixed-fill execution cost stress subtracted turnover times the fee rate directly from gross return. The daily executor defines turnover over pre-trade NAV while return is measured over previous NAV, so exact C0 reproduction additionally requires the pre-trade-to-previous-NAV ratio. The difference is small but the v1 stress grid is not an exact 20bp regression of the executable baseline. |
 | WARN | `invalidated_experiment:factor_preprocessing_ablation_v1` | severity=portfolio_metrics_invalid; superseded_by=factor_preprocessing_ablation_v2; reason=Validation portfolios were formed after filtering rows with non-null future returns. RankIC and model-selection metrics used the correct realized subset, but Top-200 portfolio metrics had outcome-availability leakage. |
@@ -551,7 +553,7 @@ Summary: **496 PASS / 46 WARN / 0 FAIL**
 
 ## Headline findings
 
-- `registered_frozen_experiments`: 52
+- `registered_frozen_experiments`: 53
 - `invalidated_experiments`: 23
 - `common_oos_weeks`: 291
 - `ridge_annualized_return_20bp`: 0.2005894880405501

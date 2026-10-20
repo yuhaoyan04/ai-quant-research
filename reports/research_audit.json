@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-10-20T13:56:24.790412+00:00",
+  "generated_at_utc": "2026-10-20T17:19:17.815164+00:00",
   "checks": [
     {
       "name": "chronological_split_order",
@@ -528,6 +528,16 @@
     },
     {
       "name": "frozen_live_inputs:paper_trading_pipeline_v1",
+      "status": "PASS",
+      "detail": "all registered inputs match their SHA-256 hashes"
+    },
+    {
+      "name": "frozen_snapshot_integrity:forward_data_pipeline_v1",
+      "status": "PASS",
+      "detail": "all frozen files match FROZEN.json"
+    },
+    {
+      "name": "frozen_live_inputs:forward_data_pipeline_v1",
       "status": "PASS",
       "detail": "all registered inputs match their SHA-256 hashes"
     },
@@ -2713,7 +2723,7 @@
     }
   ],
   "findings": {
-    "registered_frozen_experiments": 52,
+    "registered_frozen_experiments": 53,
     "invalidated_experiments": 23,
     "common_oos_weeks": 291,
     "ridge_annualized_return_20bp": 0.2005894880405501,
