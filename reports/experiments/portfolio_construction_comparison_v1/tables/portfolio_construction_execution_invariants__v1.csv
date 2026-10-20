@@ -1,0 +1,5 @@
+method,scenario,max_abs_nav_reconciliation_error,minimum_cash,max_abs_accounting_weight_error,negative_position_count,negative_cash_day_count,t_plus_one_violation_count,max_abs_order_fill_reconciliation_error,fee_reconciliation_error,unreconciled_corporate_action_count,all_invariants_pass
+P0_equal,P0_equal__daily_close_institutional_constraints,2.384185791015625e-07,9.580003182293325,0.0,0,0,0,0.0,0.0,0,True
+P1_inverse_volatility,P1_inverse_volatility__daily_close_institutional_constraints,2.384185791015625e-07,7.504130509826382,0.0,0,0,0,0.0,0.0,0,True
+P2_score_weighted,P2_score_weighted__daily_close_institutional_constraints,3.2782554626464844e-07,0.21075040607733442,0.0,0,0,0,0.0,0.0,0,True
+P4_constrained,P4_constrained__daily_close_institutional_constraints,2.086162567138672e-07,53.50277240012747,0.0,0,0,0,0.0,3.725290298461914e-09,0,True

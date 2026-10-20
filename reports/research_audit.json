@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-10-20T10:28:04.491824+00:00",
+  "generated_at_utc": "2026-10-20T10:30:05.295086+00:00",
   "checks": [
     {
       "name": "chronological_split_order",
@@ -452,9 +452,14 @@
       "detail": "all registered inputs match their SHA-256 hashes"
     },
     {
-      "name": "frozen_experiment:portfolio_construction_comparison_v1",
-      "status": "FAIL",
-      "detail": "verification_error=FileNotFoundError: frozen experiment missing: /opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/reports/experiments/portfolio_construction_comparison_v1"
+      "name": "frozen_snapshot_integrity:portfolio_construction_comparison_v1",
+      "status": "PASS",
+      "detail": "all frozen files match FROZEN.json"
+    },
+    {
+      "name": "frozen_live_inputs:portfolio_construction_comparison_v1",
+      "status": "PASS",
+      "detail": "all registered inputs match their SHA-256 hashes"
     },
     {
       "name": "invalidated_experiment:institutional_execution_v1",

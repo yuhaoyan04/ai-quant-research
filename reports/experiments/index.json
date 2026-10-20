@@ -279,6 +279,15 @@
     "immutable": true
   },
   {
+    "experiment_id": "portfolio_construction_comparison_v1",
+    "title": "Phase 6 common-signal portfolio construction and execution comparison",
+    "stage": "portfolio_weighting_and_constrained_optimization",
+    "model_version": "locked_raw_hgb_top200_400_buffer_v1",
+    "registered_at_utc": "2026-10-20T10:29:07.593793+00:00",
+    "dataset_version": "58d91681939cc9f720b3c1791afc94cde20d254a862973d9aa320b6535b00cb2",
+    "immutable": true
+  },
+  {
     "experiment_id": "portfolio_sensitivity_v1",
     "title": "Common-date Top-N, inverse-volatility, and executable cost sensitivity",
     "stage": "portfolio_robustness",

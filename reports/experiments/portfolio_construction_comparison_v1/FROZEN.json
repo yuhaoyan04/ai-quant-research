@@ -1,0 +1,18 @@
+{
+  "experiment_id": "portfolio_construction_comparison_v1",
+  "frozen_at_utc": "2026-10-20T10:29:07.593793+00:00",
+  "content_sha256": "5548e90cc5182dfe9baa0170bfdab65bdd8619ddce5ac14b32513b240460825a",
+  "files": {
+    "config.yaml": "7d2c797364d55388b9c555a6b16c5234747b011939f537c9119bd9a6d3af3e34",
+    "metadata.json": "8d78876567c375c098829a1b63864001dd8003f6a3f6e08a03d387c06a071548",
+    "metrics.json": "ff04643faf896bb45a1709fa753c32d800964eb1d05eca2c4ba7d3b81914ae8a",
+    "notes.md": "0b5062261f75a2d9be8a160e2d7643186bbc8d6905647d7787920c3a241eb6de",
+    "tables/portfolio_construction_acceptance_checks__v1.csv": "c02665393294d762196d0d7d7645becbab174546f139b1c701ff652510676a5c",
+    "tables/portfolio_construction_audit__v1.csv": "e7a60b592bba9f07f24adf8ffde2597d676ed56c5481f7afb9e4c4a00e27a896",
+    "tables/portfolio_construction_bootstrap__v1.csv": "c7e940acb54fe7d605fce869d7c4ce2355398c66faa1a3fcc0b6835b38b75d27",
+    "tables/portfolio_construction_capacity__v1.csv": "327e5d0366b4461cbadaa1f859d41482c881bd3ce2f829305fe9e936f3365ff1",
+    "tables/portfolio_construction_execution_invariants__v1.csv": "1a7393978c181b65749f7a70d1dbd5debfdc7bb080fecc79e50aa700766cfdd1",
+    "tables/portfolio_construction_execution_summary__v1.csv": "19549dd5de9506cdefe72ade4de2661f16de12e08f05d69185abfbcd65d27512",
+    "tables/portfolio_construction_protocol__v1.csv": "1b16bf7b2c38b08978f0dc0ee82eb93f916a004d6db1a8b217954f55c1389cfb"
+  }
+}

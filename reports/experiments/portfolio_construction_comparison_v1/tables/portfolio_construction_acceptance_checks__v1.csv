@@ -1,0 +1,9 @@
+check,status,detail
+long_only_targets,PASS,minimum=4.17462408336e-06
+fully_invested_targets,PASS,maximum_abs_error=7.77156117238e-16
+common_target_dates,PASS,"date_counts={'P0_equal': 294, 'P1_inverse_volatility': 294, 'P2_score_weighted': 294, 'P4_constrained': 294}"
+no_silent_constraint_relaxation,PASS,relaxed_dates=0
+optimizer_failures_explicit,PASS,fallback_dates=161
+accounting_invariants,PASS,passing_methods=4/4
+common_execution_clock,PASS,"periods={'P0_equal': 1387, 'P1_inverse_volatility': 1387, 'P2_score_weighted': 1387, 'P4_constrained': 1387}"
+reliable_risk_free_reported,PASS,scenario=['R1_ccdc_cgb_3m']
