@@ -900,6 +900,128 @@ class ResearchAuditor:
             ),
         })
 
+    def audit_institutional_execution(self) -> None:
+        """Gate the Phase-5 order state machine and account ledgers."""
+        protocol = self.require_table("institutional_execution_protocol", "v1")
+        daily = self.require_table("institutional_execution_daily", "v1")
+        orders = self.require_table("institutional_execution_orders", "v1")
+        events = self.require_table("institutional_execution_events", "v1")
+        fills = self.require_table("institutional_execution_fills", "v1")
+        positions = self.require_table("institutional_execution_positions", "v1")
+        actions = self.require_table("institutional_execution_corporate_actions", "v1")
+        summary = self.require_table("institutional_execution_summary", "v1")
+        invariants = self.require_table("institutional_execution_invariants", "v1")
+        if any(frame.empty for frame in (
+            protocol, daily, orders, events, fills, positions, actions, summary, invariants,
+        )):
+            return
+        row = protocol.iloc[0]
+        self.add(
+            "institutional_execution_evidence_disclosed",
+            str(row["evidence_class"]) == "historical_oos_descriptive"
+            and str(row["research_selection_role"]) == "diagnostic"
+            and not bool(row["claims_independent_evidence"])
+            and not bool(row["historical_oos_used_for_selection"]),
+            "historical OOS diagnostic; no independent-evidence claim or model selection",
+        )
+        expected_scenarios = {
+            "daily_close_institutional_constraints",
+            "market_constraints_removed_upper_bound",
+        }
+        observed_scenarios = set(daily["scenario"].astype(str))
+        dates = daily.groupby("scenario")["trade_date"].nunique()
+        self.add(
+            "institutional_execution_common_clock",
+            observed_scenarios == expected_scenarios and dates.nunique() == 1
+            and int(dates.min()) == 1387,
+            f"scenarios={sorted(observed_scenarios)}, dates={dates.to_dict()}",
+        )
+        self.add(
+            "institutional_execution_invariants",
+            invariants["all_invariants_pass"].astype(bool).all()
+            and invariants["t_plus_one_violation_count"].astype(int).eq(0).all()
+            and invariants["negative_cash_day_count"].astype(int).eq(0).all()
+            and invariants["negative_position_count"].astype(int).eq(0).all(),
+            str(invariants.to_dict(orient="records")),
+        )
+        accounting_error = float((daily["accounting_weight_sum"] - 1.0).abs().max())
+        nav_error = float(daily["nav_reconciliation_error"].abs().max())
+        self.add(
+            "institutional_execution_nav_cash_positions_reconcile",
+            accounting_error <= 1e-12 and nav_error <= 1e-4
+            and float(daily["cash"].min()) >= -1e-6,
+            f"accounting_error={accounting_error:.3e}, nav_error_cny={nav_error:.3e}, "
+            f"minimum_cash={daily['cash'].min():.6f}",
+        )
+        fee_error = abs(float(fills["total_cost"].sum() - daily["total_cost"].sum()))
+        self.add(
+            "institutional_execution_fill_fees_reconcile",
+            fee_error <= 1e-6 and fills["total_cost"].ge(0).all(),
+            f"fill_minus_daily_fee_cny={fee_error:.3e}",
+        )
+        sell_fills = fills.loc[fills["side"].eq("sell")]
+        t1_violations = int((
+            sell_fills["executed_shares"] > sell_fills["available_before_fill"] + 1e-8
+        ).sum())
+        self.add(
+            "institutional_execution_t_plus_one_fill_gate",
+            t1_violations == 0,
+            f"sell_fills={len(sell_fills):,}, violations={t1_violations}",
+        )
+        allowed_events = {
+            "NEW", "BLOCKED", "PARTIALLY_FILLED", "FILLED", "CANCELLED",
+            "EXPIRED", "REPLACED", "ACTION_ADJUSTED",
+        }
+        event_statuses = set(events["status"].astype(str))
+        new_orders = events.loc[
+            events["status"].eq("NEW"), ["scenario", "order_id"]
+        ].drop_duplicates()
+        order_keys = orders[["scenario", "order_id"]].drop_duplicates()
+        self.add(
+            "institutional_execution_order_state_machine",
+            event_statuses <= allowed_events
+            and len(new_orders) == len(order_keys) == len(orders),
+            f"event_statuses={sorted(event_statuses)}, orders={len(orders):,}, "
+            f"new_events={len(new_orders):,}",
+        )
+        terminal = {"FILLED", "CANCELLED", "EXPIRED", "REPLACED"}
+        self.add(
+            "institutional_execution_orders_terminal",
+            set(orders["status"].astype(str)) <= terminal
+            and orders["remaining_shares"].ge(-1e-8).all(),
+            f"terminal_statuses={sorted(set(orders['status'].astype(str)))}",
+        )
+        action_error = float(actions["value_reconciliation_error"].abs().max())
+        self.add(
+            "institutional_execution_corporate_action_proxy_reconciles",
+            action_error <= 1e-6,
+            f"actions={len(actions):,}, max_error_cny={action_error:.3e}; proxy_not_official",
+        )
+        by_scenario = summary.set_index("scenario")
+        constrained = by_scenario.loc["daily_close_institutional_constraints"]
+        upper = by_scenario.loc["market_constraints_removed_upper_bound"]
+        self.add(
+            "institutional_execution_constraints_have_measurable_haircut",
+            float(constrained["annualized_return"]) < float(upper["annualized_return"])
+            and float(constrained["mean_target_tracking_l1"])
+            > float(upper["mean_target_tracking_l1"]),
+            f"annualized={constrained['annualized_return']:.6f} vs {upper['annualized_return']:.6f}; "
+            f"tracking_l1={constrained['mean_target_tracking_l1']:.6f} vs "
+            f"{upper['mean_target_tracking_l1']:.6f}",
+        )
+        self.findings.update({
+            "institutional_execution_hgb_raw_annualized_return": float(
+                constrained["annualized_return"]
+            ),
+            "institutional_execution_hgb_raw_sharpe": float(constrained["sharpe_zero_rate"]),
+            "institutional_execution_hgb_raw_maximum_drawdown": float(
+                constrained["maximum_drawdown"]
+            ),
+            "institutional_execution_hgb_raw_fill_ratio": float(
+                constrained["fill_ratio_by_shares"]
+            ),
+        })
+
     def audit_incremental_alpha_test(self) -> None:
         """Gate the characteristic-matched executable incremental-alpha test."""
         protocol = self.require_table("incremental_alpha_protocol", "v1")
@@ -1828,6 +1950,7 @@ class ResearchAuditor:
         self.audit_model_portfolio_neutralization()
         self.audit_constrained_portfolio_neutralization()
         self.audit_constrained_portfolio_daily_execution()
+        self.audit_institutional_execution()
         self.audit_incremental_alpha_test()
         self.audit_multi_factor_risk_attribution()
         self.audit_risk_aware_portfolio_optimization()

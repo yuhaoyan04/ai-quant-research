@@ -1,0 +1,56 @@
+experiment_id: institutional_execution_v1
+source_experiment: research_governance_v1
+evidence_class: historical_oos_descriptive
+research_selection_role: diagnostic
+claims_independent_evidence: false
+historical_oos_used_for_selection: false
+
+source_targets: {table: constrained_execution_targets, key: v1}
+source_market: {table: constrained_daily_execution_market, key: v1}
+candidate:
+  model: hgb_shallow15_locked
+  alpha_pipeline: raw
+  strategy: raw__risk_constrained
+
+initial_cash_cny: 100000000.0
+execution_price: unadjusted_close
+marking_price: unadjusted_close
+execution_time: close
+return_timing: mark_to_market_then_close_execution
+round_trip_cost_bps: 20.0
+max_volume_participation: 0.10
+max_pending_trading_days: 5
+enforce_t_plus_one: true
+allow_margin: false
+allow_short_sales: false
+
+order_quantity_rules:
+  main_board_buy_lot: 100
+  main_board_sell_lot: 100
+  star_market_minimum_order: 200
+  star_market_increment: 1
+  odd_lot_liquidation_allowed: true
+
+corporate_action_proxy:
+  method: inferred_value_preserving_share_factor_from_vendor_pct_chg_and_raw_close
+  activation_absolute_deviation: 0.005
+  evidence_status: proxy_not_official_corporate_action_record
+
+scenarios:
+  - scenario: daily_close_institutional_constraints
+    enforce_trade_flags: true
+    enforce_volume_participation: true
+    enforce_order_quantity_rules: true
+    enforce_t_plus_one: true
+  - scenario: market_constraints_removed_upper_bound
+    enforce_trade_flags: false
+    enforce_volume_participation: false
+    enforce_order_quantity_rules: true
+    enforce_t_plus_one: true
+
+annualization_periods: 252
+scope_note: >-
+  Close-price daily-bar approximation. It does not reconstruct intraday queue
+  priority, bid/ask, order-book depth, exact fill time, IPO no-limit windows,
+  or broker-specific order handling. The corporate-action factor is an
+  auditable value-preserving proxy, not an official action ledger.

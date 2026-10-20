@@ -113,6 +113,7 @@ try {
             @{ Name = "Locked model and portfolio factor neutralization"; Program = "quant-model-portfolio-neutralization"; Args = @() },
             @{ Name = "Constrained portfolio industry and size neutralization"; Program = "quant-constrained-portfolio-neutralization"; Args = @() },
             @{ Name = "Constrained portfolio daily execution"; Program = "quant-constrained-daily-execution"; Args = @("all") },
+            @{ Name = "Institutional order and NAV execution ledger"; Program = "quant-institutional-execution"; Args = @("all") },
             @{ Name = "Fill-reconciled transaction cost protocol"; Program = "quant-transaction-costs"; Args = @("run") },
             @{ Name = "Executable portfolio CAPM attribution"; Program = "quant-capm-attribution"; Args = @() },
             @{ Name = "Self-financing style factor attribution"; Program = "quant-style-factor-attribution"; Args = @() },

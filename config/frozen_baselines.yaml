@@ -1477,3 +1477,33 @@ experiments:
       - {table: research_access_log_snapshot, key: v1}
       - {table: research_governance_checks, key: v1}
     figures: []
+
+  institutional_execution_v1:
+    title: Phase 5 auditable A-share daily execution state machine
+    stage: institutional_daily_execution
+    model_version: frozen_hgb_raw_order_state_machine_v1
+    dataset_version_method: sha256_of_registered_inputs_and_ingestion_manifest
+    historical_oos_used_for_selection: false
+    evidence_class: historical_oos_descriptive
+    research_selection_role: diagnostic
+    claims_independent_evidence: false
+    config_files:
+      - institutional_execution.yaml
+      - constrained_portfolio_daily_execution.yaml
+      - transaction_cost_model.yaml
+      - research_governance.yaml
+    input_tables:
+      - {table: constrained_execution_targets, key: v1}
+      - {table: institutional_execution_market, key: v1}
+      - {table: institutional_execution_daily, key: v1}
+      - {table: institutional_execution_orders, key: v1}
+      - {table: institutional_execution_events, key: v1}
+      - {table: institutional_execution_fills, key: v1}
+      - {table: institutional_execution_positions, key: v1}
+      - {table: institutional_execution_corporate_actions, key: v1}
+    metric_tables:
+      - {table: institutional_execution_protocol, key: v1}
+      - {table: institutional_execution_summary, key: v1}
+      - {table: institutional_execution_invariants, key: v1}
+      - {table: institutional_execution_order_status, key: v1}
+    figures: []

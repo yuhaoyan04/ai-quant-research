@@ -84,6 +84,7 @@ quant-risk-free-attribution = "quant_research.risk_free_rate_attribution:main"
 quant-market-benchmark-attribution = "quant_research.market_benchmark_attribution:main"
 quant-model-stability-validation = "quant_research.model_stability_validation:run"
 quant-research-governance = "quant_research.research_governance:main"
+quant-institutional-execution = "quant_research.institutional_execution:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
