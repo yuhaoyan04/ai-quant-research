@@ -98,6 +98,30 @@ def _git_state() -> dict[str, Any]:
     return {"commit": call("rev-parse", "HEAD"), "dirty": bool(call("status", "--porcelain"))}
 
 
+def _publish_immutable_directory(temporary: Path, target: Path, marker: str) -> None:
+    """Publish once, with a mount-safe fallback that writes the marker last."""
+    try:
+        temporary.replace(target)
+        return
+    except PermissionError:
+        pass
+    target.mkdir(exist_ok=False)
+    try:
+        for source in sorted(temporary.iterdir(), key=lambda item: item.name):
+            if source.name == marker:
+                continue
+            destination = target / source.name
+            if source.is_dir():
+                shutil.copytree(source, destination)
+            else:
+                shutil.copy2(source, destination)
+        shutil.copy2(temporary / marker, target / marker)
+    except Exception:
+        shutil.rmtree(target, ignore_errors=True)
+        raise
+    shutil.rmtree(temporary)
+
+
 def _model_config(cfg: dict[str, Any]) -> dict[str, Any]:
     model = cfg["model"]
     return {
@@ -218,7 +242,7 @@ def freeze_model_bundle(lake: Lake | None = None) -> dict[str, Any]:
         (temporary / "manifest.json").write_text(
             json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
         )
-        temporary.replace(bundle)
+        _publish_immutable_directory(temporary, bundle, "manifest.json")
     except Exception:
         shutil.rmtree(temporary, ignore_errors=True)
         raise
@@ -553,7 +577,7 @@ def _publish_run(
         )
         manifest_hash = sha256_file(manifest_path)
         target.parent.mkdir(parents=True, exist_ok=True)
-        temporary.replace(target)
+        _publish_immutable_directory(temporary, target, "run.json")
         return target, manifest_hash
     except Exception:
         shutil.rmtree(temporary, ignore_errors=True)
