@@ -1,0 +1,19 @@
+{
+  "experiment_id": "idiosyncratic_target_validation_v1",
+  "frozen_at_utc": "2026-10-21T02:47:10.369324+00:00",
+  "content_sha256": "246c596f918f5db44bed6ddc015a8060e78d6c3c6afb430cdb3079080ebd78fb",
+  "files": {
+    "config.yaml": "a6596b1508fe4129c122291ce8f4ae2d3fd0346c9565d7f8155cc6127b0a94a3",
+    "figures/idiosyncratic_target_validation.md": "e11004fa1b5d0ed01274027fea663fcd8abae593250ec9928891b029a7db12bb",
+    "metadata.json": "0ca31d1540b729c29a0f918ba14216b3182d0ed7f003066a174c0579a8e76aa2",
+    "metrics.json": "dba29fe59ce01230cf6caaa1aae4f247df8821368de3812029fb138662e85df3",
+    "notes.md": "ec35f0958a95a761c112c5ebd2566dd1db6e44120443eb74c559744b0a07973d",
+    "tables/idiosyncratic_target_checks__v1.csv": "548e251f5b9a3cca4dd283352850953d67d830015fca3e53af3d404e19f66eab",
+    "tables/idiosyncratic_target_fit_audit__v1.csv": "879cc7738c92b7b6d9adc0072ddc7651f473cd170a910acbaa8e525a15de5723",
+    "tables/idiosyncratic_target_paired_inference__v1.csv": "274d1701299a0dc9ec9d6f6412aec493a92aad8a6b4887252f920f33d70627a4",
+    "tables/idiosyncratic_target_promotion_decisions__v1.csv": "7fc4ad10c7667df6179b70c98093dcadd25f75cd40e6493f45a2b0eb5d39f3a9",
+    "tables/idiosyncratic_target_protocol__v1.csv": "58981f6d0d418af5a64ff3a577c187f33c69496a2e0451b67d71459b549fb0d7",
+    "tables/idiosyncratic_target_validation_annual__v1.csv": "2cac16590607ca3c7d87cd5c3c2de8246a59fb0c2bb405594cbd96a99995b806",
+    "tables/idiosyncratic_target_validation_summary__v1.csv": "866e72088576955a64b6d41b811a8f9c081666157532e4a012db7d93a521d51c"
+  }
+}

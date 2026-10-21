@@ -225,6 +225,15 @@
     "immutable": true
   },
   {
+    "experiment_id": "idiosyncratic_target_validation_v1",
+    "title": "Validation-only market-industry-six-style residual target study",
+    "stage": "idiosyncratic_alpha_target_alignment",
+    "model_version": "locked_ridge_hgb_raw_vs_specific_return_target_v1",
+    "registered_at_utc": "2026-10-21T02:47:10.369324+00:00",
+    "dataset_version": "6677a2de238c1751dbb5d1fcce653d61eaed0a9188c32a2599699d332f9dc28a",
+    "immutable": true
+  },
+  {
     "experiment_id": "incremental_alpha_fill_execution_v1",
     "title": "Phase 9 eight-path share-order and realized-fill comparison",
     "stage": "incremental_alpha_share_level_execution",

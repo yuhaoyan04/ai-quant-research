@@ -1,0 +1,333 @@
+{
+  "idiosyncratic_target_protocol__v1": [
+    {
+      "experiment_id": "idiosyncratic_target_validation_v1",
+      "evidence_class": "validation_selection",
+      "research_selection_role": "selection",
+      "claims_independent_evidence": false,
+      "historical_oos_used_for_selection": false,
+      "train_period": "2008-2015",
+      "validation_period": "2016-2020",
+      "primary_metric": "residual_rank_ic",
+      "only_research_dimension_changed": "training_target",
+      "portfolio_or_execution_claim": false,
+      "frozen_paper_candidate_changed": false
+    }
+  ],
+  "idiosyncratic_target_fit_audit__v1": [
+    {
+      "model": "ridge_locked",
+      "training_target": "fwd_return_5d_lag1",
+      "fit_observations": 793902,
+      "fit_seconds": 0.00011806562542915344,
+      "training_dates": 411
+    },
+    {
+      "model": "hgb_shallow15_locked",
+      "training_target": "fwd_return_5d_lag1",
+      "fit_observations": 123300,
+      "fit_seconds": 0.5164109319448471,
+      "training_dates": 411
+    },
+    {
+      "model": "ridge_locked",
+      "training_target": "fwd_specific_return_5d_lag1",
+      "fit_observations": 793902,
+      "fit_seconds": 0.00010972470045089722,
+      "training_dates": 411
+    },
+    {
+      "model": "hgb_shallow15_locked",
+      "training_target": "fwd_specific_return_5d_lag1",
+      "fit_observations": 123300,
+      "fit_seconds": 0.39987485110759735,
+      "training_dates": 411
+    }
+  ],
+  "idiosyncratic_target_validation_summary__v1": [
+    {
+      "model": "hgb_shallow15_locked",
+      "training_target": "fwd_return_5d_lag1",
+      "observations": 254,
+      "mean_raw_rank_ic": 0.08968114417030494,
+      "mean_residual_rank_ic": 0.05327128553600571,
+      "residual_rank_ic_std": 0.0617894064314163,
+      "positive_residual_rank_ic_fraction": 0.8307086614173228,
+      "mean_max_abs_score_style_correlation": 0.5011034536153316
+    },
+    {
+      "model": "hgb_shallow15_locked",
+      "training_target": "fwd_specific_return_5d_lag1",
+      "observations": 254,
+      "mean_raw_rank_ic": 0.08817460438669784,
+      "mean_residual_rank_ic": 0.08366017764591009,
+      "residual_rank_ic_std": 0.06834507453061638,
+      "positive_residual_rank_ic_fraction": 0.9094488188976378,
+      "mean_max_abs_score_style_correlation": 0.43829157348837783
+    },
+    {
+      "model": "ridge_locked",
+      "training_target": "fwd_return_5d_lag1",
+      "observations": 254,
+      "mean_raw_rank_ic": 0.0917029959768144,
+      "mean_residual_rank_ic": 0.05612768597471329,
+      "residual_rank_ic_std": 0.062045014260388526,
+      "positive_residual_rank_ic_fraction": 0.8228346456692913,
+      "mean_max_abs_score_style_correlation": 0.606253197126619
+    },
+    {
+      "model": "ridge_locked",
+      "training_target": "fwd_specific_return_5d_lag1",
+      "observations": 254,
+      "mean_raw_rank_ic": 0.08498726959564222,
+      "mean_residual_rank_ic": 0.07775763589609411,
+      "residual_rank_ic_std": 0.06447080863101745,
+      "positive_residual_rank_ic_fraction": 0.9015748031496063,
+      "mean_max_abs_score_style_correlation": 0.5093170876888753
+    }
+  ],
+  "idiosyncratic_target_validation_annual__v1": [
+    {
+      "model": "hgb_shallow15_locked",
+      "training_target": "fwd_return_5d_lag1",
+      "year": 2016,
+      "observations": 50,
+      "mean_raw_rank_ic": 0.14204318051079556,
+      "mean_residual_rank_ic": 0.06561611576342971
+    },
+    {
+      "model": "hgb_shallow15_locked",
+      "training_target": "fwd_return_5d_lag1",
+      "year": 2017,
+      "observations": 51,
+      "mean_raw_rank_ic": 0.057445647134124776,
+      "mean_residual_rank_ic": 0.04509064212719108
+    },
+    {
+      "model": "hgb_shallow15_locked",
+      "training_target": "fwd_return_5d_lag1",
+      "year": 2018,
+      "observations": 51,
+      "mean_raw_rank_ic": 0.1027552493869739,
+      "mean_residual_rank_ic": 0.03987729748878737
+    },
+    {
+      "model": "hgb_shallow15_locked",
+      "training_target": "fwd_return_5d_lag1",
+      "year": 2019,
+      "observations": 52,
+      "mean_raw_rank_ic": 0.09643669062371553,
+      "mean_residual_rank_ic": 0.06543706964691368
+    },
+    {
+      "model": "hgb_shallow15_locked",
+      "training_target": "fwd_return_5d_lag1",
+      "year": 2020,
+      "observations": 50,
+      "mean_raw_rank_ic": 0.049837959174168764,
+      "mean_residual_rank_ic": 0.050280163918391026
+    },
+    {
+      "model": "hgb_shallow15_locked",
+      "training_target": "fwd_specific_return_5d_lag1",
+      "year": 2016,
+      "observations": 50,
+      "mean_raw_rank_ic": 0.0997999361208977,
+      "mean_residual_rank_ic": 0.10677368666222904
+    },
+    {
+      "model": "hgb_shallow15_locked",
+      "training_target": "fwd_specific_return_5d_lag1",
+      "year": 2017,
+      "observations": 51,
+      "mean_raw_rank_ic": 0.0828570259344505,
+      "mean_residual_rank_ic": 0.0753425424258653
+    },
+    {
+      "model": "hgb_shallow15_locked",
+      "training_target": "fwd_specific_return_5d_lag1",
+      "year": 2018,
+      "observations": 51,
+      "mean_raw_rank_ic": 0.08326208391285639,
+      "mean_residual_rank_ic": 0.07858479582628139
+    },
+    {
+      "model": "hgb_shallow15_locked",
+      "training_target": "fwd_specific_return_5d_lag1",
+      "year": 2019,
+      "observations": 52,
+      "mean_raw_rank_ic": 0.10209030697349661,
+      "mean_residual_rank_ic": 0.0914333436744347
+    },
+    {
+      "model": "hgb_shallow15_locked",
+      "training_target": "fwd_specific_return_5d_lag1",
+      "year": 2020,
+      "observations": 50,
+      "mean_raw_rank_ic": 0.07251164286683784,
+      "mean_residual_rank_ic": 0.06612345334039248
+    },
+    {
+      "model": "ridge_locked",
+      "training_target": "fwd_return_5d_lag1",
+      "year": 2016,
+      "observations": 50,
+      "mean_raw_rank_ic": 0.1354132553252343,
+      "mean_residual_rank_ic": 0.06985773037574179
+    },
+    {
+      "model": "ridge_locked",
+      "training_target": "fwd_return_5d_lag1",
+      "year": 2017,
+      "observations": 51,
+      "mean_raw_rank_ic": 0.05493057093638991,
+      "mean_residual_rank_ic": 0.03958034885683057
+    },
+    {
+      "model": "ridge_locked",
+      "training_target": "fwd_return_5d_lag1",
+      "year": 2018,
+      "observations": 51,
+      "mean_raw_rank_ic": 0.1072408322076506,
+      "mean_residual_rank_ic": 0.041063323886604046
+    },
+    {
+      "model": "ridge_locked",
+      "training_target": "fwd_return_5d_lag1",
+      "year": 2019,
+      "observations": 52,
+      "mean_raw_rank_ic": 0.10794364186093114,
+      "mean_residual_rank_ic": 0.07384623252573884
+    },
+    {
+      "model": "ridge_locked",
+      "training_target": "fwd_return_5d_lag1",
+      "year": 2020,
+      "observations": 50,
+      "mean_raw_rank_ic": 0.052761745494693243,
+      "mean_residual_rank_ic": 0.05621428635073
+    },
+    {
+      "model": "ridge_locked",
+      "training_target": "fwd_specific_return_5d_lag1",
+      "year": 2016,
+      "observations": 50,
+      "mean_raw_rank_ic": 0.09500253439947598,
+      "mean_residual_rank_ic": 0.09269081118292495
+    },
+    {
+      "model": "ridge_locked",
+      "training_target": "fwd_specific_return_5d_lag1",
+      "year": 2017,
+      "observations": 51,
+      "mean_raw_rank_ic": 0.08070128277966752,
+      "mean_residual_rank_ic": 0.06322078746837793
+    },
+    {
+      "model": "ridge_locked",
+      "training_target": "fwd_specific_return_5d_lag1",
+      "year": 2018,
+      "observations": 51,
+      "mean_raw_rank_ic": 0.08056766246596106,
+      "mean_residual_rank_ic": 0.06966718693337687
+    },
+    {
+      "model": "ridge_locked",
+      "training_target": "fwd_specific_return_5d_lag1",
+      "year": 2019,
+      "observations": 52,
+      "mean_raw_rank_ic": 0.10280130490599104,
+      "mean_residual_rank_ic": 0.09405577443849812
+    },
+    {
+      "model": "ridge_locked",
+      "training_target": "fwd_specific_return_5d_lag1",
+      "year": 2020,
+      "observations": 50,
+      "mean_raw_rank_ic": 0.06532511389361473,
+      "mean_residual_rank_ic": 0.06895423986340517
+    }
+  ],
+  "idiosyncratic_target_paired_inference__v1": [
+    {
+      "model": "hgb_shallow15_locked",
+      "metric": "residual_rank_ic",
+      "comparison": "residual_target_minus_raw_target",
+      "observations": 254,
+      "point_estimate": 0.03038889210990438,
+      "ci_2_5pct": 0.025682263690985967,
+      "ci_97_5pct": 0.035496131630319366,
+      "one_sided_probability_nonpositive": 0.0004997501249375312,
+      "bh_fdr_adjusted_p": 0.0004997501249375312,
+      "survives_bh_fdr_5pct": true
+    },
+    {
+      "model": "ridge_locked",
+      "metric": "residual_rank_ic",
+      "comparison": "residual_target_minus_raw_target",
+      "observations": 254,
+      "point_estimate": 0.021629949921380818,
+      "ci_2_5pct": 0.018294964111901433,
+      "ci_97_5pct": 0.0252730686316985,
+      "one_sided_probability_nonpositive": 0.0004997501249375312,
+      "bh_fdr_adjusted_p": 0.0004997501249375312,
+      "survives_bh_fdr_5pct": true
+    }
+  ],
+  "idiosyncratic_target_promotion_decisions__v1": [
+    {
+      "model": "hgb_shallow15_locked",
+      "positive_validation_years": 5,
+      "required_positive_validation_years": 4,
+      "positive_point_estimate": true,
+      "ci_excludes_zero": true,
+      "bh_fdr_5pct": true,
+      "positive_year_breadth": true,
+      "positive_residual_rank_ic": true,
+      "promote_to_portfolio_research": true
+    },
+    {
+      "model": "ridge_locked",
+      "positive_validation_years": 5,
+      "required_positive_validation_years": 4,
+      "positive_point_estimate": true,
+      "ci_excludes_zero": true,
+      "bh_fdr_5pct": true,
+      "positive_year_breadth": true,
+      "positive_residual_rank_ic": true,
+      "promote_to_portfolio_research": true
+    }
+  ],
+  "idiosyncratic_target_checks__v1": [
+    {
+      "check": "development_period_ends_2020",
+      "status": "PASS",
+      "detail": "2020"
+    },
+    {
+      "check": "historical_oos_not_evaluated",
+      "status": "PASS",
+      "detail": "False"
+    },
+    {
+      "check": "future_lockbox_not_accessed",
+      "status": "PASS",
+      "detail": "False"
+    },
+    {
+      "check": "residual_normal_equations_close",
+      "status": "PASS",
+      "detail": "6.681667715134163e-16"
+    },
+    {
+      "check": "paired_model_dates_complete",
+      "status": "PASS",
+      "detail": "[254, 254]"
+    },
+    {
+      "check": "external_pit_data_not_fabricated",
+      "status": "PASS",
+      "detail": "BLOCKED_EXTERNAL_DATA"
+    }
+  ]
+}

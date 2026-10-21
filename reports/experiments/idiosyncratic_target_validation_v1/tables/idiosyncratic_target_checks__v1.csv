@@ -1,0 +1,7 @@
+check,status,detail
+development_period_ends_2020,PASS,2020
+historical_oos_not_evaluated,PASS,False
+future_lockbox_not_accessed,PASS,False
+residual_normal_equations_close,PASS,6.681667715134163e-16
+paired_model_dates_complete,PASS,"[254, 254]"
+external_pit_data_not_fabricated,PASS,BLOCKED_EXTERNAL_DATA

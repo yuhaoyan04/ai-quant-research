@@ -1,0 +1,3 @@
+model,positive_validation_years,required_positive_validation_years,positive_point_estimate,ci_excludes_zero,bh_fdr_5pct,positive_year_breadth,positive_residual_rank_ic,promote_to_portfolio_research
+hgb_shallow15_locked,5,4,True,True,True,True,True,True
+ridge_locked,5,4,True,True,True,True,True,True

@@ -1,0 +1,3 @@
+model,metric,comparison,observations,point_estimate,ci_2_5pct,ci_97_5pct,one_sided_probability_nonpositive,bh_fdr_adjusted_p,survives_bh_fdr_5pct
+hgb_shallow15_locked,residual_rank_ic,residual_target_minus_raw_target,254,0.03038889210990438,0.025682263690985967,0.035496131630319366,0.0004997501249375312,0.0004997501249375312,True
+ridge_locked,residual_rank_ic,residual_target_minus_raw_target,254,0.021629949921380818,0.018294964111901433,0.0252730686316985,0.0004997501249375312,0.0004997501249375312,True
