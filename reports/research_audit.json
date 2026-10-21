@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-10-21T01:32:15.920404+00:00",
+  "generated_at_utc": "2026-10-21T01:33:46.760432+00:00",
   "checks": [
     {
       "name": "chronological_split_order",
@@ -522,9 +522,14 @@
       "detail": "mismatches=['engineering_implementation_inventory/v1', 'engineering_quality_checks/v1', 'engineering_failed_assertions/v1']"
     },
     {
-      "name": "frozen_experiment:engineering_quality_v2",
-      "status": "FAIL",
-      "detail": "verification_error=FileNotFoundError: frozen experiment missing: /opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/reports/experiments/engineering_quality_v2"
+      "name": "frozen_snapshot_integrity:engineering_quality_v2",
+      "status": "PASS",
+      "detail": "all frozen files match FROZEN.json"
+    },
+    {
+      "name": "frozen_live_inputs:engineering_quality_v2",
+      "status": "PASS",
+      "detail": "all registered inputs match their SHA-256 hashes"
     },
     {
       "name": "frozen_snapshot_integrity:paper_trading_pipeline_v1",

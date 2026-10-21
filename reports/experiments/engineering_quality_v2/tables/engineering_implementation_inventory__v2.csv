@@ -1,0 +1,8 @@
+logic,path,line,is_definition
+corporate_action_proxy_formula,src/quant_research/execution_market.py,41,True
+execution_buy_limit_rule,src/quant_research/execution_market.py,52,True
+execution_market_public_api,src/quant_research/execution_market.py,64,True
+execution_market_public_api,src/quant_research/incremental_alpha_fill_execution.py,69,False
+execution_market_public_api,src/quant_research/institutional_execution.py,554,False
+execution_market_public_api,src/quant_research/paper_trading.py,646,False
+execution_market_public_api,src/quant_research/portfolio_construction_comparison.py,531,False

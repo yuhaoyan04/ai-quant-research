@@ -1,0 +1,8 @@
+priority,gap,status,mitigation
+P0,failed_market_rows_could_enter_forward_labels,CLOSED_IN_CODE_V2,quality-fail returns remain on the date axis but invalidate every affected label window
+P1,live_curated_table_names_are_mutable,CONTROLLED_BY_IMMUTABLE_REGISTRY,"publication claims use frozen experiment SHA-256, never bare live v1 names"
+P1,no_static_type_gate,OPEN,add pyright or mypy after annotating legacy modules
+P2,pytest_cache_mount_permission,OPEN_NONRESEARCH,set a writable cache_dir in CI/workspace
+P2,legacy_modules_still_contain_version_literals,OPEN,migrate new work first; change old versions only with new experiment IDs
+P1,licensed_industry_and_announcement_date_fundamentals,BLOCKED_EXTERNAL_DATA,retain CSRC broad-industry and price/valuation scope; do not claim a commercial risk model
+P1,official_corporate_actions_and_broker_calibrated_impact,BLOCKED_EXTERNAL_DATA,retain explicit proxy/scenario labels and require vendor or broker data for promotion

@@ -72,6 +72,15 @@
     "immutable": true
   },
   {
+    "experiment_id": "engineering_quality_v2",
+    "title": "End-to-end institutional engineering contracts and registry reconciliation",
+    "stage": "engineering_structure_configuration_and_tests",
+    "model_version": "full_chain_protocol_and_identity_reconciled_registry_v2",
+    "registered_at_utc": "2026-10-21T01:32:57.389183+00:00",
+    "dataset_version": "0af0d9a431e4f0dbd089b9f7bdfcc05ed9d122e6498cfe3f78782dc45cc8f354",
+    "immutable": true
+  },
+  {
     "experiment_id": "factor_neutralization_v1",
     "title": "PIT CSRC-industry and log-size neutralized factor diagnostics",
     "stage": "risk_exposure_and_factor_neutralization",

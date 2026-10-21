@@ -60,3 +60,10 @@
 不改变。HGB/Ridge 的历史收益、增量 Alpha、风险归因和“纯选股 Alpha 未显著成立”的结论仍引用原冻结实验。数据合同 V2 与工程质量 V2 是治理/正确性升级，不是新的策略回测，也没有产生可用于选参的 2021–2026 新证据。
 
 后续研究只能在新数据或明确声明为探索性的授权数据实验上推进；paper-trading 达到预设样本门槛前，`ready_for_live_capital` 必须保持 `False`。
+
+## 最终验收
+
+- 全仓测试：`221 passed`；
+- 不可变实验：54 个，`engineering_quality_v2` snapshot integrity 与全部 23 个 live input hash 均通过；
+- 全研究产物审计：499 PASS / 48 WARN / 0 FAIL；
+- WARN 均为已失效旧实验的 live-input 漂移、historical OOS 已消费、被拒绝的风险优化实验及明确披露的数据/执行边界，不含未解释的硬失败。

@@ -1,0 +1,13 @@
+Institutional readiness re-audit test baseline
+Date (UTC): 2026-10-21
+Command: PYTEST_ADDOPTS='-o cache_dir=/tmp/ai_quant_pytest_cache' PYTHONPATH=src .venv/bin/python -m pytest -q
+Result: 221 passed in 9.33s
+
+Additional gates:
+- engineering_quality_v2: 8 PASS / 0 FAIL
+- engineering_quality_v2 immutable verification: snapshot_integrity=true, live_inputs_match=true
+- full research artifact audit: 499 PASS / 48 WARN / 0 FAIL
+
+Research logic statement:
+- No signal, model, portfolio, cost, or execution parameter was selected using 2021-2026 in this re-audit.
+- Frozen historical performance artifacts were not overwritten.

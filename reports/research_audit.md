@@ -1,8 +1,8 @@
 # Research artifact audit
 
-Generated at `2026-10-21T01:32:15.920404+00:00`.
+Generated at `2026-10-21T01:33:46.760432+00:00`.
 
-Summary: **497 PASS / 48 WARN / 1 FAIL**
+Summary: **499 PASS / 48 WARN / 0 FAIL**
 
 | Status | Check | Detail |
 |---|---|---|
@@ -110,7 +110,8 @@ Summary: **497 PASS / 48 WARN / 1 FAIL**
 | PASS | `frozen_live_inputs:alpha_evidence_matrix_v2` | all registered inputs match their SHA-256 hashes |
 | PASS | `frozen_snapshot_integrity:engineering_quality_v1` | all frozen files match FROZEN.json |
 | WARN | `frozen_live_inputs:engineering_quality_v1` | mismatches=['engineering_implementation_inventory/v1', 'engineering_quality_checks/v1', 'engineering_failed_assertions/v1'] |
-| FAIL | `frozen_experiment:engineering_quality_v2` | verification_error=FileNotFoundError: frozen experiment missing: /opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/reports/experiments/engineering_quality_v2 |
+| PASS | `frozen_snapshot_integrity:engineering_quality_v2` | all frozen files match FROZEN.json |
+| PASS | `frozen_live_inputs:engineering_quality_v2` | all registered inputs match their SHA-256 hashes |
 | PASS | `frozen_snapshot_integrity:paper_trading_pipeline_v1` | all frozen files match FROZEN.json |
 | PASS | `frozen_live_inputs:paper_trading_pipeline_v1` | all registered inputs match their SHA-256 hashes |
 | PASS | `frozen_snapshot_integrity:forward_data_pipeline_v1` | all frozen files match FROZEN.json |
