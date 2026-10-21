@@ -9,6 +9,7 @@ import pandas as pd
 import yaml
 
 from quant_research.ingest import ROOT, Lake
+from quant_research.quality import validated_security_timeseries
 
 
 A_SHARE_PATTERNS = (
@@ -34,8 +35,18 @@ def build_labels(validated: pd.DataFrame, horizons: list[int], execution_lag: in
     t-day return already embedded in a t-close signal. Missing future prints
     make a label missing rather than a fabricated zero return.
     """
-    data = validated.sort_values("trade_date").reset_index(drop=True).copy()
-    daily_return = pd.to_numeric(data["pct_chg"], errors="coerce") / 100
+    if execution_lag < 0:
+        raise ValueError("execution_lag must be non-negative")
+    if not horizons or any(int(horizon) <= 0 for horizon in horizons):
+        raise ValueError("label horizons must be positive")
+    data = validated_security_timeseries(validated)
+    # A row that failed the market-data quality contract must not enter any
+    # future return window.  Masking (rather than dropping) preserves the
+    # exchange-date axis and makes every affected label explicitly missing.
+    daily_return = (
+        pd.to_numeric(data["pct_chg"], errors="coerce")
+        .where(data["quality_status"].ne("fail")) / 100
+    )
     output = pd.DataFrame({
         "instrument_id": data["instrument_id"],
         "asof_date": data["trade_date"],
@@ -77,7 +88,8 @@ def run_labels(lake: Lake | None = None, *, limit: int | None = None,
             pd.read_parquet(path), list(cfg["label_horizons_trading_days"]),
             int(cfg["execution_lag_trading_days"]),
         )
-        lake.write("labels_raw", labels, key=key, source="labels.v1",
+        lake.write("labels_raw", labels, key=key, source="labels.v2",
                    request={"validated_path": str(path), "convention": cfg["label_convention"],
-                            "executable_convention": cfg["executable_label_convention"]})
+                            "executable_convention": cfg["executable_label_convention"],
+                            "quality_policy": cfg["label_quality_policy"]})
         print(f"[{number}/{len(files)}] labels {key}")

@@ -1,4 +1,5 @@
 import pandas as pd
+import pytest
 
 from quant_research.factors import build_raw_factors, next_trading_day_map
 from quant_research.quality import validate_daily_bars
@@ -33,3 +34,21 @@ def test_factors_are_available_only_next_trading_day() -> None:
     row = factors.loc[factors["momentum_20d"].notna()].iloc[0]
     assert row["available_date"] > row["asof_date"]
     assert row["is_tradable"]
+
+
+def test_failed_row_stays_on_time_axis_and_invalidates_rolling_window() -> None:
+    checked = validate_daily_bars(raw_bars()).frame
+    checked.loc[10, "quality_status"] = "fail"
+    calendar = pd.DataFrame({
+        "cal_date": pd.date_range("2024-01-01", periods=30, freq="B").strftime("%Y-%m-%d"),
+        "is_open": ["1"] * 30,
+    })
+    factors = build_raw_factors(checked, next_trading_day_map(calendar))
+    assert len(factors) == len(checked)
+    assert not bool(factors.loc[10, "is_tradable"])
+    assert factors.loc[19:24, "momentum_20d"].isna().all()
+
+
+def test_quality_schema_fails_clearly_before_downstream_key_error() -> None:
+    with pytest.raises(ValueError, match="pct_chg"):
+        validate_daily_bars(raw_bars().drop(columns="pct_chg"))

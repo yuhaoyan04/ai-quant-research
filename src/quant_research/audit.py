@@ -1462,14 +1462,15 @@ class ResearchAuditor:
         })
 
     def audit_engineering_quality(self) -> None:
-        protocol = self.require_table("engineering_quality_protocol", "v1")
-        implementation = self.require_table("engineering_implementation_inventory", "v1")
-        seeds = self.require_table("engineering_random_seed_inventory", "v1")
-        tests = self.require_table("engineering_test_layer_inventory", "v1")
-        contracts = self.require_table("engineering_output_contracts", "v1")
-        gaps = self.require_table("engineering_gap_register", "v1")
-        checks = self.require_table("engineering_quality_checks", "v1")
-        failures = self.require_table("engineering_failed_assertions", "v1")
+        key = "v2"
+        protocol = self.require_table("engineering_quality_protocol", key)
+        implementation = self.require_table("engineering_implementation_inventory", key)
+        seeds = self.require_table("engineering_random_seed_inventory", key)
+        tests = self.require_table("engineering_test_layer_inventory", key)
+        contracts = self.require_table("engineering_output_contracts", key)
+        gaps = self.require_table("engineering_gap_register", key)
+        checks = self.require_table("engineering_quality_checks", key)
+        failures = self.require_table("engineering_failed_assertions", key)
         if any(frame.empty for frame in (
             protocol, implementation, seeds, tests, contracts, gaps, checks, failures,
         )):
@@ -1506,7 +1507,7 @@ class ResearchAuditor:
         )
         self.add(
             "engineering_quality_output_contracts_frozen",
-            len(contracts) == 5
+            len(contracts) == 14
             and contracts["protocol_has_experiment_id"].astype(bool).all()
             and contracts["frozen_snapshot_immutable"].astype(bool).all(),
             contracts[["stage", "frozen_experiment"]].to_dict(orient="records").__str__(),

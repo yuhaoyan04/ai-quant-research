@@ -15,7 +15,6 @@ from quant_research.ingest import ROOT, Lake
 
 
 CONFIG_PATH = ROOT / "config" / "engineering_quality.yaml"
-REPORT_PATH = ROOT / "reports" / "engineering_quality.md"
 
 
 def load_config(path: Path = CONFIG_PATH) -> dict[str, Any]:
@@ -93,8 +92,45 @@ def output_contracts(lake: Lake, cfg: dict[str, Any], root: Path = ROOT) -> pd.D
     return pd.DataFrame(rows)
 
 
+def frozen_registry_inventory(root: Path = ROOT) -> pd.DataFrame:
+    """Reconcile the public index with immutable directories by identity.
+
+    A fixed expected count becomes stale whenever a legitimate experiment is
+    appended.  The institutional invariant is stronger: IDs are unique, every
+    indexed run has exactly one committed snapshot, and no snapshot is hidden
+    from the index.
+    """
+    registry = root / "reports" / "experiments"
+    payload = json.loads((registry / "index.json").read_text(encoding="utf-8"))
+    if not isinstance(payload, list):
+        raise TypeError("experiment index must be a list of records")
+    index_ids = [str(item.get("experiment_id", "")) for item in payload]
+    directory_ids = sorted(
+        path.name for path in registry.iterdir()
+        if path.is_dir() and (path / "FROZEN.json").exists()
+    )
+    counts: dict[str, int] = {}
+    for experiment_id in index_ids:
+        counts[experiment_id] = counts.get(experiment_id, 0) + 1
+    all_ids = sorted(set(index_ids) | set(directory_ids))
+    immutable_by_id = {
+        str(item.get("experiment_id", "")): bool(item.get("immutable"))
+        for item in payload
+    }
+    return pd.DataFrame([{
+        "experiment_id": experiment_id,
+        "index_occurrences": counts.get(experiment_id, 0),
+        "indexed": experiment_id in set(index_ids),
+        "snapshot_directory_exists": experiment_id in set(directory_ids),
+        "index_declares_immutable": immutable_by_id.get(experiment_id, False),
+    } for experiment_id in all_ids])
+
+
 def gap_register() -> pd.DataFrame:
     return pd.DataFrame([
+        {"priority": "P0", "gap": "failed_market_rows_could_enter_forward_labels",
+         "status": "CLOSED_IN_CODE_V2",
+         "mitigation": "quality-fail returns remain on the date axis but invalidate every affected label window"},
         {"priority": "P1", "gap": "live_curated_table_names_are_mutable",
          "status": "CONTROLLED_BY_IMMUTABLE_REGISTRY",
          "mitigation": "publication claims use frozen experiment SHA-256, never bare live v1 names"},
@@ -104,19 +140,32 @@ def gap_register() -> pd.DataFrame:
          "status": "OPEN_NONRESEARCH", "mitigation": "set a writable cache_dir in CI/workspace"},
         {"priority": "P2", "gap": "legacy_modules_still_contain_version_literals",
          "status": "OPEN", "mitigation": "migrate new work first; change old versions only with new experiment IDs"},
+        {"priority": "P1", "gap": "licensed_industry_and_announcement_date_fundamentals",
+         "status": "BLOCKED_EXTERNAL_DATA",
+         "mitigation": "retain CSRC broad-industry and price/valuation scope; do not claim a commercial risk model"},
+        {"priority": "P1", "gap": "official_corporate_actions_and_broker_calibrated_impact",
+         "status": "BLOCKED_EXTERNAL_DATA",
+         "mitigation": "retain explicit proxy/scenario labels and require vendor or broker data for promotion"},
     ])
 
 
 def acceptance_checks(
     implementation: pd.DataFrame, seeds: pd.DataFrame, tests: pd.DataFrame,
-    contracts: pd.DataFrame, gaps: pd.DataFrame, cfg: dict[str, Any], root: Path = ROOT,
+    contracts: pd.DataFrame, registry: pd.DataFrame, gaps: pd.DataFrame,
+    cfg: dict[str, Any], root: Path = ROOT,
 ) -> pd.DataFrame:
     definition = implementation.loc[
         implementation["logic"].isin([
             "corporate_action_proxy_formula", "execution_buy_limit_rule",
         ])
     ]
-    index = json.loads((root / "reports" / "experiments" / "index.json").read_text())
+    registry_complete = (
+        len(registry) >= int(cfg["minimum_frozen_experiments"])
+        and registry["index_occurrences"].eq(1).all()
+        and registry["indexed"].all()
+        and registry["snapshot_directory_exists"].all()
+        and registry["index_declares_immutable"].all()
+    )
     rows = [
         ("execution_market_logic_has_one_definition", len(definition) == 2
          and definition["is_definition"].all()
@@ -131,12 +180,18 @@ def acceptance_checks(
         ("five_test_layers_present", set(tests["layer"]) == set(cfg["required_test_layers"])
          and tests["exists"].all() and tests.groupby("layer")["test_functions"].sum().gt(0).all(),
          tests.groupby("layer")["test_functions"].sum().to_dict()),
-        ("critical_outputs_have_versioned_protocols", len(contracts) == 5
+        ("critical_outputs_have_versioned_protocols", len(contracts) == len(cfg["critical_protocols"])
          and contracts["protocol_has_experiment_id"].all(), contracts.to_dict("records")),
         ("critical_outputs_have_immutable_snapshots", contracts["frozen_snapshot_exists"].all()
          and contracts["frozen_snapshot_immutable"].all(),
          contracts[["stage", "frozen_experiment"]].to_dict("records")),
-        ("frozen_experiment_inventory_complete", len(index) == int(cfg["expected_frozen_experiments"]), len(index)),
+        ("frozen_experiment_inventory_complete", registry_complete, {
+            "records": len(registry),
+            "minimum": int(cfg["minimum_frozen_experiments"]),
+            "duplicates": registry.loc[registry["index_occurrences"].ne(1), "experiment_id"].tolist(),
+            "missing_snapshots": registry.loc[~registry["snapshot_directory_exists"], "experiment_id"].tolist(),
+            "unindexed_snapshots": registry.loc[~registry["indexed"], "experiment_id"].tolist(),
+        }),
         ("no_open_p0_engineering_gaps", not (
             gaps["priority"].eq("P0") & gaps["status"].str.startswith("OPEN")
         ).any(), gaps.groupby(["priority", "status"]).size().to_dict()),
@@ -154,8 +209,9 @@ def run(lake: Lake | None = None) -> pd.DataFrame:
     seeds = random_seed_inventory()
     tests = test_layer_inventory(cfg)
     contracts = output_contracts(lake, cfg)
+    registry = frozen_registry_inventory()
     gaps = gap_register()
-    checks = acceptance_checks(implementation, seeds, tests, contracts, gaps, cfg)
+    checks = acceptance_checks(implementation, seeds, tests, contracts, registry, gaps, cfg)
     protocol = pd.DataFrame([{
         "experiment_id": cfg["experiment_id"], "evidence_class": cfg["evidence_class"],
         "research_selection_role": cfg["research_selection_role"],
@@ -176,12 +232,16 @@ def run(lake: Lake | None = None) -> pd.DataFrame:
         "engineering_random_seed_inventory": seeds,
         "engineering_test_layer_inventory": tests,
         "engineering_output_contracts": contracts,
+        "engineering_registry_inventory": registry,
         "engineering_gap_register": gaps,
         "engineering_quality_checks": checks,
         "engineering_failed_assertions": failures,
     }
     for table, frame in outputs.items():
-        lake.write(table, frame, key="v1", source="engineering_quality.v1", request=cfg)
+        lake.write(
+            table, frame, key=str(cfg["artifact_key"]),
+            source=f"engineering_quality.{cfg['artifact_key']}", request=cfg,
+        )
     lines = [
         "# Phase 10：工程结构、配置与测试规范", "",
         "## 结论", "",
@@ -190,10 +250,12 @@ def run(lake: Lake | None = None) -> pd.DataFrame:
         "## 随机种子", "", seeds.to_markdown(index=False), "",
         "## 测试层次", "", tests.to_markdown(index=False), "",
         "## 关键输出契约", "", contracts.to_markdown(index=False), "",
-        "## 工程债", "", gaps.to_markdown(index=False), "",
+        "## 冻结实验登记对账", "", registry.to_markdown(index=False), "",
+        "## 工程债与外部数据边界", "", gaps.to_markdown(index=False), "",
         "## 机器验收", "", checks.to_markdown(index=False),
     ]
-    REPORT_PATH.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    report_path = ROOT / str(cfg["report_path"])
+    report_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
     print(checks.to_string(index=False), flush=True)
     if checks["status"].eq("FAIL").any():
         raise RuntimeError("Phase 10 engineering gates failed")

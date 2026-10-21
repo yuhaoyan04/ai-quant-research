@@ -1,8 +1,8 @@
 # Research artifact audit
 
-Generated at `2026-10-20T17:19:17.815164+00:00`.
+Generated at `2026-10-21T01:32:15.920404+00:00`.
 
-Summary: **498 PASS / 46 WARN / 0 FAIL**
+Summary: **497 PASS / 48 WARN / 1 FAIL**
 
 | Status | Check | Detail |
 |---|---|---|
@@ -109,11 +109,13 @@ Summary: **498 PASS / 46 WARN / 0 FAIL**
 | PASS | `frozen_snapshot_integrity:alpha_evidence_matrix_v2` | all frozen files match FROZEN.json |
 | PASS | `frozen_live_inputs:alpha_evidence_matrix_v2` | all registered inputs match their SHA-256 hashes |
 | PASS | `frozen_snapshot_integrity:engineering_quality_v1` | all frozen files match FROZEN.json |
-| PASS | `frozen_live_inputs:engineering_quality_v1` | all registered inputs match their SHA-256 hashes |
+| WARN | `frozen_live_inputs:engineering_quality_v1` | mismatches=['engineering_implementation_inventory/v1', 'engineering_quality_checks/v1', 'engineering_failed_assertions/v1'] |
+| FAIL | `frozen_experiment:engineering_quality_v2` | verification_error=FileNotFoundError: frozen experiment missing: /opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/reports/experiments/engineering_quality_v2 |
 | PASS | `frozen_snapshot_integrity:paper_trading_pipeline_v1` | all frozen files match FROZEN.json |
 | PASS | `frozen_live_inputs:paper_trading_pipeline_v1` | all registered inputs match their SHA-256 hashes |
 | PASS | `frozen_snapshot_integrity:forward_data_pipeline_v1` | all frozen files match FROZEN.json |
 | PASS | `frozen_live_inputs:forward_data_pipeline_v1` | all registered inputs match their SHA-256 hashes |
+| WARN | `invalidated_experiment:engineering_quality_v1` | severity=brittle_registry_count_gate_superseded; superseded_by=engineering_quality_v2; reason=The immutable v1 snapshot is intact, but its live gate required an exact experiment count. Appending the valid forward_data_pipeline_v1 snapshot made that check fail even though the public index and all immutable directories reconciled one-to-one. V2 replaces the count equality with identity, uniqueness, immutability, and no-orphan checks and expands the critical protocol chain through Phase 11.1. |
 | WARN | `invalidated_experiment:institutional_execution_v1` | severity=registry_self_staging_dirty_flag; superseded_by=institutional_execution_v2; reason=The research outputs and hashes are valid, but the experiment registry created its temporary snapshot directory inside the repository before capturing Git status. That self-created untracked directory caused the metadata to report dirty=true even though registration began from clean commit d1b00aedd5b3dcbc660733fa64288c550a83e446. |
 | WARN | `invalidated_experiment:portfolio_sensitivity_v1` | severity=cost_stress_repricing_formula_superseded; superseded_by=transaction_cost_model_v1; reason=The v1 fixed-fill execution cost stress subtracted turnover times the fee rate directly from gross return. The daily executor defines turnover over pre-trade NAV while return is measured over previous NAV, so exact C0 reproduction additionally requires the pre-trade-to-previous-NAV ratio. The difference is small but the v1 stress grid is not an exact 20bp regression of the executable baseline. |
 | WARN | `invalidated_experiment:factor_preprocessing_ablation_v1` | severity=portfolio_metrics_invalid; superseded_by=factor_preprocessing_ablation_v2; reason=Validation portfolios were formed after filtering rows with non-null future returns. RankIC and model-selection metrics used the correct realized subset, but Top-200 portfolio metrics had outcome-availability leakage. |
@@ -401,20 +403,20 @@ Summary: **498 PASS / 46 WARN / 0 FAIL**
 | PASS | `alpha_evidence_assertion_log_clean` | [{'check_name': 'NO_FAILED_ASSERTIONS', 'status': 'PASS', 'observed': 'all Phase 9 assertions passed; share-level fill comparison is complete'}] |
 | PASS | `alpha_evidence_share_level_fill_comparison_complete` | paths=8, ratios=[0.987309, 0.931394, 0.988337, 0.891164, 0.860965, 0.954013, 0.756205, 0.99485] |
 | PASS | `alpha_evidence_fill_accounting_invariants_pass` | paths=8, checks=10 |
-| PASS | `artifact:engineering_quality_protocol/v1` | rows=1 |
-| PASS | `artifact:engineering_implementation_inventory/v1` | rows=6 |
-| PASS | `artifact:engineering_random_seed_inventory/v1` | rows=3 |
-| PASS | `artifact:engineering_test_layer_inventory/v1` | rows=10 |
-| PASS | `artifact:engineering_output_contracts/v1` | rows=5 |
-| PASS | `artifact:engineering_gap_register/v1` | rows=4 |
-| PASS | `artifact:engineering_quality_checks/v1` | rows=8 |
-| PASS | `artifact:engineering_failed_assertions/v1` | rows=1 |
+| PASS | `artifact:engineering_quality_protocol/v2` | rows=1 |
+| PASS | `artifact:engineering_implementation_inventory/v2` | rows=7 |
+| PASS | `artifact:engineering_random_seed_inventory/v2` | rows=3 |
+| PASS | `artifact:engineering_test_layer_inventory/v2` | rows=14 |
+| PASS | `artifact:engineering_output_contracts/v2` | rows=14 |
+| PASS | `artifact:engineering_gap_register/v2` | rows=7 |
+| PASS | `artifact:engineering_quality_checks/v2` | rows=8 |
+| PASS | `artifact:engineering_failed_assertions/v2` | rows=1 |
 | PASS | `engineering_quality_governance_only` | canonical_module=src/quant_research/execution_market.py |
 | PASS | `engineering_quality_all_checks_pass` | checks=8 |
-| PASS | `engineering_quality_single_execution_market_implementation` | [{'logic': 'corporate_action_proxy_formula', 'path': 'src/quant_research/execution_market.py', 'line': 41, 'is_definition': True}, {'logic': 'execution_buy_limit_rule', 'path': 'src/quant_research/execution_market.py', 'line': 52, 'is_definition': True}, {'logic': 'execution_market_public_api', 'path': 'src/quant_research/execution_market.py', 'line': 64, 'is_definition': True}, {'logic': 'execution_market_public_api', 'path': 'src/quant_research/incremental_alpha_fill_execution.py', 'line': 69, 'is_definition': False}, {'logic': 'execution_market_public_api', 'path': 'src/quant_research/institutional_execution.py', 'line': 552, 'is_definition': False}, {'logic': 'execution_market_public_api', 'path': 'src/quant_research/portfolio_construction_comparison.py', 'line': 531, 'is_definition': False}] |
+| PASS | `engineering_quality_single_execution_market_implementation` | [{'logic': 'corporate_action_proxy_formula', 'path': 'src/quant_research/execution_market.py', 'line': 41, 'is_definition': True}, {'logic': 'execution_buy_limit_rule', 'path': 'src/quant_research/execution_market.py', 'line': 52, 'is_definition': True}, {'logic': 'execution_market_public_api', 'path': 'src/quant_research/execution_market.py', 'line': 64, 'is_definition': True}, {'logic': 'execution_market_public_api', 'path': 'src/quant_research/incremental_alpha_fill_execution.py', 'line': 69, 'is_definition': False}, {'logic': 'execution_market_public_api', 'path': 'src/quant_research/institutional_execution.py', 'line': 554, 'is_definition': False}, {'logic': 'execution_market_public_api', 'path': 'src/quant_research/paper_trading.py', 'line': 646, 'is_definition': False}, {'logic': 'execution_market_public_api', 'path': 'src/quant_research/portfolio_construction_comparison.py', 'line': 531, 'is_definition': False}] |
 | PASS | `engineering_quality_tests_and_seeds_complete` | layers=5, random_generators=3 |
-| PASS | `engineering_quality_output_contracts_frozen` | [{'stage': 'phase5_execution', 'frozen_experiment': 'institutional_execution_v2'}, {'stage': 'phase6_portfolio', 'frozen_experiment': 'portfolio_construction_comparison_v1'}, {'stage': 'phase7_ledger', 'frozen_experiment': 'unified_account_ledger_v1'}, {'stage': 'phase8_inference', 'frozen_experiment': 'statistical_inference_protocol_v1'}, {'stage': 'phase9_alpha', 'frozen_experiment': 'alpha_evidence_matrix_v2'}] |
-| PASS | `engineering_quality_no_open_p0` | {('P1', 'CONTROLLED_BY_IMMUTABLE_REGISTRY'): 1, ('P1', 'OPEN'): 1, ('P2', 'OPEN'): 1, ('P2', 'OPEN_NONRESEARCH'): 1} |
+| PASS | `engineering_quality_output_contracts_frozen` | [{'stage': 'factor_research', 'frozen_experiment': 'factor_tear_sheet_v1'}, {'stage': 'factor_and_model_neutralization', 'frozen_experiment': 'model_portfolio_neutralization_v2'}, {'stage': 'phase1_costs', 'frozen_experiment': 'transaction_cost_model_v1'}, {'stage': 'phase2_risk_free', 'frozen_experiment': 'risk_free_rate_attribution_v1'}, {'stage': 'phase2_benchmark', 'frozen_experiment': 'market_benchmark_attribution_v1'}, {'stage': 'phase3_model_validation', 'frozen_experiment': 'model_stability_validation_v1'}, {'stage': 'phase4_governance', 'frozen_experiment': 'research_governance_v1'}, {'stage': 'phase5_execution', 'frozen_experiment': 'institutional_execution_v2'}, {'stage': 'phase6_portfolio', 'frozen_experiment': 'portfolio_construction_comparison_v1'}, {'stage': 'phase7_ledger', 'frozen_experiment': 'unified_account_ledger_v1'}, {'stage': 'phase8_inference', 'frozen_experiment': 'statistical_inference_protocol_v1'}, {'stage': 'phase9_alpha', 'frozen_experiment': 'alpha_evidence_matrix_v2'}, {'stage': 'phase11_paper', 'frozen_experiment': 'paper_trading_pipeline_v1'}, {'stage': 'phase11_forward_data', 'frozen_experiment': 'forward_data_pipeline_v1'}] |
+| PASS | `engineering_quality_no_open_p0` | {('P0', 'CLOSED_IN_CODE_V2'): 1, ('P1', 'BLOCKED_EXTERNAL_DATA'): 2, ('P1', 'CONTROLLED_BY_IMMUTABLE_REGISTRY'): 1, ('P1', 'OPEN'): 1, ('P2', 'OPEN'): 1, ('P2', 'OPEN_NONRESEARCH'): 1} |
 | PASS | `engineering_quality_assertion_log_clean` | [{'check_name': 'NO_FAILED_ASSERTIONS', 'status': 'PASS', 'observed': 'all Phase 10 engineering gates passed'}] |
 | PASS | `artifact:paper_trading_protocol/v1` | rows=1 |
 | PASS | `artifact:paper_trading_source_contracts/v1` | rows=5 |
@@ -553,8 +555,8 @@ Summary: **498 PASS / 46 WARN / 0 FAIL**
 
 ## Headline findings
 
-- `registered_frozen_experiments`: 53
-- `invalidated_experiments`: 23
+- `registered_frozen_experiments`: 54
+- `invalidated_experiments`: 24
 - `common_oos_weeks`: 291
 - `ridge_annualized_return_20bp`: 0.2005894880405501
 - `challenger_annualized_return_20bp`: 0.2507876712519381

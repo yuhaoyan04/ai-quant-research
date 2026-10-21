@@ -2,7 +2,7 @@
 
 ## 1. 复现边界
 
-GitHub 仓库保存代码、配置、测试、文档、图表、结果表和 47 个冻结实验版本，**不保存完整
+GitHub 仓库保存代码、配置、测试、文档、图表、结果表和 50+ 个冻结实验版本，**不保存完整
 `data/` 数据湖**。新机器从 BaoStock 下载股票主数据；AKShare 承担股票抽样核对和中债官方
 历史接口适配，市场归因从中证指数公司官方接口取得价格/全收益序列。不同来源不静默互相覆盖。
 
@@ -166,7 +166,7 @@ powershell -ExecutionPolicy Bypass -File scripts/rebuild_all.ps1 -SkipDownload -
 | `data/lake/curated/` 其他表 | 质量表、因子、标签、模型特征、预测、持仓、成交 | 否 |
 | `data/lake/manifests/` | 请求、schema、行数、内容哈希 | 否 |
 | `config/` | 数据、因子、模型、组合和实验配置 | 是 |
-| `reports/experiments/` | 52 个不可变实验版本与输入哈希 | 是 |
+| `reports/experiments/` | 50+ 个不可变实验版本与输入哈希 | 是 |
 | `reports/tables/`、`reports/figures/` | 求职展示所需结果 | 是 |
 | `reports/research_dashboard.html` | 离线交互面板 | 是 |
 
@@ -182,7 +182,7 @@ quant-research-dashboard
 quant-paper-trading status
 ```
 
-当前验收记录为 211 tests passed；研究审计为 496 PASS / 46 WARN / 0 FAIL（WARN 保留历史版本漂移与已知边界）。新下载数据应至少
+当前验收记录为 221 tests passed；研究审计的实时 PASS/WARN/FAIL 数量见 `reports/research_audit.md`（WARN 保留历史版本漂移与已知边界）。新下载数据应至少
 满足：测试通过、schema/唯一键/日期门禁无 FAIL、模型比较使用共同日期、持仓权重和收益恒等式
 通过。
 

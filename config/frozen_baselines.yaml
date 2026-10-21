@@ -1788,6 +1788,44 @@ experiments:
       - {table: engineering_failed_assertions, key: v1}
     figures: []
 
+  engineering_quality_v2:
+    title: End-to-end institutional engineering contracts and registry reconciliation
+    stage: engineering_structure_configuration_and_tests
+    model_version: full_chain_protocol_and_identity_reconciled_registry_v2
+    dataset_version_method: sha256_of_registered_inputs_and_ingestion_manifest
+    historical_oos_used_for_selection: false
+    evidence_class: governance_only
+    research_selection_role: governance
+    claims_independent_evidence: false
+    config_files: [engineering_quality.yaml, quality.yaml, research_panel.yaml, preprocessing.yaml, research_governance.yaml]
+    input_tables:
+      - {table: factor_tear_sheet_protocol, key: v1}
+      - {table: model_neutralization_protocol, key: v1}
+      - {table: transaction_cost_protocol, key: v1}
+      - {table: risk_free_rate_attribution_protocol, key: v1}
+      - {table: market_benchmark_protocol, key: v1}
+      - {table: model_stability_protocol, key: v1}
+      - {table: research_governance_protocol, key: v1}
+      - {table: institutional_execution_protocol, key: v1}
+      - {table: portfolio_construction_protocol, key: v1}
+      - {table: unified_account_protocol, key: v1}
+      - {table: statistical_inference_protocol, key: v1}
+      - {table: alpha_evidence_protocol, key: v2}
+      - {table: paper_trading_protocol, key: v1}
+      - {table: forward_data_protocol, key: v1}
+    metric_tables:
+      - {table: engineering_quality_protocol, key: v2}
+      - {table: engineering_implementation_inventory, key: v2}
+      - {table: engineering_random_seed_inventory, key: v2}
+      - {table: engineering_test_layer_inventory, key: v2}
+      - {table: engineering_output_contracts, key: v2}
+      - {table: engineering_registry_inventory, key: v2}
+      - {table: engineering_gap_register, key: v2}
+      - {table: engineering_quality_checks, key: v2}
+      - {table: engineering_failed_assertions, key: v2}
+    figures:
+      - reports/engineering_quality_v2.md
+
   paper_trading_pipeline_v1:
     title: Phase 11 forward-only paper trading and future-lockbox operations
     stage: paper_trading_and_future_lockbox

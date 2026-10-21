@@ -1,4 +1,5 @@
 import pandas as pd
+import pytest
 
 from quant_research.panel import build_labels, instrument_type
 
@@ -37,3 +38,34 @@ def test_executable_label_waits_until_after_next_day_entry() -> None:
     # t=Jan 2 excludes both its own return and Jan 3's pre-entry return.
     assert round(labels.loc[0, "fwd_return_2d_lag1"], 6) == 0.56
     assert pd.isna(labels.loc[1, "fwd_return_2d_lag1"])
+
+
+def test_failed_future_print_invalidates_label_instead_of_becoming_training_data() -> None:
+    data = pd.DataFrame({
+        "trade_date": ["2024-01-02", "2024-01-03", "2024-01-04", "2024-01-05"],
+        "instrument_id": ["sh.600000"] * 4,
+        "pct_chg": [0.0, 10.0, 20.0, 30.0],
+        "trade_status": [1] * 4,
+        "is_st": [0] * 4,
+        "quality_status": ["pass", "pass", "fail", "pass"],
+    })
+    labels = build_labels(data, [2], execution_lag=0)
+    assert pd.isna(labels.loc[0, "fwd_return_2d"])
+    assert pd.isna(labels.loc[0, "fwd_return_2d_lag0"])
+
+
+def test_label_builder_rejects_duplicate_dates_and_mixed_securities() -> None:
+    base = pd.DataFrame({
+        "trade_date": ["2024-01-02", "2024-01-02"],
+        "instrument_id": ["sh.600000", "sh.600000"],
+        "pct_chg": [1.0, 2.0], "trade_status": [1, 1], "is_st": [0, 0],
+        "quality_status": ["pass", "pass"],
+    })
+    with pytest.raises(ValueError, match="duplicate trade dates"):
+        build_labels(base, [1])
+    mixed = base.assign(
+        trade_date=["2024-01-02", "2024-01-03"],
+        instrument_id=["sh.600000", "sz.000001"],
+    )
+    with pytest.raises(ValueError, match="exactly one instrument"):
+        build_labels(mixed, [1])

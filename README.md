@@ -94,7 +94,7 @@ flowchart LR
 - 250 个历史证监会行业快照；PIT 周度行业暴露最低年度覆盖率 98.55%。
 - 训练、验证、年度扩展窗口样本外预测，以及持仓级结果。
 - 成本、换手、流动性、规模、ADV 容量、市场冲击和 t+1 涨跌停/停牌压力测试。
-- 211 个单元/集成/回归测试；当前自动产物审计为 496 PASS / 46 WARN / 0 FAIL。
+- 221 个单元/集成/回归/数据合同测试；当前自动产物审计以 `reports/research_audit.md` 的实时结果为准。
 
 ## 快速验证已提交结果
 
@@ -133,7 +133,7 @@ quant-final-report
 
 ### 冻结实验与可复现性
 
-当前 52 个实验版本已登记为不可覆盖快照。每个快照包含解析后的配置、指标表、图表、环境版本、代码树哈希、输入数据 SHA-256 与 historical OOS 使用声明；失败与被替代实验同样保留。Phase 3 保留 expanding/10 年 rolling、逐年失败标记、RF 多 seed 分布和非因果 Purged CV 补充诊断；Phase 4 将 2021–2026 标记为已消耗历史证据，Phase 11 进一步冻结 forward-only paper-trading 执行协议、生产模型包和 hash-chained 运行日志。
+当前已有 50+ 个实验版本登记为不可覆盖快照。每个快照包含解析后的配置、指标表、图表、环境版本、代码树哈希、输入数据 SHA-256 与 historical OOS 使用声明；失败与被替代实验同样保留。Phase 3 保留 expanding/10 年 rolling、逐年失败标记、RF 多 seed 分布和非因果 Purged CV 补充诊断；Phase 4 将 2021–2026 标记为已消耗历史证据，Phase 11 进一步冻结 forward-only paper-trading 执行协议、生产模型包和 hash-chained 运行日志。冻结完整性按 experiment ID、public index 与 `FROZEN.json` 目录双向对账，不再依赖会随合法追加而失效的硬编码数量。
 
 ```powershell
 # 查看已登记实验
@@ -173,5 +173,7 @@ powershell -ExecutionPolicy Bypass -File scripts/rebuild_all.ps1 `
 3. 旧价格指数口径保留，同时新增含税前现金红利再投资的中证官方全收益指数；个股 `pct_chg` 仍不是独立复权总收益序列，策略也未建模真实撮合队列和基金申赎。
 4. 平方根冲击模型尚未用券商订单校准，容量结果是情景分析而非资金承诺。
 5. Paper-trading 管线已经冻结并留有一次激活前运营记录，但成功前瞻观测仍为 0；所有收益数字仍来自历史研究回测，不是 paper/live 业绩。
+
+最新的逐层实现复核、已修 P0 与仍受外部数据约束的 P1/P2 见[全链路机构级再审计](docs/audit/INSTITUTIONAL_READINESS_REAUDIT_20261021.md)。
 
 这些限制不是脚注，而是结论的一部分。项目当前最有价值的成果，是一条时间口径一致、可审计、能够明确区分“正向证据”和“尚不显著增量”的研究链路。

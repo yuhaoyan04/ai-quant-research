@@ -1,4 +1,22 @@
 invalidations:
+  engineering_quality_v1:
+    invalidated_at_utc: "2026-10-21T03:00:00Z"
+    severity: brittle_registry_count_gate_superseded
+    reason: >-
+      The immutable v1 snapshot is intact, but its live gate required an exact
+      experiment count. Appending the valid forward_data_pipeline_v1 snapshot
+      made that check fail even though the public index and all immutable
+      directories reconciled one-to-one. V2 replaces the count equality with
+      identity, uniqueness, immutability, and no-orphan checks and expands the
+      critical protocol chain through Phase 11.1.
+    unaffected_outputs:
+      - all engineering_quality_v1 immutable snapshot files
+      - canonical execution-market implementation finding
+      - five-layer test inventory
+    invalid_outputs:
+      - claims that exact experiment count is a durable completeness invariant
+      - engineering_quality_v1 live assertion status after new registrations
+    superseded_by: engineering_quality_v2
   institutional_execution_v1:
     invalidated_at_utc: "2026-10-20T09:55:00Z"
     severity: registry_self_staging_dirty_flag

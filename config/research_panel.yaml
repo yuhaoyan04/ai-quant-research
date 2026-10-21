@@ -8,6 +8,7 @@ label_convention: "close_to_close_compounded_from_t_plus_1"
 # target conservatively assumes entry at t+1 close and starts at return t+2.
 execution_lag_trading_days: 1
 executable_label_convention: "close_to_close_compounded_from_t_plus_2_after_t_plus_1_entry"
+label_quality_policy: "preserve_date_axis_and_invalidate_any_window_containing_quality_fail"
 
 universe:
   include_main_board: true

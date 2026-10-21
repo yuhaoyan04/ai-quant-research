@@ -1,22 +1,40 @@
-experiment_id: engineering_quality_v1
+experiment_id: engineering_quality_v2
+artifact_key: v2
+report_path: reports/engineering_quality_v2.md
 evidence_class: governance_only
 research_selection_role: governance
 claims_independent_evidence: false
 historical_oos_used_for_selection: false
 canonical_execution_market_module: src/quant_research/execution_market.py
-expected_frozen_experiments: 50
+minimum_frozen_experiments: 53
 critical_protocols:
+  - {stage: factor_research, table: factor_tear_sheet_protocol, key: v1, frozen_experiment: factor_tear_sheet_v1}
+  - {stage: factor_and_model_neutralization, table: model_neutralization_protocol, key: v1, frozen_experiment: model_portfolio_neutralization_v2}
+  - {stage: phase1_costs, table: transaction_cost_protocol, key: v1, frozen_experiment: transaction_cost_model_v1}
+  - {stage: phase2_risk_free, table: risk_free_rate_attribution_protocol, key: v1, frozen_experiment: risk_free_rate_attribution_v1}
+  - {stage: phase2_benchmark, table: market_benchmark_protocol, key: v1, frozen_experiment: market_benchmark_attribution_v1}
+  - {stage: phase3_model_validation, table: model_stability_protocol, key: v1, frozen_experiment: model_stability_validation_v1}
+  - {stage: phase4_governance, table: research_governance_protocol, key: v1, frozen_experiment: research_governance_v1}
   - {stage: phase5_execution, table: institutional_execution_protocol, key: v1, frozen_experiment: institutional_execution_v2}
   - {stage: phase6_portfolio, table: portfolio_construction_protocol, key: v1, frozen_experiment: portfolio_construction_comparison_v1}
   - {stage: phase7_ledger, table: unified_account_protocol, key: v1, frozen_experiment: unified_account_ledger_v1}
   - {stage: phase8_inference, table: statistical_inference_protocol, key: v1, frozen_experiment: statistical_inference_protocol_v1}
   - {stage: phase9_alpha, table: alpha_evidence_protocol, key: v2, frozen_experiment: alpha_evidence_matrix_v2}
+  - {stage: phase11_paper, table: paper_trading_protocol, key: v1, frozen_experiment: paper_trading_pipeline_v1}
+  - {stage: phase11_forward_data, table: forward_data_protocol, key: v1, frozen_experiment: forward_data_pipeline_v1}
 required_test_layers:
   unit: [tests/test_execution_market.py, tests/test_transaction_costs.py]
   integration: [tests/test_institutional_execution.py, tests/test_unified_account_ledger.py]
   regression: [tests/test_alpha_evidence_matrix.py, tests/test_statistical_inference.py]
   property_invariant: [tests/test_institutional_execution.py, tests/test_unified_account_ledger.py]
-  data_contract: [tests/test_market_benchmark_attribution.py, tests/test_risk_free_rate_attribution.py]
+  data_contract:
+    - tests/test_quality_factors.py
+    - tests/test_panel.py
+    - tests/test_pit_universe.py
+    - tests/test_forward_data.py
+    - tests/test_market_benchmark_attribution.py
+    - tests/test_risk_free_rate_attribution.py
 scope_note: >-
   Engineering governance only. This phase refactors duplicated implementation
-  without changing signals, targets, costs, fills or research conclusions.
+  and reconciles the complete data-to-forward-operation protocol chain without
+  selecting on historical OOS or changing frozen research conclusions.

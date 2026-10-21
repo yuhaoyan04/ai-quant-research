@@ -1,0 +1,8 @@
+priority,domain,gap,status,mitigation,evidence_effect
+P0,data_labels,quality-fail observations could be compressed or enter forward windows,CLOSED_IN_CODE_V2,preserve date axis and invalidate affected factor/label windows,no frozen performance change
+P0,governance,exact frozen-experiment count failed after valid append,CLOSED_IN_ENGINEERING_V2,reconcile unique IDs index directories and immutable markers,no research logic change
+P1,data,licensed point-in-time granular industry and announcement-date fundamentals,BLOCKED_EXTERNAL_DATA,add vendor-versioned PIT products and new experiment IDs,limits neutralization depth
+P1,execution,official corporate actions and broker-calibrated spread impact fills,BLOCKED_EXTERNAL_DATA,ingest action master quotes and broker reports,limits execution fidelity
+P1,engineering,repository-wide static type gate,OPEN_ENGINEERING,roll out pyright or mypy module by module,no current metric effect
+P2,engineering,legacy live table version literals,OPEN_CONTROLLED,migrate only in new experiment versions,no current metric effect
+P2,tooling,pytest cache mount permission,OPEN_NONRESEARCH,use a writable cache directory,no research effect

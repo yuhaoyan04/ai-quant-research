@@ -6,9 +6,15 @@ daily_bars:
     - high
     - low
     - close
+    - pre_close
     - volume
     - amount
     - trade_status
+    - is_st
+    - pct_chg
+    - turn
+    - pe_ttm
+    - pb_mrq
   numeric_columns:
     - open
     - high
@@ -24,4 +30,3 @@ daily_bars:
     - ps_ttm
     - pcf_ncf_ttm
   maximum_absolute_daily_return: 0.50
-  maximum_missing_required_fraction: 0.01
