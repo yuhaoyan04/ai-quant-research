@@ -198,6 +198,15 @@
     "immutable": true
   },
   {
+    "experiment_id": "final_research_baseline_v5",
+    "title": "Final unique-NAV residual-execution audited publication baseline",
+    "stage": "final_publication_baseline",
+    "model_version": "locked_full_chain_unique_nav_execution_decision_v5",
+    "registered_at_utc": "2026-10-21T05:59:11.828974+00:00",
+    "dataset_version": "8684720a8877c506871dc57774139267fbe25c79f011cc7a9cf5959893806fb5",
+    "immutable": true
+  },
+  {
     "experiment_id": "forward_data_pipeline_v1",
     "title": "Phase 11.1 isolated incremental forward-data supply controls",
     "stage": "forward_data_operations",
