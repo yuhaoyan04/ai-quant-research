@@ -1,0 +1,507 @@
+experiment_id: idiosyncratic_portfolio_validation_v1
+registry_version: 1
+selection_policy: validation_only
+historical_oos_disclosure: The 2021-2026 block has already been inspected during project
+  development. It is historical out-of-sample evidence, not a pristine production
+  lockbox.
+governance_required_for_new_registrations: true
+governance_policy: research_governance.yaml
+experiment:
+  title: Validation-only residual-target P4 portfolio conversion and matched-control
+    gate
+  stage: idiosyncratic_alpha_portfolio_conversion
+  model_version: locked_ridge_hgb_raw_vs_specific_return_p4_v1
+  dataset_version_method: sha256_of_registered_inputs_and_ingestion_manifest
+  historical_oos_used_for_selection: false
+  evidence_class: validation_selection
+  research_selection_role: selection
+  claims_independent_evidence: false
+  config_files:
+  - idiosyncratic_portfolio_validation.yaml
+  - idiosyncratic_target_validation.yaml
+  - preprocessing.yaml
+  - multi_factor_risk_attribution.yaml
+  - research_governance.yaml
+  input_tables:
+  - table: multi_horizon_factor_panel
+    key: '2008'
+  - table: multi_horizon_factor_panel
+    key: '2009'
+  - table: multi_horizon_factor_panel
+    key: '2010'
+  - table: multi_horizon_factor_panel
+    key: '2011'
+  - table: multi_horizon_factor_panel
+    key: '2012'
+  - table: multi_horizon_factor_panel
+    key: '2013'
+  - table: multi_horizon_factor_panel
+    key: '2014'
+  - table: multi_horizon_factor_panel
+    key: '2015'
+  - table: multi_horizon_factor_panel
+    key: '2016'
+  - table: multi_horizon_factor_panel
+    key: '2017'
+  - table: multi_horizon_factor_panel
+    key: '2018'
+  - table: multi_horizon_factor_panel
+    key: '2019'
+  - table: multi_horizon_factor_panel
+    key: '2020'
+  - table: pit_size_exposures
+    key: '2008'
+  - table: pit_industry_exposures
+    key: '2008'
+  - table: pit_beta_exposures
+    key: '2008'
+  - table: pit_size_exposures
+    key: '2020'
+  - table: pit_industry_exposures
+    key: '2020'
+  - table: pit_beta_exposures
+    key: '2020'
+  metric_tables:
+  - table: idiosyncratic_portfolio_protocol
+    key: v1
+  - table: idiosyncratic_portfolio_fit_audit
+    key: v1
+  - table: idiosyncratic_portfolio_summary
+    key: v1
+  - table: idiosyncratic_portfolio_annual
+    key: v1
+  - table: idiosyncratic_portfolio_exposure_match
+    key: v1
+  - table: idiosyncratic_portfolio_paired_inference
+    key: v1
+  - table: idiosyncratic_portfolio_promotion_decision
+    key: v1
+  - table: idiosyncratic_portfolio_checks
+    key: v1
+  figures:
+  - reports/idiosyncratic_portfolio_validation.md
+resolved_configs:
+  idiosyncratic_portfolio_validation.yaml:
+    experiment_id: idiosyncratic_portfolio_validation_v1
+    artifact_key: v1
+    report_path: reports/idiosyncratic_portfolio_validation.md
+    evidence_class: validation_selection
+    research_selection_role: selection
+    claims_independent_evidence: false
+    historical_oos_used_for_selection: false
+    source_experiment: idiosyncratic_target_validation_v1
+    train:
+      start_year: 2008
+      end_year: 2015
+    validation:
+      start_year: 2016
+      end_year: 2020
+    historical_oos_evaluation_enabled: false
+    future_lockbox_access_allowed: false
+    target: fwd_return_5d_lag1
+    residual_target: fwd_specific_return_5d_lag1
+    label_horizon_trading_days: 5
+    controls:
+      industry_level: csrc_broad_section
+      styles:
+      - size
+      - beta
+      - volatility
+      - liquidity
+      - value
+      - momentum
+      minimum_industry_group_size: 5
+      style_winsor_quantiles:
+      - 0.01
+      - 0.99
+    models:
+      ridge_locked:
+        candidate: ridge_locked
+        family: ridge
+        kind: ridge
+        penalty: 1.0
+      hgb_shallow15_locked:
+        candidate: hgb_shallow15_locked
+        family: hgb
+        kind: hgb
+        learning_rate: 0.05
+        max_iter: 120
+        max_leaf_nodes: 15
+        min_samples_leaf: 100
+        l2_regularization: 1.0
+    minimum_cross_section_size: 100
+    sample_per_training_date: 300
+    random_state: 20261021
+    quantile_limits:
+    - 0.01
+    - 0.99
+    mad_multiplier: 5.0
+    include_missing_indicators: true
+    annualization_periods: 52
+    risk_free_rate:
+      sharpe_convention: zero_weekly_rate_development_diagnostic
+      reliable_2016_2020_series_available: false
+      promotion_uses_absolute_sharpe: false
+    portfolio:
+      construction: P4_risk_constrained
+      round_trip_cost_bps: 20.0
+      minimum_realized_weight_fraction: 0.95
+    optimizer:
+      method: scipy_highs_linear_program
+      objective: maximize_cross_sectional_score_rank
+      maximum_stock_weight: 0.005
+      industry_active_weight_bound: 0.03
+      absolute_size_z_bound: 0.1
+      weekly_turnover_limit: 0.3
+      turnover_feasibility_relaxation:
+      - 0.3
+      - 0.4
+      - 0.5
+      - 0.75
+      - 1.0
+      candidate_top_n: 800
+      industry_capacity_buffer_names: 10
+      size_tail_candidates_each_side: 100
+      minimum_reported_weight: 1.0e-08
+    style_benchmark:
+      name: pit_industry_six_style_constrained_replica
+      exclude_ml_holdings_when_feasible: true
+      weekly_one_way_turnover_limit: 0.3
+      maximum_stock_weight: 0.005
+      maximum_absolute_industry_weight_gap: 0.005
+      maximum_absolute_style_exposure_gap: 0.05
+      turnover_tiebreak_penalty: 1.0e-06
+      minimum_reported_weight: 1.0e-12
+    inference:
+      block_length_weeks: 13
+      bootstrap_samples: 2000
+      random_seed: 20261022
+      multiplicity_control: benjamini_hochberg
+      false_discovery_rate: 0.05
+      primary_families:
+      - residual_target_minus_raw_target
+      - residual_target_minus_style_benchmark
+    promotion_gate:
+      primary_model: hgb_shallow15_locked
+      require_residual_minus_raw_ci_above_zero: true
+      require_residual_minus_style_ci_above_zero: true
+      require_bh_fdr_5pct: true
+      allow_turnover_relaxation: false
+      maximum_constraint_violation: 1.0e-08
+      require_style_benchmark_exposure_match: true
+    scope_note: Validation-only portfolio-conversion gate. Models are refit deterministically
+      from the frozen target-study specification. All paths use the same weekly dates,
+      P4 constraints and 20bp research cost. This stage does not yet claim share-level
+      fills; those are a separate gate after target portfolios pass.
+  idiosyncratic_target_validation.yaml:
+    experiment_id: idiosyncratic_target_validation_v1
+    artifact_key: v1
+    report_path: reports/idiosyncratic_target_validation.md
+    evidence_class: validation_selection
+    research_selection_role: selection
+    claims_independent_evidence: false
+    historical_oos_used_for_selection: false
+    research_question: Does training the locked model specifications on a cross-sectional
+      market/industry/six-style residual return improve validation-period residual
+      RankIC relative to training the same specifications on raw return ranks?
+    train:
+      start_year: 2008
+      end_year: 2015
+    validation:
+      start_year: 2016
+      end_year: 2020
+    historical_oos_evaluation_enabled: false
+    future_lockbox_access_allowed: false
+    target: fwd_return_5d_lag1
+    residual_target: fwd_specific_return_5d_lag1
+    label_horizon_trading_days: 5
+    controls:
+      industry_level: csrc_broad_section
+      styles:
+      - size
+      - beta
+      - volatility
+      - liquidity
+      - value
+      - momentum
+      minimum_industry_group_size: 5
+      style_winsor_quantiles:
+      - 0.01
+      - 0.99
+    models:
+      ridge_locked:
+        candidate: ridge_locked
+        family: ridge
+        kind: ridge
+        penalty: 1.0
+      hgb_shallow15_locked:
+        candidate: hgb_shallow15_locked
+        family: hgb
+        kind: hgb
+        learning_rate: 0.05
+        max_iter: 120
+        max_leaf_nodes: 15
+        min_samples_leaf: 100
+        l2_regularization: 1.0
+    minimum_cross_section_size: 100
+    sample_per_training_date: 300
+    random_state: 20261021
+    quantile_limits:
+    - 0.01
+    - 0.99
+    mad_multiplier: 5.0
+    include_missing_indicators: true
+    inference:
+      primary_metric: residual_rank_ic
+      comparison: residual_target_minus_raw_target
+      block_length_weeks: 13
+      bootstrap_samples: 2000
+      random_seed: 20261021
+      multiplicity_control: benjamini_hochberg
+      false_discovery_rate: 0.05
+    promotion_gate:
+      require_positive_point_estimate: true
+      require_95pct_ci_above_zero: true
+      require_bh_fdr_5pct: true
+      minimum_positive_validation_years: 4
+    external_pit_feature_contract:
+      required_fields:
+      - instrument_id
+      - field
+      - value
+      - fiscal_period_end
+      - announced_at
+      - available_date
+      - revision_sequence
+      - source
+      - source_version
+      - ingested_at
+      required_natural_key:
+      - instrument_id
+      - field
+      - fiscal_period_end
+      - announced_at
+      - revision_sequence
+      allow_period_end_as_availability_proxy: false
+      allow_latest_value_historical_backfill: false
+      current_status: BLOCKED_EXTERNAL_DATA
+    scope_note: Validation-only target-alignment experiment. It changes the training
+      label and nothing else. It does not inspect 2021-2026, does not access the future
+      lockbox, does not alter the frozen paper candidate, and cannot establish tradable
+      alpha without a later portfolio/execution experiment and new forward evidence.
+  preprocessing.yaml:
+    factor_columns:
+    - momentum_20d
+    - momentum_60d
+    - momentum_120d
+    - momentum_20d_skip_5d
+    - reversal_5d
+    - volatility_20d
+    - amihud_20d
+    - turnover_20d
+    - turnover_surprise_20d
+    - volume_surprise_20d
+    - amplitude_20d
+    - return_volume_corr_20d
+    - max_return_20d
+    - earnings_yield
+    - book_to_price
+    target: fwd_return_5d_lag1
+    winsorization:
+      method: cross_sectional_median_mad
+      mad_multiplier: 5.0
+    normalization: cross_sectional_zscore
+    missing_strategy: cross_sectional_median_plus_indicator
+    minimum_cross_section_size: 100
+    neutralization: none_base_pipeline_separate_versioned_pit_stage
+  multi_factor_risk_attribution.yaml:
+    experiment_id: multi_factor_risk_attribution_v1
+    historical_oos_used_for_selection: false
+    source_experiment: constrained_portfolio_neutralization_v1
+    target: fwd_return_5d_lag1
+    risk_model:
+      start_year: 2008
+      end_year: 2026
+    attribution:
+      start_year: 2021
+      end_year: 2026
+    portfolio_construction: risk_constrained
+    benchmark: equal_weight_pit_exposure_complete_universe
+    regression: equal_weight_cross_sectional_ols
+    industry_level: csrc_broad_section
+    styles:
+    - size
+    - beta
+    - volatility
+    - liquidity
+    - value
+    - momentum
+    beta:
+      benchmark_instrument: sh.000905
+      lookback_trading_days: 252
+      minimum_observations: 120
+    style_winsor_quantiles:
+    - 0.01
+    - 0.99
+    covariance:
+      trailing_weeks: 104
+      minimum_weeks: 52
+      ewma_half_life_weeks: 26
+      diagonal_shrinkage: 0.2
+    specific_risk:
+      ewma_half_life_weeks: 26
+      minimum_observations: 26
+    annualization_periods: 52
+    bootstrap:
+      block_length_weeks: 13
+      samples: 2000
+      random_seed: 20261017
+    scope_note: weekly_five_day_label_attribution_not_daily_execution_attribution
+  research_governance.yaml:
+    experiment_id: research_governance_v1
+    policy_version: 1
+    purpose: phase4_historical_oos_contamination_and_future_evidence_governance
+    policy_frozen_date_utc: '2026-10-20'
+    current_data_cutoff: '2026-09-30'
+    historical_oos_used_for_selection: false
+    new_model_selected: false
+    evidence_periods:
+      training:
+        start_date: '2006-01-01'
+        end_date: '2015-12-31'
+        evidence_class: training
+        selection_allowed: true
+        already_observed: true
+      validation_selection:
+        start_date: '2016-01-01'
+        end_date: '2020-12-31'
+        evidence_class: validation_selection
+        selection_allowed: true
+        already_observed: true
+      historical_oos:
+        start_date: '2021-01-01'
+        end_date: '2026-09-30'
+        evidence_class: historical_oos
+        selection_allowed_for_new_revisions: false
+        already_observed: true
+        consumed: true
+        disclosure: inspected_repeatedly_during_research_not_a_pristine_lockbox
+      future_lockbox:
+        lockbox_id: future_lockbox_2026q4_2027q3_v1
+        start_date: '2026-10-01'
+        planned_end_date: '2027-09-30'
+        evidence_class: future_lockbox
+        selection_allowed: false
+        already_observed: false
+        initial_state: SEALED_EMPTY
+        minimum_daily_observations: 252
+        minimum_weekly_signal_observations: 52
+        minimum_calendar_months: 12
+        minimum_coverage_fraction: 0.95
+        open_rule: planned_end_date_and_all_minimum_observation_gates
+        interim_performance_access_allowed: false
+        operational_health_access_allowed: true
+        local_enforcement_is_cryptographic: false
+      paper_trading:
+        paper_id: paper_candidate_bundle_v1
+        activation_rule: first_eligible_signal_strictly_after_candidate_freeze_commit
+        retroactive_backfill_allowed: false
+        evidence_class: paper_trading
+        selection_allowed_for_same_version: false
+        performance_reporting_frequency: monthly
+        operational_health_reporting_frequency: daily
+        modification_rule: any_outcome_driven_change_creates_new_candidate_version
+    candidate_bundle:
+      bundle_id: candidate_bundle_v1
+      primary:
+        model: hgb_shallow15_locked
+        alpha_pipeline: raw
+        portfolio_construction: risk_constrained
+        selection_source: validation_2016_2020_only
+      secondary:
+      - model: hgb_shallow15_locked
+        alpha_pipeline: industry_size_neutralized
+        portfolio_construction: risk_constrained
+      - model: ridge_locked
+        alpha_pipeline: raw
+        portfolio_construction: risk_constrained
+      - model: ridge_locked
+        alpha_pipeline: industry_size_neutralized
+        portfolio_construction: risk_constrained
+      benchmark: pit_industry_style_matched_peer_replica
+      market_benchmarks:
+      - CSI500_price
+      - CSI500_total_return
+      model_training_window: expanding_from_2006
+      target: fwd_return_5d_lag1
+      rebalance_frequency: weekly
+      historical_oos_used_for_selection: false
+    cost_and_execution:
+      primary_cost_scenario: C0_fixed_020bp
+      secondary_cost_scenario: C2_public_levies_commission_scenario
+      primary_round_trip_cost_bps: 20.0
+      execution_convention: returns_accrue_before_close_trade_blocked_orders_retry_daily
+      limitations:
+      - daily_bar_execution_approximation
+      - no_bid_ask_quote_history
+      - no_broker_calibrated_market_impact
+      - incomplete_intraday_limit_queue_and_ipo_no_limit_windows
+    statistical_plan:
+      primary_hypothesis: hgb_raw_incremental_net_return_vs_style_matched_benchmark_positive
+      secondary_hypotheses:
+      - hgb_industry_size_neutralized_incremental_net_return_positive
+      - ridge_raw_incremental_net_return_positive
+      - ridge_industry_size_neutralized_incremental_net_return_positive
+      paired_clock: common_daily_dates
+      bootstrap: circular_block_bootstrap
+      block_length_trading_days: 20
+      bootstrap_samples: 2000
+      bootstrap_seed: 20261020
+      familywise_strategy_count: 4
+      multiplicity_control: benjamini_hochberg
+      false_discovery_rate: 0.05
+      primary_metrics:
+      - incremental_net_return_annualized_arithmetic
+      - mean_rank_ic
+      secondary_metrics:
+      - risk_free_adjusted_sharpe
+      - maximum_drawdown
+      - turnover
+      - return_per_turnover
+      - target_tracking_error
+      - cash_weight
+      decision_rule: no_parameter_or_strategy_change_from_lockbox_or_paper_results_without_new_version
+    source_artifacts:
+    - table: model_benchmark_selection
+      key: v1
+    - table: model_stability_protocol
+      key: v1
+    - table: constrained_portfolio_protocol
+      key: v1
+    - table: constrained_daily_execution_protocol
+      key: v1
+    - table: transaction_cost_protocol
+      key: v1
+    - table: incremental_alpha_protocol
+      key: v1
+    - table: market_benchmark_protocol
+      key: v1
+    - table: risk_free_rate_attribution_protocol
+      key: v1
+    - table: research_conclusion_decisions
+      key: v2
+    access_log:
+      path: reports/governance/research_access_log.jsonl
+      hash_chained: true
+      append_only_policy: true
+      required_fields:
+      - actor
+      - evidence_class
+      - action
+      - reason
+      - result_accessed
+      - used_for_change
+      consume_actions:
+      - VIEW_RESULTS
+      - EXPORT_RESULTS
+      - USE_FOR_CHANGE

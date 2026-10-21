@@ -225,6 +225,15 @@
     "immutable": true
   },
   {
+    "experiment_id": "idiosyncratic_portfolio_validation_v1",
+    "title": "Validation-only residual-target P4 portfolio conversion and matched-control gate",
+    "stage": "idiosyncratic_alpha_portfolio_conversion",
+    "model_version": "locked_ridge_hgb_raw_vs_specific_return_p4_v1",
+    "registered_at_utc": "2026-10-21T04:08:59.256087+00:00",
+    "dataset_version": "fdb799b28d064bb62c9bb094d2837352174607788d3d72c2a5b4ad5ea51308fb",
+    "immutable": true
+  },
+  {
     "experiment_id": "idiosyncratic_target_validation_v1",
     "title": "Validation-only market-industry-six-style residual target study",
     "stage": "idiosyncratic_alpha_target_alignment",

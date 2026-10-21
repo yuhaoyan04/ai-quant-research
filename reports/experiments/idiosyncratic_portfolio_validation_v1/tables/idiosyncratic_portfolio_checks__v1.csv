@@ -1,0 +1,11 @@
+check,status,detail
+development_period_ends_2020,PASS,2020-12-18
+eight_paired_paths_share_dates,PASS,"{('hgb_shallow15_locked', 'fwd_return_5d_lag1', 'ml_model'): 254, ('hgb_shallow15_locked', 'fwd_return_5d_lag1', 'style_matched_benchmark'): 254, ('hgb_shallow15_locked', 'fwd_specific_return_5d_lag1', 'ml_model'): 254, ('hgb_shallow15_locked', 'fwd_specific_return_5d_lag1', 'style_matched_benchmark'): 254, ('ridge_locked', 'fwd_return_5d_lag1', 'ml_model'): 254, ('ridge_locked', 'fwd_return_5d_lag1', 'style_matched_benchmark'): 254, ('ridge_locked', 'fwd_specific_return_5d_lag1', 'ml_model'): 254, ('ridge_locked', 'fwd_specific_return_5d_lag1', 'style_matched_benchmark'): 254}"
+target_weights_sum_to_one,PASS,466788
+no_historical_oos_or_lockbox_access,PASS,validation_end=2020; future_access=false
+same_20bp_cost,PASS,20.0
+primary_inference_families_complete,PASS,"['raw_target_minus_style_benchmark_control', 'residual_target_minus_raw_target', 'residual_target_minus_style_benchmark']"
+exposure_match_audit_complete,PASS,rows=1016 dates=254
+all_benchmark_exposures_within_tolerance,PASS,style_max=0.05;industry_max=0.005
+benchmark_exposure_coverage,PASS,minimum_coverage=1
+benchmark_turnover_and_stock_caps,PASS,post_inception_turnover_max=0.3;stock_violation=7.329206686e-16

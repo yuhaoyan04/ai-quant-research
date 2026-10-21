@@ -1,0 +1,5 @@
+model,training_target,fit_observations,training_dates,fit_seconds
+ridge_locked,fwd_return_5d_lag1,793902,411,0.00011935830116271973
+hgb_shallow15_locked,fwd_return_5d_lag1,123300,411,0.4667324461042881
+ridge_locked,fwd_specific_return_5d_lag1,793902,411,0.00011433660984039307
+hgb_shallow15_locked,fwd_specific_return_5d_lag1,123300,411,0.38558532670140266

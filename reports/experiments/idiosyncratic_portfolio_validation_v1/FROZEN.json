@@ -1,0 +1,20 @@
+{
+  "experiment_id": "idiosyncratic_portfolio_validation_v1",
+  "frozen_at_utc": "2026-10-21T04:08:59.256087+00:00",
+  "content_sha256": "a3c74b04dca0c2488011a7e4288a7e9f06ddf2404c71c77bbd2c0b8bc9ef81bf",
+  "files": {
+    "config.yaml": "708c01300deb363f646e7b64554f718bc8fb73596fc2e793398ab49a579d9a2f",
+    "figures/idiosyncratic_portfolio_validation.md": "3bf87d65c79986fa587464ab457183891e19e584dbc9de2316b53724b9684816",
+    "metadata.json": "e9a1219121b046e18963a63747839d84c2de4748954f1782bc7d40c2a2c69c2d",
+    "metrics.json": "3067545b42553b3c333c121f47deb807afeb553d05db338538689403bdcd5e93",
+    "notes.md": "5ad8631ba886bd69fd59ce82bc23153ecaeb864a4edbd03c4b3247e675ef04b9",
+    "tables/idiosyncratic_portfolio_annual__v1.csv": "c11ade236e89f6cdfa7cc7a42765bb35584229c0caf23819aba9133c17c5d328",
+    "tables/idiosyncratic_portfolio_checks__v1.csv": "78561eac30b6e033c330992547bfdb886e4b9dc00019090b7740da7da46c766a",
+    "tables/idiosyncratic_portfolio_exposure_match__v1.csv": "d6f1b37167539131a71362f9fc8f8eafc845d4f604011d3a444f653a1fbc1993",
+    "tables/idiosyncratic_portfolio_fit_audit__v1.csv": "dae3820b9ce0faee2fc2204b627079e82fd36584e0300d5a6ff0e16e80812cb4",
+    "tables/idiosyncratic_portfolio_paired_inference__v1.csv": "810c6084b127c4af95966aeac94cbd48d4f407f55aeb95f440cd11ed877ef4a3",
+    "tables/idiosyncratic_portfolio_promotion_decision__v1.csv": "fbe4a64d67e10127bc622fd4125fd6d596b9c84119ce210a51890b51577e9686",
+    "tables/idiosyncratic_portfolio_protocol__v1.csv": "71ab3958a9b2f5dcb3b166e5030259aed7167451cd6ea1a1b120ed79b8c293c3",
+    "tables/idiosyncratic_portfolio_summary__v1.csv": "b0414bbccb2553114f225d54d9518254e46d379ba9cf773223b04cda7ad89fa7"
+  }
+}
