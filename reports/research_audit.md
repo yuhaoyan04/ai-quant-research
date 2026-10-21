@@ -1,8 +1,8 @@
 # Research artifact audit
 
-Generated at `2026-10-21T01:33:46.760432+00:00`.
+Generated at `2026-10-21T06:00:21.929254+00:00`.
 
-Summary: **499 PASS / 48 WARN / 0 FAIL**
+Summary: **509 PASS / 51 WARN / 0 FAIL**
 
 | Status | Check | Detail |
 |---|---|---|
@@ -70,8 +70,12 @@ Summary: **499 PASS / 48 WARN / 0 FAIL**
 | PASS | `frozen_live_inputs:incremental_alpha_test_v1` | all registered inputs match their SHA-256 hashes |
 | PASS | `frozen_snapshot_integrity:research_conclusion_audit_v2` | all frozen files match FROZEN.json |
 | PASS | `frozen_live_inputs:research_conclusion_audit_v2` | all registered inputs match their SHA-256 hashes |
+| PASS | `frozen_snapshot_integrity:research_conclusion_audit_v3` | all frozen files match FROZEN.json |
+| PASS | `frozen_live_inputs:research_conclusion_audit_v3` | all registered inputs match their SHA-256 hashes |
 | PASS | `frozen_snapshot_integrity:final_research_baseline_v4` | all frozen files match FROZEN.json |
 | PASS | `frozen_live_inputs:final_research_baseline_v4` | all registered inputs match their SHA-256 hashes |
+| PASS | `frozen_snapshot_integrity:final_research_baseline_v5` | all frozen files match FROZEN.json |
+| PASS | `frozen_live_inputs:final_research_baseline_v5` | all registered inputs match their SHA-256 hashes |
 | PASS | `frozen_snapshot_integrity:final_research_baseline_v1` | all frozen files match FROZEN.json |
 | WARN | `frozen_live_inputs:final_research_baseline_v1` | mismatches=['factor_registry/v1'] |
 | PASS | `frozen_snapshot_integrity:final_research_baseline_v2` | all frozen files match FROZEN.json |
@@ -116,6 +120,15 @@ Summary: **499 PASS / 48 WARN / 0 FAIL**
 | PASS | `frozen_live_inputs:paper_trading_pipeline_v1` | all registered inputs match their SHA-256 hashes |
 | PASS | `frozen_snapshot_integrity:forward_data_pipeline_v1` | all frozen files match FROZEN.json |
 | PASS | `frozen_live_inputs:forward_data_pipeline_v1` | all registered inputs match their SHA-256 hashes |
+| PASS | `frozen_snapshot_integrity:idiosyncratic_target_validation_v1` | all frozen files match FROZEN.json |
+| PASS | `frozen_live_inputs:idiosyncratic_target_validation_v1` | all registered inputs match their SHA-256 hashes |
+| PASS | `frozen_snapshot_integrity:idiosyncratic_portfolio_validation_v1` | all frozen files match FROZEN.json |
+| PASS | `frozen_live_inputs:idiosyncratic_portfolio_validation_v1` | all registered inputs match their SHA-256 hashes |
+| PASS | `frozen_snapshot_integrity:idiosyncratic_share_execution_validation_v1` | all frozen files match FROZEN.json |
+| PASS | `frozen_live_inputs:idiosyncratic_share_execution_validation_v1` | all registered inputs match their SHA-256 hashes |
+| WARN | `invalidated_experiment:research_conclusion_audit_v2` | severity=superseded_conclusion_baseline; superseded_by=research_conclusion_audit_v3; reason=V3 adds the validation-only residual-target share-execution decision, reliable 2016-2020 CCDC risk-free rates, the unique daily-NAV correction, and the observed implementation shortfall. V2 remains correct for all pre-existing historical-OOS questions but is no longer the complete decision hierarchy. |
+| WARN | `invalidated_experiment:final_research_baseline_v4` | severity=superseded_publication_baseline; superseded_by=final_research_baseline_v5; reason=V5 incorporates the Phase 12.2 share-execution evidence, invalidates the overlapping five-day Phase 12.1 portfolio-return claims, and updates the final report, executive summary, resume and interview materials. |
+| WARN | `invalidated_experiment:idiosyncratic_portfolio_validation_v1` | severity=overlapping_five_day_returns_not_a_unique_nav_clock; superseded_by=idiosyncratic_share_execution_validation_v1; reason=The target-weight experiment evaluated every weekly signal with a full five-trading-day forward label. In 33 of 253 adjacent rebalance intervals the next execution arrived fewer than five trading days later, so the reported portfolio returns compounded overlapping holding windows. The model fits, target weights, turnover constraints and PIT industry/six- style exposure matching remain valid, but its portfolio performance and paired return intervals are not executable NAV evidence. |
 | WARN | `invalidated_experiment:engineering_quality_v1` | severity=brittle_registry_count_gate_superseded; superseded_by=engineering_quality_v2; reason=The immutable v1 snapshot is intact, but its live gate required an exact experiment count. Appending the valid forward_data_pipeline_v1 snapshot made that check fail even though the public index and all immutable directories reconciled one-to-one. V2 replaces the count equality with identity, uniqueness, immutability, and no-orphan checks and expands the critical protocol chain through Phase 11.1. |
 | WARN | `invalidated_experiment:institutional_execution_v1` | severity=registry_self_staging_dirty_flag; superseded_by=institutional_execution_v2; reason=The research outputs and hashes are valid, but the experiment registry created its temporary snapshot directory inside the repository before capturing Git status. That self-created untracked directory caused the metadata to report dirty=true even though registration began from clean commit d1b00aedd5b3dcbc660733fa64288c550a83e446. |
 | WARN | `invalidated_experiment:portfolio_sensitivity_v1` | severity=cost_stress_repricing_formula_superseded; superseded_by=transaction_cost_model_v1; reason=The v1 fixed-fill execution cost stress subtracted turnover times the fee rate directly from gross return. The daily executor defines turnover over pre-trade NAV while return is measured over previous NAV, so exact C0 reproduction additionally requires the pre-trade-to-previous-NAV ratio. The difference is small but the v1 stress grid is not an exact 20bp regression of the executable baseline. |
@@ -527,11 +540,11 @@ Summary: **499 PASS / 48 WARN / 0 FAIL**
 | PASS | `hgb_surface_validation_only_and_complete` | surface_points=9, evaluation=2016_2020_validation_only |
 | PASS | `portfolio_sensitivity_common_date_and_no_reselection` | variants={'historical_oos': 8, 'validation': 8}, performance_period_counts={'historical_oos': 1, 'validation': 1} |
 | PASS | `execution_cost_stress_complete_and_monotone` | costs=[0.0, 20.0, 50.0, 100.0], monotone=True |
-| PASS | `artifact:research_conclusion_decisions/v2` | rows=6 |
-| PASS | `artifact:research_factor_multiplicity/v2` | rows=15 |
-| PASS | `artifact:research_lifecycle_audit/v2` | rows=16 |
+| PASS | `artifact:research_conclusion_decisions/v3` | rows=7 |
+| PASS | `artifact:research_factor_multiplicity/v3` | rows=15 |
+| PASS | `artifact:research_lifecycle_audit/v3` | rows=16 |
 | PASS | `artifact:factor_registry/v1` | rows=15 |
-| PASS | `conclusion_decision_hierarchy_complete` | verdicts={'neutralized_factor_signal_exists': 'SUPPORTED_AS_DIAGNOSTIC_EVIDENCE', 'hgb_adds_stable_increment_over_ridge': 'NOT_ESTABLISHED', 'ml_adds_value_over_style_matched_baseline': 'MIXED_LOCAL_EVIDENCE', 'executable_backtest_survives_costs': 'SUPPORTED_HISTORICALLY', 'pure_stock_selection_alpha_is_significant': 'NOT_SUPPORTED', 'ready_for_live_capital': 'NO'} |
+| PASS | `conclusion_decision_hierarchy_complete` | verdicts={'neutralized_factor_signal_exists': 'SUPPORTED_AS_DIAGNOSTIC_EVIDENCE', 'hgb_adds_stable_increment_over_ridge': 'NOT_ESTABLISHED', 'ml_adds_value_over_style_matched_baseline': 'MIXED_LOCAL_EVIDENCE', 'executable_backtest_survives_costs': 'SUPPORTED_HISTORICALLY', 'pure_stock_selection_alpha_is_significant': 'NOT_SUPPORTED', 'residual_target_survives_share_execution': 'NOT_ESTABLISHED', 'ready_for_live_capital': 'NO'} |
 | PASS | `single_factor_multiple_testing_controlled` | factors=15, bh_fdr_5pct_pass=14, maximum_q_error=0.000e+00 |
 | PASS | `research_and_deployment_scope_separated` | historical research chain is complete; paper/live evidence remains a separate gate |
 | PASS | `price_and_return_convention_explicit` | price_convention=baostock_unadjusted_ohlc_and_ex_right_reference_pct_chg |
@@ -556,8 +569,8 @@ Summary: **499 PASS / 48 WARN / 0 FAIL**
 
 ## Headline findings
 
-- `registered_frozen_experiments`: 54
-- `invalidated_experiments`: 24
+- `registered_frozen_experiments`: 59
+- `invalidated_experiments`: 27
 - `common_oos_weeks`: 291
 - `ridge_annualized_return_20bp`: 0.2005894880405501
 - `challenger_annualized_return_20bp`: 0.2507876712519381
