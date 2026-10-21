@@ -37,6 +37,7 @@
 - Phase 10 将Phase 5/6/9重复的未复权行情、公司行动代理和涨跌停执行市场逻辑收敛为单一实现；三类板块真实数据逐行回归误差为0。工程协议覆盖显式随机seed、五层测试、关键输出experiment ID、不可变快照和开放缺口登记，当前无P0工程缺口。
 - Phase 11 已冻结 `hgb_shallow15_locked/raw/P4_constrained` 前向模型包（318,300条训练样本、1,061个周频截面、模型 SHA-256 固定），并建立只允许真实日期增量运行的 paper-trading 管线。每次运行保存 PIT 输入、信号、目标、订单、成交、现金、持仓、NAV、依赖哈希和不可变运行目录；失败日同样进入 SHA-256 链。激活日为 2026-10-21，当前只有 1 次 `NOT_ACTIVE` 运营记录、0 个成功前瞻观测，因此仍不构成前瞻业绩证据。
 - Phase 11.1 新增 `quant-forward-data` 前瞻数据供应链：所有可变数据进入独立`forward_*`命名空间，自然键增量更新日历、已完成周证券快照、月度行业快照和活跃股票行情，只对变更证券重算质量、因子与标签；历史研究表固定在2026-09-30并保持冻结SHA。paper runner读取逐证券PIT截面，并用前瞻交易日历阻止周中提前调仓。该工程补丁不改变冻结模型、P4约束或20bp成本，也不产生新的业绩结论。
+- Phase 12 首个 validation-only 研究把唯一改动限定为训练标签：使用信号日 PIT 宽行业与规模、Beta、波动、流动性、价值、动量六风格，将未来5日收益残差化。2008–2015训练、2016–2020验证的254个共同周上，HGB/Ridge相对原始标签的残差RankIC分别改善`+0.0304`与`+0.0216`，95% block-bootstrap区间均高于零、BH-FDR均通过，五个验证年度全部为正；HGB绝对残差RankIC从0.0533升至0.0837。门槛是在成功运行前写入本地配置的预先指定规则，但不是第三方时间戳预注册。该结果只允许进入组合研究，不是2021–2026新证据、可交易Alpha或paper业绩；详见[残差目标验证报告](reports/idiosyncratic_target_validation.md)。
 - Phase 1 已将买入、卖出、双边成交额和单边换手统一到 fill 级协议；C0 20bp 严格复现 20.81%，同一成交路径下 raw HGB 的 100bp 年化为 6.20%。含日期生效印花税/过户费和 3bp 双边佣金假设的 C2 情景为 22.11%，但它不是历史券商账单；详见[交易成本报告](reports/transaction_cost_model.md)。
 - Phase 2 新增中央结算公司中债国债收益率曲线数据产品：3个月主基线与1年敏感性均覆盖1,387日、0缺失、0插值，并按“观察日次日可用 + ACT/365复利”对齐。3个月利率下 raw HGB Sharpe 从0.937降至0.863；其CSI500 CAPM Alpha为17.55%，95%区间[3.63%, 31.46%]，但六风格残余Alpha仅0.86%，区间跨零。详见[无风险利率与归因报告](reports/risk_free_rate_attribution.md)。
 - 市场基准现同时支持价格指数和中证官方全收益指数。CSI500 全收益/价格指数年化分别为4.10%/2.32%，同源几何股息再投资楔子约1.74%；在3个月国债rf下，raw HGB相对CSI500全收益指数的CAPM Alpha降至16.19%，六风格残余Alpha降至-0.65%，后者仍不显著。详见[价格与全收益基准报告](reports/market_benchmark_attribution.md)。
@@ -94,7 +95,7 @@ flowchart LR
 - 250 个历史证监会行业快照；PIT 周度行业暴露最低年度覆盖率 98.55%。
 - 训练、验证、年度扩展窗口样本外预测，以及持仓级结果。
 - 成本、换手、流动性、规模、ADV 容量、市场冲击和 t+1 涨跌停/停牌压力测试。
-- 221 个单元/集成/回归/数据合同测试；当前自动产物审计以 `reports/research_audit.md` 的实时结果为准。
+- 225+ 个单元/集成/回归/数据合同测试；当前自动产物审计以 `reports/research_audit.md` 的实时结果为准。
 
 ## 快速验证已提交结果
 
@@ -121,6 +122,7 @@ quant-alpha-evidence run
 quant-incremental-alpha-fill all
 quant-engineering-quality run
 quant-paper-trading status
+quant-idiosyncratic-target run
 quant-transaction-costs run
 quant-risk-free-attribution
 quant-market-benchmark-attribution

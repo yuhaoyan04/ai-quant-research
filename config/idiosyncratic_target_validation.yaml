@@ -1,0 +1,91 @@
+experiment_id: idiosyncratic_target_validation_v1
+artifact_key: v1
+report_path: reports/idiosyncratic_target_validation.md
+evidence_class: validation_selection
+research_selection_role: selection
+claims_independent_evidence: false
+historical_oos_used_for_selection: false
+
+research_question: >-
+  Does training the locked model specifications on a cross-sectional
+  market/industry/six-style residual return improve validation-period residual
+  RankIC relative to training the same specifications on raw return ranks?
+
+# The local 252-day PIT beta product begins in 2008. Both target arms use the
+# same 2008 start rather than imputing an unavailable risk control in 2006-07.
+train: {start_year: 2008, end_year: 2015}
+validation: {start_year: 2016, end_year: 2020}
+historical_oos_evaluation_enabled: false
+future_lockbox_access_allowed: false
+target: fwd_return_5d_lag1
+residual_target: fwd_specific_return_5d_lag1
+label_horizon_trading_days: 5
+
+controls:
+  industry_level: csrc_broad_section
+  styles: [size, beta, volatility, liquidity, value, momentum]
+  minimum_industry_group_size: 5
+  style_winsor_quantiles: [0.01, 0.99]
+
+models:
+  ridge_locked:
+    candidate: ridge_locked
+    family: ridge
+    kind: ridge
+    penalty: 1.0
+  hgb_shallow15_locked:
+    candidate: hgb_shallow15_locked
+    family: hgb
+    kind: hgb
+    learning_rate: 0.05
+    max_iter: 120
+    max_leaf_nodes: 15
+    min_samples_leaf: 100
+    l2_regularization: 1.0
+
+minimum_cross_section_size: 100
+sample_per_training_date: 300
+random_state: 20261021
+quantile_limits: [0.01, 0.99]
+mad_multiplier: 5.0
+include_missing_indicators: true
+
+inference:
+  primary_metric: residual_rank_ic
+  comparison: residual_target_minus_raw_target
+  block_length_weeks: 13
+  bootstrap_samples: 2000
+  random_seed: 20261021
+  multiplicity_control: benjamini_hochberg
+  false_discovery_rate: 0.05
+
+promotion_gate:
+  require_positive_point_estimate: true
+  require_95pct_ci_above_zero: true
+  require_bh_fdr_5pct: true
+  minimum_positive_validation_years: 4
+
+external_pit_feature_contract:
+  required_fields:
+    - instrument_id
+    - field
+    - value
+    - fiscal_period_end
+    - announced_at
+    - available_date
+    - revision_sequence
+    - source
+    - source_version
+    - ingested_at
+  required_natural_key:
+    [instrument_id, field, fiscal_period_end, announced_at, revision_sequence]
+  allow_period_end_as_availability_proxy: false
+  allow_latest_value_historical_backfill: false
+  current_status: BLOCKED_EXTERNAL_DATA
+
+scope_note: >-
+  Validation-only target-alignment experiment. It changes the training label
+  and nothing else. It does not inspect 2021-2026, does not access the future
+  lockbox, does not alter the frozen paper candidate, and cannot establish
+  tradable alpha without a later portfolio/execution experiment and new
+  forward evidence.
