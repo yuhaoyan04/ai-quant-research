@@ -1,0 +1,102 @@
+experiment_id: idiosyncratic_portfolio_validation_v1
+artifact_key: v1
+report_path: reports/idiosyncratic_portfolio_validation.md
+evidence_class: validation_selection
+research_selection_role: selection
+claims_independent_evidence: false
+historical_oos_used_for_selection: false
+source_experiment: idiosyncratic_target_validation_v1
+
+train: {start_year: 2008, end_year: 2015}
+validation: {start_year: 2016, end_year: 2020}
+historical_oos_evaluation_enabled: false
+future_lockbox_access_allowed: false
+target: fwd_return_5d_lag1
+residual_target: fwd_specific_return_5d_lag1
+label_horizon_trading_days: 5
+
+controls:
+  industry_level: csrc_broad_section
+  styles: [size, beta, volatility, liquidity, value, momentum]
+  minimum_industry_group_size: 5
+  style_winsor_quantiles: [0.01, 0.99]
+
+models:
+  ridge_locked:
+    candidate: ridge_locked
+    family: ridge
+    kind: ridge
+    penalty: 1.0
+  hgb_shallow15_locked:
+    candidate: hgb_shallow15_locked
+    family: hgb
+    kind: hgb
+    learning_rate: 0.05
+    max_iter: 120
+    max_leaf_nodes: 15
+    min_samples_leaf: 100
+    l2_regularization: 1.0
+
+minimum_cross_section_size: 100
+sample_per_training_date: 300
+random_state: 20261021
+quantile_limits: [0.01, 0.99]
+mad_multiplier: 5.0
+include_missing_indicators: true
+annualization_periods: 52
+risk_free_rate:
+  sharpe_convention: zero_weekly_rate_development_diagnostic
+  reliable_2016_2020_series_available: false
+  promotion_uses_absolute_sharpe: false
+
+portfolio:
+  construction: P4_risk_constrained
+  round_trip_cost_bps: 20.0
+  minimum_realized_weight_fraction: 0.95
+optimizer:
+  method: scipy_highs_linear_program
+  objective: maximize_cross_sectional_score_rank
+  maximum_stock_weight: 0.005
+  industry_active_weight_bound: 0.03
+  absolute_size_z_bound: 0.10
+  weekly_turnover_limit: 0.30
+  turnover_feasibility_relaxation: [0.30, 0.40, 0.50, 0.75, 1.00]
+  candidate_top_n: 800
+  industry_capacity_buffer_names: 10
+  size_tail_candidates_each_side: 100
+  minimum_reported_weight: 0.00000001
+
+style_benchmark:
+  name: pit_industry_six_style_constrained_replica
+  exclude_ml_holdings_when_feasible: true
+  weekly_one_way_turnover_limit: 0.30
+  maximum_stock_weight: 0.005
+  maximum_absolute_industry_weight_gap: 0.005
+  maximum_absolute_style_exposure_gap: 0.05
+  turnover_tiebreak_penalty: 0.000001
+  minimum_reported_weight: 0.000000000001
+
+inference:
+  block_length_weeks: 13
+  bootstrap_samples: 2000
+  random_seed: 20261022
+  multiplicity_control: benjamini_hochberg
+  false_discovery_rate: 0.05
+  primary_families:
+    - residual_target_minus_raw_target
+    - residual_target_minus_style_benchmark
+
+promotion_gate:
+  primary_model: hgb_shallow15_locked
+  require_residual_minus_raw_ci_above_zero: true
+  require_residual_minus_style_ci_above_zero: true
+  require_bh_fdr_5pct: true
+  allow_turnover_relaxation: false
+  maximum_constraint_violation: 1.0e-8
+  require_style_benchmark_exposure_match: true
+
+scope_note: >-
+  Validation-only portfolio-conversion gate. Models are refit deterministically
+  from the frozen target-study specification. All paths use the same weekly
+  dates, P4 constraints and 20bp research cost. This stage does not yet claim
+  share-level fills; those are a separate gate after target portfolios pass.

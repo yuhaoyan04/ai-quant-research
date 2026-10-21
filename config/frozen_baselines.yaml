@@ -1913,3 +1913,50 @@ experiments:
       - {table: idiosyncratic_target_checks, key: v1}
     figures:
       - reports/idiosyncratic_target_validation.md
+
+  idiosyncratic_portfolio_validation_v1:
+    title: Validation-only residual-target P4 portfolio conversion and matched-control gate
+    stage: idiosyncratic_alpha_portfolio_conversion
+    model_version: locked_ridge_hgb_raw_vs_specific_return_p4_v1
+    dataset_version_method: sha256_of_registered_inputs_and_ingestion_manifest
+    historical_oos_used_for_selection: false
+    evidence_class: validation_selection
+    research_selection_role: selection
+    claims_independent_evidence: false
+    config_files:
+      - idiosyncratic_portfolio_validation.yaml
+      - idiosyncratic_target_validation.yaml
+      - preprocessing.yaml
+      - multi_factor_risk_attribution.yaml
+      - research_governance.yaml
+    input_tables:
+      - {table: multi_horizon_factor_panel, key: "2008"}
+      - {table: multi_horizon_factor_panel, key: "2009"}
+      - {table: multi_horizon_factor_panel, key: "2010"}
+      - {table: multi_horizon_factor_panel, key: "2011"}
+      - {table: multi_horizon_factor_panel, key: "2012"}
+      - {table: multi_horizon_factor_panel, key: "2013"}
+      - {table: multi_horizon_factor_panel, key: "2014"}
+      - {table: multi_horizon_factor_panel, key: "2015"}
+      - {table: multi_horizon_factor_panel, key: "2016"}
+      - {table: multi_horizon_factor_panel, key: "2017"}
+      - {table: multi_horizon_factor_panel, key: "2018"}
+      - {table: multi_horizon_factor_panel, key: "2019"}
+      - {table: multi_horizon_factor_panel, key: "2020"}
+      - {table: pit_size_exposures, key: "2008"}
+      - {table: pit_industry_exposures, key: "2008"}
+      - {table: pit_beta_exposures, key: "2008"}
+      - {table: pit_size_exposures, key: "2020"}
+      - {table: pit_industry_exposures, key: "2020"}
+      - {table: pit_beta_exposures, key: "2020"}
+    metric_tables:
+      - {table: idiosyncratic_portfolio_protocol, key: v1}
+      - {table: idiosyncratic_portfolio_fit_audit, key: v1}
+      - {table: idiosyncratic_portfolio_summary, key: v1}
+      - {table: idiosyncratic_portfolio_annual, key: v1}
+      - {table: idiosyncratic_portfolio_exposure_match, key: v1}
+      - {table: idiosyncratic_portfolio_paired_inference, key: v1}
+      - {table: idiosyncratic_portfolio_promotion_decision, key: v1}
+      - {table: idiosyncratic_portfolio_checks, key: v1}
+    figures:
+      - reports/idiosyncratic_portfolio_validation.md
