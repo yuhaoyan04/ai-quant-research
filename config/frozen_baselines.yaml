@@ -2060,7 +2060,7 @@ experiments:
     dataset_version_method: sha256_of_registered_inputs_and_ingestion_manifest
     historical_oos_used_for_selection: false
     evidence_class: validation_selection
-    research_selection_role: execution_validation
+    research_selection_role: selection
     claims_independent_evidence: false
     config_files:
       - idiosyncratic_share_execution_validation.yaml
