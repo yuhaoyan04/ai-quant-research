@@ -1,0 +1,16 @@
+{
+  "experiment_id": "research_conclusion_audit_v3",
+  "frozen_at_utc": "2026-10-21T05:58:46.237029+00:00",
+  "content_sha256": "20fdf687a64376db07c61394f446b148cc320d3d5a1a4d1ef7eda13337bd9723",
+  "files": {
+    "config.yaml": "c4e6322fad28f10712d519e5d71b6702261dc0fba1dfeebff715a6a5b565832a",
+    "figures/research_conclusion_audit.json": "774e8cbfb29c4d0b53c69aba141367ec7f144633022490abcc1f06274db0831c",
+    "figures/research_conclusion_audit.md": "599ff6a615a882cab102cfae9f1f0d93af483efb9dcb9f2e444fe9861057127a",
+    "metadata.json": "27d41be178f919ee0ceb349bcafdb688c4788800f1062af526a292863966f0d4",
+    "metrics.json": "6e4e0496d24f6e37e63c73b337d39c6c2157260ae9564f07255668459fcf8fb4",
+    "notes.md": "98a98b4d6faef8f692cd574029bf52a689598540c96f4b3ee0599d8c14d2fdf5",
+    "tables/research_conclusion_decisions__v3.csv": "7875c936aaab6065e52e22e34068a752b3e4f2dabf5e4842ea71cc408cea462c",
+    "tables/research_factor_multiplicity__v3.csv": "149f5899f6cf1c184a00bfea344410cda9cb5d0289e7fc937778a2dcf624d66f",
+    "tables/research_lifecycle_audit__v3.csv": "d481dcb91be36854a02cce7213abee34801846f2f4c57c73439db9a23e736c59"
+  }
+}

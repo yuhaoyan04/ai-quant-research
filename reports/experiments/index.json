@@ -405,6 +405,15 @@
     "immutable": true
   },
   {
+    "experiment_id": "research_conclusion_audit_v3",
+    "title": "Decision audit with residual-target share-execution evidence",
+    "stage": "conclusion_governance",
+    "model_version": "evidence_hierarchy_unique_nav_execution_gate_v3",
+    "registered_at_utc": "2026-10-21T05:58:46.237029+00:00",
+    "dataset_version": "5f8e6abe3f435a0840074c46fed0ee7d3d8d303a97ffe1ff3791c8fbe72423f0",
+    "immutable": true
+  },
+  {
     "experiment_id": "research_governance_v1",
     "title": "Phase 4 historical-OOS contamination and future-evidence governance",
     "stage": "evidence_governance_and_candidate_freeze",

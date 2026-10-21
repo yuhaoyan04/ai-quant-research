@@ -1,0 +1,17 @@
+stage,status,evidence,boundary
+research_mandate,COMPLETE,question hierarchy and falsifiable hypotheses,final report sections 1 and 10
+data_acquisition,COMPLETE_WITH_LIMIT,free-source PIT lake and manifests,BaoStock revisions prevent byte-identical redownloads
+data_quality,COMPLETE,"schema, coverage, truncation, and key gates",publication audit
+point_in_time_universe,COMPLETE_WITH_LIMIT,historical A-share snapshots delayed one day,not official historical CSI membership
+factor_definition,COMPLETE,"versioned registry, formulas, missingness, direction",15-factor registry
+label_and_timing,COMPLETE,"t signal, t+1 close execution, t+2..t+6 label",purged split boundaries
+preprocessing_and_neutralization,COMPLETE_WITH_LIMIT,same-date transforms and PIT industry/size residualization,monthly CSRC broad industry
+signal_validation,COMPLETE,"IC, deciles, regimes, decay, LOFO, BH-FDR",historical OOS is not pristine
+model_selection,COMPLETE,validation-only benchmark and parameter stability,HGB increment over Ridge not established
+portfolio_construction,COMPLETE,"single-name, industry, size, and turnover constraints",long-only research policy
+execution_simulation,COMPLETE_WITH_LIMIT,"share orders, cash, suspensions, limits, retry clock",no intraday queue or IPO no-limit window
+cost_capacity_stress,COMPLETE_WITH_LIMIT,0-100bp and ADV/impact scenarios,impact not calibrated to broker orders
+risk_and_attribution,COMPLETE_WITH_LIMIT,"CAPM, six-style and cross-sectional risk attribution",price index and local proxy factors
+robustness_and_inference,COMPLETE,"paired block bootstrap, HAC, common-date tests, failed experiments",no untouched production lockbox
+reproducibility_and_governance,COMPLETE,"tests, immutable experiments, hashes, invalidations",full data lake intentionally excluded from Git
+paper_live_monitoring,NEXT_STAGE,frozen-parameter forward evidence required,not part of a completed historical research backtest
