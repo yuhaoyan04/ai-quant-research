@@ -121,6 +121,93 @@ def test_research_conclusion_audit_separates_backtest_from_live() -> None:
     assert checks["price_and_return_convention_explicit"] == "PASS"
 
 
+def test_idiosyncratic_execution_audit_treats_rejected_gate_as_valid_evidence() -> None:
+    paths = [
+        "hgb_raw_model", "hgb_residual_model",
+        "hgb_residual_style_benchmark",
+    ]
+    dates = pd.date_range("2016-01-11", periods=1210, freq="D").strftime("%Y-%m-%d")
+    # Override the synthetic end point so the audit exercises the frozen clock
+    # contract without constructing an exchange calendar in this unit test.
+    dates = list(dates[:-1]) + ["2020-12-28"]
+    frames: dict[tuple[str, str], pd.DataFrame] = {
+        ("idiosyncratic_execution_protocol", "v1"): pd.DataFrame([{
+            "evidence_class": "validation_selection",
+            "research_selection_role": "selection",
+            "claims_independent_evidence": False,
+            "historical_oos_used_for_selection": False,
+            "daily_bar_approximation": True,
+            "intraday_matching_claimed": False,
+        }]),
+        ("idiosyncratic_execution_daily", "v1"): pd.DataFrame([
+            {"path_id": path, "trade_date": date}
+            for path in paths for date in dates
+        ]),
+        ("idiosyncratic_execution_summary", "v1"): pd.DataFrame([
+            {"path_id": path, "risk_free_missing_dates": 0} for path in paths
+        ]),
+        ("idiosyncratic_execution_invariants", "v1"): pd.DataFrame([
+            {"path_id": path, "all_invariants_pass": True} for path in paths
+        ]),
+        ("idiosyncratic_execution_paired_inference", "v1"): pd.DataFrame([{
+            "comparison_id": "residual_model_minus_raw_model",
+            "metric": "incremental_net_return_annualized_arithmetic",
+            "is_primary_block": True, "point_estimate": 0.003,
+            "ci_2_5pct": -0.05, "ci_97_5pct": 0.06,
+            "survives_bh_fdr_5pct": False,
+        }]),
+        ("idiosyncratic_execution_upper_bound_inference", "v1"): pd.DataFrame([{
+            "comparison_id": "residual_model_minus_raw_model",
+            "metric": "incremental_net_return_annualized_arithmetic",
+            "is_primary_block": True, "ci_2_5pct": 0.04,
+            "ci_97_5pct": 0.18, "survives_bh_fdr_5pct": True,
+        }]),
+        ("idiosyncratic_execution_bridge", "v1"): pd.DataFrame([
+            {
+                "path_id": path, "overlapping_target_intervals": 33,
+                "target_weight_geometric_annual_return_not_executable": 0.2,
+            } for path in paths
+        ]),
+        ("idiosyncratic_execution_exposure_audit", "v1"): pd.DataFrame([{
+            "path_id": paths[0], "actual_exposure_coverage_weight": 0.90,
+        }]),
+        ("idiosyncratic_execution_rf_coverage", "v1"): pd.DataFrame([{
+            "scenario_id": "R1_ccdc_cgb_3m", "dates": 1210,
+            "missing_dates": 0, "interpolated_dates": 0,
+        }]),
+        ("idiosyncratic_execution_checks", "v1"): pd.DataFrame([{
+            "check_name": "accounting_invariants", "status": "PASS",
+        }]),
+        ("idiosyncratic_execution_promotion_decision", "v1"): pd.DataFrame([{
+            "promote_to_forward_paper_challenger": False,
+            "paper_observations_created": 0,
+        }]),
+        ("idiosyncratic_execution_trial_registry", "v1"): pd.DataFrame([{
+            "trial_id": "frozen", "status": "confirmatory_execution_gate",
+        }]),
+        ("idiosyncratic_execution_failed_assertions", "v1"): pd.DataFrame({
+            "check_name": [
+                "pit_exposure_coverage",
+                "primary_incremental_return_ci_positive",
+                "primary_incremental_return_bh_fdr",
+                "share_fill_gate",
+                "tracking_error_gate",
+            ],
+            "status": ["FAIL"] * 5,
+        }),
+    }
+    auditor = ResearchAuditor(lake=FrameLake(frames))
+
+    auditor.audit_idiosyncratic_share_execution()
+
+    checks = {check.name: check.status for check in auditor.checks}
+    assert checks["idiosyncratic_execution_validation_only_protocol"] == "PASS"
+    assert checks["idiosyncratic_execution_common_validation_clock"] == "PASS"
+    assert checks["idiosyncratic_execution_primary_alpha_not_established"] == "PASS"
+    assert checks["idiosyncratic_execution_rejection_is_complete"] == "PASS"
+    assert auditor.findings["idiosyncratic_execution_promoted"] is False
+
+
 def test_model_neutralization_audit_checks_locked_paired_protocol() -> None:
     metrics = [
         "rank_ic", "net_return_annualized_arithmetic",

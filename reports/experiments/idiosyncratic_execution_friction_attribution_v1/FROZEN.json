@@ -1,0 +1,20 @@
+{
+  "experiment_id": "idiosyncratic_execution_friction_attribution_v1",
+  "frozen_at_utc": "2026-10-21T06:57:16.766178+00:00",
+  "content_sha256": "e24fcff08c090f94b934e107139f8cb689354573e732376557e3ba7387b90459",
+  "files": {
+    "config.yaml": "a086a46b7a00436af3645850e65fc77e4518a64fe6f9be9c25efd8012a563d8e",
+    "figures/idiosyncratic_execution_friction_attribution.md": "ff51e67c9cab96eaf865cf38b1d5e4788421ba38b0d710d81d626749038d15fa",
+    "metadata.json": "eee43bf838d9a88a6a6e239f6a3e77eaa245a430542d83fb669048d6f1cbb10f",
+    "metrics.json": "7cf776d91e3d1905cc7180626b86fff04ad4fccad855765f3a8027fbc6872cc8",
+    "notes.md": "26743cf56b5f7a8a215c3dc66f9081457e2fd1f64f0c6504d2dee955e96605dd",
+    "tables/idiosyncratic_friction_attribution__v1.csv": "6848ca0edd55569592e43f70c0dc0aced5422f7efabbe65838fe1849914922c1",
+    "tables/idiosyncratic_friction_blockers__v1.csv": "ab29d10d6f3fc0a38fd68a1f9a42f229c87398127f813c78f47e2a18e5e4c4c1",
+    "tables/idiosyncratic_friction_daily__v1.csv": "f5608951a09febf34be1a8d3f72e47d40ae5c2b41c2bebc0df52151267856173",
+    "tables/idiosyncratic_friction_inference__v1.csv": "f7ebf267e40989d8e02e6dfde5d96e810b75487cdd2ebedf6655c723f4a11a91",
+    "tables/idiosyncratic_friction_invariants__v1.csv": "7e480f32c20bc83b06336e5e7744865a84455760e062a326586ad9ebeb6b5d7b",
+    "tables/idiosyncratic_friction_protocol__v1.csv": "91291b32f11f4d2d4905521a3fad46de3f1d56ec2fbf850049b0a2a7144f41c1",
+    "tables/idiosyncratic_friction_summary__v1.csv": "a3d8046cbdb2a1b7974c80f67910d1c84da8aa6176d444feed81696fc1251e96",
+    "tables/idiosyncratic_friction_waterfall__v1.csv": "993181a3e83f6df8976ce5146fda1b34d292d6e34e2b048407458c181c3455ee"
+  }
+}

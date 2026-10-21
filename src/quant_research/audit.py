@@ -1462,7 +1462,7 @@ class ResearchAuditor:
         })
 
     def audit_engineering_quality(self) -> None:
-        key = "v2"
+        key = "v3"
         protocol = self.require_table("engineering_quality_protocol", key)
         implementation = self.require_table("engineering_implementation_inventory", key)
         seeds = self.require_table("engineering_random_seed_inventory", key)
@@ -1507,7 +1507,7 @@ class ResearchAuditor:
         )
         self.add(
             "engineering_quality_output_contracts_frozen",
-            len(contracts) == 14
+            len(contracts) == 16
             and contracts["protocol_has_experiment_id"].astype(bool).all()
             and contracts["frozen_snapshot_immutable"].astype(bool).all(),
             contracts[["stage", "frozen_experiment"]].to_dict(orient="records").__str__(),
@@ -2207,6 +2207,289 @@ class ResearchAuditor:
             "factor_registry_count": len(registry),
         })
 
+    def audit_idiosyncratic_share_execution(self) -> None:
+        """Audit the validation-only residual-target share-execution gate.
+
+        A failed economic promotion gate is an expected research result, not an
+        infrastructure failure.  This audit therefore verifies that the
+        rejection is complete, internally consistent, and not presented as
+        independent or forward evidence.
+        """
+        key = "v1"
+        table_names = (
+            "idiosyncratic_execution_protocol",
+            "idiosyncratic_execution_daily",
+            "idiosyncratic_execution_summary",
+            "idiosyncratic_execution_invariants",
+            "idiosyncratic_execution_paired_inference",
+            "idiosyncratic_execution_upper_bound_inference",
+            "idiosyncratic_execution_bridge",
+            "idiosyncratic_execution_exposure_audit",
+            "idiosyncratic_execution_rf_coverage",
+            "idiosyncratic_execution_checks",
+            "idiosyncratic_execution_promotion_decision",
+            "idiosyncratic_execution_trial_registry",
+            "idiosyncratic_execution_failed_assertions",
+        )
+        frames = {name: self.require_table(name, key) for name in table_names}
+        if any(frame.empty for frame in frames.values()):
+            return
+
+        protocol = frames["idiosyncratic_execution_protocol"].iloc[0]
+        self.add(
+            "idiosyncratic_execution_validation_only_protocol",
+            protocol["evidence_class"] == "validation_selection"
+            and protocol["research_selection_role"] == "selection"
+            and not bool(protocol["claims_independent_evidence"])
+            and not bool(protocol["historical_oos_used_for_selection"])
+            and bool(protocol["daily_bar_approximation"])
+            and not bool(protocol["intraday_matching_claimed"]),
+            f"evidence_class={protocol['evidence_class']}, "
+            f"independent={bool(protocol['claims_independent_evidence'])}, "
+            f"historical_oos_used={bool(protocol['historical_oos_used_for_selection'])}",
+        )
+
+        expected_paths = {
+            "hgb_raw_model", "hgb_residual_model",
+            "hgb_residual_style_benchmark",
+        }
+        daily = frames["idiosyncratic_execution_daily"].copy()
+        daily["trade_date"] = daily["trade_date"].astype(str)
+        clock = daily.groupby("path_id")["trade_date"].agg(["count", "min", "max"])
+        self.add(
+            "idiosyncratic_execution_common_validation_clock",
+            set(clock.index.astype(str)) == expected_paths
+            and clock["count"].eq(1210).all()
+            and clock["min"].eq("2016-01-11").all()
+            and clock["max"].eq("2020-12-28").all(),
+            f"clock={clock.to_dict(orient='index')}",
+        )
+
+        summary = frames["idiosyncratic_execution_summary"]
+        invariants = frames["idiosyncratic_execution_invariants"]
+        self.add(
+            "idiosyncratic_execution_accounting_and_rf_complete",
+            set(summary["path_id"].astype(str)) == expected_paths
+            and summary["risk_free_missing_dates"].eq(0).all()
+            and invariants["all_invariants_pass"].astype(bool).all(),
+            f"paths={summary['path_id'].nunique()}, "
+            f"rf_missing={int(summary['risk_free_missing_dates'].sum())}, "
+            f"invariants={bool(invariants['all_invariants_pass'].astype(bool).all())}",
+        )
+        reliable = frames["idiosyncratic_execution_rf_coverage"].loc[
+            frames["idiosyncratic_execution_rf_coverage"]["scenario_id"].eq(
+                "R1_ccdc_cgb_3m"
+            )
+        ]
+        self.add(
+            "idiosyncratic_execution_reliable_rf_coverage",
+            len(reliable) == 1
+            and int(reliable.iloc[0]["dates"]) == 1210
+            and int(reliable.iloc[0]["missing_dates"]) == 0
+            and int(reliable.iloc[0]["interpolated_dates"]) == 0,
+            reliable.to_dict(orient="records").__str__(),
+        )
+
+        inference = frames["idiosyncratic_execution_paired_inference"]
+        primary = inference.loc[
+            inference["comparison_id"].eq("residual_model_minus_raw_model")
+            & inference["metric"].eq(
+                "incremental_net_return_annualized_arithmetic"
+            )
+            & inference["is_primary_block"].astype(bool)
+        ]
+        upper = frames["idiosyncratic_execution_upper_bound_inference"]
+        upper_primary = upper.loc[
+            upper["comparison_id"].eq("residual_model_minus_raw_model")
+            & upper["metric"].eq(
+                "incremental_net_return_annualized_arithmetic"
+            )
+            & upper["is_primary_block"].astype(bool)
+        ]
+        self.add(
+            "idiosyncratic_execution_primary_alpha_not_established",
+            len(primary) == 1
+            and float(primary.iloc[0]["ci_2_5pct"]) <= 0.0
+            <= float(primary.iloc[0]["ci_97_5pct"])
+            and not bool(primary.iloc[0]["survives_bh_fdr_5pct"]),
+            primary.to_dict(orient="records").__str__(),
+        )
+        self.add(
+            "idiosyncratic_execution_upper_bound_is_diagnostic_only",
+            len(upper_primary) == 1
+            and float(upper_primary.iloc[0]["ci_2_5pct"]) > 0.0
+            and bool(upper_primary.iloc[0]["survives_bh_fdr_5pct"])
+            and not bool(protocol["claims_independent_evidence"]),
+            upper_primary.to_dict(orient="records").__str__(),
+        )
+
+        bridge = frames["idiosyncratic_execution_bridge"]
+        self.add(
+            "idiosyncratic_execution_overlapping_target_return_invalidated",
+            set(bridge["path_id"].astype(str)) == expected_paths
+            and bridge["overlapping_target_intervals"].eq(33).all()
+            and bridge[
+                "target_weight_geometric_annual_return_not_executable"
+            ].notna().all(),
+            f"overlapping_intervals={sorted(bridge['overlapping_target_intervals'].unique())}",
+        )
+
+        decision = frames["idiosyncratic_execution_promotion_decision"].iloc[0]
+        failures = set(
+            frames["idiosyncratic_execution_failed_assertions"]["check_name"].astype(str)
+        )
+        required_failures = {
+            "pit_exposure_coverage",
+            "primary_incremental_return_ci_positive",
+            "primary_incremental_return_bh_fdr",
+            "share_fill_gate",
+            "tracking_error_gate",
+        }
+        self.add(
+            "idiosyncratic_execution_rejection_is_complete",
+            not bool(decision["promote_to_forward_paper_challenger"])
+            and int(decision["paper_observations_created"]) == 0
+            and required_failures.issubset(failures),
+            f"promoted={bool(decision['promote_to_forward_paper_challenger'])}, "
+            f"paper_observations={int(decision['paper_observations_created'])}, "
+            f"failed_checks={sorted(failures)}",
+        )
+        self.findings.update({
+            "idiosyncratic_execution_residual_minus_raw_annualized": float(
+                primary.iloc[0]["point_estimate"]
+            ),
+            "idiosyncratic_execution_residual_minus_raw_ci_low": float(
+                primary.iloc[0]["ci_2_5pct"]
+            ),
+            "idiosyncratic_execution_residual_minus_raw_ci_high": float(
+                primary.iloc[0]["ci_97_5pct"]
+            ),
+            "idiosyncratic_execution_promoted": False,
+        })
+
+    def audit_idiosyncratic_execution_friction(self) -> None:
+        """Gate the post-hoc OFAT execution-friction diagnostic."""
+        key = "v1"
+        table_names = (
+            "idiosyncratic_friction_protocol",
+            "idiosyncratic_friction_daily",
+            "idiosyncratic_friction_summary",
+            "idiosyncratic_friction_invariants",
+            "idiosyncratic_friction_attribution",
+            "idiosyncratic_friction_waterfall",
+            "idiosyncratic_friction_inference",
+            "idiosyncratic_friction_blockers",
+        )
+        frames = {name: self.require_table(name, key) for name in table_names}
+        if any(frame.empty for frame in frames.values()):
+            return
+        protocol = frames["idiosyncratic_friction_protocol"].iloc[0]
+        self.add(
+            "idiosyncratic_friction_is_diagnostic_only",
+            protocol["evidence_class"] == "validation_selection"
+            and protocol["research_selection_role"] == "diagnostic"
+            and not bool(protocol["claims_independent_evidence"])
+            and not bool(protocol["historical_oos_used_for_selection"])
+            and not bool(protocol["signals_or_targets_changed"])
+            and not bool(protocol["promotion_or_selection_allowed"])
+            and int(protocol["paper_observations_created"]) == 0
+            and not bool(protocol["ofat_effects_are_additive"]),
+            protocol.to_dict().__str__(),
+        )
+        expected_paths = {
+            "hgb_raw_model", "hgb_residual_model",
+            "hgb_residual_style_benchmark",
+        }
+        expected_scenarios = {
+            "all_constraints", "no_trade_flags", "no_volume_cap",
+            "no_lot_rules", "no_t_plus_one", "fractional_upper_bound",
+            "no_trade_flags_no_volume", "no_trade_flags_no_volume_no_lot",
+        }
+        daily = frames["idiosyncratic_friction_daily"].copy()
+        counts = daily.groupby(["path_id", "scenario_id"])["trade_date"].nunique()
+        self.add(
+            "idiosyncratic_friction_common_clock_complete",
+            set(daily["path_id"].astype(str)) == expected_paths
+            and set(daily["scenario_id"].astype(str)) == expected_scenarios
+            and len(counts) == 24 and counts.eq(1210).all(),
+            f"path_scenarios={len(counts)}, date_counts={sorted(counts.unique())}",
+        )
+        summary = frames["idiosyncratic_friction_summary"]
+        attribution = frames["idiosyncratic_friction_attribution"]
+        self.add(
+            "idiosyncratic_friction_scenario_matrix_complete",
+            len(summary) == 24 and len(attribution) == 24
+            and set(summary["path_id"].astype(str)) == expected_paths
+            and set(summary["scenario_id"].astype(str)) == expected_scenarios
+            and attribution["effects_are_non_additive"].astype(bool).all(),
+            f"summary_rows={len(summary)}, attribution_rows={len(attribution)}",
+        )
+        invariants = frames["idiosyncratic_friction_invariants"]
+        self.add(
+            "idiosyncratic_friction_replays_reconcile",
+            len(invariants) == 18
+            and invariants["all_invariants_pass"].astype(bool).all(),
+            f"replays={len(invariants)}, all_pass="
+            f"{bool(invariants['all_invariants_pass'].astype(bool).all())}",
+        )
+        baseline = attribution.loc[attribution["scenario_id"].eq("all_constraints")]
+        upper = attribution.loc[
+            attribution["scenario_id"].eq("fractional_upper_bound")
+        ]
+        self.add(
+            "idiosyncratic_friction_bridge_reconciles",
+            len(baseline) == 3 and len(upper) == 3
+            and baseline["annualized_return_uplift_vs_all_constraints"].abs().le(1e-12).all()
+            and baseline["fraction_of_upper_bound_gap_closed"].abs().le(1e-12).all()
+            and (upper["fraction_of_upper_bound_gap_closed"] - 1.0).abs().le(1e-12).all(),
+            "baseline uplift is zero and upper-bound gap fraction is one",
+        )
+        inference = frames["idiosyncratic_friction_inference"]
+        self.add(
+            "idiosyncratic_friction_inference_complete",
+            len(inference) == 21
+            and inference["observations"].eq(1210).all()
+            and inference["block_length_trading_days"].eq(20).all()
+            and inference["bh_fdr_adjusted_probability"].between(0, 1).all(),
+            f"comparisons={len(inference)}, paths={inference['path_id'].nunique()}",
+        )
+        waterfall = frames["idiosyncratic_friction_waterfall"]
+        waterfall_last = waterfall.sort_values("step_number").groupby(
+            "path_id", as_index=False
+        ).tail(1)
+        self.add(
+            "idiosyncratic_friction_waterfall_reconciles",
+            len(waterfall) == 15
+            and waterfall["increments_are_order_dependent"].astype(bool).all()
+            and waterfall_last["cumulative_fraction_of_upper_bound_gap"].sub(1.0).abs().le(1e-12).all()
+            and waterfall.groupby("path_id")["step_number"].nunique().eq(5).all(),
+            "five ordered steps per path reconcile to the fractional upper bound",
+        )
+        residual_flags = attribution.loc[
+            attribution["path_id"].eq("hgb_residual_model")
+            & attribution["scenario_id"].eq("no_trade_flags")
+        ].iloc[0]
+        residual_t1 = attribution.loc[
+            attribution["path_id"].eq("hgb_residual_model")
+            & attribution["scenario_id"].eq("no_t_plus_one")
+        ].iloc[0]
+        self.add(
+            "idiosyncratic_friction_interpretation_consistent",
+            float(residual_flags["annualized_return_uplift_vs_all_constraints"]) > 0.0
+            and 0.0 < float(residual_flags["fraction_of_upper_bound_gap_closed"]) < 1.0
+            and abs(float(residual_t1["annualized_return_uplift_vs_all_constraints"])) <= 1e-12,
+            "trade flags explain part, not all, of the diagnostic gap; T+1 explains none",
+        )
+        self.findings.update({
+            "residual_trade_flag_relaxation_annualized_uplift": float(
+                residual_flags["annualized_return_uplift_vs_all_constraints"]
+            ),
+            "residual_trade_flag_fraction_of_upper_gap": float(
+                residual_flags["fraction_of_upper_bound_gap_closed"]
+            ),
+            "friction_attribution_is_post_hoc": True,
+        })
+
     def audit_research_conclusions(self) -> None:
         """Gate the decision hierarchy, multiplicity control, and lifecycle boundary."""
         decisions = self.require_table("research_conclusion_decisions", "v3")
@@ -2440,6 +2723,8 @@ class ResearchAuditor:
         self.audit_rf_execution_forensics()
         self.audit_rf_daily_retry_execution()
         self.audit_final_research_extensions()
+        self.audit_idiosyncratic_share_execution()
+        self.audit_idiosyncratic_execution_friction()
         self.audit_research_conclusions()
         self.audit_research_governance()
         self.warn(

@@ -2,7 +2,7 @@
 
 ## 1. 复现边界
 
-GitHub 仓库保存代码、配置、测试、文档、图表、结果表和 50+ 个冻结实验版本，**不保存完整
+GitHub 仓库保存代码、配置、测试、文档、图表、结果表和 60+ 个冻结实验版本，**不保存完整
 `data/` 数据湖**。新机器从 BaoStock 下载股票主数据；AKShare 承担股票抽样核对和中债官方
 历史接口适配，市场归因从中证指数公司官方接口取得价格/全收益序列。不同来源不静默互相覆盖。
 
@@ -149,8 +149,9 @@ powershell -ExecutionPolicy Bypass -File scripts/rebuild_all.ps1 -SkipDownload -
 11. 冻结主账户的目标/实际权重、现金、订单、成交、公司行动与 NAV 统一账本及独立回放；
 12. 四个独立检验族的 HAC、多块长 bootstrap、BH-FDR 与完整 trial registry；
 13. 市场/CAPM/六风格/可交易风格基准的统一 Alpha 证据矩阵与风险模型敏感性；
-14. 结论证据矩阵、研究生命周期审计；
-15. 离线 dashboard、publication audit 与最终 PDF。
+14. Phase 9 八路径股数成交证据、统一 Alpha 证据矩阵与结论生命周期审计；
+15. Phase 12 残差目标、组合、唯一日频股数执行和事后摩擦waterfall；
+16. 工程契约、离线 dashboard、publication audit 与最终 PDF。
 
 如果需要手工定位失败步骤，可打开 [rebuild_all.ps1](../scripts/rebuild_all.ps1) 查看完全展开、
 可逐条复制的命令序列。脚本默认不删除、不覆盖 `data/`；多数上游阶段通过 `--missing` 或文件
@@ -166,7 +167,7 @@ powershell -ExecutionPolicy Bypass -File scripts/rebuild_all.ps1 -SkipDownload -
 | `data/lake/curated/` 其他表 | 质量表、因子、标签、模型特征、预测、持仓、成交 | 否 |
 | `data/lake/manifests/` | 请求、schema、行数、内容哈希 | 否 |
 | `config/` | 数据、因子、模型、组合和实验配置 | 是 |
-| `reports/experiments/` | 50+ 个不可变实验版本与输入哈希 | 是 |
+| `reports/experiments/` | 60+ 个不可变实验版本与输入哈希 | 是 |
 | `reports/tables/`、`reports/figures/` | 求职展示所需结果 | 是 |
 | `reports/research_dashboard.html` | 离线交互面板 | 是 |
 
@@ -182,7 +183,7 @@ quant-research-dashboard
 quant-paper-trading status
 ```
 
-当前验收记录为 221 tests passed；研究审计的实时 PASS/WARN/FAIL 数量见 `reports/research_audit.md`（WARN 保留历史版本漂移与已知边界）。新下载数据应至少
+当前验收记录为 240 tests passed；研究审计的实时 PASS/WARN/FAIL 数量见 `reports/research_audit.md`（WARN 保留历史版本漂移与已知边界）。新下载数据应至少
 满足：测试通过、schema/唯一键/日期门禁无 FAIL、模型比较使用共同日期、持仓权重和收益恒等式
 通过。
 
@@ -203,6 +204,8 @@ quant-paper-trading status
 `quant-alpha-evidence run` 将无风险利率、CSI500 官方价格/全收益指数、本地六风格、ML/风格复制组合和 Phase 8 配对推断统一到 1,387 日证据矩阵。它固定全收益指数、3 个月国债和 HAC(5) 为主规格，保存 96 个风险模型敏感性回归，并把缺少股数级 fill ledger 登记为 P0，而不是估算成交率。
 
 `quant-incremental-alpha-fill all` 先复用 Phase 5 股数级市场并补齐风格复制组合新增证券，再将4条ML与4条风格复制目标统一通过1亿元账户执行器。运行完成后再执行 `quant-alpha-evidence run`，v2会用股数级净收益重算配对bootstrap、风险调整Alpha与FDR。该步骤计算和落盘量较大，但不会覆盖Phase 5或Phase 9 v1冻结产物。
+
+`quant-idiosyncratic-target run`、`quant-idiosyncratic-portfolio run`、`quant-idiosyncratic-execution all` 和 `quant-idiosyncratic-friction run` 必须按此顺序执行。最后一步复用冻结目标与执行市场，逐项和顺序解除约束以解释实施损耗；它属于已查看验证期的事后诊断，不得用于选模或产生paper观测。
 
 `quant-engineering-quality run` 扫描共同实现、随机seed、五层测试和Phase 5–9输出契约。它是治理检查，不重跑模型或选择历史结果；任何唯一实现、协议版本或冻结快照门禁失败都会返回非零状态。
 

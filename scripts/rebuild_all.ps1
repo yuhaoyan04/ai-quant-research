@@ -124,6 +124,8 @@ try {
             @{ Name = "Official price and total-return benchmark attribution"; Program = "quant-market-benchmark-attribution"; Args = @() },
             @{ Name = "Multi-factor risk model and attribution"; Program = "quant-risk-attribution"; Args = @("all") },
             @{ Name = "Characteristic-matched incremental alpha test"; Program = "quant-incremental-alpha"; Args = @("all") },
+            @{ Name = "Eight-path share-level incremental alpha execution"; Program = "quant-incremental-alpha-fill"; Args = @("all") },
+            @{ Name = "Unified alpha evidence matrix"; Program = "quant-alpha-evidence"; Args = @("run") },
             @{ Name = "Risk-aware portfolio optimization"; Program = "quant-risk-aware-portfolio"; Args = @() },
             @{ Name = "Unified model benchmark"; Program = "quant-model-benchmark"; Args = @() },
             @{ Name = "HGB two-dimensional hyperparameter stability"; Program = "quant-hgb-hyperparameter-stability"; Args = @() },
@@ -134,7 +136,12 @@ try {
             @{ Name = "RF target holdings"; Program = "quant-rf-target-holdings"; Args = @() },
             @{ Name = "RF daily retry execution"; Program = "quant-rf-daily-retry"; Args = @("all", "--split", "both") },
             @{ Name = "Top-N, inverse-volatility, and cost sensitivity"; Program = "quant-portfolio-sensitivity"; Args = @() }
+            @{ Name = "Validation-only idiosyncratic target study"; Program = "quant-idiosyncratic-target"; Args = @("run") }
+            @{ Name = "Validation-only idiosyncratic portfolio construction"; Program = "quant-idiosyncratic-portfolio"; Args = @("run") }
+            @{ Name = "Validation-only idiosyncratic share execution"; Program = "quant-idiosyncratic-execution"; Args = @("all") }
+            @{ Name = "Post-hoc execution friction attribution"; Program = "quant-idiosyncratic-friction"; Args = @("run") }
             @{ Name = "Decision-oriented conclusion and lifecycle audit"; Program = "quant-conclusion-audit"; Args = @() }
+            @{ Name = "Engineering contracts and frozen registry audit"; Program = "quant-engineering-quality"; Args = @("run") }
         )
         foreach ($step in $extendedSteps) {
             Invoke-QuantStep $step.Name $step.Program $step.Args

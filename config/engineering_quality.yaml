@@ -1,12 +1,12 @@
-experiment_id: engineering_quality_v2
-artifact_key: v2
-report_path: reports/engineering_quality_v2.md
+experiment_id: engineering_quality_v3
+artifact_key: v3
+report_path: reports/engineering_quality_v3.md
 evidence_class: governance_only
 research_selection_role: governance
 claims_independent_evidence: false
 historical_oos_used_for_selection: false
 canonical_execution_market_module: src/quant_research/execution_market.py
-minimum_frozen_experiments: 53
+minimum_frozen_experiments: 61
 critical_protocols:
   - {stage: factor_research, table: factor_tear_sheet_protocol, key: v1, frozen_experiment: factor_tear_sheet_v1}
   - {stage: factor_and_model_neutralization, table: model_neutralization_protocol, key: v1, frozen_experiment: model_portfolio_neutralization_v2}
@@ -22,10 +22,12 @@ critical_protocols:
   - {stage: phase9_alpha, table: alpha_evidence_protocol, key: v2, frozen_experiment: alpha_evidence_matrix_v2}
   - {stage: phase11_paper, table: paper_trading_protocol, key: v1, frozen_experiment: paper_trading_pipeline_v1}
   - {stage: phase11_forward_data, table: forward_data_protocol, key: v1, frozen_experiment: forward_data_pipeline_v1}
+  - {stage: phase12_share_execution, table: idiosyncratic_execution_protocol, key: v1, frozen_experiment: idiosyncratic_share_execution_validation_v1}
+  - {stage: phase12_friction_diagnostic, table: idiosyncratic_friction_protocol, key: v1, frozen_experiment: idiosyncratic_execution_friction_attribution_v1}
 required_test_layers:
   unit: [tests/test_execution_market.py, tests/test_transaction_costs.py]
-  integration: [tests/test_institutional_execution.py, tests/test_unified_account_ledger.py]
-  regression: [tests/test_alpha_evidence_matrix.py, tests/test_statistical_inference.py]
+  integration: [tests/test_institutional_execution.py, tests/test_unified_account_ledger.py, tests/test_idiosyncratic_share_execution_validation.py]
+  regression: [tests/test_alpha_evidence_matrix.py, tests/test_statistical_inference.py, tests/test_idiosyncratic_execution_friction_attribution.py]
   property_invariant: [tests/test_institutional_execution.py, tests/test_unified_account_ledger.py]
   data_contract:
     - tests/test_quality_factors.py

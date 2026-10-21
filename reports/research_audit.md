@@ -1,8 +1,8 @@
 # Research artifact audit
 
-Generated at `2026-10-21T06:00:21.929254+00:00`.
+Generated at `2026-10-21T07:05:50.150912+00:00`.
 
-Summary: **509 PASS / 51 WARN / 0 FAIL**
+Summary: **552 PASS / 53 WARN / 0 FAIL**
 
 | Status | Check | Detail |
 |---|---|---|
@@ -76,6 +76,8 @@ Summary: **509 PASS / 51 WARN / 0 FAIL**
 | PASS | `frozen_live_inputs:final_research_baseline_v4` | all registered inputs match their SHA-256 hashes |
 | PASS | `frozen_snapshot_integrity:final_research_baseline_v5` | all frozen files match FROZEN.json |
 | PASS | `frozen_live_inputs:final_research_baseline_v5` | all registered inputs match their SHA-256 hashes |
+| PASS | `frozen_snapshot_integrity:final_research_baseline_v6` | all frozen files match FROZEN.json |
+| PASS | `frozen_live_inputs:final_research_baseline_v6` | all registered inputs match their SHA-256 hashes |
 | PASS | `frozen_snapshot_integrity:final_research_baseline_v1` | all frozen files match FROZEN.json |
 | WARN | `frozen_live_inputs:final_research_baseline_v1` | mismatches=['factor_registry/v1'] |
 | PASS | `frozen_snapshot_integrity:final_research_baseline_v2` | all frozen files match FROZEN.json |
@@ -116,6 +118,8 @@ Summary: **509 PASS / 51 WARN / 0 FAIL**
 | WARN | `frozen_live_inputs:engineering_quality_v1` | mismatches=['engineering_implementation_inventory/v1', 'engineering_quality_checks/v1', 'engineering_failed_assertions/v1'] |
 | PASS | `frozen_snapshot_integrity:engineering_quality_v2` | all frozen files match FROZEN.json |
 | PASS | `frozen_live_inputs:engineering_quality_v2` | all registered inputs match their SHA-256 hashes |
+| PASS | `frozen_snapshot_integrity:engineering_quality_v3` | all frozen files match FROZEN.json |
+| PASS | `frozen_live_inputs:engineering_quality_v3` | all registered inputs match their SHA-256 hashes |
 | PASS | `frozen_snapshot_integrity:paper_trading_pipeline_v1` | all frozen files match FROZEN.json |
 | PASS | `frozen_live_inputs:paper_trading_pipeline_v1` | all registered inputs match their SHA-256 hashes |
 | PASS | `frozen_snapshot_integrity:forward_data_pipeline_v1` | all frozen files match FROZEN.json |
@@ -126,6 +130,10 @@ Summary: **509 PASS / 51 WARN / 0 FAIL**
 | PASS | `frozen_live_inputs:idiosyncratic_portfolio_validation_v1` | all registered inputs match their SHA-256 hashes |
 | PASS | `frozen_snapshot_integrity:idiosyncratic_share_execution_validation_v1` | all frozen files match FROZEN.json |
 | PASS | `frozen_live_inputs:idiosyncratic_share_execution_validation_v1` | all registered inputs match their SHA-256 hashes |
+| PASS | `frozen_snapshot_integrity:idiosyncratic_execution_friction_attribution_v1` | all frozen files match FROZEN.json |
+| PASS | `frozen_live_inputs:idiosyncratic_execution_friction_attribution_v1` | all registered inputs match their SHA-256 hashes |
+| WARN | `invalidated_experiment:engineering_quality_v2` | severity=superseded_engineering_contract; superseded_by=engineering_quality_v3; reason=V3 adds the Phase 12.2 share-execution and Phase 12.3 friction-attribution protocols to the critical immutable output contract and removes optional pytest-cache warnings on shared read-only mounts. Research logic and historical conclusions are unchanged. |
+| WARN | `invalidated_experiment:final_research_baseline_v5` | severity=superseded_publication_baseline; superseded_by=final_research_baseline_v6; reason=V6 adds a validation-only OFAT and ordered-waterfall attribution of the already disclosed residual-target execution shortfall. Research and promotion conclusions are unchanged; the new baseline makes the constraint interaction and non-causal interpretation boundary explicit. |
 | WARN | `invalidated_experiment:research_conclusion_audit_v2` | severity=superseded_conclusion_baseline; superseded_by=research_conclusion_audit_v3; reason=V3 adds the validation-only residual-target share-execution decision, reliable 2016-2020 CCDC risk-free rates, the unique daily-NAV correction, and the observed implementation shortfall. V2 remains correct for all pre-existing historical-OOS questions but is no longer the complete decision hierarchy. |
 | WARN | `invalidated_experiment:final_research_baseline_v4` | severity=superseded_publication_baseline; superseded_by=final_research_baseline_v5; reason=V5 incorporates the Phase 12.2 share-execution evidence, invalidates the overlapping five-day Phase 12.1 portfolio-return claims, and updates the final report, executive summary, resume and interview materials. |
 | WARN | `invalidated_experiment:idiosyncratic_portfolio_validation_v1` | severity=overlapping_five_day_returns_not_a_unique_nav_clock; superseded_by=idiosyncratic_share_execution_validation_v1; reason=The target-weight experiment evaluated every weekly signal with a full five-trading-day forward label. In 33 of 253 adjacent rebalance intervals the next execution arrived fewer than five trading days later, so the reported portfolio returns compounded overlapping holding windows. The model fits, target weights, turnover constraints and PIT industry/six- style exposure matching remain valid, but its portfolio performance and paired return intervals are not executable NAV evidence. |
@@ -417,20 +425,20 @@ Summary: **509 PASS / 51 WARN / 0 FAIL**
 | PASS | `alpha_evidence_assertion_log_clean` | [{'check_name': 'NO_FAILED_ASSERTIONS', 'status': 'PASS', 'observed': 'all Phase 9 assertions passed; share-level fill comparison is complete'}] |
 | PASS | `alpha_evidence_share_level_fill_comparison_complete` | paths=8, ratios=[0.987309, 0.931394, 0.988337, 0.891164, 0.860965, 0.954013, 0.756205, 0.99485] |
 | PASS | `alpha_evidence_fill_accounting_invariants_pass` | paths=8, checks=10 |
-| PASS | `artifact:engineering_quality_protocol/v2` | rows=1 |
-| PASS | `artifact:engineering_implementation_inventory/v2` | rows=7 |
-| PASS | `artifact:engineering_random_seed_inventory/v2` | rows=3 |
-| PASS | `artifact:engineering_test_layer_inventory/v2` | rows=14 |
-| PASS | `artifact:engineering_output_contracts/v2` | rows=14 |
-| PASS | `artifact:engineering_gap_register/v2` | rows=7 |
-| PASS | `artifact:engineering_quality_checks/v2` | rows=8 |
-| PASS | `artifact:engineering_failed_assertions/v2` | rows=1 |
+| PASS | `artifact:engineering_quality_protocol/v3` | rows=1 |
+| PASS | `artifact:engineering_implementation_inventory/v3` | rows=8 |
+| PASS | `artifact:engineering_random_seed_inventory/v3` | rows=4 |
+| PASS | `artifact:engineering_test_layer_inventory/v3` | rows=16 |
+| PASS | `artifact:engineering_output_contracts/v3` | rows=16 |
+| PASS | `artifact:engineering_gap_register/v3` | rows=7 |
+| PASS | `artifact:engineering_quality_checks/v3` | rows=8 |
+| PASS | `artifact:engineering_failed_assertions/v3` | rows=1 |
 | PASS | `engineering_quality_governance_only` | canonical_module=src/quant_research/execution_market.py |
 | PASS | `engineering_quality_all_checks_pass` | checks=8 |
-| PASS | `engineering_quality_single_execution_market_implementation` | [{'logic': 'corporate_action_proxy_formula', 'path': 'src/quant_research/execution_market.py', 'line': 41, 'is_definition': True}, {'logic': 'execution_buy_limit_rule', 'path': 'src/quant_research/execution_market.py', 'line': 52, 'is_definition': True}, {'logic': 'execution_market_public_api', 'path': 'src/quant_research/execution_market.py', 'line': 64, 'is_definition': True}, {'logic': 'execution_market_public_api', 'path': 'src/quant_research/incremental_alpha_fill_execution.py', 'line': 69, 'is_definition': False}, {'logic': 'execution_market_public_api', 'path': 'src/quant_research/institutional_execution.py', 'line': 554, 'is_definition': False}, {'logic': 'execution_market_public_api', 'path': 'src/quant_research/paper_trading.py', 'line': 646, 'is_definition': False}, {'logic': 'execution_market_public_api', 'path': 'src/quant_research/portfolio_construction_comparison.py', 'line': 531, 'is_definition': False}] |
-| PASS | `engineering_quality_tests_and_seeds_complete` | layers=5, random_generators=3 |
-| PASS | `engineering_quality_output_contracts_frozen` | [{'stage': 'factor_research', 'frozen_experiment': 'factor_tear_sheet_v1'}, {'stage': 'factor_and_model_neutralization', 'frozen_experiment': 'model_portfolio_neutralization_v2'}, {'stage': 'phase1_costs', 'frozen_experiment': 'transaction_cost_model_v1'}, {'stage': 'phase2_risk_free', 'frozen_experiment': 'risk_free_rate_attribution_v1'}, {'stage': 'phase2_benchmark', 'frozen_experiment': 'market_benchmark_attribution_v1'}, {'stage': 'phase3_model_validation', 'frozen_experiment': 'model_stability_validation_v1'}, {'stage': 'phase4_governance', 'frozen_experiment': 'research_governance_v1'}, {'stage': 'phase5_execution', 'frozen_experiment': 'institutional_execution_v2'}, {'stage': 'phase6_portfolio', 'frozen_experiment': 'portfolio_construction_comparison_v1'}, {'stage': 'phase7_ledger', 'frozen_experiment': 'unified_account_ledger_v1'}, {'stage': 'phase8_inference', 'frozen_experiment': 'statistical_inference_protocol_v1'}, {'stage': 'phase9_alpha', 'frozen_experiment': 'alpha_evidence_matrix_v2'}, {'stage': 'phase11_paper', 'frozen_experiment': 'paper_trading_pipeline_v1'}, {'stage': 'phase11_forward_data', 'frozen_experiment': 'forward_data_pipeline_v1'}] |
-| PASS | `engineering_quality_no_open_p0` | {('P0', 'CLOSED_IN_CODE_V2'): 1, ('P1', 'BLOCKED_EXTERNAL_DATA'): 2, ('P1', 'CONTROLLED_BY_IMMUTABLE_REGISTRY'): 1, ('P1', 'OPEN'): 1, ('P2', 'OPEN'): 1, ('P2', 'OPEN_NONRESEARCH'): 1} |
+| PASS | `engineering_quality_single_execution_market_implementation` | [{'logic': 'corporate_action_proxy_formula', 'path': 'src/quant_research/execution_market.py', 'line': 41, 'is_definition': True}, {'logic': 'execution_buy_limit_rule', 'path': 'src/quant_research/execution_market.py', 'line': 52, 'is_definition': True}, {'logic': 'execution_market_public_api', 'path': 'src/quant_research/execution_market.py', 'line': 64, 'is_definition': True}, {'logic': 'execution_market_public_api', 'path': 'src/quant_research/idiosyncratic_share_execution_validation.py', 'line': 127, 'is_definition': False}, {'logic': 'execution_market_public_api', 'path': 'src/quant_research/incremental_alpha_fill_execution.py', 'line': 69, 'is_definition': False}, {'logic': 'execution_market_public_api', 'path': 'src/quant_research/institutional_execution.py', 'line': 560, 'is_definition': False}, {'logic': 'execution_market_public_api', 'path': 'src/quant_research/paper_trading.py', 'line': 646, 'is_definition': False}, {'logic': 'execution_market_public_api', 'path': 'src/quant_research/portfolio_construction_comparison.py', 'line': 531, 'is_definition': False}] |
+| PASS | `engineering_quality_tests_and_seeds_complete` | layers=5, random_generators=4 |
+| PASS | `engineering_quality_output_contracts_frozen` | [{'stage': 'factor_research', 'frozen_experiment': 'factor_tear_sheet_v1'}, {'stage': 'factor_and_model_neutralization', 'frozen_experiment': 'model_portfolio_neutralization_v2'}, {'stage': 'phase1_costs', 'frozen_experiment': 'transaction_cost_model_v1'}, {'stage': 'phase2_risk_free', 'frozen_experiment': 'risk_free_rate_attribution_v1'}, {'stage': 'phase2_benchmark', 'frozen_experiment': 'market_benchmark_attribution_v1'}, {'stage': 'phase3_model_validation', 'frozen_experiment': 'model_stability_validation_v1'}, {'stage': 'phase4_governance', 'frozen_experiment': 'research_governance_v1'}, {'stage': 'phase5_execution', 'frozen_experiment': 'institutional_execution_v2'}, {'stage': 'phase6_portfolio', 'frozen_experiment': 'portfolio_construction_comparison_v1'}, {'stage': 'phase7_ledger', 'frozen_experiment': 'unified_account_ledger_v1'}, {'stage': 'phase8_inference', 'frozen_experiment': 'statistical_inference_protocol_v1'}, {'stage': 'phase9_alpha', 'frozen_experiment': 'alpha_evidence_matrix_v2'}, {'stage': 'phase11_paper', 'frozen_experiment': 'paper_trading_pipeline_v1'}, {'stage': 'phase11_forward_data', 'frozen_experiment': 'forward_data_pipeline_v1'}, {'stage': 'phase12_share_execution', 'frozen_experiment': 'idiosyncratic_share_execution_validation_v1'}, {'stage': 'phase12_friction_diagnostic', 'frozen_experiment': 'idiosyncratic_execution_friction_attribution_v1'}] |
+| PASS | `engineering_quality_no_open_p0` | {('P0', 'CLOSED_IN_CODE_V2'): 1, ('P1', 'BLOCKED_EXTERNAL_DATA'): 2, ('P1', 'CONTROLLED_BY_IMMUTABLE_REGISTRY'): 1, ('P1', 'OPEN'): 1, ('P2', 'CLOSED_TOOLING_V3'): 1, ('P2', 'OPEN'): 1} |
 | PASS | `engineering_quality_assertion_log_clean` | [{'check_name': 'NO_FAILED_ASSERTIONS', 'status': 'PASS', 'observed': 'all Phase 10 engineering gates passed'}] |
 | PASS | `artifact:paper_trading_protocol/v1` | rows=1 |
 | PASS | `artifact:paper_trading_source_contracts/v1` | rows=5 |
@@ -540,6 +548,43 @@ Summary: **509 PASS / 51 WARN / 0 FAIL**
 | PASS | `hgb_surface_validation_only_and_complete` | surface_points=9, evaluation=2016_2020_validation_only |
 | PASS | `portfolio_sensitivity_common_date_and_no_reselection` | variants={'historical_oos': 8, 'validation': 8}, performance_period_counts={'historical_oos': 1, 'validation': 1} |
 | PASS | `execution_cost_stress_complete_and_monotone` | costs=[0.0, 20.0, 50.0, 100.0], monotone=True |
+| PASS | `artifact:idiosyncratic_execution_protocol/v1` | rows=1 |
+| PASS | `artifact:idiosyncratic_execution_daily/v1` | rows=3,630 |
+| PASS | `artifact:idiosyncratic_execution_summary/v1` | rows=3 |
+| PASS | `artifact:idiosyncratic_execution_invariants/v1` | rows=3 |
+| PASS | `artifact:idiosyncratic_execution_paired_inference/v1` | rows=48 |
+| PASS | `artifact:idiosyncratic_execution_upper_bound_inference/v1` | rows=48 |
+| PASS | `artifact:idiosyncratic_execution_bridge/v1` | rows=3 |
+| PASS | `artifact:idiosyncratic_execution_exposure_audit/v1` | rows=762 |
+| PASS | `artifact:idiosyncratic_execution_rf_coverage/v1` | rows=3 |
+| PASS | `artifact:idiosyncratic_execution_checks/v1` | rows=15 |
+| PASS | `artifact:idiosyncratic_execution_promotion_decision/v1` | rows=1 |
+| PASS | `artifact:idiosyncratic_execution_trial_registry/v1` | rows=6 |
+| PASS | `artifact:idiosyncratic_execution_failed_assertions/v1` | rows=5 |
+| PASS | `idiosyncratic_execution_validation_only_protocol` | evidence_class=validation_selection, independent=False, historical_oos_used=False |
+| PASS | `idiosyncratic_execution_common_validation_clock` | clock={'hgb_raw_model': {'count': 1210, 'min': '2016-01-11', 'max': '2020-12-28'}, 'hgb_residual_model': {'count': 1210, 'min': '2016-01-11', 'max': '2020-12-28'}, 'hgb_residual_style_benchmark': {'count': 1210, 'min': '2016-01-11', 'max': '2020-12-28'}} |
+| PASS | `idiosyncratic_execution_accounting_and_rf_complete` | paths=3, rf_missing=0, invariants=True |
+| PASS | `idiosyncratic_execution_reliable_rf_coverage` | [{'scenario_id': 'R1_ccdc_cgb_3m', 'dates': 1210, 'start_date': '2016-01-11', 'end_date': '2020-12-28', 'missing_dates': 0, 'missing_rate': 0.0, 'interpolated_dates': 0, 'stale_dates': 0, 'maximum_staleness_calendar_days': 11.0, 'minimum_annual_rate_percent': 0.8352, 'maximum_annual_rate_percent': 4.021}] |
+| PASS | `idiosyncratic_execution_primary_alpha_not_established` | [{'comparison_id': 'residual_model_minus_raw_model', 'candidate_path': 'hgb_residual_model', 'reference_path': 'hgb_raw_model', 'metric': 'incremental_net_return_annualized_arithmetic', 'observations': 1210, 'block_length_trading_days': 20, 'point_estimate': 0.003305992836216496, 'ci_2_5pct': -0.053073045576759466, 'ci_97_5pct': 0.05878175703977854, 'probability_improvement_nonpositive': 0.456271864067966, 'bh_fdr_adjusted_probability': 0.456271864067966, 'survives_bh_fdr_5pct': False, 'is_primary_block': True}] |
+| PASS | `idiosyncratic_execution_upper_bound_is_diagnostic_only` | [{'comparison_id': 'residual_model_minus_raw_model', 'candidate_path': 'hgb_residual_model', 'reference_path': 'hgb_raw_model', 'metric': 'incremental_net_return_annualized_arithmetic', 'observations': 1210, 'block_length_trading_days': 20, 'point_estimate': 0.11248455843983451, 'ci_2_5pct': 0.04248202750358953, 'ci_97_5pct': 0.1865351399649589, 'probability_improvement_nonpositive': 0.0014992503748125937, 'bh_fdr_adjusted_probability': 0.0014992503748125937, 'survives_bh_fdr_5pct': True, 'is_primary_block': True}] |
+| PASS | `idiosyncratic_execution_overlapping_target_return_invalidated` | overlapping_intervals=[np.int64(33)] |
+| PASS | `idiosyncratic_execution_rejection_is_complete` | promoted=False, paper_observations=0, failed_checks=['pit_exposure_coverage', 'primary_incremental_return_bh_fdr', 'primary_incremental_return_ci_positive', 'share_fill_gate', 'tracking_error_gate'] |
+| PASS | `artifact:idiosyncratic_friction_protocol/v1` | rows=1 |
+| PASS | `artifact:idiosyncratic_friction_daily/v1` | rows=29,040 |
+| PASS | `artifact:idiosyncratic_friction_summary/v1` | rows=24 |
+| PASS | `artifact:idiosyncratic_friction_invariants/v1` | rows=18 |
+| PASS | `artifact:idiosyncratic_friction_attribution/v1` | rows=24 |
+| PASS | `artifact:idiosyncratic_friction_waterfall/v1` | rows=15 |
+| PASS | `artifact:idiosyncratic_friction_inference/v1` | rows=21 |
+| PASS | `artifact:idiosyncratic_friction_blockers/v1` | rows=73 |
+| PASS | `idiosyncratic_friction_is_diagnostic_only` | {'experiment_id': 'idiosyncratic_execution_friction_attribution_v1', 'source_experiment': 'idiosyncratic_share_execution_validation_v1', 'evidence_class': 'validation_selection', 'research_selection_role': 'diagnostic', 'claims_independent_evidence': False, 'historical_oos_used_for_selection': False, 'signals_or_targets_changed': False, 'promotion_or_selection_allowed': False, 'paper_observations_created': 0, 'ofat_effects_are_additive': False} |
+| PASS | `idiosyncratic_friction_common_clock_complete` | path_scenarios=24, date_counts=[np.int64(1210)] |
+| PASS | `idiosyncratic_friction_scenario_matrix_complete` | summary_rows=24, attribution_rows=24 |
+| PASS | `idiosyncratic_friction_replays_reconcile` | replays=18, all_pass=True |
+| PASS | `idiosyncratic_friction_bridge_reconciles` | baseline uplift is zero and upper-bound gap fraction is one |
+| PASS | `idiosyncratic_friction_inference_complete` | comparisons=21, paths=3 |
+| PASS | `idiosyncratic_friction_waterfall_reconciles` | five ordered steps per path reconcile to the fractional upper bound |
+| PASS | `idiosyncratic_friction_interpretation_consistent` | trade flags explain part, not all, of the diagnostic gap; T+1 explains none |
 | PASS | `artifact:research_conclusion_decisions/v3` | rows=7 |
 | PASS | `artifact:research_factor_multiplicity/v3` | rows=15 |
 | PASS | `artifact:research_lifecycle_audit/v3` | rows=16 |
@@ -569,8 +614,8 @@ Summary: **509 PASS / 51 WARN / 0 FAIL**
 
 ## Headline findings
 
-- `registered_frozen_experiments`: 59
-- `invalidated_experiments`: 27
+- `registered_frozen_experiments`: 62
+- `invalidated_experiments`: 29
 - `common_oos_weeks`: 291
 - `ridge_annualized_return_20bp`: 0.2005894880405501
 - `challenger_annualized_return_20bp`: 0.2507876712519381
@@ -683,6 +728,13 @@ Summary: **509 PASS / 51 WARN / 0 FAIL**
 - `hgb_validation_surface_rank_ic_min`: 0.09713976299008095
 - `hgb_validation_surface_rank_ic_max`: 0.09980789470340727
 - `factor_registry_count`: 15
+- `idiosyncratic_execution_residual_minus_raw_annualized`: 0.003305992836216496
+- `idiosyncratic_execution_residual_minus_raw_ci_low`: -0.053073045576759466
+- `idiosyncratic_execution_residual_minus_raw_ci_high`: 0.05878175703977854
+- `idiosyncratic_execution_promoted`: False
+- `residual_trade_flag_relaxation_annualized_uplift`: 0.08223206093877433
+- `residual_trade_flag_fraction_of_upper_gap`: 0.5114313112646418
+- `friction_attribution_is_post_hoc`: True
 - `neutral_factor_spreads_surviving_bh_fdr_5pct`: 14
 - `research_backtest_chain_complete`: True
 - `ready_for_live_capital`: False

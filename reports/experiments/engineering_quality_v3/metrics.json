@@ -1,0 +1,888 @@
+{
+  "engineering_quality_protocol__v3": [
+    {
+      "experiment_id": "engineering_quality_v3",
+      "evidence_class": "governance_only",
+      "research_selection_role": "governance",
+      "claims_independent_evidence": false,
+      "historical_oos_used_for_selection": false,
+      "canonical_execution_market_module": "src/quant_research/execution_market.py",
+      "research_logic_changed": false,
+      "frozen_results_reselected": false
+    }
+  ],
+  "engineering_implementation_inventory__v3": [
+    {
+      "logic": "corporate_action_proxy_formula",
+      "path": "src/quant_research/execution_market.py",
+      "line": 41,
+      "is_definition": true
+    },
+    {
+      "logic": "execution_buy_limit_rule",
+      "path": "src/quant_research/execution_market.py",
+      "line": 52,
+      "is_definition": true
+    },
+    {
+      "logic": "execution_market_public_api",
+      "path": "src/quant_research/execution_market.py",
+      "line": 64,
+      "is_definition": true
+    },
+    {
+      "logic": "execution_market_public_api",
+      "path": "src/quant_research/idiosyncratic_share_execution_validation.py",
+      "line": 127,
+      "is_definition": false
+    },
+    {
+      "logic": "execution_market_public_api",
+      "path": "src/quant_research/incremental_alpha_fill_execution.py",
+      "line": 69,
+      "is_definition": false
+    },
+    {
+      "logic": "execution_market_public_api",
+      "path": "src/quant_research/institutional_execution.py",
+      "line": 560,
+      "is_definition": false
+    },
+    {
+      "logic": "execution_market_public_api",
+      "path": "src/quant_research/paper_trading.py",
+      "line": 646,
+      "is_definition": false
+    },
+    {
+      "logic": "execution_market_public_api",
+      "path": "src/quant_research/portfolio_construction_comparison.py",
+      "line": 531,
+      "is_definition": false
+    }
+  ],
+  "engineering_random_seed_inventory__v3": [
+    {
+      "path": "src/quant_research/idiosyncratic_portfolio_validation.py",
+      "line": 603,
+      "seed_expression": "int(inference[\"random_seed\"]",
+      "explicit_seed": true
+    },
+    {
+      "path": "src/quant_research/incremental_alpha_test.py",
+      "line": 451,
+      "seed_expression": "int(cfg[\"bootstrap\"][\"random_seed\"]",
+      "explicit_seed": true
+    },
+    {
+      "path": "src/quant_research/model_interpretation.py",
+      "line": 86,
+      "seed_expression": "zlib.crc32(seed_text",
+      "explicit_seed": true
+    },
+    {
+      "path": "src/quant_research/robustness.py",
+      "line": 25,
+      "seed_expression": "seed",
+      "explicit_seed": true
+    }
+  ],
+  "engineering_test_layer_inventory__v3": [
+    {
+      "layer": "unit",
+      "path": "tests/test_execution_market.py",
+      "exists": true,
+      "test_functions": 3
+    },
+    {
+      "layer": "unit",
+      "path": "tests/test_transaction_costs.py",
+      "exists": true,
+      "test_functions": 5
+    },
+    {
+      "layer": "integration",
+      "path": "tests/test_institutional_execution.py",
+      "exists": true,
+      "test_functions": 8
+    },
+    {
+      "layer": "integration",
+      "path": "tests/test_unified_account_ledger.py",
+      "exists": true,
+      "test_functions": 2
+    },
+    {
+      "layer": "integration",
+      "path": "tests/test_idiosyncratic_share_execution_validation.py",
+      "exists": true,
+      "test_functions": 3
+    },
+    {
+      "layer": "regression",
+      "path": "tests/test_alpha_evidence_matrix.py",
+      "exists": true,
+      "test_functions": 2
+    },
+    {
+      "layer": "regression",
+      "path": "tests/test_statistical_inference.py",
+      "exists": true,
+      "test_functions": 3
+    },
+    {
+      "layer": "regression",
+      "path": "tests/test_idiosyncratic_execution_friction_attribution.py",
+      "exists": true,
+      "test_functions": 3
+    },
+    {
+      "layer": "property_invariant",
+      "path": "tests/test_institutional_execution.py",
+      "exists": true,
+      "test_functions": 8
+    },
+    {
+      "layer": "property_invariant",
+      "path": "tests/test_unified_account_ledger.py",
+      "exists": true,
+      "test_functions": 2
+    },
+    {
+      "layer": "data_contract",
+      "path": "tests/test_quality_factors.py",
+      "exists": true,
+      "test_functions": 4
+    },
+    {
+      "layer": "data_contract",
+      "path": "tests/test_panel.py",
+      "exists": true,
+      "test_functions": 5
+    },
+    {
+      "layer": "data_contract",
+      "path": "tests/test_pit_universe.py",
+      "exists": true,
+      "test_functions": 1
+    },
+    {
+      "layer": "data_contract",
+      "path": "tests/test_forward_data.py",
+      "exists": true,
+      "test_functions": 3
+    },
+    {
+      "layer": "data_contract",
+      "path": "tests/test_market_benchmark_attribution.py",
+      "exists": true,
+      "test_functions": 3
+    },
+    {
+      "layer": "data_contract",
+      "path": "tests/test_risk_free_rate_attribution.py",
+      "exists": true,
+      "test_functions": 4
+    }
+  ],
+  "engineering_output_contracts__v3": [
+    {
+      "stage": "factor_research",
+      "table": "factor_tear_sheet_protocol",
+      "key": "v1",
+      "frozen_experiment": "factor_tear_sheet_v1",
+      "protocol_rows": 1,
+      "protocol_experiment_id": "factor_tear_sheet_v1",
+      "protocol_has_experiment_id": true,
+      "frozen_snapshot_exists": true,
+      "frozen_snapshot_immutable": true
+    },
+    {
+      "stage": "factor_and_model_neutralization",
+      "table": "model_neutralization_protocol",
+      "key": "v1",
+      "frozen_experiment": "model_portfolio_neutralization_v2",
+      "protocol_rows": 1,
+      "protocol_experiment_id": "model_portfolio_neutralization_v2",
+      "protocol_has_experiment_id": true,
+      "frozen_snapshot_exists": true,
+      "frozen_snapshot_immutable": true
+    },
+    {
+      "stage": "phase1_costs",
+      "table": "transaction_cost_protocol",
+      "key": "v1",
+      "frozen_experiment": "transaction_cost_model_v1",
+      "protocol_rows": 10,
+      "protocol_experiment_id": "transaction_cost_model_v1",
+      "protocol_has_experiment_id": true,
+      "frozen_snapshot_exists": true,
+      "frozen_snapshot_immutable": true
+    },
+    {
+      "stage": "phase2_risk_free",
+      "table": "risk_free_rate_attribution_protocol",
+      "key": "v1",
+      "frozen_experiment": "risk_free_rate_attribution_v1",
+      "protocol_rows": 3,
+      "protocol_experiment_id": "risk_free_rate_attribution_v1",
+      "protocol_has_experiment_id": true,
+      "frozen_snapshot_exists": true,
+      "frozen_snapshot_immutable": true
+    },
+    {
+      "stage": "phase2_benchmark",
+      "table": "market_benchmark_protocol",
+      "key": "v1",
+      "frozen_experiment": "market_benchmark_attribution_v1",
+      "protocol_rows": 9,
+      "protocol_experiment_id": "market_benchmark_attribution_v1",
+      "protocol_has_experiment_id": true,
+      "frozen_snapshot_exists": true,
+      "frozen_snapshot_immutable": true
+    },
+    {
+      "stage": "phase3_model_validation",
+      "table": "model_stability_protocol",
+      "key": "v1",
+      "frozen_experiment": "model_stability_validation_v1",
+      "protocol_rows": 1,
+      "protocol_experiment_id": "model_stability_validation_v1",
+      "protocol_has_experiment_id": true,
+      "frozen_snapshot_exists": true,
+      "frozen_snapshot_immutable": true
+    },
+    {
+      "stage": "phase4_governance",
+      "table": "research_governance_protocol",
+      "key": "v1",
+      "frozen_experiment": "research_governance_v1",
+      "protocol_rows": 1,
+      "protocol_experiment_id": "research_governance_v1",
+      "protocol_has_experiment_id": true,
+      "frozen_snapshot_exists": true,
+      "frozen_snapshot_immutable": true
+    },
+    {
+      "stage": "phase5_execution",
+      "table": "institutional_execution_protocol",
+      "key": "v1",
+      "frozen_experiment": "institutional_execution_v2",
+      "protocol_rows": 1,
+      "protocol_experiment_id": "institutional_execution_v1",
+      "protocol_has_experiment_id": true,
+      "frozen_snapshot_exists": true,
+      "frozen_snapshot_immutable": true
+    },
+    {
+      "stage": "phase6_portfolio",
+      "table": "portfolio_construction_protocol",
+      "key": "v1",
+      "frozen_experiment": "portfolio_construction_comparison_v1",
+      "protocol_rows": 1,
+      "protocol_experiment_id": "portfolio_construction_comparison_v1",
+      "protocol_has_experiment_id": true,
+      "frozen_snapshot_exists": true,
+      "frozen_snapshot_immutable": true
+    },
+    {
+      "stage": "phase7_ledger",
+      "table": "unified_account_protocol",
+      "key": "v1",
+      "frozen_experiment": "unified_account_ledger_v1",
+      "protocol_rows": 1,
+      "protocol_experiment_id": "unified_account_ledger_v1",
+      "protocol_has_experiment_id": true,
+      "frozen_snapshot_exists": true,
+      "frozen_snapshot_immutable": true
+    },
+    {
+      "stage": "phase8_inference",
+      "table": "statistical_inference_protocol",
+      "key": "v1",
+      "frozen_experiment": "statistical_inference_protocol_v1",
+      "protocol_rows": 1,
+      "protocol_experiment_id": "statistical_inference_protocol_v1",
+      "protocol_has_experiment_id": true,
+      "frozen_snapshot_exists": true,
+      "frozen_snapshot_immutable": true
+    },
+    {
+      "stage": "phase9_alpha",
+      "table": "alpha_evidence_protocol",
+      "key": "v2",
+      "frozen_experiment": "alpha_evidence_matrix_v2",
+      "protocol_rows": 1,
+      "protocol_experiment_id": "alpha_evidence_matrix_v2",
+      "protocol_has_experiment_id": true,
+      "frozen_snapshot_exists": true,
+      "frozen_snapshot_immutable": true
+    },
+    {
+      "stage": "phase11_paper",
+      "table": "paper_trading_protocol",
+      "key": "v1",
+      "frozen_experiment": "paper_trading_pipeline_v1",
+      "protocol_rows": 1,
+      "protocol_experiment_id": "paper_trading_pipeline_v1",
+      "protocol_has_experiment_id": true,
+      "frozen_snapshot_exists": true,
+      "frozen_snapshot_immutable": true
+    },
+    {
+      "stage": "phase11_forward_data",
+      "table": "forward_data_protocol",
+      "key": "v1",
+      "frozen_experiment": "forward_data_pipeline_v1",
+      "protocol_rows": 1,
+      "protocol_experiment_id": "forward_data_pipeline_v1",
+      "protocol_has_experiment_id": true,
+      "frozen_snapshot_exists": true,
+      "frozen_snapshot_immutable": true
+    },
+    {
+      "stage": "phase12_share_execution",
+      "table": "idiosyncratic_execution_protocol",
+      "key": "v1",
+      "frozen_experiment": "idiosyncratic_share_execution_validation_v1",
+      "protocol_rows": 1,
+      "protocol_experiment_id": "idiosyncratic_share_execution_validation_v1",
+      "protocol_has_experiment_id": true,
+      "frozen_snapshot_exists": true,
+      "frozen_snapshot_immutable": true
+    },
+    {
+      "stage": "phase12_friction_diagnostic",
+      "table": "idiosyncratic_friction_protocol",
+      "key": "v1",
+      "frozen_experiment": "idiosyncratic_execution_friction_attribution_v1",
+      "protocol_rows": 1,
+      "protocol_experiment_id": "idiosyncratic_execution_friction_attribution_v1",
+      "protocol_has_experiment_id": true,
+      "frozen_snapshot_exists": true,
+      "frozen_snapshot_immutable": true
+    }
+  ],
+  "engineering_registry_inventory__v3": [
+    {
+      "experiment_id": "alpha_evidence_matrix_v1",
+      "index_occurrences": 1,
+      "indexed": true,
+      "snapshot_directory_exists": true,
+      "index_declares_immutable": true
+    },
+    {
+      "experiment_id": "alpha_evidence_matrix_v2",
+      "index_occurrences": 1,
+      "indexed": true,
+      "snapshot_directory_exists": true,
+      "index_declares_immutable": true
+    },
+    {
+      "experiment_id": "baseline_ridge_v1",
+      "index_occurrences": 1,
+      "indexed": true,
+      "snapshot_directory_exists": true,
+      "index_declares_immutable": true
+    },
+    {
+      "experiment_id": "capm_attribution_v1",
+      "index_occurrences": 1,
+      "indexed": true,
+      "snapshot_directory_exists": true,
+      "index_declares_immutable": true
+    },
+    {
+      "experiment_id": "challenger_hgb_blend_v1",
+      "index_occurrences": 1,
+      "indexed": true,
+      "snapshot_directory_exists": true,
+      "index_declares_immutable": true
+    },
+    {
+      "experiment_id": "constrained_portfolio_daily_execution_v1",
+      "index_occurrences": 1,
+      "indexed": true,
+      "snapshot_directory_exists": true,
+      "index_declares_immutable": true
+    },
+    {
+      "experiment_id": "constrained_portfolio_neutralization_v1",
+      "index_occurrences": 1,
+      "indexed": true,
+      "snapshot_directory_exists": true,
+      "index_declares_immutable": true
+    },
+    {
+      "experiment_id": "engineering_quality_v1",
+      "index_occurrences": 1,
+      "indexed": true,
+      "snapshot_directory_exists": true,
+      "index_declares_immutable": true
+    },
+    {
+      "experiment_id": "engineering_quality_v2",
+      "index_occurrences": 1,
+      "indexed": true,
+      "snapshot_directory_exists": true,
+      "index_declares_immutable": true
+    },
+    {
+      "experiment_id": "factor_neutralization_v1",
+      "index_occurrences": 1,
+      "indexed": true,
+      "snapshot_directory_exists": true,
+      "index_declares_immutable": true
+    },
+    {
+      "experiment_id": "factor_neutralization_v2",
+      "index_occurrences": 1,
+      "indexed": true,
+      "snapshot_directory_exists": true,
+      "index_declares_immutable": true
+    },
+    {
+      "experiment_id": "factor_preprocessing_ablation_v1",
+      "index_occurrences": 1,
+      "indexed": true,
+      "snapshot_directory_exists": true,
+      "index_declares_immutable": true
+    },
+    {
+      "experiment_id": "factor_preprocessing_ablation_v2",
+      "index_occurrences": 1,
+      "indexed": true,
+      "snapshot_directory_exists": true,
+      "index_declares_immutable": true
+    },
+    {
+      "experiment_id": "factor_preprocessing_oos_v1",
+      "index_occurrences": 1,
+      "indexed": true,
+      "snapshot_directory_exists": true,
+      "index_declares_immutable": true
+    },
+    {
+      "experiment_id": "factor_registry_v1",
+      "index_occurrences": 1,
+      "indexed": true,
+      "snapshot_directory_exists": true,
+      "index_declares_immutable": true
+    },
+    {
+      "experiment_id": "factor_registry_v2",
+      "index_occurrences": 1,
+      "indexed": true,
+      "snapshot_directory_exists": true,
+      "index_declares_immutable": true
+    },
+    {
+      "experiment_id": "factor_tear_sheet_v1",
+      "index_occurrences": 1,
+      "indexed": true,
+      "snapshot_directory_exists": true,
+      "index_declares_immutable": true
+    },
+    {
+      "experiment_id": "factor_visual_diagnostics_v1",
+      "index_occurrences": 1,
+      "indexed": true,
+      "snapshot_directory_exists": true,
+      "index_declares_immutable": true
+    },
+    {
+      "experiment_id": "final_research_baseline_v1",
+      "index_occurrences": 1,
+      "indexed": true,
+      "snapshot_directory_exists": true,
+      "index_declares_immutable": true
+    },
+    {
+      "experiment_id": "final_research_baseline_v2",
+      "index_occurrences": 1,
+      "indexed": true,
+      "snapshot_directory_exists": true,
+      "index_declares_immutable": true
+    },
+    {
+      "experiment_id": "final_research_baseline_v3",
+      "index_occurrences": 1,
+      "indexed": true,
+      "snapshot_directory_exists": true,
+      "index_declares_immutable": true
+    },
+    {
+      "experiment_id": "final_research_baseline_v4",
+      "index_occurrences": 1,
+      "indexed": true,
+      "snapshot_directory_exists": true,
+      "index_declares_immutable": true
+    },
+    {
+      "experiment_id": "final_research_baseline_v5",
+      "index_occurrences": 1,
+      "indexed": true,
+      "snapshot_directory_exists": true,
+      "index_declares_immutable": true
+    },
+    {
+      "experiment_id": "final_research_baseline_v6",
+      "index_occurrences": 1,
+      "indexed": true,
+      "snapshot_directory_exists": true,
+      "index_declares_immutable": true
+    },
+    {
+      "experiment_id": "forward_data_pipeline_v1",
+      "index_occurrences": 1,
+      "indexed": true,
+      "snapshot_directory_exists": true,
+      "index_declares_immutable": true
+    },
+    {
+      "experiment_id": "hgb_hyperparameter_stability_v1",
+      "index_occurrences": 1,
+      "indexed": true,
+      "snapshot_directory_exists": true,
+      "index_declares_immutable": true
+    },
+    {
+      "experiment_id": "ic_decay_v1",
+      "index_occurrences": 1,
+      "indexed": true,
+      "snapshot_directory_exists": true,
+      "index_declares_immutable": true
+    },
+    {
+      "experiment_id": "idiosyncratic_execution_friction_attribution_v1",
+      "index_occurrences": 1,
+      "indexed": true,
+      "snapshot_directory_exists": true,
+      "index_declares_immutable": true
+    },
+    {
+      "experiment_id": "idiosyncratic_portfolio_validation_v1",
+      "index_occurrences": 1,
+      "indexed": true,
+      "snapshot_directory_exists": true,
+      "index_declares_immutable": true
+    },
+    {
+      "experiment_id": "idiosyncratic_share_execution_validation_v1",
+      "index_occurrences": 1,
+      "indexed": true,
+      "snapshot_directory_exists": true,
+      "index_declares_immutable": true
+    },
+    {
+      "experiment_id": "idiosyncratic_target_validation_v1",
+      "index_occurrences": 1,
+      "indexed": true,
+      "snapshot_directory_exists": true,
+      "index_declares_immutable": true
+    },
+    {
+      "experiment_id": "incremental_alpha_fill_execution_v1",
+      "index_occurrences": 1,
+      "indexed": true,
+      "snapshot_directory_exists": true,
+      "index_declares_immutable": true
+    },
+    {
+      "experiment_id": "incremental_alpha_test_v1",
+      "index_occurrences": 1,
+      "indexed": true,
+      "snapshot_directory_exists": true,
+      "index_declares_immutable": true
+    },
+    {
+      "experiment_id": "institutional_execution_v1",
+      "index_occurrences": 1,
+      "indexed": true,
+      "snapshot_directory_exists": true,
+      "index_declares_immutable": true
+    },
+    {
+      "experiment_id": "institutional_execution_v2",
+      "index_occurrences": 1,
+      "indexed": true,
+      "snapshot_directory_exists": true,
+      "index_declares_immutable": true
+    },
+    {
+      "experiment_id": "label_horizon_v1",
+      "index_occurrences": 1,
+      "indexed": true,
+      "snapshot_directory_exists": true,
+      "index_declares_immutable": true
+    },
+    {
+      "experiment_id": "leave_one_factor_out_v1",
+      "index_occurrences": 1,
+      "indexed": true,
+      "snapshot_directory_exists": true,
+      "index_declares_immutable": true
+    },
+    {
+      "experiment_id": "market_benchmark_attribution_v1",
+      "index_occurrences": 1,
+      "indexed": true,
+      "snapshot_directory_exists": true,
+      "index_declares_immutable": true
+    },
+    {
+      "experiment_id": "model_benchmark_v1",
+      "index_occurrences": 1,
+      "indexed": true,
+      "snapshot_directory_exists": true,
+      "index_declares_immutable": true
+    },
+    {
+      "experiment_id": "model_portfolio_neutralization_v1",
+      "index_occurrences": 1,
+      "indexed": true,
+      "snapshot_directory_exists": true,
+      "index_declares_immutable": true
+    },
+    {
+      "experiment_id": "model_portfolio_neutralization_v2",
+      "index_occurrences": 1,
+      "indexed": true,
+      "snapshot_directory_exists": true,
+      "index_declares_immutable": true
+    },
+    {
+      "experiment_id": "model_stability_validation_v1",
+      "index_occurrences": 1,
+      "indexed": true,
+      "snapshot_directory_exists": true,
+      "index_declares_immutable": true
+    },
+    {
+      "experiment_id": "multi_factor_risk_attribution_v1",
+      "index_occurrences": 1,
+      "indexed": true,
+      "snapshot_directory_exists": true,
+      "index_declares_immutable": true
+    },
+    {
+      "experiment_id": "paper_trading_pipeline_v1",
+      "index_occurrences": 1,
+      "indexed": true,
+      "snapshot_directory_exists": true,
+      "index_declares_immutable": true
+    },
+    {
+      "experiment_id": "portfolio_construction_comparison_v1",
+      "index_occurrences": 1,
+      "indexed": true,
+      "snapshot_directory_exists": true,
+      "index_declares_immutable": true
+    },
+    {
+      "experiment_id": "portfolio_sensitivity_v1",
+      "index_occurrences": 1,
+      "indexed": true,
+      "snapshot_directory_exists": true,
+      "index_declares_immutable": true
+    },
+    {
+      "experiment_id": "research_conclusion_audit_v1",
+      "index_occurrences": 1,
+      "indexed": true,
+      "snapshot_directory_exists": true,
+      "index_declares_immutable": true
+    },
+    {
+      "experiment_id": "research_conclusion_audit_v2",
+      "index_occurrences": 1,
+      "indexed": true,
+      "snapshot_directory_exists": true,
+      "index_declares_immutable": true
+    },
+    {
+      "experiment_id": "research_conclusion_audit_v3",
+      "index_occurrences": 1,
+      "indexed": true,
+      "snapshot_directory_exists": true,
+      "index_declares_immutable": true
+    },
+    {
+      "experiment_id": "research_governance_v1",
+      "index_occurrences": 1,
+      "indexed": true,
+      "snapshot_directory_exists": true,
+      "index_declares_immutable": true
+    },
+    {
+      "experiment_id": "rf_daily_retry_execution_v1",
+      "index_occurrences": 1,
+      "indexed": true,
+      "snapshot_directory_exists": true,
+      "index_declares_immutable": true
+    },
+    {
+      "experiment_id": "rf_execution_forensics_v1",
+      "index_occurrences": 1,
+      "indexed": true,
+      "snapshot_directory_exists": true,
+      "index_declares_immutable": true
+    },
+    {
+      "experiment_id": "rf_hyperparameter_stability_v1",
+      "index_occurrences": 1,
+      "indexed": true,
+      "snapshot_directory_exists": true,
+      "index_declares_immutable": true
+    },
+    {
+      "experiment_id": "risk_aware_portfolio_optimization_v1",
+      "index_occurrences": 1,
+      "indexed": true,
+      "snapshot_directory_exists": true,
+      "index_declares_immutable": true
+    },
+    {
+      "experiment_id": "risk_aware_portfolio_optimization_v2",
+      "index_occurrences": 1,
+      "indexed": true,
+      "snapshot_directory_exists": true,
+      "index_declares_immutable": true
+    },
+    {
+      "experiment_id": "risk_free_rate_attribution_v1",
+      "index_occurrences": 1,
+      "indexed": true,
+      "snapshot_directory_exists": true,
+      "index_declares_immutable": true
+    },
+    {
+      "experiment_id": "size_neutralization_v1",
+      "index_occurrences": 1,
+      "indexed": true,
+      "snapshot_directory_exists": true,
+      "index_declares_immutable": true
+    },
+    {
+      "experiment_id": "statistical_inference_protocol_v1",
+      "index_occurrences": 1,
+      "indexed": true,
+      "snapshot_directory_exists": true,
+      "index_declares_immutable": true
+    },
+    {
+      "experiment_id": "style_factor_attribution_v1",
+      "index_occurrences": 1,
+      "indexed": true,
+      "snapshot_directory_exists": true,
+      "index_declares_immutable": true
+    },
+    {
+      "experiment_id": "transaction_cost_model_v1",
+      "index_occurrences": 1,
+      "indexed": true,
+      "snapshot_directory_exists": true,
+      "index_declares_immutable": true
+    },
+    {
+      "experiment_id": "unified_account_ledger_v1",
+      "index_occurrences": 1,
+      "indexed": true,
+      "snapshot_directory_exists": true,
+      "index_declares_immutable": true
+    }
+  ],
+  "engineering_gap_register__v3": [
+    {
+      "priority": "P0",
+      "gap": "failed_market_rows_could_enter_forward_labels",
+      "status": "CLOSED_IN_CODE_V2",
+      "mitigation": "quality-fail returns remain on the date axis but invalidate every affected label window"
+    },
+    {
+      "priority": "P1",
+      "gap": "live_curated_table_names_are_mutable",
+      "status": "CONTROLLED_BY_IMMUTABLE_REGISTRY",
+      "mitigation": "publication claims use frozen experiment SHA-256, never bare live v1 names"
+    },
+    {
+      "priority": "P1",
+      "gap": "no_static_type_gate",
+      "status": "OPEN",
+      "mitigation": "add pyright or mypy after annotating legacy modules"
+    },
+    {
+      "priority": "P2",
+      "gap": "pytest_cache_mount_permission",
+      "status": "CLOSED_TOOLING_V3",
+      "mitigation": "disable the optional pytest cache provider on read-only/shared mounts"
+    },
+    {
+      "priority": "P2",
+      "gap": "legacy_modules_still_contain_version_literals",
+      "status": "OPEN",
+      "mitigation": "migrate new work first; change old versions only with new experiment IDs"
+    },
+    {
+      "priority": "P1",
+      "gap": "licensed_industry_and_announcement_date_fundamentals",
+      "status": "BLOCKED_EXTERNAL_DATA",
+      "mitigation": "retain CSRC broad-industry and price/valuation scope; do not claim a commercial risk model"
+    },
+    {
+      "priority": "P1",
+      "gap": "official_corporate_actions_and_broker_calibrated_impact",
+      "status": "BLOCKED_EXTERNAL_DATA",
+      "mitigation": "retain explicit proxy/scenario labels and require vendor or broker data for promotion"
+    }
+  ],
+  "engineering_quality_checks__v3": [
+    {
+      "check_name": "execution_market_logic_has_one_definition",
+      "status": "PASS",
+      "observed": "[{'logic': 'corporate_action_proxy_formula', 'path': 'src/quant_research/execution_market.py', 'line': 41, 'is_definition': True}, {'logic': 'execution_buy_limit_rule', 'path': 'src/quant_research/execution_market.py', 'line': 52, 'is_definition': True}]"
+    },
+    {
+      "check_name": "all_execution_consumers_use_canonical_api",
+      "status": "PASS",
+      "observed": "['src/quant_research/execution_market.py', 'src/quant_research/idiosyncratic_share_execution_validation.py', 'src/quant_research/incremental_alpha_fill_execution.py', 'src/quant_research/institutional_execution.py', 'src/quant_research/paper_trading.py', 'src/quant_research/portfolio_construction_comparison.py']"
+    },
+    {
+      "check_name": "random_generators_have_explicit_seeds",
+      "status": "PASS",
+      "observed": "4"
+    },
+    {
+      "check_name": "five_test_layers_present",
+      "status": "PASS",
+      "observed": "{'data_contract': 20, 'integration': 13, 'property_invariant': 10, 'regression': 8, 'unit': 8}"
+    },
+    {
+      "check_name": "critical_outputs_have_versioned_protocols",
+      "status": "PASS",
+      "observed": "[{'stage': 'factor_research', 'table': 'factor_tear_sheet_protocol', 'key': 'v1', 'frozen_experiment': 'factor_tear_sheet_v1', 'protocol_rows': 1, 'protocol_experiment_id': 'factor_tear_sheet_v1', 'protocol_has_experiment_id': True, 'frozen_snapshot_exists': True, 'frozen_snapshot_immutable': True}, {'stage': 'factor_and_model_neutralization', 'table': 'model_neutralization_protocol', 'key': 'v1', 'frozen_experiment': 'model_portfolio_neutralization_v2', 'protocol_rows': 1, 'protocol_experiment_id': 'model_portfolio_neutralization_v2', 'protocol_has_experiment_id': True, 'frozen_snapshot_exists': True, 'frozen_snapshot_immutable': True}, {'stage': 'phase1_costs', 'table': 'transaction_cost_protocol', 'key': 'v1', 'frozen_experiment': 'transaction_cost_model_v1', 'protocol_rows': 10, 'protocol_experiment_id': 'transaction_cost_model_v1', 'protocol_has_experiment_id': True, 'frozen_snapshot_exists': True, 'frozen_snapshot_immutable': True}, {'stage': 'phase2_risk_free', 'table': 'risk_free_rate_attribution_protocol', 'key': 'v1', 'frozen_experiment': 'risk_free_rate_attribution_v1', 'protocol_rows': 3, 'protocol_experiment_id': 'risk_free_rate_attribution_v1', 'protocol_has_experiment_id': True, 'frozen_snapshot_exists': True, 'frozen_snapshot_immutable': True}, {'stage': 'phase2_benchmark', 'table': 'market_benchmark_protocol', 'key': 'v1', 'frozen_experiment': 'market_benchmark_attribution_v1', 'protocol_rows': 9, 'protocol_experiment_id': 'market_benchmark_attribution_v1', 'protocol_has_experiment_id': True, 'frozen_snapshot_exists': True, 'frozen_snapshot_immutable': True}, {'stage': 'phase3_model_validation', 'table': 'model_stability_protocol', 'key': 'v1', 'frozen_experiment': 'model_stability_validation_v1', 'protocol_rows': 1, 'protocol_experiment_id': 'model_stability_validation_v1', 'protocol_has_experiment_id': True, 'frozen_snapshot_exists': True, 'frozen_snapshot_immutable': True}, {'stage': 'phase4_governance', 'table': 'research_governance_protocol', 'key': 'v1', 'frozen_experiment': 'research_governance_v1', 'protocol_rows': 1, 'protocol_experiment_id': 'research_governance_v1', 'protocol_has_experiment_id': True, 'frozen_snapshot_exists': True, 'frozen_snapshot_immutable': True}, {'stage': 'phase5_execution', 'table': 'institutional_execution_protocol', 'key': 'v1', 'frozen_experiment': 'institutional_execution_v2', 'protocol_rows': 1, 'protocol_experiment_id': 'institutional_execution_v1', 'protocol_has_experiment_id': True, 'frozen_snapshot_exists': True, 'frozen_snapshot_immutable': True}, {'stage': 'phase6_portfolio', 'table': 'portfolio_construction_protocol', 'key': 'v1', 'frozen_experiment': 'portfolio_construction_comparison_v1', 'protocol_rows': 1, 'protocol_experiment_id': 'portfolio_construction_comparison_v1', 'protocol_has_experiment_id': True, 'frozen_snapshot_exists': True, 'frozen_snapshot_immutable': True}, {'stage': 'phase7_ledger', 'table': 'unified_account_protocol', 'key': 'v1', 'frozen_experiment': 'unified_account_ledger_v1', 'protocol_rows': 1, 'protocol_experiment_id': 'unified_account_ledger_v1', 'protocol_has_experiment_id': True, 'frozen_snapshot_exists': True, 'frozen_snapshot_immutable': True}, {'stage': 'phase8_inference', 'table': 'statistical_inference_protocol', 'key': 'v1', 'frozen_experiment': 'statistical_inference_protocol_v1', 'protocol_rows': 1, 'protocol_experiment_id': 'statistical_inference_protocol_v1', 'protocol_has_experiment_id': True, 'frozen_snapshot_exists': True, 'frozen_snapshot_immutable': True}, {'stage': 'phase9_alpha', 'table': 'alpha_evidence_protocol', 'key': 'v2', 'frozen_experiment': 'alpha_evidence_matrix_v2', 'protocol_rows': 1, 'protocol_experiment_id': 'alpha_evidence_matrix_v2', 'protocol_has_experiment_id': True, 'frozen_snapshot_exists': True, 'frozen_snapshot_immutable': True}, {'stage': 'phase11_paper', 'table': 'paper_trading_protocol', 'key': 'v1', 'frozen_experiment': 'paper_trading_pipeline_v1', 'protocol_rows': 1, 'protocol_experiment_id': 'paper_trading_pipeline_v1', 'protocol_has_experiment_id': True, 'frozen_snapshot_exists': True, 'frozen_snapshot_immutable': True}, {'stage': 'phase11_forward_data', 'table': 'forward_data_protocol', 'key': 'v1', 'frozen_experiment': 'forward_data_pipeline_v1', 'protocol_rows': 1, 'protocol_experiment_id': 'forward_data_pipeline_v1', 'protocol_has_experiment_id': True, 'frozen_snapshot_exists': True, 'frozen_snapshot_immutable': True}, {'stage': 'phase12_share_execution', 'table': 'idiosyncratic_execution_protocol', 'key': 'v1', 'frozen_experiment': 'idiosyncratic_share_execution_validation_v1', 'protocol_rows': 1, 'protocol_experiment_id': 'idiosyncratic_share_execution_validation_v1', 'protocol_has_experiment_id': True, 'frozen_snapshot_exists': True, 'frozen_snapshot_immutable': True}, {'stage': 'phase12_friction_diagnostic', 'table': 'idiosyncratic_friction_protocol', 'key': 'v1', 'frozen_experiment': 'idiosyncratic_execution_friction_attribution_v1', 'protocol_rows': 1, 'protocol_experiment_id': 'idiosyncratic_execution_friction_attribution_v1', 'protocol_has_experiment_id': True, 'frozen_snapshot_exists': True, 'frozen_snapshot_immutable': True}]"
+    },
+    {
+      "check_name": "critical_outputs_have_immutable_snapshots",
+      "status": "PASS",
+      "observed": "[{'stage': 'factor_research', 'frozen_experiment': 'factor_tear_sheet_v1'}, {'stage': 'factor_and_model_neutralization', 'frozen_experiment': 'model_portfolio_neutralization_v2'}, {'stage': 'phase1_costs', 'frozen_experiment': 'transaction_cost_model_v1'}, {'stage': 'phase2_risk_free', 'frozen_experiment': 'risk_free_rate_attribution_v1'}, {'stage': 'phase2_benchmark', 'frozen_experiment': 'market_benchmark_attribution_v1'}, {'stage': 'phase3_model_validation', 'frozen_experiment': 'model_stability_validation_v1'}, {'stage': 'phase4_governance', 'frozen_experiment': 'research_governance_v1'}, {'stage': 'phase5_execution', 'frozen_experiment': 'institutional_execution_v2'}, {'stage': 'phase6_portfolio', 'frozen_experiment': 'portfolio_construction_comparison_v1'}, {'stage': 'phase7_ledger', 'frozen_experiment': 'unified_account_ledger_v1'}, {'stage': 'phase8_inference', 'frozen_experiment': 'statistical_inference_protocol_v1'}, {'stage': 'phase9_alpha', 'frozen_experiment': 'alpha_evidence_matrix_v2'}, {'stage': 'phase11_paper', 'frozen_experiment': 'paper_trading_pipeline_v1'}, {'stage': 'phase11_forward_data', 'frozen_experiment': 'forward_data_pipeline_v1'}, {'stage': 'phase12_share_execution', 'frozen_experiment': 'idiosyncratic_share_execution_validation_v1'}, {'stage': 'phase12_friction_diagnostic', 'frozen_experiment': 'idiosyncratic_execution_friction_attribution_v1'}]"
+    },
+    {
+      "check_name": "frozen_experiment_inventory_complete",
+      "status": "PASS",
+      "observed": "{'records': 61, 'minimum': 61, 'duplicates': [], 'missing_snapshots': [], 'unindexed_snapshots': []}"
+    },
+    {
+      "check_name": "no_open_p0_engineering_gaps",
+      "status": "PASS",
+      "observed": "{('P0', 'CLOSED_IN_CODE_V2'): 1, ('P1', 'BLOCKED_EXTERNAL_DATA'): 2, ('P1', 'CONTROLLED_BY_IMMUTABLE_REGISTRY'): 1, ('P1', 'OPEN'): 1, ('P2', 'CLOSED_TOOLING_V3'): 1, ('P2', 'OPEN'): 1}"
+    }
+  ],
+  "engineering_failed_assertions__v3": [
+    {
+      "check_name": "NO_FAILED_ASSERTIONS",
+      "status": "PASS",
+      "observed": "all Phase 10 engineering gates passed"
+    }
+  ]
+}

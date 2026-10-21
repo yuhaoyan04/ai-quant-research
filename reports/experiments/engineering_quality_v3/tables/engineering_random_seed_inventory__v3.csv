@@ -1,0 +1,5 @@
+path,line,seed_expression,explicit_seed
+src/quant_research/idiosyncratic_portfolio_validation.py,603,"int(inference[""random_seed""]",True
+src/quant_research/incremental_alpha_test.py,451,"int(cfg[""bootstrap""][""random_seed""]",True
+src/quant_research/model_interpretation.py,86,zlib.crc32(seed_text,True
+src/quant_research/robustness.py,25,seed,True

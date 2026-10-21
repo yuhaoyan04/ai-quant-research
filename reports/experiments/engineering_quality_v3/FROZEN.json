@@ -1,0 +1,21 @@
+{
+  "experiment_id": "engineering_quality_v3",
+  "frozen_at_utc": "2026-10-21T07:04:42.174046+00:00",
+  "content_sha256": "026e007c0d2dce0d8fd7f08c562fbcba153b86fa9e4aa0e5d869d3bb531d3b97",
+  "files": {
+    "config.yaml": "bc9d74dd1d08f5e991ed0b78592d2b7879d3fa365e6b66575e6f1278b63391e5",
+    "figures/engineering_quality_v3.md": "c9101bdbde8dd4d10ed5f45c0e68e866b86ac7ccb26e5e4ec5045dc915a83214",
+    "metadata.json": "f02c1b338688989e6cf96d4dc7585c5ce6bafa0c62ceaa2ed8f56a9a3c85b977",
+    "metrics.json": "00a1e206b4a3b15c4cbdf75e932bf18751d2242d40555b3dc02f1aedb26a714b",
+    "notes.md": "44d2dd6d408bc7feb0666603362c46f4d1ac92328cbc9bcd10d1b38508cadfc0",
+    "tables/engineering_failed_assertions__v3.csv": "7a459fa2a4e41948d27cc36c3500c8da9ae775fcda7ad6ccddf4180183d99690",
+    "tables/engineering_gap_register__v3.csv": "2540dd0bf39d83bb37f2dace2420b21e89b8bbea6cbb30aeb07b74d1a70b9a9b",
+    "tables/engineering_implementation_inventory__v3.csv": "7525dfee02c6002186cba922c726b1fe3888fd286f27b962587ca625adc5d64e",
+    "tables/engineering_output_contracts__v3.csv": "23d4c7a3cc5103e676aa045c7eac82467277dc0f28c925915c532b7630a0a271",
+    "tables/engineering_quality_checks__v3.csv": "87a4cb84b47aa8b839f5772f6178a5d249c0e414fb68bab0429498b525c994f5",
+    "tables/engineering_quality_protocol__v3.csv": "77daff178a6e7d9a0e8ebbc5730030139c60433237423ac0058b962d5ff202ba",
+    "tables/engineering_random_seed_inventory__v3.csv": "a92f3e7390cd2d18d12139f87582a9d8d09573965724dc4a95ca5b1cf34669bb",
+    "tables/engineering_registry_inventory__v3.csv": "a3b063ae9c1034837a90ff3f5f19ed203c2b83a56ab2a9d3b92f4ed6810d1543",
+    "tables/engineering_test_layer_inventory__v3.csv": "dd169cd67e9ec208abc526e0f89962dfa93fba2f490709910458c61ec470ace5"
+  }
+}

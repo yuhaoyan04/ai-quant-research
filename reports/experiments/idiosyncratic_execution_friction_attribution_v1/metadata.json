@@ -1,0 +1,149 @@
+{
+  "experiment_id": "idiosyncratic_execution_friction_attribution_v1",
+  "title": "Validation-only share-execution friction OFAT and ordered waterfall",
+  "stage": "idiosyncratic_execution_friction_diagnostic",
+  "model_version": "frozen_targets_ofat_waterfall_v1",
+  "registered_at_utc": "2026-10-21T06:57:16.766178+00:00",
+  "immutable": true,
+  "selection_policy": "validation_only",
+  "historical_oos_used_for_selection": false,
+  "historical_oos_disclosure": "The 2021-2026 block has already been inspected during project development. It is historical out-of-sample evidence, not a pristine production lockbox.",
+  "evidence_class": "validation_selection",
+  "research_selection_role": "diagnostic",
+  "claims_independent_evidence": false,
+  "lockbox_id": null,
+  "dataset_version": "cf21a5d678a72c37f381a3ccd3b583a29dfc908ed17d4a6be1b2639b8ef8f4f7",
+  "dataset_manifest": {
+    "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/manifests/ingestion.jsonl",
+    "size_bytes": 48822739,
+    "sha256": "d3c6d3f5fd53f8b5964dcc0ebfb0b146c8387fd7973b92c9b98a95072f8d2511"
+  },
+  "input_artifacts": [
+    {
+      "table": "idiosyncratic_portfolio_targets",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/idiosyncratic_portfolio_targets/key=v1/data.parquet",
+      "size_bytes": 2941690,
+      "sha256": "12af618a1eb75eac9d2d94724fe021cc06529b208f89475e7e5a2525f67dd1ed"
+    },
+    {
+      "table": "idiosyncratic_execution_market",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/idiosyncratic_execution_market/key=v1/data.parquet",
+      "size_bytes": 57517937,
+      "sha256": "19a62f90f3ba154aea5c76bd81781107d586d78e6031eca06694a069b3b82b3b"
+    },
+    {
+      "table": "idiosyncratic_execution_rf_daily",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/idiosyncratic_execution_rf_daily/key=v1/data.parquet",
+      "size_bytes": 99871,
+      "sha256": "1e47bf94109a592de054e31c3717e4dee6f9632b592fd4180b2ecaaa336cffd1"
+    },
+    {
+      "table": "idiosyncratic_execution_daily",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/idiosyncratic_execution_daily/key=v1/data.parquet",
+      "size_bytes": 569602,
+      "sha256": "3546b36442407b36da68644ef4f683dde5eeae202554ba92c17f91bcd6d6a8df"
+    },
+    {
+      "table": "idiosyncratic_execution_upper_bound_daily",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/idiosyncratic_execution_upper_bound_daily/key=v1/data.parquet",
+      "size_bytes": 443430,
+      "sha256": "108f69a806a9b79342574ddb5a197ee7186f5d3f8490153c923cb8cec0855b7c"
+    },
+    {
+      "table": "idiosyncratic_execution_events",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/idiosyncratic_execution_events/key=v1/data.parquet",
+      "size_bytes": 3004671,
+      "sha256": "6d06857d47b9e56235ea13cc6b6a405fcf5264863b9f4461dc6dffbba031b1e1"
+    }
+  ],
+  "metric_artifacts": [
+    {
+      "table": "idiosyncratic_friction_protocol",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/idiosyncratic_friction_protocol/key=v1/data.parquet",
+      "size_bytes": 7339,
+      "sha256": "10fc8a516c90e070e142bb9f7a845fb5a87a6587348e82a635f2c4bb8a75a8db"
+    },
+    {
+      "table": "idiosyncratic_friction_daily",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/idiosyncratic_friction_daily/key=v1/data.parquet",
+      "size_bytes": 3370372,
+      "sha256": "8a7e524ac14c0b565e8df6e97c2cafdef7d7d70b6304451b0bc1731dceab0608"
+    },
+    {
+      "table": "idiosyncratic_friction_summary",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/idiosyncratic_friction_summary/key=v1/data.parquet",
+      "size_bytes": 19318,
+      "sha256": "741c4cdaaa3ec786613794e850d7f83a002cbbb0b45137b92bff678246a4d179"
+    },
+    {
+      "table": "idiosyncratic_friction_invariants",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/idiosyncratic_friction_invariants/key=v1/data.parquet",
+      "size_bytes": 10861,
+      "sha256": "3fd153e4a6ff8bbf5fedaf431c706a1369157ee0107d3a041d0f2627e6760453"
+    },
+    {
+      "table": "idiosyncratic_friction_attribution",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/idiosyncratic_friction_attribution/key=v1/data.parquet",
+      "size_bytes": 12689,
+      "sha256": "0c0d89bce26d630d219bebaf38925b9a733ffe920955768026b9db5c887a626a"
+    },
+    {
+      "table": "idiosyncratic_friction_waterfall",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/idiosyncratic_friction_waterfall/key=v1/data.parquet",
+      "size_bytes": 6433,
+      "sha256": "9ec56803bb1add529556c1d6e425a4af334ae8d876f9f031b0e1208fe9624c7f"
+    },
+    {
+      "table": "idiosyncratic_friction_inference",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/idiosyncratic_friction_inference/key=v1/data.parquet",
+      "size_bytes": 8432,
+      "sha256": "8f00b8feee9e0dc2e6114f538ae25b1015c5f444fa7c0c3a3ed1a9529b20f013"
+    },
+    {
+      "table": "idiosyncratic_friction_blockers",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/idiosyncratic_friction_blockers/key=v1/data.parquet",
+      "size_bytes": 4843,
+      "sha256": "e729cae54e60ea7b973385d778dbeb5b459e24b4855da2293ed93d4a5ac42cb5"
+    }
+  ],
+  "figures": [
+    {
+      "source": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/reports/idiosyncratic_execution_friction_attribution.md",
+      "snapshot": "idiosyncratic_execution_friction_attribution.md",
+      "sha256": "ff51e67c9cab96eaf865cf38b1d5e4788421ba38b0d710d81d626749038d15fa"
+    }
+  ],
+  "source_tree_sha256": "9fb670d1a063d9ef8d3518eb03ac8f889fe8c6c58e8b437fd4a7a8a6b8a501fc",
+  "git": {
+    "commit": "fb1c6fb7c7afb1da9e95abd922e6be8be9686895",
+    "dirty": true,
+    "status_sha256": "dc4e8b12de813ba5e35f75715cd94561800cfc1d23aa986488a8b19b29719c7f"
+  },
+  "environment": {
+    "python": "3.11.16",
+    "implementation": "CPython",
+    "platform": "Linux-5.15.0-92-generic-x86_64-with-glibc2.35",
+    "packages": {
+      "pandas": "3.0.6",
+      "pyarrow": "25.0.1",
+      "PyYAML": "6.0.3",
+      "scikit-learn": "1.9.1",
+      "numpy": "2.4.6",
+      "scipy": "1.17.1"
+    }
+  }
+}

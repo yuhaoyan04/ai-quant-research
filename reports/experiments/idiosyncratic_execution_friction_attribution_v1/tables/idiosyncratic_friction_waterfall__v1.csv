@@ -1,0 +1,16 @@
+path_id,step_number,scenario_id,step_name,annualized_return,ordered_incremental_annualized_return,cumulative_fraction_of_upper_bound_gap,increments_are_order_dependent
+hgb_raw_model,0,all_constraints,baseline,0.12794475400356742,0.0,0.0,True
+hgb_raw_model,1,no_trade_flags,relax_trade_flags,0.15189265201917346,0.02394789801560604,0.8897423522794344,True
+hgb_raw_model,2,no_trade_flags_no_volume,then_relax_volume_participation,0.15471497487721253,0.0028223228580390725,0.9946008320076877,True
+hgb_raw_model,3,no_trade_flags_no_volume_no_lot,then_relax_order_quantity_rules,0.15486029641228138,0.00014532153506885415,1.0,True
+hgb_raw_model,4,fractional_upper_bound,then_relax_t_plus_one,0.15486029641228138,0.0,1.0,True
+hgb_residual_model,0,all_constraints,baseline,0.13179128488574365,0.0,0.0,True
+hgb_residual_model,1,no_trade_flags,relax_trade_flags,0.21402334582451799,0.08223206093877433,0.5114313112646418,True
+hgb_residual_model,2,no_trade_flags_no_volume,then_relax_volume_participation,0.29227305879120324,0.07824971296668526,0.9980949416268918,True
+hgb_residual_model,3,no_trade_flags_no_volume_no_lot,then_relax_order_quantity_rules,0.29257936947805185,0.00030631068684860985,1.0,True
+hgb_residual_model,4,fractional_upper_bound,then_relax_t_plus_one,0.29257936947805185,0.0,1.0,True
+hgb_residual_style_benchmark,0,all_constraints,baseline,-0.02207616831908421,0.0,0.0,True
+hgb_residual_style_benchmark,1,no_trade_flags,relax_trade_flags,-0.011982842275253924,0.010093326043830286,1.068585964252695,True
+hgb_residual_style_benchmark,2,no_trade_flags_no_volume,then_relax_volume_participation,-0.013038500597825964,-0.0010556583225720395,0.9568228386340024,True
+hgb_residual_style_benchmark,3,no_trade_flags_no_volume_no_lot,then_relax_order_quantity_rules,-0.012630670828492563,0.000407829769333401,1.0,True
+hgb_residual_style_benchmark,4,fractional_upper_bound,then_relax_t_plus_one,-0.012630670828492563,0.0,1.0,True

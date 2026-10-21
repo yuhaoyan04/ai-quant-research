@@ -1,0 +1,17 @@
+layer,path,exists,test_functions
+unit,tests/test_execution_market.py,True,3
+unit,tests/test_transaction_costs.py,True,5
+integration,tests/test_institutional_execution.py,True,8
+integration,tests/test_unified_account_ledger.py,True,2
+integration,tests/test_idiosyncratic_share_execution_validation.py,True,3
+regression,tests/test_alpha_evidence_matrix.py,True,2
+regression,tests/test_statistical_inference.py,True,3
+regression,tests/test_idiosyncratic_execution_friction_attribution.py,True,3
+property_invariant,tests/test_institutional_execution.py,True,8
+property_invariant,tests/test_unified_account_ledger.py,True,2
+data_contract,tests/test_quality_factors.py,True,4
+data_contract,tests/test_panel.py,True,5
+data_contract,tests/test_pit_universe.py,True,1
+data_contract,tests/test_forward_data.py,True,3
+data_contract,tests/test_market_benchmark_attribution.py,True,3
+data_contract,tests/test_risk_free_rate_attribution.py,True,4

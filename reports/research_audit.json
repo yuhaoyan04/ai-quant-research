@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-10-21T06:00:21.929254+00:00",
+  "generated_at_utc": "2026-10-21T07:05:50.150912+00:00",
   "checks": [
     {
       "name": "chronological_split_order",
@@ -352,6 +352,16 @@
       "detail": "all registered inputs match their SHA-256 hashes"
     },
     {
+      "name": "frozen_snapshot_integrity:final_research_baseline_v6",
+      "status": "PASS",
+      "detail": "all frozen files match FROZEN.json"
+    },
+    {
+      "name": "frozen_live_inputs:final_research_baseline_v6",
+      "status": "PASS",
+      "detail": "all registered inputs match their SHA-256 hashes"
+    },
+    {
       "name": "frozen_snapshot_integrity:final_research_baseline_v1",
       "status": "PASS",
       "detail": "all frozen files match FROZEN.json"
@@ -552,6 +562,16 @@
       "detail": "all registered inputs match their SHA-256 hashes"
     },
     {
+      "name": "frozen_snapshot_integrity:engineering_quality_v3",
+      "status": "PASS",
+      "detail": "all frozen files match FROZEN.json"
+    },
+    {
+      "name": "frozen_live_inputs:engineering_quality_v3",
+      "status": "PASS",
+      "detail": "all registered inputs match their SHA-256 hashes"
+    },
+    {
       "name": "frozen_snapshot_integrity:paper_trading_pipeline_v1",
       "status": "PASS",
       "detail": "all frozen files match FROZEN.json"
@@ -600,6 +620,26 @@
       "name": "frozen_live_inputs:idiosyncratic_share_execution_validation_v1",
       "status": "PASS",
       "detail": "all registered inputs match their SHA-256 hashes"
+    },
+    {
+      "name": "frozen_snapshot_integrity:idiosyncratic_execution_friction_attribution_v1",
+      "status": "PASS",
+      "detail": "all frozen files match FROZEN.json"
+    },
+    {
+      "name": "frozen_live_inputs:idiosyncratic_execution_friction_attribution_v1",
+      "status": "PASS",
+      "detail": "all registered inputs match their SHA-256 hashes"
+    },
+    {
+      "name": "invalidated_experiment:engineering_quality_v2",
+      "status": "WARN",
+      "detail": "severity=superseded_engineering_contract; superseded_by=engineering_quality_v3; reason=V3 adds the Phase 12.2 share-execution and Phase 12.3 friction-attribution protocols to the critical immutable output contract and removes optional pytest-cache warnings on shared read-only mounts. Research logic and historical conclusions are unchanged."
+    },
+    {
+      "name": "invalidated_experiment:final_research_baseline_v5",
+      "status": "WARN",
+      "detail": "severity=superseded_publication_baseline; superseded_by=final_research_baseline_v6; reason=V6 adds a validation-only OFAT and ordered-waterfall attribution of the already disclosed residual-target execution shortfall. Research and promotion conclusions are unchanged; the new baseline makes the constraint interaction and non-causal interpretation boundary explicit."
     },
     {
       "name": "invalidated_experiment:research_conclusion_audit_v2",
@@ -2057,42 +2097,42 @@
       "detail": "paths=8, checks=10"
     },
     {
-      "name": "artifact:engineering_quality_protocol/v2",
+      "name": "artifact:engineering_quality_protocol/v3",
       "status": "PASS",
       "detail": "rows=1"
     },
     {
-      "name": "artifact:engineering_implementation_inventory/v2",
-      "status": "PASS",
-      "detail": "rows=7"
-    },
-    {
-      "name": "artifact:engineering_random_seed_inventory/v2",
-      "status": "PASS",
-      "detail": "rows=3"
-    },
-    {
-      "name": "artifact:engineering_test_layer_inventory/v2",
-      "status": "PASS",
-      "detail": "rows=14"
-    },
-    {
-      "name": "artifact:engineering_output_contracts/v2",
-      "status": "PASS",
-      "detail": "rows=14"
-    },
-    {
-      "name": "artifact:engineering_gap_register/v2",
-      "status": "PASS",
-      "detail": "rows=7"
-    },
-    {
-      "name": "artifact:engineering_quality_checks/v2",
+      "name": "artifact:engineering_implementation_inventory/v3",
       "status": "PASS",
       "detail": "rows=8"
     },
     {
-      "name": "artifact:engineering_failed_assertions/v2",
+      "name": "artifact:engineering_random_seed_inventory/v3",
+      "status": "PASS",
+      "detail": "rows=4"
+    },
+    {
+      "name": "artifact:engineering_test_layer_inventory/v3",
+      "status": "PASS",
+      "detail": "rows=16"
+    },
+    {
+      "name": "artifact:engineering_output_contracts/v3",
+      "status": "PASS",
+      "detail": "rows=16"
+    },
+    {
+      "name": "artifact:engineering_gap_register/v3",
+      "status": "PASS",
+      "detail": "rows=7"
+    },
+    {
+      "name": "artifact:engineering_quality_checks/v3",
+      "status": "PASS",
+      "detail": "rows=8"
+    },
+    {
+      "name": "artifact:engineering_failed_assertions/v3",
       "status": "PASS",
       "detail": "rows=1"
     },
@@ -2109,22 +2149,22 @@
     {
       "name": "engineering_quality_single_execution_market_implementation",
       "status": "PASS",
-      "detail": "[{'logic': 'corporate_action_proxy_formula', 'path': 'src/quant_research/execution_market.py', 'line': 41, 'is_definition': True}, {'logic': 'execution_buy_limit_rule', 'path': 'src/quant_research/execution_market.py', 'line': 52, 'is_definition': True}, {'logic': 'execution_market_public_api', 'path': 'src/quant_research/execution_market.py', 'line': 64, 'is_definition': True}, {'logic': 'execution_market_public_api', 'path': 'src/quant_research/incremental_alpha_fill_execution.py', 'line': 69, 'is_definition': False}, {'logic': 'execution_market_public_api', 'path': 'src/quant_research/institutional_execution.py', 'line': 554, 'is_definition': False}, {'logic': 'execution_market_public_api', 'path': 'src/quant_research/paper_trading.py', 'line': 646, 'is_definition': False}, {'logic': 'execution_market_public_api', 'path': 'src/quant_research/portfolio_construction_comparison.py', 'line': 531, 'is_definition': False}]"
+      "detail": "[{'logic': 'corporate_action_proxy_formula', 'path': 'src/quant_research/execution_market.py', 'line': 41, 'is_definition': True}, {'logic': 'execution_buy_limit_rule', 'path': 'src/quant_research/execution_market.py', 'line': 52, 'is_definition': True}, {'logic': 'execution_market_public_api', 'path': 'src/quant_research/execution_market.py', 'line': 64, 'is_definition': True}, {'logic': 'execution_market_public_api', 'path': 'src/quant_research/idiosyncratic_share_execution_validation.py', 'line': 127, 'is_definition': False}, {'logic': 'execution_market_public_api', 'path': 'src/quant_research/incremental_alpha_fill_execution.py', 'line': 69, 'is_definition': False}, {'logic': 'execution_market_public_api', 'path': 'src/quant_research/institutional_execution.py', 'line': 560, 'is_definition': False}, {'logic': 'execution_market_public_api', 'path': 'src/quant_research/paper_trading.py', 'line': 646, 'is_definition': False}, {'logic': 'execution_market_public_api', 'path': 'src/quant_research/portfolio_construction_comparison.py', 'line': 531, 'is_definition': False}]"
     },
     {
       "name": "engineering_quality_tests_and_seeds_complete",
       "status": "PASS",
-      "detail": "layers=5, random_generators=3"
+      "detail": "layers=5, random_generators=4"
     },
     {
       "name": "engineering_quality_output_contracts_frozen",
       "status": "PASS",
-      "detail": "[{'stage': 'factor_research', 'frozen_experiment': 'factor_tear_sheet_v1'}, {'stage': 'factor_and_model_neutralization', 'frozen_experiment': 'model_portfolio_neutralization_v2'}, {'stage': 'phase1_costs', 'frozen_experiment': 'transaction_cost_model_v1'}, {'stage': 'phase2_risk_free', 'frozen_experiment': 'risk_free_rate_attribution_v1'}, {'stage': 'phase2_benchmark', 'frozen_experiment': 'market_benchmark_attribution_v1'}, {'stage': 'phase3_model_validation', 'frozen_experiment': 'model_stability_validation_v1'}, {'stage': 'phase4_governance', 'frozen_experiment': 'research_governance_v1'}, {'stage': 'phase5_execution', 'frozen_experiment': 'institutional_execution_v2'}, {'stage': 'phase6_portfolio', 'frozen_experiment': 'portfolio_construction_comparison_v1'}, {'stage': 'phase7_ledger', 'frozen_experiment': 'unified_account_ledger_v1'}, {'stage': 'phase8_inference', 'frozen_experiment': 'statistical_inference_protocol_v1'}, {'stage': 'phase9_alpha', 'frozen_experiment': 'alpha_evidence_matrix_v2'}, {'stage': 'phase11_paper', 'frozen_experiment': 'paper_trading_pipeline_v1'}, {'stage': 'phase11_forward_data', 'frozen_experiment': 'forward_data_pipeline_v1'}]"
+      "detail": "[{'stage': 'factor_research', 'frozen_experiment': 'factor_tear_sheet_v1'}, {'stage': 'factor_and_model_neutralization', 'frozen_experiment': 'model_portfolio_neutralization_v2'}, {'stage': 'phase1_costs', 'frozen_experiment': 'transaction_cost_model_v1'}, {'stage': 'phase2_risk_free', 'frozen_experiment': 'risk_free_rate_attribution_v1'}, {'stage': 'phase2_benchmark', 'frozen_experiment': 'market_benchmark_attribution_v1'}, {'stage': 'phase3_model_validation', 'frozen_experiment': 'model_stability_validation_v1'}, {'stage': 'phase4_governance', 'frozen_experiment': 'research_governance_v1'}, {'stage': 'phase5_execution', 'frozen_experiment': 'institutional_execution_v2'}, {'stage': 'phase6_portfolio', 'frozen_experiment': 'portfolio_construction_comparison_v1'}, {'stage': 'phase7_ledger', 'frozen_experiment': 'unified_account_ledger_v1'}, {'stage': 'phase8_inference', 'frozen_experiment': 'statistical_inference_protocol_v1'}, {'stage': 'phase9_alpha', 'frozen_experiment': 'alpha_evidence_matrix_v2'}, {'stage': 'phase11_paper', 'frozen_experiment': 'paper_trading_pipeline_v1'}, {'stage': 'phase11_forward_data', 'frozen_experiment': 'forward_data_pipeline_v1'}, {'stage': 'phase12_share_execution', 'frozen_experiment': 'idiosyncratic_share_execution_validation_v1'}, {'stage': 'phase12_friction_diagnostic', 'frozen_experiment': 'idiosyncratic_execution_friction_attribution_v1'}]"
     },
     {
       "name": "engineering_quality_no_open_p0",
       "status": "PASS",
-      "detail": "{('P0', 'CLOSED_IN_CODE_V2'): 1, ('P1', 'BLOCKED_EXTERNAL_DATA'): 2, ('P1', 'CONTROLLED_BY_IMMUTABLE_REGISTRY'): 1, ('P1', 'OPEN'): 1, ('P2', 'OPEN'): 1, ('P2', 'OPEN_NONRESEARCH'): 1}"
+      "detail": "{('P0', 'CLOSED_IN_CODE_V2'): 1, ('P1', 'BLOCKED_EXTERNAL_DATA'): 2, ('P1', 'CONTROLLED_BY_IMMUTABLE_REGISTRY'): 1, ('P1', 'OPEN'): 1, ('P2', 'CLOSED_TOOLING_V3'): 1, ('P2', 'OPEN'): 1}"
     },
     {
       "name": "engineering_quality_assertion_log_clean",
@@ -2672,6 +2712,191 @@
       "detail": "costs=[0.0, 20.0, 50.0, 100.0], monotone=True"
     },
     {
+      "name": "artifact:idiosyncratic_execution_protocol/v1",
+      "status": "PASS",
+      "detail": "rows=1"
+    },
+    {
+      "name": "artifact:idiosyncratic_execution_daily/v1",
+      "status": "PASS",
+      "detail": "rows=3,630"
+    },
+    {
+      "name": "artifact:idiosyncratic_execution_summary/v1",
+      "status": "PASS",
+      "detail": "rows=3"
+    },
+    {
+      "name": "artifact:idiosyncratic_execution_invariants/v1",
+      "status": "PASS",
+      "detail": "rows=3"
+    },
+    {
+      "name": "artifact:idiosyncratic_execution_paired_inference/v1",
+      "status": "PASS",
+      "detail": "rows=48"
+    },
+    {
+      "name": "artifact:idiosyncratic_execution_upper_bound_inference/v1",
+      "status": "PASS",
+      "detail": "rows=48"
+    },
+    {
+      "name": "artifact:idiosyncratic_execution_bridge/v1",
+      "status": "PASS",
+      "detail": "rows=3"
+    },
+    {
+      "name": "artifact:idiosyncratic_execution_exposure_audit/v1",
+      "status": "PASS",
+      "detail": "rows=762"
+    },
+    {
+      "name": "artifact:idiosyncratic_execution_rf_coverage/v1",
+      "status": "PASS",
+      "detail": "rows=3"
+    },
+    {
+      "name": "artifact:idiosyncratic_execution_checks/v1",
+      "status": "PASS",
+      "detail": "rows=15"
+    },
+    {
+      "name": "artifact:idiosyncratic_execution_promotion_decision/v1",
+      "status": "PASS",
+      "detail": "rows=1"
+    },
+    {
+      "name": "artifact:idiosyncratic_execution_trial_registry/v1",
+      "status": "PASS",
+      "detail": "rows=6"
+    },
+    {
+      "name": "artifact:idiosyncratic_execution_failed_assertions/v1",
+      "status": "PASS",
+      "detail": "rows=5"
+    },
+    {
+      "name": "idiosyncratic_execution_validation_only_protocol",
+      "status": "PASS",
+      "detail": "evidence_class=validation_selection, independent=False, historical_oos_used=False"
+    },
+    {
+      "name": "idiosyncratic_execution_common_validation_clock",
+      "status": "PASS",
+      "detail": "clock={'hgb_raw_model': {'count': 1210, 'min': '2016-01-11', 'max': '2020-12-28'}, 'hgb_residual_model': {'count': 1210, 'min': '2016-01-11', 'max': '2020-12-28'}, 'hgb_residual_style_benchmark': {'count': 1210, 'min': '2016-01-11', 'max': '2020-12-28'}}"
+    },
+    {
+      "name": "idiosyncratic_execution_accounting_and_rf_complete",
+      "status": "PASS",
+      "detail": "paths=3, rf_missing=0, invariants=True"
+    },
+    {
+      "name": "idiosyncratic_execution_reliable_rf_coverage",
+      "status": "PASS",
+      "detail": "[{'scenario_id': 'R1_ccdc_cgb_3m', 'dates': 1210, 'start_date': '2016-01-11', 'end_date': '2020-12-28', 'missing_dates': 0, 'missing_rate': 0.0, 'interpolated_dates': 0, 'stale_dates': 0, 'maximum_staleness_calendar_days': 11.0, 'minimum_annual_rate_percent': 0.8352, 'maximum_annual_rate_percent': 4.021}]"
+    },
+    {
+      "name": "idiosyncratic_execution_primary_alpha_not_established",
+      "status": "PASS",
+      "detail": "[{'comparison_id': 'residual_model_minus_raw_model', 'candidate_path': 'hgb_residual_model', 'reference_path': 'hgb_raw_model', 'metric': 'incremental_net_return_annualized_arithmetic', 'observations': 1210, 'block_length_trading_days': 20, 'point_estimate': 0.003305992836216496, 'ci_2_5pct': -0.053073045576759466, 'ci_97_5pct': 0.05878175703977854, 'probability_improvement_nonpositive': 0.456271864067966, 'bh_fdr_adjusted_probability': 0.456271864067966, 'survives_bh_fdr_5pct': False, 'is_primary_block': True}]"
+    },
+    {
+      "name": "idiosyncratic_execution_upper_bound_is_diagnostic_only",
+      "status": "PASS",
+      "detail": "[{'comparison_id': 'residual_model_minus_raw_model', 'candidate_path': 'hgb_residual_model', 'reference_path': 'hgb_raw_model', 'metric': 'incremental_net_return_annualized_arithmetic', 'observations': 1210, 'block_length_trading_days': 20, 'point_estimate': 0.11248455843983451, 'ci_2_5pct': 0.04248202750358953, 'ci_97_5pct': 0.1865351399649589, 'probability_improvement_nonpositive': 0.0014992503748125937, 'bh_fdr_adjusted_probability': 0.0014992503748125937, 'survives_bh_fdr_5pct': True, 'is_primary_block': True}]"
+    },
+    {
+      "name": "idiosyncratic_execution_overlapping_target_return_invalidated",
+      "status": "PASS",
+      "detail": "overlapping_intervals=[np.int64(33)]"
+    },
+    {
+      "name": "idiosyncratic_execution_rejection_is_complete",
+      "status": "PASS",
+      "detail": "promoted=False, paper_observations=0, failed_checks=['pit_exposure_coverage', 'primary_incremental_return_bh_fdr', 'primary_incremental_return_ci_positive', 'share_fill_gate', 'tracking_error_gate']"
+    },
+    {
+      "name": "artifact:idiosyncratic_friction_protocol/v1",
+      "status": "PASS",
+      "detail": "rows=1"
+    },
+    {
+      "name": "artifact:idiosyncratic_friction_daily/v1",
+      "status": "PASS",
+      "detail": "rows=29,040"
+    },
+    {
+      "name": "artifact:idiosyncratic_friction_summary/v1",
+      "status": "PASS",
+      "detail": "rows=24"
+    },
+    {
+      "name": "artifact:idiosyncratic_friction_invariants/v1",
+      "status": "PASS",
+      "detail": "rows=18"
+    },
+    {
+      "name": "artifact:idiosyncratic_friction_attribution/v1",
+      "status": "PASS",
+      "detail": "rows=24"
+    },
+    {
+      "name": "artifact:idiosyncratic_friction_waterfall/v1",
+      "status": "PASS",
+      "detail": "rows=15"
+    },
+    {
+      "name": "artifact:idiosyncratic_friction_inference/v1",
+      "status": "PASS",
+      "detail": "rows=21"
+    },
+    {
+      "name": "artifact:idiosyncratic_friction_blockers/v1",
+      "status": "PASS",
+      "detail": "rows=73"
+    },
+    {
+      "name": "idiosyncratic_friction_is_diagnostic_only",
+      "status": "PASS",
+      "detail": "{'experiment_id': 'idiosyncratic_execution_friction_attribution_v1', 'source_experiment': 'idiosyncratic_share_execution_validation_v1', 'evidence_class': 'validation_selection', 'research_selection_role': 'diagnostic', 'claims_independent_evidence': False, 'historical_oos_used_for_selection': False, 'signals_or_targets_changed': False, 'promotion_or_selection_allowed': False, 'paper_observations_created': 0, 'ofat_effects_are_additive': False}"
+    },
+    {
+      "name": "idiosyncratic_friction_common_clock_complete",
+      "status": "PASS",
+      "detail": "path_scenarios=24, date_counts=[np.int64(1210)]"
+    },
+    {
+      "name": "idiosyncratic_friction_scenario_matrix_complete",
+      "status": "PASS",
+      "detail": "summary_rows=24, attribution_rows=24"
+    },
+    {
+      "name": "idiosyncratic_friction_replays_reconcile",
+      "status": "PASS",
+      "detail": "replays=18, all_pass=True"
+    },
+    {
+      "name": "idiosyncratic_friction_bridge_reconciles",
+      "status": "PASS",
+      "detail": "baseline uplift is zero and upper-bound gap fraction is one"
+    },
+    {
+      "name": "idiosyncratic_friction_inference_complete",
+      "status": "PASS",
+      "detail": "comparisons=21, paths=3"
+    },
+    {
+      "name": "idiosyncratic_friction_waterfall_reconciles",
+      "status": "PASS",
+      "detail": "five ordered steps per path reconcile to the fractional upper bound"
+    },
+    {
+      "name": "idiosyncratic_friction_interpretation_consistent",
+      "status": "PASS",
+      "detail": "trade flags explain part, not all, of the diagnostic gap; T+1 explains none"
+    },
+    {
       "name": "artifact:research_conclusion_decisions/v3",
       "status": "PASS",
       "detail": "rows=7"
@@ -2803,8 +3028,8 @@
     }
   ],
   "findings": {
-    "registered_frozen_experiments": 59,
-    "invalidated_experiments": 27,
+    "registered_frozen_experiments": 62,
+    "invalidated_experiments": 29,
     "common_oos_weeks": 291,
     "ridge_annualized_return_20bp": 0.2005894880405501,
     "challenger_annualized_return_20bp": 0.2507876712519381,
@@ -2917,6 +3142,13 @@
     "hgb_validation_surface_rank_ic_min": 0.09713976299008095,
     "hgb_validation_surface_rank_ic_max": 0.09980789470340727,
     "factor_registry_count": 15,
+    "idiosyncratic_execution_residual_minus_raw_annualized": 0.003305992836216496,
+    "idiosyncratic_execution_residual_minus_raw_ci_low": -0.053073045576759466,
+    "idiosyncratic_execution_residual_minus_raw_ci_high": 0.05878175703977854,
+    "idiosyncratic_execution_promoted": false,
+    "residual_trade_flag_relaxation_annualized_uplift": 0.08223206093877433,
+    "residual_trade_flag_fraction_of_upper_gap": 0.5114313112646418,
+    "friction_attribution_is_post_hoc": true,
     "neutral_factor_spreads_surviving_bh_fdr_5pct": 14,
     "research_backtest_chain_complete": true,
     "ready_for_live_capital": false,

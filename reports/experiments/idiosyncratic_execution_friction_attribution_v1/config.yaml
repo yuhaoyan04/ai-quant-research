@@ -1,0 +1,489 @@
+experiment_id: idiosyncratic_execution_friction_attribution_v1
+registry_version: 1
+selection_policy: validation_only
+historical_oos_disclosure: The 2021-2026 block has already been inspected during project
+  development. It is historical out-of-sample evidence, not a pristine production
+  lockbox.
+governance_required_for_new_registrations: true
+governance_policy: research_governance.yaml
+experiment:
+  title: Validation-only share-execution friction OFAT and ordered waterfall
+  stage: idiosyncratic_execution_friction_diagnostic
+  model_version: frozen_targets_ofat_waterfall_v1
+  dataset_version_method: sha256_of_registered_inputs_and_ingestion_manifest
+  historical_oos_used_for_selection: false
+  evidence_class: validation_selection
+  research_selection_role: diagnostic
+  claims_independent_evidence: false
+  config_files:
+  - idiosyncratic_execution_friction_attribution.yaml
+  - idiosyncratic_share_execution_validation.yaml
+  - institutional_execution.yaml
+  - research_governance.yaml
+  input_tables:
+  - table: idiosyncratic_portfolio_targets
+    key: v1
+  - table: idiosyncratic_execution_market
+    key: v1
+  - table: idiosyncratic_execution_rf_daily
+    key: v1
+  - table: idiosyncratic_execution_daily
+    key: v1
+  - table: idiosyncratic_execution_upper_bound_daily
+    key: v1
+  - table: idiosyncratic_execution_events
+    key: v1
+  metric_tables:
+  - table: idiosyncratic_friction_protocol
+    key: v1
+  - table: idiosyncratic_friction_daily
+    key: v1
+  - table: idiosyncratic_friction_summary
+    key: v1
+  - table: idiosyncratic_friction_invariants
+    key: v1
+  - table: idiosyncratic_friction_attribution
+    key: v1
+  - table: idiosyncratic_friction_waterfall
+    key: v1
+  - table: idiosyncratic_friction_inference
+    key: v1
+  - table: idiosyncratic_friction_blockers
+    key: v1
+  figures:
+  - reports/idiosyncratic_execution_friction_attribution.md
+resolved_configs:
+  idiosyncratic_execution_friction_attribution.yaml:
+    experiment_id: idiosyncratic_execution_friction_attribution_v1
+    artifact_key: v1
+    report_path: reports/idiosyncratic_execution_friction_attribution.md
+    source_experiment: idiosyncratic_share_execution_validation_v1
+    evidence_class: validation_selection
+    research_selection_role: diagnostic
+    claims_independent_evidence: false
+    historical_oos_used_for_selection: false
+    historical_oos_evaluation_enabled: false
+    future_lockbox_access_allowed: false
+    baseline_scenario_id: all_constraints
+    upper_bound_scenario_id: fractional_upper_bound
+    scenarios:
+    - scenario_id: no_trade_flags
+      relaxed_constraint: trade_flags
+      enforce_trade_flags: false
+      enforce_volume_participation: true
+      enforce_order_quantity_rules: true
+      enforce_t_plus_one: true
+    - scenario_id: no_volume_cap
+      relaxed_constraint: volume_participation
+      enforce_trade_flags: true
+      enforce_volume_participation: false
+      enforce_order_quantity_rules: true
+      enforce_t_plus_one: true
+    - scenario_id: no_lot_rules
+      relaxed_constraint: order_quantity_rules
+      enforce_trade_flags: true
+      enforce_volume_participation: true
+      enforce_order_quantity_rules: false
+      enforce_t_plus_one: true
+    - scenario_id: no_t_plus_one
+      relaxed_constraint: t_plus_one
+      enforce_trade_flags: true
+      enforce_volume_participation: true
+      enforce_order_quantity_rules: true
+      enforce_t_plus_one: false
+    waterfall_scenarios:
+    - scenario_id: no_trade_flags_no_volume
+      relaxed_constraint: trade_flags+volume_participation
+      enforce_trade_flags: false
+      enforce_volume_participation: false
+      enforce_order_quantity_rules: true
+      enforce_t_plus_one: true
+    - scenario_id: no_trade_flags_no_volume_no_lot
+      relaxed_constraint: trade_flags+volume_participation+order_quantity_rules
+      enforce_trade_flags: false
+      enforce_volume_participation: false
+      enforce_order_quantity_rules: false
+      enforce_t_plus_one: true
+    inference:
+      annualization_periods: 252
+      bootstrap_samples: 2000
+      block_length_trading_days: 20
+      random_seed: 20261024
+      false_discovery_rate: 0.05
+    interpretation_contract:
+      one_factor_at_a_time_effects_are_not_additive: true
+      waterfall_effects_are_order_dependent: true
+      upper_bound_is_not_implementable: true
+      may_not_promote_or_select_model: true
+      may_not_create_paper_observations: true
+      purpose: explain implementation shortfall without changing frozen signals or
+        targets
+  idiosyncratic_share_execution_validation.yaml:
+    experiment_id: idiosyncratic_share_execution_validation_v1
+    artifact_key: v1
+    report_path: reports/idiosyncratic_share_execution_validation.md
+    source_experiment: idiosyncratic_portfolio_validation_v1
+    evidence_class: validation_selection
+    research_selection_role: selection
+    claims_independent_evidence: false
+    historical_oos_used_for_selection: false
+    historical_oos_evaluation_enabled: false
+    future_lockbox_access_allowed: false
+    period:
+      start_date: '2016-01-01'
+      end_date: '2020-12-31'
+    label_horizon_trading_days: 5
+    source_targets:
+      table: idiosyncratic_portfolio_targets
+      key: v1
+    model: hgb_shallow15_locked
+    paths:
+    - path_id: hgb_raw_model
+      training_target: fwd_return_5d_lag1
+      portfolio_type: ml_model
+    - path_id: hgb_residual_model
+      training_target: fwd_specific_return_5d_lag1
+      portfolio_type: ml_model
+    - path_id: hgb_residual_style_benchmark
+      training_target: fwd_specific_return_5d_lag1
+      portfolio_type: style_matched_benchmark
+    comparisons:
+    - comparison_id: residual_model_minus_raw_model
+      candidate_path: hgb_residual_model
+      reference_path: hgb_raw_model
+    - comparison_id: residual_model_minus_style_benchmark
+      candidate_path: hgb_residual_model
+      reference_path: hgb_residual_style_benchmark
+    initial_cash_cny: 100000000.0
+    execution_price: unadjusted_close
+    marking_price: unadjusted_close
+    execution_time: close
+    return_timing: mark_to_market_then_close_execution
+    round_trip_cost_bps: 20.0
+    max_volume_participation: 0.1
+    max_pending_trading_days: 5
+    enforce_t_plus_one: true
+    allow_margin: false
+    allow_short_sales: false
+    order_quantity_rules:
+      main_board_buy_lot: 100
+      main_board_sell_lot: 100
+      star_market_minimum_order: 200
+      star_market_increment: 1
+      odd_lot_liquidation_allowed: true
+    corporate_action_proxy:
+      method: inferred_value_preserving_share_factor_from_vendor_pct_chg_and_raw_close
+      activation_absolute_deviation: 0.005
+      evidence_status: proxy_not_official_corporate_action_record
+    scenario:
+      scenario: daily_close_institutional_constraints
+      enforce_trade_flags: true
+      enforce_volume_participation: true
+      enforce_order_quantity_rules: true
+      enforce_t_plus_one: true
+    diagnostic_upper_bound_scenario:
+      scenario: fractional_same_close_upper_bound
+      enforce_trade_flags: false
+      enforce_volume_participation: false
+      enforce_order_quantity_rules: false
+      enforce_t_plus_one: false
+    risk_free_rate:
+      download:
+        provider: China Central Depository & Clearing Co., Ltd. (CCDC)
+        provider_short: CCDC
+        source_name: ChinaBond Government Bond Yield Curve
+        source_url: https://yield.chinabond.com.cn/cbweb-pbc-web/pbc/showHistory?locale=en_US
+        api_url: https://yield.chinabond.com.cn/cbweb-pbc-web/pbc/historyQuery
+        curve_name: 中债国债收益率曲线
+        start_date: '2015-12-01'
+        end_date: '2020-12-31'
+        maximum_window_days: 90
+        request_retries: 3
+        raw_quote_unit: percent_per_annum
+        annual_quote_convention: published_yield_to_maturity_curve_annual_percent
+        publication_timestamp_status: exact_intraday_timestamp_not_provided_by_history_endpoint
+        availability_lag_calendar_days: 1
+      rate_scenarios:
+      - scenario_id: R0_zero_rate
+        tenor: zero
+        source_column: null
+      - scenario_id: R1_ccdc_cgb_3m
+        tenor: 3M
+        source_column: 3月
+      - scenario_id: R2_ccdc_cgb_1y
+        tenor: 1Y
+        source_column: 1年
+      primary_rate_scenario: R1_ccdc_cgb_3m
+      zero_rate_scenario: R0_zero_rate
+      day_count_convention: ACT/365
+      annual_to_holding_period_conversion: (1+annual_rate_decimal)^(calendar_days/365)-1
+      maximum_staleness_calendar_days: 14
+    style_exposure_audit:
+      styles:
+      - size
+      - beta
+      - volatility
+      - liquidity
+      - value
+      - momentum
+      style_winsor_quantiles:
+      - 0.01
+      - 0.99
+      minimum_exposure_coverage_weight: 0.95
+    inference:
+      annualization_periods: 252
+      bootstrap_samples: 2000
+      random_seed: 20261023
+      primary_block_length_trading_days: 20
+      block_length_sensitivity_trading_days:
+      - 20
+      - 40
+      - 65
+      multiplicity_control: benjamini_hochberg
+      false_discovery_rate: 0.05
+    promotion_gate:
+      primary_comparisons:
+      - residual_model_minus_raw_model
+      - residual_model_minus_style_benchmark
+      require_incremental_return_ci_above_zero: true
+      require_bh_fdr_5pct: true
+      minimum_fill_ratio_by_shares: 0.9
+      maximum_mean_cash_weight: 0.02
+      maximum_p95_target_tracking_l1: 0.1
+      require_complete_reliable_risk_free_rate: true
+      require_all_accounting_invariants: true
+    research_trial_registry:
+    - trial_id: rf_maximum_staleness_10_calendar_days
+      status: invalidated_operational_contract
+      outcome_used_for_selection: false
+      disposition: Rejected before performance inference because the 2020 Lunar New
+        Year/COVID closure produced one 11-calendar-day observation gap despite no
+        intervening strategy trading opportunity; replaced by a documented 14-day
+        fail-closed ceiling, not by rate interpolation.
+    - trial_id: residual_target_hgb_share_execution
+      status: confirmatory_execution_gate
+      outcome_used_for_selection: false
+      disposition: run_with_frozen_signal_portfolio_and_cost
+    - trial_id: raw_target_hgb_share_execution
+      status: prespecified_control
+      outcome_used_for_selection: false
+      disposition: same_engine_same_dates_same_constraints
+    - trial_id: residual_style_replica_share_execution
+      status: prespecified_control
+      outcome_used_for_selection: false
+      disposition: same_engine_same_dates_same_constraints
+    - trial_id: style_replica_exclude_model_holdings_first
+      status: retained_feasibility_attempt
+      outcome_used_for_selection: false
+      disposition: overlap_retry_only_when_exclusion_lp_infeasible
+    - trial_id: style_replica_turnover_matched_objective
+      status: not_run
+      outcome_used_for_selection: false
+      disposition: diagnostic_only_future_version_not_primary_benchmark
+    scope_note: Validation-period share/order execution gate for the already frozen
+      HGB raw, residual-target and residual style-replica portfolios. No model, signal,
+      target portfolio, cost, constraint, benchmark or historical-OOS result is selected
+      here. Passing creates only a versioned paper-trading challenger; it is not pristine
+      future evidence or live performance.
+  institutional_execution.yaml:
+    experiment_id: institutional_execution_v1
+    source_experiment: research_governance_v1
+    evidence_class: historical_oos_descriptive
+    research_selection_role: diagnostic
+    claims_independent_evidence: false
+    historical_oos_used_for_selection: false
+    source_targets:
+      table: constrained_execution_targets
+      key: v1
+    source_market:
+      table: constrained_daily_execution_market
+      key: v1
+    candidate:
+      model: hgb_shallow15_locked
+      alpha_pipeline: raw
+      strategy: raw__risk_constrained
+    initial_cash_cny: 100000000.0
+    execution_price: unadjusted_close
+    marking_price: unadjusted_close
+    execution_time: close
+    return_timing: mark_to_market_then_close_execution
+    round_trip_cost_bps: 20.0
+    max_volume_participation: 0.1
+    max_pending_trading_days: 5
+    enforce_t_plus_one: true
+    allow_margin: false
+    allow_short_sales: false
+    order_quantity_rules:
+      main_board_buy_lot: 100
+      main_board_sell_lot: 100
+      star_market_minimum_order: 200
+      star_market_increment: 1
+      odd_lot_liquidation_allowed: true
+    corporate_action_proxy:
+      method: inferred_value_preserving_share_factor_from_vendor_pct_chg_and_raw_close
+      activation_absolute_deviation: 0.005
+      evidence_status: proxy_not_official_corporate_action_record
+    scenarios:
+    - scenario: daily_close_institutional_constraints
+      enforce_trade_flags: true
+      enforce_volume_participation: true
+      enforce_order_quantity_rules: true
+      enforce_t_plus_one: true
+    - scenario: market_constraints_removed_upper_bound
+      enforce_trade_flags: false
+      enforce_volume_participation: false
+      enforce_order_quantity_rules: true
+      enforce_t_plus_one: true
+    annualization_periods: 252
+    scope_note: Close-price daily-bar approximation. It does not reconstruct intraday
+      queue priority, bid/ask, order-book depth, exact fill time, IPO no-limit windows,
+      or broker-specific order handling. The corporate-action factor is an auditable
+      value-preserving proxy, not an official action ledger.
+  research_governance.yaml:
+    experiment_id: research_governance_v1
+    policy_version: 1
+    purpose: phase4_historical_oos_contamination_and_future_evidence_governance
+    policy_frozen_date_utc: '2026-10-20'
+    current_data_cutoff: '2026-09-30'
+    historical_oos_used_for_selection: false
+    new_model_selected: false
+    evidence_periods:
+      training:
+        start_date: '2006-01-01'
+        end_date: '2015-12-31'
+        evidence_class: training
+        selection_allowed: true
+        already_observed: true
+      validation_selection:
+        start_date: '2016-01-01'
+        end_date: '2020-12-31'
+        evidence_class: validation_selection
+        selection_allowed: true
+        already_observed: true
+      historical_oos:
+        start_date: '2021-01-01'
+        end_date: '2026-09-30'
+        evidence_class: historical_oos
+        selection_allowed_for_new_revisions: false
+        already_observed: true
+        consumed: true
+        disclosure: inspected_repeatedly_during_research_not_a_pristine_lockbox
+      future_lockbox:
+        lockbox_id: future_lockbox_2026q4_2027q3_v1
+        start_date: '2026-10-01'
+        planned_end_date: '2027-09-30'
+        evidence_class: future_lockbox
+        selection_allowed: false
+        already_observed: false
+        initial_state: SEALED_EMPTY
+        minimum_daily_observations: 252
+        minimum_weekly_signal_observations: 52
+        minimum_calendar_months: 12
+        minimum_coverage_fraction: 0.95
+        open_rule: planned_end_date_and_all_minimum_observation_gates
+        interim_performance_access_allowed: false
+        operational_health_access_allowed: true
+        local_enforcement_is_cryptographic: false
+      paper_trading:
+        paper_id: paper_candidate_bundle_v1
+        activation_rule: first_eligible_signal_strictly_after_candidate_freeze_commit
+        retroactive_backfill_allowed: false
+        evidence_class: paper_trading
+        selection_allowed_for_same_version: false
+        performance_reporting_frequency: monthly
+        operational_health_reporting_frequency: daily
+        modification_rule: any_outcome_driven_change_creates_new_candidate_version
+    candidate_bundle:
+      bundle_id: candidate_bundle_v1
+      primary:
+        model: hgb_shallow15_locked
+        alpha_pipeline: raw
+        portfolio_construction: risk_constrained
+        selection_source: validation_2016_2020_only
+      secondary:
+      - model: hgb_shallow15_locked
+        alpha_pipeline: industry_size_neutralized
+        portfolio_construction: risk_constrained
+      - model: ridge_locked
+        alpha_pipeline: raw
+        portfolio_construction: risk_constrained
+      - model: ridge_locked
+        alpha_pipeline: industry_size_neutralized
+        portfolio_construction: risk_constrained
+      benchmark: pit_industry_style_matched_peer_replica
+      market_benchmarks:
+      - CSI500_price
+      - CSI500_total_return
+      model_training_window: expanding_from_2006
+      target: fwd_return_5d_lag1
+      rebalance_frequency: weekly
+      historical_oos_used_for_selection: false
+    cost_and_execution:
+      primary_cost_scenario: C0_fixed_020bp
+      secondary_cost_scenario: C2_public_levies_commission_scenario
+      primary_round_trip_cost_bps: 20.0
+      execution_convention: returns_accrue_before_close_trade_blocked_orders_retry_daily
+      limitations:
+      - daily_bar_execution_approximation
+      - no_bid_ask_quote_history
+      - no_broker_calibrated_market_impact
+      - incomplete_intraday_limit_queue_and_ipo_no_limit_windows
+    statistical_plan:
+      primary_hypothesis: hgb_raw_incremental_net_return_vs_style_matched_benchmark_positive
+      secondary_hypotheses:
+      - hgb_industry_size_neutralized_incremental_net_return_positive
+      - ridge_raw_incremental_net_return_positive
+      - ridge_industry_size_neutralized_incremental_net_return_positive
+      paired_clock: common_daily_dates
+      bootstrap: circular_block_bootstrap
+      block_length_trading_days: 20
+      bootstrap_samples: 2000
+      bootstrap_seed: 20261020
+      familywise_strategy_count: 4
+      multiplicity_control: benjamini_hochberg
+      false_discovery_rate: 0.05
+      primary_metrics:
+      - incremental_net_return_annualized_arithmetic
+      - mean_rank_ic
+      secondary_metrics:
+      - risk_free_adjusted_sharpe
+      - maximum_drawdown
+      - turnover
+      - return_per_turnover
+      - target_tracking_error
+      - cash_weight
+      decision_rule: no_parameter_or_strategy_change_from_lockbox_or_paper_results_without_new_version
+    source_artifacts:
+    - table: model_benchmark_selection
+      key: v1
+    - table: model_stability_protocol
+      key: v1
+    - table: constrained_portfolio_protocol
+      key: v1
+    - table: constrained_daily_execution_protocol
+      key: v1
+    - table: transaction_cost_protocol
+      key: v1
+    - table: incremental_alpha_protocol
+      key: v1
+    - table: market_benchmark_protocol
+      key: v1
+    - table: risk_free_rate_attribution_protocol
+      key: v1
+    - table: research_conclusion_decisions
+      key: v2
+    access_log:
+      path: reports/governance/research_access_log.jsonl
+      hash_chained: true
+      append_only_policy: true
+      required_fields:
+      - actor
+      - evidence_class
+      - action
+      - reason
+      - result_accessed
+      - used_for_change
+      consume_actions:
+      - VIEW_RESULTS
+      - EXPORT_RESULTS
+      - USE_FOR_CHANGE

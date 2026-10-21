@@ -98,6 +98,7 @@ quant-forward-data = "quant_research.forward_data:main"
 quant-idiosyncratic-target = "quant_research.idiosyncratic_target_validation:main"
 quant-idiosyncratic-portfolio = "quant_research.idiosyncratic_portfolio_validation:main"
 quant-idiosyncratic-execution = "quant_research.idiosyncratic_share_execution_validation:main"
+quant-idiosyncratic-friction = "quant_research.idiosyncratic_execution_friction_attribution:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
@@ -105,3 +106,4 @@ where = ["src"]
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 norecursedirs = ["data", "reports", ".git", ".venv", ".pytest_cache"]
+addopts = "-p no:cacheprovider"

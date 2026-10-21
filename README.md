@@ -40,6 +40,7 @@
 - Phase 12 首个 validation-only 研究把唯一改动限定为训练标签：使用信号日 PIT 宽行业与规模、Beta、波动、流动性、价值、动量六风格，将未来5日收益残差化。2008–2015训练、2016–2020验证的254个共同周上，HGB/Ridge相对原始标签的残差RankIC分别改善`+0.0304`与`+0.0216`，95% block-bootstrap区间均高于零、BH-FDR均通过，五个验证年度全部为正；HGB绝对残差RankIC从0.0533升至0.0837。门槛是在成功运行前写入本地配置的预先指定规则，但不是第三方时间戳预注册。该结果只允许进入组合研究，不是2021–2026新证据、可交易Alpha或paper业绩；详见[残差目标验证报告](reports/idiosyncratic_target_validation.md)。
 - Phase 12.1 的目标权重、PIT行业/六风格匹配与约束可行性保留，但后续审计发现254个周期中有33个相邻执行间隔少于5个交易日，旧组合绩效却将完整5日标签直接复利，因而存在重叠收益窗口。其`+12.12%`增量与相关区间已正式标记为非可执行NAV证据，不再作为项目结论。
 - Phase 12.2 使用1亿元独立账户、未复权收盘价、整手、T+1、10% ADV、停牌/涨跌停重试和20bp成本，在1,210个唯一日频NAV上重放raw HGB、residual HGB与residual风格基准。residual相对raw年化算术增量仅`+0.33%`，95%区间`[-5.31%, +5.88%]`、BH q=`0.456`；相对风格基准为`+14.82%`，区间`[+9.87%, +19.97%]`，但基准成交率仅52.57%且实际暴露覆盖/跟踪门槛失败。无限制上界residual相对raw仍有`+11.25%`增量，说明开发期信号价值被实施摩擦几乎完全消耗。所有会计/T+1不变量与2016–2020 CCDC 3M/1Y rf覆盖通过，但总体不晋级，paper观测仍为0；详见[股数级执行验证](reports/idiosyncratic_share_execution_validation.md)。
+- Phase 12.3 固定上述目标、成本和日期，用OFAT与固定顺序waterfall解释实施损耗。对residual路径，单独解除停牌/涨跌停等交易状态约束恢复`+8.22`个几何年化百分点；随后条件性解除10%成交量上限再恢复`+7.83`个百分点，整手仅`+0.03`个百分点，T+1为`0.00`。这完整对账16.08个百分点上界缺口，并揭示交易状态×容量的强交互；归因顺序依赖、不可相加，也不允许据此回调或晋级模型。详见[执行摩擦归因](reports/idiosyncratic_execution_friction_attribution.md)。
 - Phase 1 已将买入、卖出、双边成交额和单边换手统一到 fill 级协议；C0 20bp 严格复现 20.81%，同一成交路径下 raw HGB 的 100bp 年化为 6.20%。含日期生效印花税/过户费和 3bp 双边佣金假设的 C2 情景为 22.11%，但它不是历史券商账单；详见[交易成本报告](reports/transaction_cost_model.md)。
 - Phase 2 新增中央结算公司中债国债收益率曲线数据产品：3个月主基线与1年敏感性均覆盖1,387日、0缺失、0插值，并按“观察日次日可用 + ACT/365复利”对齐。3个月利率下 raw HGB Sharpe 从0.937降至0.863；其CSI500 CAPM Alpha为17.55%，95%区间[3.63%, 31.46%]，但六风格残余Alpha仅0.86%，区间跨零。详见[无风险利率与归因报告](reports/risk_free_rate_attribution.md)。
 - 市场基准现同时支持价格指数和中证官方全收益指数。CSI500 全收益/价格指数年化分别为4.10%/2.32%，同源几何股息再投资楔子约1.74%；在3个月国债rf下，raw HGB相对CSI500全收益指数的CAPM Alpha降至16.19%，六风格残余Alpha降至-0.65%，后者仍不显著。详见[价格与全收益基准报告](reports/market_benchmark_attribution.md)。
@@ -126,6 +127,7 @@ quant-engineering-quality run
 quant-paper-trading status
 quant-idiosyncratic-target run
 quant-idiosyncratic-execution all
+quant-idiosyncratic-friction run
 quant-transaction-costs run
 quant-risk-free-attribution
 quant-market-benchmark-attribution
@@ -138,7 +140,7 @@ quant-final-report
 
 ### 冻结实验与可复现性
 
-当前已有 50+ 个实验版本登记为不可覆盖快照。每个快照包含解析后的配置、指标表、图表、环境版本、代码树哈希、输入数据 SHA-256 与 historical OOS 使用声明；失败与被替代实验同样保留。Phase 3 保留 expanding/10 年 rolling、逐年失败标记、RF 多 seed 分布和非因果 Purged CV 补充诊断；Phase 4 将 2021–2026 标记为已消耗历史证据，Phase 11 进一步冻结 forward-only paper-trading 执行协议、生产模型包和 hash-chained 运行日志。冻结完整性按 experiment ID、public index 与 `FROZEN.json` 目录双向对账，不再依赖会随合法追加而失效的硬编码数量。
+当前已有 60+ 个实验版本登记为不可覆盖快照。每个快照包含解析后的配置、指标表、图表、环境版本、代码树哈希、输入数据 SHA-256 与 historical OOS 使用声明；失败与被替代实验同样保留。Phase 3 保留 expanding/10 年 rolling、逐年失败标记、RF 多 seed 分布和非因果 Purged CV 补充诊断；Phase 4 将 2021–2026 标记为已消耗历史证据，Phase 11 进一步冻结 forward-only paper-trading 执行协议、生产模型包和 hash-chained 运行日志。冻结完整性按 experiment ID、public index 与 `FROZEN.json` 目录双向对账，不再依赖会随合法追加而失效的硬编码数量。
 
 ```powershell
 # 查看已登记实验

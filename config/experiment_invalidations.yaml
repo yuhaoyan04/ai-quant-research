@@ -1,4 +1,26 @@
 invalidations:
+  engineering_quality_v2:
+    invalidated_at_utc: "2026-10-21T00:00:00Z"
+    severity: superseded_engineering_contract
+    reason: >-
+      V3 adds the Phase 12.2 share-execution and Phase 12.3 friction-attribution
+      protocols to the critical immutable output contract and removes optional
+      pytest-cache warnings on shared read-only mounts. Research logic and
+      historical conclusions are unchanged.
+    unaffected_outputs: [all immutable snapshot files, all research metrics]
+    invalid_outputs: [claims that v2 covers the complete current protocol chain]
+    superseded_by: engineering_quality_v3
+  final_research_baseline_v5:
+    invalidated_at_utc: "2026-10-21T00:00:00Z"
+    severity: superseded_publication_baseline
+    reason: >-
+      V6 adds a validation-only OFAT and ordered-waterfall attribution of the
+      already disclosed residual-target execution shortfall. Research and
+      promotion conclusions are unchanged; the new baseline makes the
+      constraint interaction and non-causal interpretation boundary explicit.
+    unaffected_outputs: [all immutable snapshot files, all research conclusions]
+    invalid_outputs: [claims that v5 contains the complete execution-friction diagnostic]
+    superseded_by: final_research_baseline_v6
   research_conclusion_audit_v2:
     invalidated_at_utc: "2026-10-21T05:55:00Z"
     severity: superseded_conclusion_baseline

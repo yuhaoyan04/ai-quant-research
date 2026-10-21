@@ -1,0 +1,260 @@
+{
+  "experiment_id": "final_research_baseline_v6",
+  "title": "Final execution-friction-attributed publication baseline",
+  "stage": "final_publication_baseline",
+  "model_version": "locked_full_chain_execution_friction_diagnostic_v6",
+  "registered_at_utc": "2026-10-21T06:58:18.998368+00:00",
+  "immutable": true,
+  "selection_policy": "validation_only",
+  "historical_oos_used_for_selection": false,
+  "historical_oos_disclosure": "The 2021-2026 block has already been inspected during project development. It is historical out-of-sample evidence, not a pristine production lockbox.",
+  "evidence_class": "governance_only",
+  "research_selection_role": "final_evaluation",
+  "claims_independent_evidence": false,
+  "lockbox_id": null,
+  "dataset_version": "bcb2f63ecc6848ecea59a68dea571fce2db820e0ab494be07850b5e995ae3039",
+  "dataset_manifest": {
+    "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/manifests/ingestion.jsonl",
+    "size_bytes": 48822739,
+    "sha256": "d3c6d3f5fd53f8b5964dcc0ebfb0b146c8387fd7973b92c9b98a95072f8d2511"
+  },
+  "input_artifacts": [
+    {
+      "table": "factor_registry",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/factor_registry/key=v1/data.parquet",
+      "size_bytes": 13041,
+      "sha256": "d851d470388237d77d3283f2f520d9a186558bdc344384fd8d408ecdc6404405"
+    },
+    {
+      "table": "constrained_daily_execution_daily",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/constrained_daily_execution_daily/key=v1/data.parquet",
+      "size_bytes": 775172,
+      "sha256": "ea04c7d4b7777899dc0bf3ec9834c29130dcae72b10746c126653bdfe322760f"
+    },
+    {
+      "table": "style_factor_daily_returns",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/style_factor_daily_returns/key=v1/data.parquet",
+      "size_bytes": 295402,
+      "sha256": "6e85be98c55920bc5c733ad0167b2c28e29e38718e4588e96eb0713448c66540"
+    },
+    {
+      "table": "incremental_alpha_daily",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/incremental_alpha_daily/key=v1/data.parquet",
+      "size_bytes": 937278,
+      "sha256": "5c4596e5f5b23288ab345feabece321681679e68b2c01b9aec938607b9807d0e"
+    },
+    {
+      "table": "idiosyncratic_execution_daily",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/idiosyncratic_execution_daily/key=v1/data.parquet",
+      "size_bytes": 569602,
+      "sha256": "3546b36442407b36da68644ef4f683dde5eeae202554ba92c17f91bcd6d6a8df"
+    },
+    {
+      "table": "idiosyncratic_friction_daily",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/idiosyncratic_friction_daily/key=v1/data.parquet",
+      "size_bytes": 3370372,
+      "sha256": "8a7e524ac14c0b565e8df6e97c2cafdef7d7d70b6304451b0bc1731dceab0608"
+    },
+    {
+      "table": "research_conclusion_decisions",
+      "key": "v3",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/research_conclusion_decisions/key=v3/data.parquet",
+      "size_bytes": 5651,
+      "sha256": "921e20d7c78c444066db9583037b90876e72f915377f1cd88357c45102282122"
+    }
+  ],
+  "metric_artifacts": [
+    {
+      "table": "model_benchmark_oos_summary",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/model_benchmark_oos_summary/key=v1/data.parquet",
+      "size_bytes": 14646,
+      "sha256": "cc2475e04d0852012a6f587ab7e1208a339ca5a6f1909d1a06d8518cfcd25964"
+    },
+    {
+      "table": "constrained_daily_execution_summary",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/constrained_daily_execution_summary/key=v1/data.parquet",
+      "size_bytes": 11030,
+      "sha256": "336fab9efcf869ab2b9ef701c6fbd41e2e1d327f8c7cf98fc7e388f8cb31b945"
+    },
+    {
+      "table": "risk_model_attribution_summary",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/risk_model_attribution_summary/key=v1/data.parquet",
+      "size_bytes": 19851,
+      "sha256": "e0719f7f4b35fe66648ae8ad090458c39703939d5bade77976dc220e1cc957b8"
+    },
+    {
+      "table": "style_factor_regression_summary",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/style_factor_regression_summary/key=v1/data.parquet",
+      "size_bytes": 35842,
+      "sha256": "b418d5e08cd03f1a6eac1d7a004cd0122f7010abec4c51eea9ab6444e7758589"
+    },
+    {
+      "table": "incremental_alpha_comparison",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/incremental_alpha_comparison/key=v1/data.parquet",
+      "size_bytes": 49841,
+      "sha256": "834853ba6b51ce5f1e6ce3f1586a0ac306db5a5397edf60a697723360cd16aee"
+    },
+    {
+      "table": "idiosyncratic_execution_summary",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/idiosyncratic_execution_summary/key=v1/data.parquet",
+      "size_bytes": 15475,
+      "sha256": "a7c8843ca86d9e818cdbdf08bbf354da00ca8d447d70ce6cf2a4a8843d24f1ed"
+    },
+    {
+      "table": "idiosyncratic_execution_paired_inference",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/idiosyncratic_execution_paired_inference/key=v1/data.parquet",
+      "size_bytes": 10703,
+      "sha256": "8c4ddedc0cf7b14a74e8a89b5cae38328c45ff0b8cd308a99f8634816d543f81"
+    },
+    {
+      "table": "idiosyncratic_execution_bridge",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/idiosyncratic_execution_bridge/key=v1/data.parquet",
+      "size_bytes": 8818,
+      "sha256": "04ee15ae6079a79d913903b7dd94aed2521bef0a74d2fc526fa6e7772f1f9e72"
+    },
+    {
+      "table": "idiosyncratic_execution_promotion_decision",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/idiosyncratic_execution_promotion_decision/key=v1/data.parquet",
+      "size_bytes": 9578,
+      "sha256": "aedbc8b7db3ed0a2a5727968b62b7aaa74fd7e54eea2c17cc03991e83870a607"
+    },
+    {
+      "table": "idiosyncratic_friction_attribution",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/idiosyncratic_friction_attribution/key=v1/data.parquet",
+      "size_bytes": 12689,
+      "sha256": "0c0d89bce26d630d219bebaf38925b9a733ffe920955768026b9db5c887a626a"
+    },
+    {
+      "table": "idiosyncratic_friction_waterfall",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/idiosyncratic_friction_waterfall/key=v1/data.parquet",
+      "size_bytes": 6433,
+      "sha256": "9ec56803bb1add529556c1d6e425a4af334ae8d876f9f031b0e1208fe9624c7f"
+    },
+    {
+      "table": "idiosyncratic_friction_inference",
+      "key": "v1",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/idiosyncratic_friction_inference/key=v1/data.parquet",
+      "size_bytes": 8432,
+      "sha256": "8f00b8feee9e0dc2e6114f538ae25b1015c5f444fa7c0c3a3ed1a9529b20f013"
+    },
+    {
+      "table": "research_conclusion_decisions",
+      "key": "v3",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/research_conclusion_decisions/key=v3/data.parquet",
+      "size_bytes": 5651,
+      "sha256": "921e20d7c78c444066db9583037b90876e72f915377f1cd88357c45102282122"
+    },
+    {
+      "table": "research_factor_multiplicity",
+      "key": "v3",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/research_factor_multiplicity/key=v3/data.parquet",
+      "size_bytes": 8784,
+      "sha256": "d2f3c8a58c3e9debc060cd2e26279974635ea986c7c812865a072977c3255b16"
+    },
+    {
+      "table": "research_lifecycle_audit",
+      "key": "v3",
+      "path": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/data/lake/curated/research_lifecycle_audit/key=v3/data.parquet",
+      "size_bytes": 4198,
+      "sha256": "7b4967b4f489fead39cc461518ad2de3d4431a70299f6cf88633d780d95988b3"
+    }
+  ],
+  "figures": [
+    {
+      "source": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/reports/figures/oos_equity_curve.svg",
+      "snapshot": "oos_equity_curve.svg",
+      "sha256": "4bce2cbe393b98bea20fbcdddae4bec29059947d490b85cba0f7e708bdcbf85a"
+    },
+    {
+      "source": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/reports/figures/oos_drawdown.svg",
+      "snapshot": "oos_drawdown.svg",
+      "sha256": "984304171ddda336f03d77e429ec428619114e16cd785a8134a225ed702bc870"
+    },
+    {
+      "source": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/reports/figures/annual_rank_ic.svg",
+      "snapshot": "annual_rank_ic.svg",
+      "sha256": "c067b4db5259f1bc0e9273ebd7727f6bcfededf435c1d0b76afc116b25be3b7b"
+    },
+    {
+      "source": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/reports/figures/annual_returns.svg",
+      "snapshot": "annual_returns.svg",
+      "sha256": "11573222bd1aa9d97a6f29ef708411639c7a6713aff9929f22d5e8e02f1f7d8a"
+    },
+    {
+      "source": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/reports/figures/incremental_alpha_equity_curve.svg",
+      "snapshot": "incremental_alpha_equity_curve.svg",
+      "sha256": "93677dde7514c0acc5fb0290a1bc2aa30d953c9989b7bf3a9dc072285c03c743"
+    },
+    {
+      "source": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/reports/idiosyncratic_share_execution_validation.md",
+      "snapshot": "idiosyncratic_share_execution_validation.md",
+      "sha256": "bec37f2bffeb6d7239d2c66112ad6a78af7ba3f11dd069592f885f18c0a0e36b"
+    },
+    {
+      "source": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/reports/idiosyncratic_execution_friction_attribution.md",
+      "snapshot": "idiosyncratic_execution_friction_attribution.md",
+      "sha256": "ff51e67c9cab96eaf865cf38b1d5e4788421ba38b0d710d81d626749038d15fa"
+    },
+    {
+      "source": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/reports/final_research_report.md",
+      "snapshot": "final_research_report.md",
+      "sha256": "b94e744de6716476507ce46d14a59597e570e475823eca71f3c29aa0e6d02f9d"
+    },
+    {
+      "source": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/reports/final_report.pdf",
+      "snapshot": "final_report.pdf",
+      "sha256": "6411e9232fa3930844424d4faf264f85c7ee04e4ef4390fd23c2e289db5d3006"
+    },
+    {
+      "source": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/reports/executive_summary.md",
+      "snapshot": "executive_summary.md",
+      "sha256": "7c9e5ef1339d3a1e9fe409d8aac09ec91c609d536dd76b53c3051daf176fefd4"
+    },
+    {
+      "source": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/docs/resume_bullets.md",
+      "snapshot": "resume_bullets.md",
+      "sha256": "171e894e84ae4e04fdc6a026bac4e4e37c49c5bceca255e75ac5b58c218d2c23"
+    },
+    {
+      "source": "/opt/huawei/explorer-env/dataset/yyh_arcagi/ai-quant-research/docs/interview_guide.md",
+      "snapshot": "interview_guide.md",
+      "sha256": "efc5c5b40632a67c0541b865b83f5f3dff2b881da25706896a94766252220fff"
+    }
+  ],
+  "source_tree_sha256": "9fb670d1a063d9ef8d3518eb03ac8f889fe8c6c58e8b437fd4a7a8a6b8a501fc",
+  "git": {
+    "commit": "fb1c6fb7c7afb1da9e95abd922e6be8be9686895",
+    "dirty": true,
+    "status_sha256": "f70dda982a8b428445b5c68de1048183dcec0a9ae55dc9542803af0e8f11a06d"
+  },
+  "environment": {
+    "python": "3.11.16",
+    "implementation": "CPython",
+    "platform": "Linux-5.15.0-92-generic-x86_64-with-glibc2.35",
+    "packages": {
+      "pandas": "3.0.6",
+      "pyarrow": "25.0.1",
+      "PyYAML": "6.0.3",
+      "scikit-learn": "1.9.1",
+      "numpy": "2.4.6",
+      "scipy": "1.17.1"
+    }
+  }
+}

@@ -1,0 +1,71 @@
+experiment_id: idiosyncratic_execution_friction_attribution_v1
+artifact_key: v1
+report_path: reports/idiosyncratic_execution_friction_attribution.md
+source_experiment: idiosyncratic_share_execution_validation_v1
+evidence_class: validation_selection
+research_selection_role: diagnostic
+claims_independent_evidence: false
+historical_oos_used_for_selection: false
+historical_oos_evaluation_enabled: false
+future_lockbox_access_allowed: false
+
+baseline_scenario_id: all_constraints
+upper_bound_scenario_id: fractional_upper_bound
+scenarios:
+  - scenario_id: no_trade_flags
+    relaxed_constraint: trade_flags
+    enforce_trade_flags: false
+    enforce_volume_participation: true
+    enforce_order_quantity_rules: true
+    enforce_t_plus_one: true
+  - scenario_id: no_volume_cap
+    relaxed_constraint: volume_participation
+    enforce_trade_flags: true
+    enforce_volume_participation: false
+    enforce_order_quantity_rules: true
+    enforce_t_plus_one: true
+  - scenario_id: no_lot_rules
+    relaxed_constraint: order_quantity_rules
+    enforce_trade_flags: true
+    enforce_volume_participation: true
+    enforce_order_quantity_rules: false
+    enforce_t_plus_one: true
+  - scenario_id: no_t_plus_one
+    relaxed_constraint: t_plus_one
+    enforce_trade_flags: true
+    enforce_volume_participation: true
+    enforce_order_quantity_rules: true
+    enforce_t_plus_one: false
+
+# Ordered waterfall supplements OFAT where constraints interact.  The order was
+# fixed after observing the OFAT diagnostic and before the waterfall replay;
+# it is explicitly post-hoc and order-dependent: tradeability -> conditional
+# capacity -> lots -> T+1.
+waterfall_scenarios:
+  - scenario_id: no_trade_flags_no_volume
+    relaxed_constraint: trade_flags+volume_participation
+    enforce_trade_flags: false
+    enforce_volume_participation: false
+    enforce_order_quantity_rules: true
+    enforce_t_plus_one: true
+  - scenario_id: no_trade_flags_no_volume_no_lot
+    relaxed_constraint: trade_flags+volume_participation+order_quantity_rules
+    enforce_trade_flags: false
+    enforce_volume_participation: false
+    enforce_order_quantity_rules: false
+    enforce_t_plus_one: true
+
+inference:
+  annualization_periods: 252
+  bootstrap_samples: 2000
+  block_length_trading_days: 20
+  random_seed: 20261024
+  false_discovery_rate: 0.05
+
+interpretation_contract:
+  one_factor_at_a_time_effects_are_not_additive: true
+  waterfall_effects_are_order_dependent: true
+  upper_bound_is_not_implementable: true
+  may_not_promote_or_select_model: true
+  may_not_create_paper_observations: true
+  purpose: explain implementation shortfall without changing frozen signals or targets
