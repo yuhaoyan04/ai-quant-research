@@ -1190,7 +1190,7 @@ experiments:
     dataset_version_method: sha256_of_registered_inputs_and_ingestion_manifest
     historical_oos_used_for_selection: false
     evidence_class: governance_only
-    research_selection_role: publication
+    research_selection_role: final_evaluation
     claims_independent_evidence: false
     config_files:
       - factor_registry.yaml
