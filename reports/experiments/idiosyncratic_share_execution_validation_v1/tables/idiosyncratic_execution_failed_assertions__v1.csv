@@ -1,0 +1,6 @@
+check_name,status,observed
+pit_exposure_coverage,FAIL,0.8660605844687199
+primary_incremental_return_ci_positive,FAIL,"[{'comparison_id': 'residual_model_minus_raw_model', 'ci_2_5pct': -0.053073045576759466, 'ci_97_5pct': 0.05878175703977854}, {'comparison_id': 'residual_model_minus_style_benchmark', 'ci_2_5pct': 0.09869790768790614, 'ci_97_5pct': 0.19967698504382592}]"
+primary_incremental_return_bh_fdr,FAIL,"[{'comparison_id': 'residual_model_minus_raw_model', 'bh_fdr_adjusted_probability': 0.456271864067966}, {'comparison_id': 'residual_model_minus_style_benchmark', 'bh_fdr_adjusted_probability': 0.0009995002498750624}]"
+share_fill_gate,FAIL,0.5256640042369384
+tracking_error_gate,FAIL,0.19804190910688946

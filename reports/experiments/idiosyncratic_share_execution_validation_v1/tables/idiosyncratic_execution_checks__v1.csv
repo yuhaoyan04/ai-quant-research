@@ -1,0 +1,16 @@
+check_name,status,observed
+three_prespecified_paths,PASS,"['hgb_raw_model', 'hgb_residual_model', 'hgb_residual_style_benchmark']"
+target_weights_normalized,PASS,179840
+market_covers_every_target_code,PASS,3912
+common_daily_clock,PASS,"{'nunique': {'hgb_raw_model': 1210, 'hgb_residual_model': 1210, 'hgb_residual_style_benchmark': 1210}, 'min': {'hgb_raw_model': '2016-01-11', 'hgb_residual_model': '2016-01-11', 'hgb_residual_style_benchmark': '2016-01-11'}, 'max': {'hgb_raw_model': '2020-12-28', 'hgb_residual_model': '2020-12-28', 'hgb_residual_style_benchmark': '2020-12-28'}}"
+exact_nonoverlapping_daily_nav_horizon,PASS,"['2016-01-11', '2020-12-28']"
+same_cost_configuration,PASS,20.0
+no_t_plus_one_violations,PASS,0
+cash_nav_and_orders_reconcile,PASS,"[True, True, True]"
+reliable_risk_free_complete,PASS,"[{'scenario_id': 'R0_zero_rate', 'dates': 1210, 'start_date': '2016-01-11', 'end_date': '2020-12-28', 'missing_dates': 0, 'missing_rate': 0.0, 'interpolated_dates': 0, 'stale_dates': 0, 'maximum_staleness_calendar_days': nan, 'minimum_annual_rate_percent': 0.0, 'maximum_annual_rate_percent': 0.0}, {'scenario_id': 'R1_ccdc_cgb_3m', 'dates': 1210, 'start_date': '2016-01-11', 'end_date': '2020-12-28', 'missing_dates': 0, 'missing_rate': 0.0, 'interpolated_dates': 0, 'stale_dates': 0, 'maximum_staleness_calendar_days': 11.0, 'minimum_annual_rate_percent': 0.8352, 'maximum_annual_rate_percent': 4.021}, {'scenario_id': 'R2_ccdc_cgb_1y', 'dates': 1210, 'start_date': '2016-01-11', 'end_date': '2020-12-28', 'missing_dates': 0, 'missing_rate': 0.0, 'interpolated_dates': 0, 'stale_dates': 0, 'maximum_staleness_calendar_days': 11.0, 'minimum_annual_rate_percent': 1.1177, 'maximum_annual_rate_percent': 3.8029}]"
+pit_exposure_coverage,FAIL,0.8660605844687199
+primary_incremental_return_ci_positive,FAIL,"[{'comparison_id': 'residual_model_minus_raw_model', 'ci_2_5pct': -0.053073045576759466, 'ci_97_5pct': 0.05878175703977854}, {'comparison_id': 'residual_model_minus_style_benchmark', 'ci_2_5pct': 0.09869790768790614, 'ci_97_5pct': 0.19967698504382592}]"
+primary_incremental_return_bh_fdr,FAIL,"[{'comparison_id': 'residual_model_minus_raw_model', 'bh_fdr_adjusted_probability': 0.456271864067966}, {'comparison_id': 'residual_model_minus_style_benchmark', 'bh_fdr_adjusted_probability': 0.0009995002498750624}]"
+share_fill_gate,FAIL,0.5256640042369384
+cash_weight_gate,PASS,0.001903262709893622
+tracking_error_gate,FAIL,0.19804190910688946

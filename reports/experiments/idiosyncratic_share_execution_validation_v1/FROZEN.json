@@ -1,0 +1,27 @@
+{
+  "experiment_id": "idiosyncratic_share_execution_validation_v1",
+  "frozen_at_utc": "2026-10-21T05:58:23.768933+00:00",
+  "content_sha256": "4827aa517d83bd60ad1eaa76cbef30af61dfd2149a79e0067c28f3ee00a0b6b5",
+  "files": {
+    "config.yaml": "c9ef9893ee3b08e4d1d7cce177ce62e137e8e5aeca2e3a8c29e7ed92e4ce4ee1",
+    "figures/idiosyncratic_share_execution_validation.md": "bec37f2bffeb6d7239d2c66112ad6a78af7ba3f11dd069592f885f18c0a0e36b",
+    "metadata.json": "576d63553d9d11614e44d4eb45faee6c4d9567c1357696dc3f102ee480af7699",
+    "metrics.json": "b0e30d02463606460c46cd2d8bc068cde447b65a729661198b16b4b6ce756715",
+    "notes.md": "b126967ff677667ce985af3f0b24f0ed94fc0305f62f55bb949407a746771fcd",
+    "tables/idiosyncratic_execution_annual__v1.csv": "0588939e0deddbb392e670b8d2a0edb9bba7f98ab94f2ba063337ad81021169f",
+    "tables/idiosyncratic_execution_bridge__v1.csv": "371a6fe05277548788765f9b696192810cbfa34bdc787fafdb95cecb5ecb2c53",
+    "tables/idiosyncratic_execution_checks__v1.csv": "9d084d98a76ed0187aa51e4f6fb573612e197803e67f2e7b7f26a7b6aa38fbac",
+    "tables/idiosyncratic_execution_exposure_audit__v1.csv": "497192abdb5113bf450af00d896891e7d4a632a4dc730f450104cc8d782e76c4",
+    "tables/idiosyncratic_execution_failed_assertions__v1.csv": "5cf38073233518473faf0bd24fdbde1b3f1823bb0a4bae7a478e41a7967dbc83",
+    "tables/idiosyncratic_execution_invariants__v1.csv": "4c2d2de8f1beb5fcf24e1940f376fef3dda2d26d7a4e38ccdb5f62b7ca75041b",
+    "tables/idiosyncratic_execution_paired_inference__v1.csv": "dbc360b4553e15cbdda4eaf5e809dfda3320edf1fd170919e3c7f596a7a2459e",
+    "tables/idiosyncratic_execution_promotion_decision__v1.csv": "8dbcca35af272d19424bf1d9fee794ed4cd89ed624f7ec01de4cbde9a8a049bd",
+    "tables/idiosyncratic_execution_protocol__v1.csv": "d346accc226a579fc0854478f45f243d4f5ab9a277c8e656d143734bd6f83572",
+    "tables/idiosyncratic_execution_rf_coverage__v1.csv": "31afeb40469e4d7ba9c1b3513d246ff8fce2c93c45c8d7a9fbf702d7a14c1553",
+    "tables/idiosyncratic_execution_summary__v1.csv": "66e5fdce2d6b7b6c82ebed8b2655f5f87f27ceb72fa6881df80fea1de8015f76",
+    "tables/idiosyncratic_execution_trial_registry__v1.csv": "5b082ec592e8e914e14ed38586d98e5e611666373e448052b06641738f49f408",
+    "tables/idiosyncratic_execution_upper_bound_inference__v1.csv": "d00d658d20d187009509ac65966e8f79e8c2b49e93c60b710a47a414c3c42ae8",
+    "tables/idiosyncratic_execution_upper_bound_invariants__v1.csv": "19e63e2031e316cefbceb84c055261b4e1fdd37da88e9237c7a7e2aa6e88fe84",
+    "tables/idiosyncratic_execution_upper_bound_summary__v1.csv": "7e66e381b9b7b589087bc197b554d09ecb64a0c42f31bd86f63b333c1598b71b"
+  }
+}

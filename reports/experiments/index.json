@@ -234,6 +234,15 @@
     "immutable": true
   },
   {
+    "experiment_id": "idiosyncratic_share_execution_validation_v1",
+    "title": "Validation-only residual HGB share execution and implementation-shortfall gate",
+    "stage": "idiosyncratic_alpha_share_execution",
+    "model_version": "locked_hgb_raw_residual_and_style_replica_share_execution_v1",
+    "registered_at_utc": "2026-10-21T05:58:23.768933+00:00",
+    "dataset_version": "594a29a11f895533a75feec58b80798091db2b6ed82cf66abdcf6bffea75797a",
+    "immutable": true
+  },
+  {
     "experiment_id": "idiosyncratic_target_validation_v1",
     "title": "Validation-only market-industry-six-style residual target study",
     "stage": "idiosyncratic_alpha_target_alignment",

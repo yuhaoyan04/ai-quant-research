@@ -1,0 +1,4 @@
+path_id,scenario,max_abs_nav_reconciliation_error,minimum_cash,max_abs_accounting_weight_error,negative_position_count,negative_cash_day_count,t_plus_one_violation_count,max_abs_order_fill_reconciliation_error,fee_reconciliation_error,unreconciled_corporate_action_count,all_invariants_pass
+hgb_raw_model,hgb_raw_model,8.642673492431641e-07,0.0,0.0,0,0,0,0.0,0.0,0,True
+hgb_residual_model,hgb_residual_model,1.8477439880371094e-06,0.0,0.0,0,0,0,0.0,0.0,0,True
+hgb_residual_style_benchmark,hgb_residual_style_benchmark,2.980232238769531e-07,0.0,0.0,0,0,0,0.0,0.0,0,True
