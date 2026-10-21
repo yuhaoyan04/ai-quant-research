@@ -1,4 +1,5 @@
-experiment_id: research_conclusion_audit_v2
+experiment_id: research_conclusion_audit_v3
+source_experiment: idiosyncratic_share_execution_validation_v1
 period: historical_oos_2021_2026
 false_discovery_rate: 0.05
 primary_model: hgb_shallow15_locked

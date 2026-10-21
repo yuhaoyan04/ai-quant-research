@@ -167,6 +167,28 @@ def test_t_plus_one_inventory_settles_next_trading_day_and_cash_never_negative()
     assert result.daily["accounting_weight_sum"].tolist() == pytest.approx([1.0, 1.0])
 
 
+def test_fractional_full_rotation_reserves_both_sell_and_buy_fees() -> None:
+    data = market([
+        {"trade_date": "2024-01-02", "instrument_id": "A", "close": 10.0},
+        {"trade_date": "2024-01-02", "instrument_id": "B", "close": 10.0},
+        {"trade_date": "2024-01-03", "instrument_id": "A", "close": 10.0},
+        {"trade_date": "2024-01-03", "instrument_id": "B", "close": 10.0},
+    ])
+    result = simulate_execution(
+        data,
+        targets([("2024-01-02", "A", 1.0), ("2024-01-03", "B", 1.0)]),
+        config(),
+        scenario=scenario(
+            enforce_trade_flags=False, enforce_volume_participation=False,
+            enforce_order_quantity_rules=False, enforce_t_plus_one=False,
+        ),
+    )
+
+    assert result.daily["cash"].min() >= 0.0
+    assert result.daily["nav_reconciliation_error"].abs().max() <= 1e-8
+    assert result.daily["accounting_weight_sum"].tolist() == pytest.approx([1.0, 1.0])
+
+
 def test_corporate_action_factor_preserves_value_without_phantom_pnl() -> None:
     data = market([
         {"trade_date": "2024-01-02", "instrument_id": "A", "close": 10.0,

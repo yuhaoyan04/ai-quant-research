@@ -1,0 +1,158 @@
+experiment_id: idiosyncratic_share_execution_validation_v1
+artifact_key: v1
+report_path: reports/idiosyncratic_share_execution_validation.md
+source_experiment: idiosyncratic_portfolio_validation_v1
+evidence_class: validation_selection
+research_selection_role: execution_validation
+claims_independent_evidence: false
+historical_oos_used_for_selection: false
+historical_oos_evaluation_enabled: false
+future_lockbox_access_allowed: false
+
+period: {start_date: '2016-01-01', end_date: '2020-12-31'}
+label_horizon_trading_days: 5
+source_targets: {table: idiosyncratic_portfolio_targets, key: v1}
+model: hgb_shallow15_locked
+paths:
+  - path_id: hgb_raw_model
+    training_target: fwd_return_5d_lag1
+    portfolio_type: ml_model
+  - path_id: hgb_residual_model
+    training_target: fwd_specific_return_5d_lag1
+    portfolio_type: ml_model
+  - path_id: hgb_residual_style_benchmark
+    training_target: fwd_specific_return_5d_lag1
+    portfolio_type: style_matched_benchmark
+comparisons:
+  - comparison_id: residual_model_minus_raw_model
+    candidate_path: hgb_residual_model
+    reference_path: hgb_raw_model
+  - comparison_id: residual_model_minus_style_benchmark
+    candidate_path: hgb_residual_model
+    reference_path: hgb_residual_style_benchmark
+
+initial_cash_cny: 100000000.0
+execution_price: unadjusted_close
+marking_price: unadjusted_close
+execution_time: close
+return_timing: mark_to_market_then_close_execution
+round_trip_cost_bps: 20.0
+max_volume_participation: 0.10
+max_pending_trading_days: 5
+enforce_t_plus_one: true
+allow_margin: false
+allow_short_sales: false
+order_quantity_rules:
+  main_board_buy_lot: 100
+  main_board_sell_lot: 100
+  star_market_minimum_order: 200
+  star_market_increment: 1
+  odd_lot_liquidation_allowed: true
+corporate_action_proxy:
+  method: inferred_value_preserving_share_factor_from_vendor_pct_chg_and_raw_close
+  activation_absolute_deviation: 0.005
+  evidence_status: proxy_not_official_corporate_action_record
+scenario:
+  scenario: daily_close_institutional_constraints
+  enforce_trade_flags: true
+  enforce_volume_participation: true
+  enforce_order_quantity_rules: true
+  enforce_t_plus_one: true
+diagnostic_upper_bound_scenario:
+  scenario: fractional_same_close_upper_bound
+  enforce_trade_flags: false
+  enforce_volume_participation: false
+  enforce_order_quantity_rules: false
+  enforce_t_plus_one: false
+
+risk_free_rate:
+  download:
+    provider: China Central Depository & Clearing Co., Ltd. (CCDC)
+    provider_short: CCDC
+    source_name: ChinaBond Government Bond Yield Curve
+    source_url: https://yield.chinabond.com.cn/cbweb-pbc-web/pbc/showHistory?locale=en_US
+    api_url: https://yield.chinabond.com.cn/cbweb-pbc-web/pbc/historyQuery
+    curve_name: 中债国债收益率曲线
+    start_date: '2015-12-01'
+    end_date: '2020-12-31'
+    maximum_window_days: 90
+    request_retries: 3
+    raw_quote_unit: percent_per_annum
+    annual_quote_convention: published_yield_to_maturity_curve_annual_percent
+    publication_timestamp_status: exact_intraday_timestamp_not_provided_by_history_endpoint
+    availability_lag_calendar_days: 1
+  rate_scenarios:
+    - {scenario_id: R0_zero_rate, tenor: zero, source_column: null}
+    - {scenario_id: R1_ccdc_cgb_3m, tenor: 3M, source_column: 3月}
+    - {scenario_id: R2_ccdc_cgb_1y, tenor: 1Y, source_column: 1年}
+  primary_rate_scenario: R1_ccdc_cgb_3m
+  zero_rate_scenario: R0_zero_rate
+  day_count_convention: ACT/365
+  annual_to_holding_period_conversion: (1+annual_rate_decimal)^(calendar_days/365)-1
+  # The 2020 Lunar New Year/COVID exchange closure creates an 11-calendar-day
+  # gap with no intervening strategy trading opportunity. Fourteen days keeps
+  # that known closure while still failing closed on a two-week source outage.
+  maximum_staleness_calendar_days: 14
+
+style_exposure_audit:
+  styles: [size, beta, volatility, liquidity, value, momentum]
+  style_winsor_quantiles: [0.01, 0.99]
+  minimum_exposure_coverage_weight: 0.95
+
+inference:
+  annualization_periods: 252
+  bootstrap_samples: 2000
+  random_seed: 20261023
+  primary_block_length_trading_days: 20
+  block_length_sensitivity_trading_days: [20, 40, 65]
+  multiplicity_control: benjamini_hochberg
+  false_discovery_rate: 0.05
+
+promotion_gate:
+  primary_comparisons:
+    - residual_model_minus_raw_model
+    - residual_model_minus_style_benchmark
+  require_incremental_return_ci_above_zero: true
+  require_bh_fdr_5pct: true
+  minimum_fill_ratio_by_shares: 0.90
+  maximum_mean_cash_weight: 0.02
+  maximum_p95_target_tracking_l1: 0.10
+  require_complete_reliable_risk_free_rate: true
+  require_all_accounting_invariants: true
+
+research_trial_registry:
+  - trial_id: rf_maximum_staleness_10_calendar_days
+    status: invalidated_operational_contract
+    outcome_used_for_selection: false
+    disposition: >-
+      Rejected before performance inference because the 2020 Lunar New
+      Year/COVID closure produced one 11-calendar-day observation gap despite
+      no intervening strategy trading opportunity; replaced by a documented
+      14-day fail-closed ceiling, not by rate interpolation.
+  - trial_id: residual_target_hgb_share_execution
+    status: confirmatory_execution_gate
+    outcome_used_for_selection: false
+    disposition: run_with_frozen_signal_portfolio_and_cost
+  - trial_id: raw_target_hgb_share_execution
+    status: prespecified_control
+    outcome_used_for_selection: false
+    disposition: same_engine_same_dates_same_constraints
+  - trial_id: residual_style_replica_share_execution
+    status: prespecified_control
+    outcome_used_for_selection: false
+    disposition: same_engine_same_dates_same_constraints
+  - trial_id: style_replica_exclude_model_holdings_first
+    status: retained_feasibility_attempt
+    outcome_used_for_selection: false
+    disposition: overlap_retry_only_when_exclusion_lp_infeasible
+  - trial_id: style_replica_turnover_matched_objective
+    status: not_run
+    outcome_used_for_selection: false
+    disposition: diagnostic_only_future_version_not_primary_benchmark
+
+scope_note: >-
+  Validation-period share/order execution gate for the already frozen HGB raw,
+  residual-target and residual style-replica portfolios. No model, signal,
+  target portfolio, cost, constraint, benchmark or historical-OOS result is
+  selected here. Passing creates only a versioned paper-trading challenger;
+  it is not pristine future evidence or live performance.

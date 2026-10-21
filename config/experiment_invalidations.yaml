@@ -1,4 +1,55 @@
 invalidations:
+  research_conclusion_audit_v2:
+    invalidated_at_utc: "2026-10-21T05:55:00Z"
+    severity: superseded_conclusion_baseline
+    reason: >-
+      V3 adds the validation-only residual-target share-execution decision,
+      reliable 2016-2020 CCDC risk-free rates, the unique daily-NAV correction,
+      and the observed implementation shortfall. V2 remains correct for all
+      pre-existing historical-OOS questions but is no longer the complete
+      decision hierarchy.
+    unaffected_outputs:
+      - all immutable research_conclusion_audit_v2 files
+      - all six pre-existing decision verdicts
+    invalid_outputs:
+      - claims that v2 is the complete current conclusion matrix
+    superseded_by: research_conclusion_audit_v3
+  final_research_baseline_v4:
+    invalidated_at_utc: "2026-10-21T05:55:00Z"
+    severity: superseded_publication_baseline
+    reason: >-
+      V5 incorporates the Phase 12.2 share-execution evidence, invalidates the
+      overlapping five-day Phase 12.1 portfolio-return claims, and updates the
+      final report, executive summary, resume and interview materials.
+    unaffected_outputs:
+      - all immutable final_research_baseline_v4 files
+      - all pre-existing historical-OOS metrics and conclusions
+    invalid_outputs:
+      - claims that v4 is the current publication baseline
+    superseded_by: final_research_baseline_v5
+  idiosyncratic_portfolio_validation_v1:
+    invalidated_at_utc: "2026-10-21T05:40:58Z"
+    severity: overlapping_five_day_returns_not_a_unique_nav_clock
+    reason: >-
+      The target-weight experiment evaluated every weekly signal with a full
+      five-trading-day forward label. In 33 of 253 adjacent rebalance intervals
+      the next execution arrived fewer than five trading days later, so the
+      reported portfolio returns compounded overlapping holding windows. The
+      model fits, target weights, turnover constraints and PIT industry/six-
+      style exposure matching remain valid, but its portfolio performance and
+      paired return intervals are not executable NAV evidence.
+    unaffected_outputs:
+      - idiosyncratic_portfolio_fit_audit/v1
+      - idiosyncratic_portfolio_targets/v1
+      - idiosyncratic_portfolio_exposures/v1
+      - idiosyncratic_portfolio_exposure_match/v1
+      - target-weight optimizer and style-replica feasibility findings
+    invalid_outputs:
+      - idiosyncratic_portfolio_summary/v1 return and Sharpe fields
+      - idiosyncratic_portfolio_annual/v1 return fields
+      - idiosyncratic_portfolio_paired_inference/v1 return conclusions
+      - claims that the Phase 12.1 compounded return is a unique executable NAV
+    superseded_by: idiosyncratic_share_execution_validation_v1
   engineering_quality_v1:
     invalidated_at_utc: "2026-10-21T03:00:00Z"
     severity: brittle_registry_count_gate_superseded

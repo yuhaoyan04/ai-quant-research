@@ -1,6 +1,6 @@
 # 研究结论与全链路审计
 
-本页把研究结果拆成六个独立决策，防止把预测力、回测收益、模型增量、风险调整 Alpha 和上线资格混为一谈。
+本页把研究结果拆成七个独立决策，防止把预测力、回测收益、模型增量、风险调整 Alpha 和上线资格混为一谈。
 
 ## 决策矩阵
 
@@ -11,6 +11,7 @@
 | ml_adds_value_over_style_matched_baseline | MIXED_LOCAL_EVIDENCE             | incremental return intervals above zero 1/4; BH-FDR survivors 0/4; HGB neutral delta 3.65% with 95% CI [0.24%, 7.16%]; multiplicity-controlled risk/efficiency survivors 1/4 | matched peers use local six-style proxies and monthly broad industry |
 | executable_backtest_survives_costs        | SUPPORTED_HISTORICALLY           | 20bp annualized return 20.81%, Sharpe 0.94, max drawdown -33.32%; fixed-path 100bp annualized return 6.23%                                                                   | close execution, approximate limits, no broker-calibrated impact     |
 | pure_stock_selection_alpha_is_significant | NOT_SUPPORTED                    | style-adjusted alpha range -2.55% to 1.07%; all_95pct_intervals_cross_zero=True; R2 range 0.894-0.898                                                                        | local factors are research proxies, not a commercial risk model      |
+| residual_target_survives_share_execution  | NOT_ESTABLISHED                  | residual-minus-raw annual increment 0.33%; 95% CI [-5.31%, 5.88%]; BH q=0.456; constrained-minus-fractional-upper implementation shortfall -16.08%                           | 2016-2020 validation-selection evidence; promotion=False             |
 | ready_for_live_capital                    | NO                               | no unseen forward sample, paper track record, or broker fill calibration                                                                                                     | next gate is frozen-parameter paper trading on future data           |
 
 ## Quant Research 生命周期

@@ -1103,6 +1103,43 @@ experiments:
       - {table: research_lifecycle_audit, key: v2}
     figures: []
 
+  research_conclusion_audit_v3:
+    title: Decision audit with residual-target share-execution evidence
+    stage: conclusion_governance
+    model_version: evidence_hierarchy_unique_nav_execution_gate_v3
+    dataset_version_method: sha256_of_registered_inputs_and_ingestion_manifest
+    historical_oos_used_for_selection: false
+    evidence_class: governance_only
+    research_selection_role: governance
+    claims_independent_evidence: false
+    config_files:
+      - research_conclusion_audit.yaml
+      - incremental_alpha_test.yaml
+      - idiosyncratic_share_execution_validation.yaml
+      - factor_registry.yaml
+      - model_benchmark.yaml
+      - constrained_portfolio_daily_execution.yaml
+      - style_factor_attribution.yaml
+      - experiment_invalidations.yaml
+    input_tables:
+      - {table: factor_tear_sheet_bootstrap, key: v1}
+      - {table: model_benchmark_winner_pairwise, key: v1}
+      - {table: constrained_daily_execution_summary, key: v1}
+      - {table: execution_cost_stress, key: v1}
+      - {table: style_factor_regression_summary, key: v1}
+      - {table: incremental_alpha_bootstrap, key: v1}
+      - {table: incremental_alpha_comparison, key: v1}
+      - {table: idiosyncratic_execution_paired_inference, key: v1}
+      - {table: idiosyncratic_execution_promotion_decision, key: v1}
+      - {table: idiosyncratic_execution_bridge, key: v1}
+    metric_tables:
+      - {table: research_conclusion_decisions, key: v3}
+      - {table: research_factor_multiplicity, key: v3}
+      - {table: research_lifecycle_audit, key: v3}
+    figures:
+      - reports/research_conclusion_audit.md
+      - reports/research_conclusion_audit.json
+
   final_research_baseline_v4:
     title: Final characteristic-matched incremental-alpha audited publication baseline
     stage: final_publication_baseline
@@ -1145,6 +1182,61 @@ experiments:
       - reports/figures/annual_rank_ic.svg
       - reports/figures/annual_returns.svg
       - reports/figures/incremental_alpha_equity_curve.svg
+
+  final_research_baseline_v5:
+    title: Final unique-NAV residual-execution audited publication baseline
+    stage: final_publication_baseline
+    model_version: locked_full_chain_unique_nav_execution_decision_v5
+    dataset_version_method: sha256_of_registered_inputs_and_ingestion_manifest
+    historical_oos_used_for_selection: false
+    evidence_class: governance_only
+    research_selection_role: publication
+    claims_independent_evidence: false
+    config_files:
+      - factor_registry.yaml
+      - preprocessing.yaml
+      - model_benchmark.yaml
+      - constrained_portfolio_neutralization.yaml
+      - constrained_portfolio_daily_execution.yaml
+      - multi_factor_risk_attribution.yaml
+      - capm_attribution.yaml
+      - style_factor_attribution.yaml
+      - incremental_alpha_test.yaml
+      - idiosyncratic_share_execution_validation.yaml
+      - research_conclusion_audit.yaml
+      - experiment_invalidations.yaml
+    input_tables:
+      - {table: factor_registry, key: v1}
+      - {table: constrained_daily_execution_daily, key: v1}
+      - {table: style_factor_daily_returns, key: v1}
+      - {table: incremental_alpha_daily, key: v1}
+      - {table: idiosyncratic_execution_daily, key: v1}
+      - {table: research_conclusion_decisions, key: v3}
+    metric_tables:
+      - {table: model_benchmark_oos_summary, key: v1}
+      - {table: constrained_daily_execution_summary, key: v1}
+      - {table: risk_model_attribution_summary, key: v1}
+      - {table: style_factor_regression_summary, key: v1}
+      - {table: incremental_alpha_comparison, key: v1}
+      - {table: idiosyncratic_execution_summary, key: v1}
+      - {table: idiosyncratic_execution_paired_inference, key: v1}
+      - {table: idiosyncratic_execution_bridge, key: v1}
+      - {table: idiosyncratic_execution_promotion_decision, key: v1}
+      - {table: research_conclusion_decisions, key: v3}
+      - {table: research_factor_multiplicity, key: v3}
+      - {table: research_lifecycle_audit, key: v3}
+    figures:
+      - reports/figures/oos_equity_curve.svg
+      - reports/figures/oos_drawdown.svg
+      - reports/figures/annual_rank_ic.svg
+      - reports/figures/annual_returns.svg
+      - reports/figures/incremental_alpha_equity_curve.svg
+      - reports/idiosyncratic_share_execution_validation.md
+      - reports/final_research_report.md
+      - reports/final_report.pdf
+      - reports/executive_summary.md
+      - docs/resume_bullets.md
+      - docs/interview_guide.md
 
   final_research_baseline_v1: &final_research_baseline
     title: Final resume-ready PIT factor, executable portfolio, and attribution baseline
@@ -1960,3 +2052,51 @@ experiments:
       - {table: idiosyncratic_portfolio_checks, key: v1}
     figures:
       - reports/idiosyncratic_portfolio_validation.md
+
+  idiosyncratic_share_execution_validation_v1:
+    title: Validation-only residual HGB share execution and implementation-shortfall gate
+    stage: idiosyncratic_alpha_share_execution
+    model_version: locked_hgb_raw_residual_and_style_replica_share_execution_v1
+    dataset_version_method: sha256_of_registered_inputs_and_ingestion_manifest
+    historical_oos_used_for_selection: false
+    evidence_class: validation_selection
+    research_selection_role: execution_validation
+    claims_independent_evidence: false
+    config_files:
+      - idiosyncratic_share_execution_validation.yaml
+      - idiosyncratic_portfolio_validation.yaml
+      - idiosyncratic_target_validation.yaml
+      - institutional_execution.yaml
+      - risk_free_rate_attribution.yaml
+      - research_governance.yaml
+    input_tables:
+      - {table: idiosyncratic_portfolio_targets, key: v1}
+      - {table: idiosyncratic_execution_market, key: v1}
+      - {table: idiosyncratic_execution_rf_observations, key: v1}
+      - {table: idiosyncratic_execution_rf_daily, key: v1}
+      - {table: idiosyncratic_execution_daily, key: v1}
+      - {table: idiosyncratic_execution_orders, key: v1}
+      - {table: idiosyncratic_execution_events, key: v1}
+      - {table: idiosyncratic_execution_fills, key: v1}
+      - {table: idiosyncratic_execution_positions, key: v1}
+      - {table: idiosyncratic_execution_corporate_actions, key: v1}
+      - {table: idiosyncratic_execution_upper_bound_daily, key: v1}
+      - {table: idiosyncratic_execution_exposure_map, key: v1}
+    metric_tables:
+      - {table: idiosyncratic_execution_protocol, key: v1}
+      - {table: idiosyncratic_execution_rf_coverage, key: v1}
+      - {table: idiosyncratic_execution_summary, key: v1}
+      - {table: idiosyncratic_execution_invariants, key: v1}
+      - {table: idiosyncratic_execution_annual, key: v1}
+      - {table: idiosyncratic_execution_paired_inference, key: v1}
+      - {table: idiosyncratic_execution_upper_bound_summary, key: v1}
+      - {table: idiosyncratic_execution_upper_bound_invariants, key: v1}
+      - {table: idiosyncratic_execution_upper_bound_inference, key: v1}
+      - {table: idiosyncratic_execution_bridge, key: v1}
+      - {table: idiosyncratic_execution_exposure_audit, key: v1}
+      - {table: idiosyncratic_execution_trial_registry, key: v1}
+      - {table: idiosyncratic_execution_checks, key: v1}
+      - {table: idiosyncratic_execution_promotion_decision, key: v1}
+      - {table: idiosyncratic_execution_failed_assertions, key: v1}
+    figures:
+      - reports/idiosyncratic_share_execution_validation.md

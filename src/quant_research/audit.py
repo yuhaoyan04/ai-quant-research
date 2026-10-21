@@ -2209,9 +2209,9 @@ class ResearchAuditor:
 
     def audit_research_conclusions(self) -> None:
         """Gate the decision hierarchy, multiplicity control, and lifecycle boundary."""
-        decisions = self.require_table("research_conclusion_decisions", "v2")
-        multiplicity = self.require_table("research_factor_multiplicity", "v2")
-        lifecycle = self.require_table("research_lifecycle_audit", "v2")
+        decisions = self.require_table("research_conclusion_decisions", "v3")
+        multiplicity = self.require_table("research_factor_multiplicity", "v3")
+        lifecycle = self.require_table("research_lifecycle_audit", "v3")
         registry = self.require_table("factor_registry", "v1")
         if any(frame.empty for frame in (decisions, multiplicity, lifecycle, registry)):
             return
@@ -2221,6 +2221,7 @@ class ResearchAuditor:
             "ml_adds_value_over_style_matched_baseline": "MIXED_LOCAL_EVIDENCE",
             "executable_backtest_survives_costs": "SUPPORTED_HISTORICALLY",
             "pure_stock_selection_alpha_is_significant": "NOT_SUPPORTED",
+            "residual_target_survives_share_execution": "NOT_ESTABLISHED",
             "ready_for_live_capital": "NO",
         }
         observed = decisions.set_index("question")["verdict"].to_dict()

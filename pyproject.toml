@@ -97,6 +97,7 @@ quant-paper-trading = "quant_research.paper_trading:main"
 quant-forward-data = "quant_research.forward_data:main"
 quant-idiosyncratic-target = "quant_research.idiosyncratic_target_validation:main"
 quant-idiosyncratic-portfolio = "quant_research.idiosyncratic_portfolio_validation:main"
+quant-idiosyncratic-execution = "quant_research.idiosyncratic_share_execution_validation:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]

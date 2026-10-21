@@ -121,6 +121,26 @@ def conclusion_decisions(
         incremental_alpha["model"].eq("hgb_shallow15_locked")
         & incremental_alpha["alpha_pipeline"].eq("industry_size_neutralized")
     ].iloc[0]
+    residual_execution = lake.read("idiosyncratic_execution_paired_inference", "v1")
+    residual_primary = residual_execution.loc[
+        residual_execution["comparison_id"].eq("residual_model_minus_raw_model")
+        & residual_execution["metric"].eq("incremental_net_return_annualized_arithmetic")
+        & residual_execution["is_primary_block"].astype(bool)
+    ]
+    if len(residual_primary) != 1:
+        raise RuntimeError("expected one primary residual-vs-raw execution row")
+    residual_primary = residual_primary.iloc[0]
+    residual_decision = lake.read("idiosyncratic_execution_promotion_decision", "v1")
+    if len(residual_decision) != 1:
+        raise RuntimeError("expected one residual execution promotion decision")
+    residual_decision = residual_decision.iloc[0]
+    execution_bridge = lake.read("idiosyncratic_execution_bridge", "v1")
+    residual_bridge = execution_bridge.loc[
+        execution_bridge["path_id"].eq("hgb_residual_model")
+    ]
+    if len(residual_bridge) != 1:
+        raise RuntimeError("expected one residual execution bridge row")
+    residual_bridge = residual_bridge.iloc[0]
 
     records = [
         {
@@ -188,6 +208,23 @@ def conclusion_decisions(
             "scope_limit": "local factors are research proxies, not a commercial risk model",
         },
         {
+            "question": "residual_target_survives_share_execution",
+            "verdict": "NOT_ESTABLISHED",
+            "evidence": (
+                f"residual-minus-raw annual increment {float(residual_primary['point_estimate']):.2%}; "
+                f"95% CI [{float(residual_primary['ci_2_5pct']):.2%}, "
+                f"{float(residual_primary['ci_97_5pct']):.2%}]; BH q="
+                f"{float(residual_primary['bh_fdr_adjusted_probability']):.3f}; "
+                f"constrained-minus-fractional-upper implementation shortfall "
+                f"{float(residual_bridge['implementation_shortfall_constrained_minus_upper']):.2%}"
+            ),
+            "statistical_interpretation": "unique daily NAV interval crosses zero after execution constraints",
+            "scope_limit": (
+                "2016-2020 validation-selection evidence; promotion="
+                f"{bool(residual_decision['promote_to_forward_paper_challenger'])}"
+            ),
+        },
+        {
             "question": "ready_for_live_capital",
             "verdict": "NO",
             "evidence": "no unseen forward sample, paper track record, or broker fill calibration",
@@ -246,7 +283,7 @@ def write_outputs(
     lines = [
         "# 研究结论与全链路审计",
         "",
-        "本页把研究结果拆成六个独立决策，防止把预测力、回测收益、模型增量、"
+        "本页把研究结果拆成七个独立决策，防止把预测力、回测收益、模型增量、"
         "风险调整 Alpha 和上线资格混为一谈。",
         "",
         "## 决策矩阵",

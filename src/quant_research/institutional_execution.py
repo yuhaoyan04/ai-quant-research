@@ -354,11 +354,17 @@ def simulate_execution(
         if requested_buy <= 0:
             buy_capacity = 0.0
         else:
-            below_sell_capacity = max(cash_after_sells - cost_rate * sell_notional, 0.0)
-            if requested_buy <= sell_notional:
-                buy_capacity = min(requested_buy, below_sell_capacity)
-            else:
-                buy_capacity = min(requested_buy, cash_after_sells / (1.0 + cost_rate))
+            # Reserve sell-side fees before budgeting buys, then reserve the
+            # buy-side fee on the executable buy amount.  The old
+            # requested_buy > sell_notional branch omitted sell fees; lot-size
+            # rounding usually hid the error, while fractional-share upper-
+            # bound runs could finish a rebalance with slightly negative cash.
+            cash_after_sell_cost = max(
+                cash_after_sells - cost_rate * sell_notional, 0.0
+            )
+            buy_capacity = min(
+                requested_buy, cash_after_sell_cost / (1.0 + cost_rate)
+            )
         buy_scale = buy_capacity / requested_buy if requested_buy > 0 else 1.0
 
         todays: list[dict[str, Any]] = []

@@ -1,5 +1,5 @@
 {
-  "experiment_id": "research_conclusion_audit_v2",
+  "experiment_id": "research_conclusion_audit_v3",
   "decisions": [
     {
       "question": "neutralized_factor_signal_exists",
@@ -35,6 +35,13 @@
       "evidence": "style-adjusted alpha range -2.55% to 1.07%; all_95pct_intervals_cross_zero=True; R2 range 0.894-0.898",
       "statistical_interpretation": "CAPM alpha is absorbed by local style factors",
       "scope_limit": "local factors are research proxies, not a commercial risk model"
+    },
+    {
+      "question": "residual_target_survives_share_execution",
+      "verdict": "NOT_ESTABLISHED",
+      "evidence": "residual-minus-raw annual increment 0.33%; 95% CI [-5.31%, 5.88%]; BH q=0.456; constrained-minus-fractional-upper implementation shortfall -16.08%",
+      "statistical_interpretation": "unique daily NAV interval crosses zero after execution constraints",
+      "scope_limit": "2016-2020 validation-selection evidence; promotion=False"
     },
     {
       "question": "ready_for_live_capital",
